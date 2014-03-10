@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 11.00
 # Visual Studio 2010
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WpfApplication1", "WpfApplication1\WpfApplication1.csproj", "{31EBEE8A-33DD-4043-A719-B2F6F9D93465}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "project", "WpfApplication1\project.csproj", "{31EBEE8A-33DD-4043-A719-B2F6F9D93465}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
