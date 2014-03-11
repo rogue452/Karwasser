@@ -60,6 +60,9 @@
     <Compile Include="ManagerGui.xaml.cs">
       <DependentUpon>ManagerGui.xaml</DependentUpon>
     </Compile>
+    <Compile Include="UserViewGui.xaml.cs">
+      <DependentUpon>UserViewGui.xaml</DependentUpon>
+    </Compile>
     <Page Include="Login.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -73,6 +76,10 @@
       <SubType>Code</SubType>
     </Compile>
     <Page Include="ManagerGui.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UserViewGui.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
