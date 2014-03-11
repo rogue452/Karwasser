@@ -78,7 +78,9 @@ namespace project
                             string query2 = "update users set connected='true' where user_name= '" + this.textBox1.Text + "' and password ='" + this.textBox2.Password + "'";
                             conn.LogIn(query2);
                             ManagerGui Window = new ManagerGui();
+                            UsersViewGui Test = new UsersViewGui();
                             Window.Show();
+                            Test.Show();
                             this.Close();
                         }
                         else {
