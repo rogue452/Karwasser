@@ -9,9 +9,9 @@ using System.Windows.Forms;
 
 namespace project
 {
-    public partial class Form1 : Form
+    public partial class UsersViewGui : Form
     {
-        public Form1()
+        public UsersViewGui()
         {
             InitializeComponent();
         }
@@ -20,6 +20,21 @@ namespace project
         {
             // TODO: This line of code loads data into the 'projectDataSet.users' table. You can move, or remove it, as needed.
             this.usersTableAdapter.Fill(this.projectDataSet.users);
+
+        }
+
+        private void textBox1_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void label1_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void groupBox1_Enter(object sender, EventArgs e)
+        {
 
         }
     }
