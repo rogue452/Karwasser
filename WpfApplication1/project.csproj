@@ -59,6 +59,12 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="DBConnection.cs" />
+    <Compile Include="MangerMainGui.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="MangerMainGui.Designer.cs">
+      <DependentUpon>MangerMainGui.cs</DependentUpon>
+    </Compile>
     <Compile Include="UsersViewGui.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -104,6 +110,9 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
+    <EmbeddedResource Include="MangerMainGui.resx">
+      <DependentUpon>MangerMainGui.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="UsersViewGui.resx">
       <DependentUpon>UsersViewGui.cs</DependentUpon>
     </EmbeddedResource>
