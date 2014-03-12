@@ -1,8 +1,9 @@
 ﻿<Window x:Class="project.ManagerGui"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        Title="מסך ראשי- מנהל" Height="372" Width="441">
+        Title="מסך ראשי- מנהל" Height="372" Width="441"  >
     <Grid>
+        <Image  Source="C:/Users/Shuki/Dropbox/Braude/לימודים/Final Pro/Scoend Stage/p/פרוייקט/WpfApplication1/Images/3.jpg" Stretch="UniformToFill"/>
         <Button Content="ניהול משתמשי המערכת" HorizontalAlignment="Left" Margin="30,111,0,0" VerticalAlignment="Top" Width="145"/>
         <Button Content="ניהול עובדי החברה" HorizontalAlignment="Left" Margin="30,152,0,0" VerticalAlignment="Top" Width="145"/>
         <Button Content="ניהול הזמנות" HorizontalAlignment="Left" Margin="252,111,0,0" VerticalAlignment="Top" Width="148"/>

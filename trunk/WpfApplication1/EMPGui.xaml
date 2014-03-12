@@ -3,8 +3,9 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         Title="מסך ניהול עובדים" Height="523.227" Width="588.608">
     <Grid>
+        <Image  Source="C:/Users/Shuki/Dropbox/Braude/לימודים/Final Pro/Scoend Stage/p/פרוייקט/WpfApplication1/Images/3.jpg" Stretch="UniformToFill"/>
         <DataGrid HorizontalAlignment="Left" Margin="95,162,0,0" VerticalAlignment="Top"/>
-        <DataGrid x:Name="dataGrid1" HorizontalAlignment="Left" Margin="0,99,0,0" VerticalAlignment="Top" Height="333" Width="563" />
+        <DataGrid x:Name="dataGrid1" HorizontalAlignment="Left" Margin="0,99,0,0" VerticalAlignment="Top" Height="348" Width="573" />
         <TextBox HorizontalAlignment="Left" Height="22" Margin="30,23,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="120"/>
         <TextBox HorizontalAlignment="Left" Height="23" Margin="30,69,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="120"/>
         <Label Content="מספר עובד" HorizontalAlignment="Left" Margin="155,23,0,0" VerticalAlignment="Top"/>
@@ -14,8 +15,8 @@
         <Label Content=":ניהול עובדים" HorizontalAlignment="Left" Margin="488,0,-6,0" VerticalAlignment="Top" Width="91"/>
         <Button Content="מחק" HorizontalAlignment="Left" Margin="360,25,0,0" VerticalAlignment="Top" Width="85"/>
         <Button Content="עדכון פרטים" HorizontalAlignment="Left" Margin="476,67,0,0" VerticalAlignment="Top" Width="87"/>
-        <Button Content="יציאה מהמערכת" HorizontalAlignment="Left" Margin="10,452,0,0" VerticalAlignment="Top" Width="104"/>
-        <Button Content="חזור" HorizontalAlignment="Left" Margin="482,452,0,0" VerticalAlignment="Top" Width="75"/>
+        <Button Content="יציאה מהמערכת" HorizontalAlignment="Left" Margin="10,454,0,0" VerticalAlignment="Top" Width="104"/>
+        <Button Content="חזור" HorizontalAlignment="Left" Margin="482,456,0,0" VerticalAlignment="Top" Width="75"/>
 
     </Grid>
 </Window>
