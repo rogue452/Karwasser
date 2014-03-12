@@ -14,13 +14,21 @@ using System.Windows.Shapes;
 namespace project
 {
     /// <summary>
-    /// Interaction logic for ManagerGui.xaml
+    /// Interaction logic for EMPGui.xaml
     /// </summary>
-    public partial class ManagerGui : Window
+    public partial class EMPGui : Window
     {
-        public ManagerGui()
+        public EMPGui()
         {
             InitializeComponent();
+            this.WindowStartupLocation = WindowStartupLocation.CenterScreen;
+            DBConnection conn = new DBConnection();
+            string query = ("select * from users");
+            dataGrid1.ItemsSource = conn.GetDataTableFromDB(query).Tables[0].DefaultView;
         }
+
+
+
+
     }
 }

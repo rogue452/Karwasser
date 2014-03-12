@@ -77,15 +77,20 @@ namespace project
                  //           DBConnection conn = new DBConnection();
                  //         string query2 = "update users set connected='true' where user_name= '" + this.textBox1.Text + "' and password ='" + this.textBox2.Password + "'";
                  //          conn.LogIn(query2);
-                      //      ManagerGui Window = new ManagerGui();
-                            UsersViewGui Test = new UsersViewGui();
-                            MangerMainGui MGui = new MangerMainGui();
-                          //  Window.Show();
-                         //   Test.Show();
+                              ManagerGui MG = new ManagerGui();
+                     //       UsersViewGui Test = new UsersViewGui();
+                      //      MangerMainGui MGui = new MangerMainGui();
+                              EMPGui EG = new EMPGui();
+                              UsersGui UG = new UsersGui();
+                            
+                              MG.Show();
+                        //    Test.Show();
+                              EG.Show();
+                              UG.Show();
                         //    MGui.Show();
                           //  MGui.Activate();   
                               this.Close();
-                              MGui.ShowDialog();
+                          //    MGui.ShowDialog();
                            // this.Close();
                         }
                         else {
