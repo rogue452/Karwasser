@@ -59,21 +59,19 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="DBConnection.cs" />
-    <Compile Include="MangerMainGui.cs">
-      <SubType>Form</SubType>
+    <Compile Include="EMPGui.xaml.cs">
+      <DependentUpon>EMPGui.xaml</DependentUpon>
     </Compile>
-    <Compile Include="MangerMainGui.Designer.cs">
-      <DependentUpon>MangerMainGui.cs</DependentUpon>
-    </Compile>
-    <Compile Include="UsersViewGui.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="UsersViewGui.Designer.cs">
-      <DependentUpon>UsersViewGui.cs</DependentUpon>
+    <Compile Include="UsersGui.xaml.cs">
+      <DependentUpon>UsersGui.xaml</DependentUpon>
     </Compile>
     <Compile Include="ManagerGui.xaml.cs">
       <DependentUpon>ManagerGui.xaml</DependentUpon>
     </Compile>
+    <Page Include="EMPGui.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Login.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -90,13 +88,12 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="UsersGui.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="UsersView.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>UsersView.xsd</DependentUpon>
-    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -110,28 +107,11 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
-    <EmbeddedResource Include="MangerMainGui.resx">
-      <DependentUpon>MangerMainGui.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="UsersViewGui.resx">
-      <DependentUpon>UsersViewGui.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
     <None Include="app.config" />
-    <None Include="UsersView.xsc">
-      <DependentUpon>UsersView.xsd</DependentUpon>
-    </None>
-    <None Include="UsersView.xsd">
-      <Generator>MSDataSetGenerator</Generator>
-      <LastGenOutput>UsersView.Designer.cs</LastGenOutput>
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="UsersView.xss">
-      <DependentUpon>UsersView.xsd</DependentUpon>
-    </None>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>

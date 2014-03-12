@@ -1,8 +1,16 @@
 ﻿<Window x:Class="project.ManagerGui"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        Title="מסך מנהל " Height="350" Width="525" Background="#FFB9A78E">
-    <Grid Background="#FFB9A78E">
-        <Label Content="dor" Height="28" HorizontalAlignment="Left" Margin="392,63,0,0" Name="label1" VerticalAlignment="Top" Width="74" />
+        Title="מסך ראשי- מנהל" Height="372" Width="441">
+    <Grid>
+        <Button Content="ניהול משתמשי המערכת" HorizontalAlignment="Left" Margin="30,111,0,0" VerticalAlignment="Top" Width="145"/>
+        <Button Content="ניהול עובדי החברה" HorizontalAlignment="Left" Margin="30,152,0,0" VerticalAlignment="Top" Width="145"/>
+        <Button Content="ניהול הזמנות" HorizontalAlignment="Left" Margin="252,111,0,0" VerticalAlignment="Top" Width="148"/>
+        <Button Content="ניהול לקוחות" HorizontalAlignment="Left" Margin="252,152,0,0" VerticalAlignment="Top" Width="148"/>
+        <Button Content="סטטיסטיקה" HorizontalAlignment="Left" Margin="159,193,0,0" VerticalAlignment="Top" Width="136" RenderTransformOrigin="0.613,0.5"/>
+        <Button Content="יציאה מהמערכת" HorizontalAlignment="Left" Margin="10,304,0,0" VerticalAlignment="Top" Width="136" RenderTransformOrigin="0.463,0.8"/>
+        <Label Content="! ברוך הבא" HorizontalAlignment="Left" Margin="280,10,0,0" VerticalAlignment="Top"/>
+        <Label Content="שם" HorizontalAlignment="Left" Margin="356,10,0,0" VerticalAlignment="Top" RenderTransformOrigin="-0.343,0.125"/>
+
     </Grid>
 </Window>

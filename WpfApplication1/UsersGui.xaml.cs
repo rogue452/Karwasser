@@ -14,13 +14,17 @@ using System.Windows.Shapes;
 namespace project
 {
     /// <summary>
-    /// Interaction logic for ManagerGui.xaml
+    /// Interaction logic for UsersGui.xaml
     /// </summary>
-    public partial class ManagerGui : Window
+    public partial class UsersGui : Window
     {
-        public ManagerGui()
+        public UsersGui()
         {
             InitializeComponent();
+            this.WindowStartupLocation = WindowStartupLocation.CenterScreen;
+            DBConnection conn = new DBConnection();
+            string query = ("select * from users");
+            dataGrid1.ItemsSource = conn.GetDataTableFromDB(query).Tables[0].DefaultView;
         }
     }
 }
