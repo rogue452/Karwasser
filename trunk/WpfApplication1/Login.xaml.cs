@@ -74,14 +74,19 @@ namespace project
                         if (connected.Equals("false"))
                         {
                             MessageBox.Show("      ברוכ/ה הבא/ה " + Login.last_name + " " + Login.first_name + "", "!ההתחברות למערכת בוצעה בהצלחה", MessageBoxButton.OK);
-                            DBConnection conn = new DBConnection();
-                            string query2 = "update users set connected='true' where user_name= '" + this.textBox1.Text + "' and password ='" + this.textBox2.Password + "'";
-                            conn.LogIn(query2);
-                            ManagerGui Window = new ManagerGui();
+                 //           DBConnection conn = new DBConnection();
+                 //         string query2 = "update users set connected='true' where user_name= '" + this.textBox1.Text + "' and password ='" + this.textBox2.Password + "'";
+                 //          conn.LogIn(query2);
+                      //      ManagerGui Window = new ManagerGui();
                             UsersViewGui Test = new UsersViewGui();
-                            Window.Show();
-                            Test.Show();
+                            MangerMainGui MGui = new MangerMainGui();
+                          //  Window.Show();
+                         //   Test.Show();
+                        //    MGui.Show();
+                          //  MGui.Activate();   
                             this.Close();
+                              MGui.ShowDialog();
+                           // this.Close();
                         }
                         else {
                             MessageBox.Show( "אתה כבר מחובר למערכת  ", " שגיאה", MessageBoxButton.OK);
