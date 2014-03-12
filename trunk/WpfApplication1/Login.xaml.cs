@@ -84,7 +84,7 @@ namespace project
                          //   Test.Show();
                         //    MGui.Show();
                           //  MGui.Activate();   
-                            this.Close();
+                              this.Close();
                               MGui.ShowDialog();
                            // this.Close();
                         }
