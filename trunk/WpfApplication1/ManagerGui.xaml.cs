@@ -22,6 +22,7 @@ namespace project
         {
             InitializeComponent();
             this.WindowStartupLocation = WindowStartupLocation.CenterScreen;
+            NameLabel.Content = Login.user_name;
         }
 
         private void Users_Button_Click(object sender, RoutedEventArgs e)

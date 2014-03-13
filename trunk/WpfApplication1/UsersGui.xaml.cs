@@ -37,6 +37,32 @@ namespace project
             }
         }
 
+        private void TXTBtn_Click(object sender, RoutedEventArgs e)
+        {
+           
+            ExportToTXT();
+        }
+
+
+
+
+
+        private void ExportToTXT()
+        {
+        dataGrid1.SelectAllCells();
+        dataGrid1.ClipboardCopyMode = DataGridClipboardCopyMode.IncludeHeader;
+        ApplicationCommands.Copy.Execute(null, dataGrid1);
+        String resultat = (string)Clipboard.GetData(DataFormats.CommaSeparatedValue);
+        String result = (string)Clipboard.GetData(DataFormats.Text);
+        dataGrid1.UnselectAllCells();
+        System.IO.StreamWriter file = new System.IO.StreamWriter(@"C:\Users\Shuki\Dropbox\Braude\לימודים\Final Pro\Scoend Stage\p\פרוייקט\Excel\test.txt");
+     //   file.WriteLine(result.Replace("s","d");
+            file.WriteLine(result.Replace("‘,’", "‘ ‘"));
+        file.Close();
+
+        MessageBox.Show("Unicode קובץ הטקסט נוצר - להצגה באקסל שמור מחדש בתבנית ");
+        }
+
 
 
 
