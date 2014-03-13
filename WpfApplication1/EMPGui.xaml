@@ -3,7 +3,7 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         Title="מסך ניהול עובדים" Height="523.227" Width="588.608">
     <Grid>
-        <Image  Source="C:/Users/Shuki/Dropbox/Braude/לימודים/Final Pro/Scoend Stage/p/פרוייקט/WpfApplication1/Images/3.jpg" Stretch="UniformToFill"/>
+        <Image Source="/WpfApplication1;component/Images/31.jpg"  Stretch="UniformToFill" />
         <DataGrid HorizontalAlignment="Left" Margin="95,162,0,0" VerticalAlignment="Top"/>
         <DataGrid x:Name="dataGrid1" HorizontalAlignment="Left" Margin="0,99,0,0" VerticalAlignment="Top" Height="348" Width="573" />
         <TextBox HorizontalAlignment="Left" Height="22" Margin="30,23,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="120"/>
