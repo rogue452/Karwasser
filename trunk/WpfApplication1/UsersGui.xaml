@@ -11,13 +11,13 @@
         <Label Content="מספר משתמש" HorizontalAlignment="Left" Margin="155,23,0,0" VerticalAlignment="Top"/>
         <Label Content="שם פרטי" HorizontalAlignment="Left" Margin="155,67,0,0" VerticalAlignment="Top" Width="71"/>
         <Label Content=":חיפוש לפי" HorizontalAlignment="Left" Margin="222,0,0,0" VerticalAlignment="Top"/>
-        <Button Content="הוסף" HorizontalAlignment="Left" Margin="468,24,0,0" VerticalAlignment="Top" Width="87"/>
+        <Button Content="הוסף" HorizontalAlignment="Right" Margin="0,24,12,0" VerticalAlignment="Top" Width="87" Height="23" />
         <Label Content=":ניהול משתמשים" HorizontalAlignment="Left" Margin="467,0,0,0" VerticalAlignment="Top" Width="104"/>
-        <Button Content="מחק" HorizontalAlignment="Left" Margin="355,24,0,0" VerticalAlignment="Top" Width="85"/>
-        <Button Content="עדכון פרטים" HorizontalAlignment="Left" Margin="469,67,0,0" VerticalAlignment="Top" Width="87"/>
+        <Button Content="מחק" HorizontalAlignment="Left" Margin="355,24,0,0" VerticalAlignment="Top" Width="85" Height="23" />
+        <Button Content="עדכון פרטים" HorizontalAlignment="Left" Margin="469,67,0,0" VerticalAlignment="Top" Width="87" Height="24" />
         <Button Content="יציאה מהמערכת" HorizontalAlignment="Left" Margin="10,454,0,0" VerticalAlignment="Top" Width="104"/>
         <Button Content="חזור" HorizontalAlignment="Left" Margin="482,454,0,0" VerticalAlignment="Top" Width="75"/>
-
+        <Button Content="הדפס רשימה" Height="23" HorizontalAlignment="Left" Margin="355,68,0,0" Name="button1" VerticalAlignment="Top" Width="85" />
     </Grid>
 </Window>
     
