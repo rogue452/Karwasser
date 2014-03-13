@@ -23,7 +23,7 @@ namespace project
             InitializeComponent();
             this.WindowStartupLocation = WindowStartupLocation.CenterScreen;
             DBConnection conn = new DBConnection();
-            string query = ("select * from users");
+            string query = ("select userid as מספר__משתמש ,first_name as שם__פרטי ,last_name as שם__משפחה ,user_name as שם__משתמש ,password as סיסמה ,role as תפקיד ,connected as מחובר ,email as כתובת__אימייל from users");
             dataGrid1.ItemsSource = conn.GetDataTableFromDB(query).Tables[0].DefaultView;
         }
 
