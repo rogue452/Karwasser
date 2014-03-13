@@ -31,11 +31,11 @@ namespace project
         public Login()
         {
             InitializeComponent();
+            this.WindowStartupLocation = WindowStartupLocation.CenterScreen;
         }
 
         private void button1_Click(object sender, RoutedEventArgs e)//כפתור כניסה 
         {
-
             try
             {
                 string Connectionstring = " Server=localhost;Database=project; UId=root;Password=1234;";
@@ -80,13 +80,13 @@ namespace project
                               ManagerGui MG = new ManagerGui();
                      //       UsersViewGui Test = new UsersViewGui();
                       //      MangerMainGui MGui = new MangerMainGui();
-                              EMPGui EG = new EMPGui();
-                              UsersGui UG = new UsersGui();
+                        //      EMPGui EG = new EMPGui();
+                       //       UsersGui UG = new UsersGui();
                             
                               MG.Show();
                         //    Test.Show();
-                              EG.Show();
-                              UG.Show();
+                     //         EG.Show();
+                     //         UG.Show();
                         //    MGui.Show();
                           //  MGui.Activate();   
                               this.Close();
@@ -130,6 +130,13 @@ namespace project
 
         private void button3_Click(object sender, RoutedEventArgs e)// יציאה 
         {
+            this.Close();
+        }
+
+        private void button4_Click(object sender, RoutedEventArgs e)
+        {
+            Forgot_pass fp = new Forgot_pass();
+            fp.Show();
             this.Close();
         }
     }
