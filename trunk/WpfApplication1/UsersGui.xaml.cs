@@ -26,5 +26,20 @@ namespace project
             string query = ("select * from users");
             dataGrid1.ItemsSource = conn.GetDataTableFromDB(query).Tables[0].DefaultView;
         }
+
+
+        private void PrintBtn_Click(object sender, RoutedEventArgs e)
+        {
+            PrintDialog printDlg = new PrintDialog();
+            if (printDlg.ShowDialog() == true)
+            {
+                printDlg.PrintVisual(dataGrid1, "DataGrid Printing.");
+            }
+        }
+
+
+
+
+
     }
 }
