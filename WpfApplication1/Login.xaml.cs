@@ -26,7 +26,11 @@ namespace project
         public static string first_name;
         public static string last_name;
         public static string user_role;
-        public static string connected; 
+        public static string connected;
+        public static string user_id;
+        public static string user_name;
+        public static string userpassword;
+        public static string useremail;
 
         public Login()
         {
@@ -65,9 +69,13 @@ namespace project
                     while (dr1.Read())
                     {
                         count1++;
+                        user_id = dr1.GetString(0);
                         first_name = dr1.GetString(1);
                         last_name = dr1.GetString(2);
+                        user_name = dr1.GetString(3);
+                        userpassword = dr1.GetString(4);                    
                         connected = dr1.GetString(6);
+                        useremail = dr1.GetString(7);
                     }
                     if (count1 == 1)
                     {

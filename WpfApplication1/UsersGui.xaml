@@ -18,5 +18,6 @@
         <Button Content="יציאה מהמערכת" HorizontalAlignment="Left" Margin="413,452,0,0" VerticalAlignment="Top" Width="142" Height="23" />
         <Button Content="חזור למסך ראשי" HorizontalAlignment="Left" Margin="12,452,0,0" VerticalAlignment="Top" Width="134" Height="23" />
         <Button Content="הדפס רשימת משתמשים" Height="23" HorizontalAlignment="Left" Margin="169,62,0,0" Name="PrintBtn" VerticalAlignment="Top" Width="144" Click="PrintBtn_Click" />
+        <Button Content="ייצא רשימה לטקסט" Height="23" HorizontalAlignment="Left" Margin="216,452,0,0" Name="TXTBtn" VerticalAlignment="Top" Width="132" Click="TXTBtn_Click" />
     </Grid>
 </Window>
