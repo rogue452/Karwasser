@@ -7,7 +7,7 @@
             <ColumnDefinition Width="249*" />
             <ColumnDefinition Width="254*" />
         </Grid.ColumnDefinitions>
-        <Image  Source="C:/Users/Shuki/Dropbox/Braude/לימודים/Final Pro/Scoend Stage/p/פרוייקט/WpfApplication1/Images/3.jpg" Stretch="UniformToFill" Grid.ColumnSpan="2" />
+        <Image Source="/WpfApplication1;component/Images/31.jpg" Grid.ColumnSpan="2" Stretch="UniformToFill" />
         <Label Content=":שם משתמש" Grid.Column="1" HorizontalAlignment="Left" Margin="124,96,0,182" Name="label1" Width="86" />
         <Label Content=":סיסמא " Grid.Column="1" Height="28" HorizontalAlignment="Left" Margin="137,145,0,0" Name="label2" VerticalAlignment="Top" Width="65" />
         <TextBox Grid.ColumnSpan="2" Height="25" HorizontalAlignment="Left" Margin="216,96,0,0" Name="textBox1" VerticalAlignment="Top" Width="126" />
@@ -15,6 +15,5 @@
         <Button Content="כניסה" Grid.Column="1" Height="23" HorizontalAlignment="Right" Margin="0,223,80,0" Name="button1" VerticalAlignment="Top" Width="78" Click="button1_Click" />
         <Button Content="נקה שדות" Grid.ColumnSpan="2" Height="22" HorizontalAlignment="Left" Margin="198,223,0,0" Name="button2" VerticalAlignment="Top" Width="90" Click="button2_Click" />
         <Button Content="יציאה" Height="23" HorizontalAlignment="Left" Margin="41,263,0,0" Name="button3" VerticalAlignment="Top" Width="75" Click="button3_Click" />
-        
     </Grid>
 </Window>
