@@ -37,7 +37,7 @@ namespace project
                 string Connectionstring = " Server=localhost;Database=project; UId=root;Password=1234;";
                 MySqlConnection MySqlConn = new MySqlConnection(Connectionstring);
                 MySqlConn.Open();
-                string Query1 = ("select userid as מספר__משתמש ,first_name as שם__פרטי ,last_name as שם__משפחה ,user_name as שם__משתמש ,password as סיסמה ,role as תפקיד ,connected as מחובר ,email as כתובת__אימייל from users");
+                string Query1 = ("select userid as `מספר משתמש` ,first_name as `שם פרטי` ,last_name as `שם משפחה` ,user_name as `שם משתמש` ,password as סיסמה ,role as תפקיד ,connected as מחובר ,email as `כתובת אימייל` from users");
                 MySqlCommand MSQLcrcommand1 = new MySqlCommand(Query1, MySqlConn);
                 MSQLcrcommand1.ExecuteNonQuery();
                 MySqlDataAdapter mysqlDAdp = new MySqlDataAdapter(MSQLcrcommand1);
@@ -146,7 +146,7 @@ namespace project
                 MySqlConnection MySqlConn = new MySqlConnection(Connectionstring);
                 MySqlConn.Open();
                 String searchkey = this.FirstNameSearchTextBox.Text;
-                string Query1 = "select userid as מספר__משתמש ,first_name as שם__פרטי ,last_name as שם__משפחה ,user_name as שם__משתמש ,password as סיסמה ,role as תפקיד ,connected as מחובר ,email as כתובת__אימייל from users where first_name Like '%" + searchkey + "%' ";
+                string Query1 = "select userid as `מספר משתמש` ,first_name as `שם פרטי` ,last_name as `שם משפחה` ,user_name as `שם משתמש` ,password as סיסמה ,role as תפקיד ,connected as מחובר ,email as `כתובת אימייל` from users where first_name Like '%" + searchkey + "%' ";
                 MySqlCommand MSQLcrcommand1 = new MySqlCommand(Query1, MySqlConn);
                 MSQLcrcommand1.ExecuteNonQuery();
                 MySqlDataAdapter mysqlDAdp = new MySqlDataAdapter(MSQLcrcommand1);
@@ -170,7 +170,7 @@ namespace project
                 MySqlConnection MySqlConn = new MySqlConnection(Connectionstring);
                 MySqlConn.Open();
                 String searchidkey = this.IDSearchTextBox.Text;
-                string Query1 = "select userid as מספר__משתמש ,first_name as שם__פרטי ,last_name as שם__משפחה ,user_name as שם__משתמש ,password as סיסמה ,role as תפקיד ,connected as מחובר ,email as כתובת__אימייל from users where userid Like '%" + searchidkey + "%' ";
+                string Query1 = "select userid as `מספר משתמש` ,first_name as `שם פרטי` ,last_name as `שם משפחה` ,user_name as `שם משתמש` ,password as סיסמה ,role as תפקיד ,connected as מחובר ,email as `כתובת אימייל` from users where userid Like '%" + searchidkey + "%' ";
                 MySqlCommand MSQLcrcommand1 = new MySqlCommand(Query1, MySqlConn);
                 MSQLcrcommand1.ExecuteNonQuery();
                 MySqlDataAdapter mysqlDAdp = new MySqlDataAdapter(MSQLcrcommand1);
