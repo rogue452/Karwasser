@@ -4,7 +4,6 @@
         Title="מסך ניהול עובדים" Height="523.227" Width="588.608" FlowDirection="RightToLeft">
     <Grid>
         <Image Source="/WpfApplication1;component/Images/31.jpg"  Stretch="UniformToFill" FlowDirection="RightToLeft" />
-        <DataGrid HorizontalAlignment="Left" Margin="95,162,0,0" VerticalAlignment="Top"/>
         <DataGrid x:Name="dataGrid1" HorizontalAlignment="Left" Margin="0,99,0,0" VerticalAlignment="Top" Height="348" Width="573" />
         <TextBox HorizontalAlignment="Left" Height="22" Margin="435,24,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="120"/>
         <TextBox HorizontalAlignment="Left" Height="23" Margin="435,65,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="120"/>
