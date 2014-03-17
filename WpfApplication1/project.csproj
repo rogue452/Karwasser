@@ -143,6 +143,33 @@
   <ItemGroup>
     <Resource Include="Images\Israel.png" />
   </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\add_user.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\delete_user.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\update.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\exit.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\print.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\save_to.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\search.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\update1.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\back.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
