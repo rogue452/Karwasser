@@ -53,7 +53,7 @@ namespace project
                 while (dr.Read())
                 {
                     count++;
-                    user_role = dr.GetString(5);
+                    user_role = dr.GetString(4);
                 }
                 if (count == 1)
                 {
@@ -77,31 +77,51 @@ namespace project
                     }
                     if (count1 == 1)
                     {
-                        if (connected.Equals("false"))
+                        if (connected != "מחובר" && connected != "לא מחובר")
+                        {
+                            MessageBox.Show("קיימת בעיה במצב החיבור שלך, יש לפנות למנהל המערכת  ", " שגיאה", MessageBoxButton.OK);
+                        }
+
+                        if (connected.Equals("מחובר"))
+                        {
+                            MessageBox.Show("אתה כבר מחובר למערכת  ", " שגיאה", MessageBoxButton.OK);
+                        }
+
+
+                        if (connected.Equals("לא מחובר"))
                         {
                             MessageBox.Show("      ברוכ/ה הבא/ה " + Login.last_name + " " + Login.first_name + "", "!ההתחברות למערכת בוצעה בהצלחה", MessageBoxButton.OK);
                  //           DBConnection conn = new DBConnection();
                  //         string query2 = "update users set connected='true' where user_name= '" + this.textBox1.Text + "' and password ='" + this.textBox2.Password + "'";
                  //          conn.LogIn(query2);
-                              ManagerGui MG = new ManagerGui();
-                     //       UsersViewGui Test = new UsersViewGui();
-                      //      MangerMainGui MGui = new MangerMainGui();
-                        //      EMPGui EG = new EMPGui();
-                       //       UsersGui UG = new UsersGui();
-                            
-                              MG.Show();
-                        //    Test.Show();
-                     //         EG.Show();
-                     //         UG.Show();
-                        //    MGui.Show();
-                          //  MGui.Activate();   
+ 
+                            if (user_role.Equals("מנהל"))
+                            {
+                                ManagerGui MG = new ManagerGui();
+                                MG.Show();
+                            }
+
+                            if (user_role.Equals("מזכירה"))
+                            {
+                                SecretaryGui SG = new SecretaryGui();
+                                SG.Show();
+                            }
+
+                            if (user_role.Equals("איכות"))
+                            {
+                                QualityGui QG = new QualityGui();
+                                QG.Show();
+                            }
+
                               this.Close();
                           //    MGui.ShowDialog();
                            // this.Close();
                         }
-                        else {
-                            MessageBox.Show( "אתה כבר מחובר למערכת  ", " שגיאה", MessageBoxButton.OK);
-                        }
+
+                   //     else
+                   //     {
+                  //          MessageBox.Show("קיימת בעיה במצב החיבור שלך, יש לפנות למנהל המערכת  ", " שגיאה", MessageBoxButton.OK);
+                   //     }
                     }
                     else
                     {

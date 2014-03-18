@@ -10,27 +10,22 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
-//SelectionChanged="dataGrid1_SelectionChanged" הורדתי את זה מהXML
 using MySql.Data.MySqlClient;
 using System.Data;
 using System.ComponentModel;
 using Microsoft.Win32;
 
-
 namespace project
 {
     /// <summary>
-    /// Interaction logic for UsersGui.xaml
+    /// Interaction logic for SecEMPGui.xaml
     /// </summary>
-    public partial class UsersGui : Window
+    public partial class SecEMPGui : Window
     {
-        public UsersGui()
+        public SecEMPGui()
         {
             InitializeComponent();
             this.WindowStartupLocation = WindowStartupLocation.CenterScreen;
-         //   ListCollectionView CollectionViewList;
-          //  DataTable DataTableFiltered;
-         //   DataSet ds = new DataSet();
 
             try
             {
@@ -43,12 +38,8 @@ namespace project
                 MySqlDataAdapter mysqlDAdp = new MySqlDataAdapter(MSQLcrcommand1);
                 DataTable dt = new DataTable("users");
                 mysqlDAdp.Fill(dt);
-                dataGrid1.ItemsSource = dt.DefaultView; 
+                dataGrid1.ItemsSource = dt.DefaultView;
 
-            //    mysqlDAdp.Fill(ds);
-            //    ICollectionView UsersView = CollectionViewSource.GetDefaultView(dt);
-            //    UsersView.Filter
-           //     CollectionViewList = new ListCollectionView(ds);
                 mysqlDAdp.Update(dt);
                 MySqlConn.Close();
             }
@@ -56,17 +47,12 @@ namespace project
             {
                 MessageBox.Show(ex.Message);
             }
-
-
-
-        /*
-            DBConnection conn = new DBConnection();
-            string query = ("select userid as מספר__משתמש ,first_name as שם__פרטי ,last_name as שם__משפחה ,user_name as שם__משתמש ,password as סיסמה ,role as תפקיד ,connected as מחובר ,email as כתובת__אימייל from users");
-            dataGrid1.ItemsSource = conn.GetDataTableFromDB(query).Tables[0].DefaultView;
-            DataTable dt = new DataTable();
-            
-        */
         }
+
+
+
+
+
 
 
         private void PrintBtn_Click(object sender, RoutedEventArgs e)
@@ -85,7 +71,7 @@ namespace project
 
         private void TXTBtn_Click(object sender, RoutedEventArgs e)
         {
-           
+
             ExportToTXT();
         }
 
@@ -96,7 +82,7 @@ namespace project
         private void ExportToTXT()
         {
             SaveFileDialog dialog = new SaveFileDialog();
-            dialog.FileName = "רשימת משתמשים"; // Default file name
+            dialog.FileName = "רשימת עובדים"; // Default file name
             dialog.DefaultExt = ".text"; // Default file extension
             dialog.Filter = "Text documents (.txt)|*.txt"; // Filter files by extension 
 
@@ -114,8 +100,6 @@ namespace project
                 dataGrid1.UnselectAllCells();
                 string saveto = dialog.FileName;
                 System.IO.StreamWriter file = new System.IO.StreamWriter(@saveto);
-                //   System.IO.StreamWriter file = new System.IO.StreamWriter(@"C:\Users\Shuki\Dropbox\Braude\לימודים\Final Pro\Scoend Stage\p\פרוייקט\Excel\test.txt");
-                //   file.WriteLine(result.Replace("s","d");
 
                 file.WriteLine(result1.Replace("‘,’", "‘ ‘"));
                 file.Close();
@@ -124,21 +108,6 @@ namespace project
                 string filename = dialog.FileName;
                 MessageBox.Show("Unicode קובץ הטקסט נוצר - להצגה באקסל שמור מחדש בתבנית ");
             }
-
-     /*   dataGrid1.SelectAllCells();
-        dataGrid1.ClipboardCopyMode = DataGridClipboardCopyMode.IncludeHeader;
-        ApplicationCommands.Copy.Execute(null, dataGrid1);
-        String resultat = (string)Clipboard.GetData(DataFormats.CommaSeparatedValue);
-        String result = (string)Clipboard.GetData(DataFormats.Text);
-        dataGrid1.UnselectAllCells();
-        System.IO.StreamWriter file = new System.IO.StreamWriter(@"C:\Users\Shuki\Dropbox\Braude\לימודים\Final Pro\Scoend Stage\p\פרוייקט\Excel\test.txt");
-     //   file.WriteLine(result.Replace("s","d");
-            
-            file.WriteLine(result.Replace("‘,’", "‘ ‘"));
-        file.Close();
-
-        MessageBox.Show("Unicode קובץ הטקסט נוצר - להצגה באקסל שמור מחדש בתבנית ");
-      */
         }
 
 
@@ -167,10 +136,14 @@ namespace project
             }
         }
 
+
+
+
+
         private void IDSearchTextBox_TextChanged(object sender, TextChangedEventArgs e)
         {
-           try
-                {
+            try
+            {
                 string Connectionstring = " Server=localhost;Database=project; UId=root;Password=1234;";
                 MySqlConnection MySqlConn = new MySqlConnection(Connectionstring);
                 MySqlConn.Open();
@@ -184,11 +157,11 @@ namespace project
                 dataGrid1.ItemsSource = dt.DefaultView;
                 mysqlDAdp.Update(dt);
                 MySqlConn.Close();
-                }
-           catch (Exception ex)
+            }
+            catch (Exception ex)
             {
                 MessageBox.Show(ex.Message);
-            }    
+            }
         }
 
 
