@@ -10,7 +10,6 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
-//SelectionChanged="dataGrid1_SelectionChanged" הורדתי את זה מהXML
 using MySql.Data.MySqlClient;
 using System.Data;
 using System.ComponentModel;
@@ -20,7 +19,7 @@ using Microsoft.Win32;
 namespace project
 {
     /// <summary>
-    /// Interaction logic for UsersGui.xaml
+    /// Interaction logic for ManagerUsersGui.xaml
     /// </summary>
     public partial class ManagerUsersGui : Window
     {
@@ -37,13 +36,15 @@ namespace project
                 string Connectionstring = " Server=localhost;Database=project; UId=root;Password=1234;";
                 MySqlConnection MySqlConn = new MySqlConnection(Connectionstring);
                 MySqlConn.Open();
-                string Query1 = ("select users.empid as `תעודת זהות`,employees.emp_firstname as `שם פרטי` ,employees.emp_lastname as `שם משפחה` ,users.user_name as `שם משתמש` ,password as סיסמה ,role as תפקיד ,connected as מחובר ,email as `כתובת אימייל` from project.users , project.employees where users.empid=employees.empid");
+                string Query1 = "select email as `כתובת אימייל`,connected as מחובר ,role as תפקיד ,password as סיסמה ,users.user_name as `שם משתמש` ,employees.emp_lastname as `שם משפחה` ,employees.emp_firstname as `שם פרטי` ,users.empid as `תעודת זהות` from project.users , project.employees where users.empid=employees.empid";
+              //בגלל השינוי חזרה של הטבלה משמאל לימין הייתי צריך לשנות את סדר העמודות כך שידפיס בצורה הזאת.
+              //string Query1 = "select users.empid as `תעודת זהות`,employees.emp_firstname as `שם פרטי` ,employees.emp_lastname as `שם משפחה` ,users.user_name as `שם משתמש` ,password as סיסמה ,role as תפקיד ,connected as מחובר ,email as `כתובת אימייל` from project.users , project.employees where users.empid=employees.empid";
                 MySqlCommand MSQLcrcommand1 = new MySqlCommand(Query1, MySqlConn);
                 MSQLcrcommand1.ExecuteNonQuery();
                 MySqlDataAdapter mysqlDAdp = new MySqlDataAdapter(MSQLcrcommand1);
                 DataTable dt = new DataTable("users");
                 mysqlDAdp.Fill(dt);
-                dataGrid1.ItemsSource = dt.DefaultView; 
+                dataGrid1.ItemsSource = dt.DefaultView;
 
             //    mysqlDAdp.Fill(ds);
             //    ICollectionView UsersView = CollectionViewSource.GetDefaultView(dt);
@@ -72,10 +73,13 @@ namespace project
         private void PrintBtn_Click(object sender, RoutedEventArgs e)
         {
             PrintDialog printDlg = new PrintDialog();
+        
             if (printDlg.ShowDialog() == true)
             {
-                printDlg.PrintVisual(dataGrid1, "DataGrid Printing.");
+                MessageBox.Show("נכנס לאיף ");
+                printDlg.PrintVisual(dataGrid1, "טבלת משתמשים");
             }
+            MessageBox.Show("יצא מהאיף ");
         }
 
 
@@ -151,7 +155,9 @@ namespace project
                 MySqlConnection MySqlConn = new MySqlConnection(Connectionstring);
                 MySqlConn.Open();
                 String searchkey = this.FirstNameSearchTextBox.Text;
-                string Query1 = "select users.empid as `תעודת זהות` ,employees.emp_firstname as `שם פרטי` ,employees.emp_lastname as `שם משפחה` ,users.user_name as `שם משתמש` ,password as סיסמה ,role as תפקיד ,connected as מחובר ,email as `כתובת אימייל` from project.users , project.employees where users.empid=employees.empid and employees.emp_firstname Like '%" + searchkey + "%' ";
+                string Query1 = ("select email as `כתובת אימייל`,connected as מחובר ,role as תפקיד ,password as סיסמה ,users.user_name as `שם משתמש` ,employees.emp_lastname as `שם משפחה` ,employees.emp_firstname as `שם פרטי` ,users.empid as `תעודת זהות` from project.users , project.employees where users.empid=employees.empid and employees.emp_firstname Like '%" + searchkey + "%' ");
+                //בגלל השינוי חזרה של הטבלה משמאל לימין הייתי צריך לשנות את סדר העמודות כך שידפיס בצורה הזאת.
+               // string Query1 = "select users.empid as `תעודת זהות` ,employees.emp_firstname as `שם פרטי` ,employees.emp_lastname as `שם משפחה` ,users.user_name as `שם משתמש` ,password as סיסמה ,role as תפקיד ,connected as מחובר ,email as `כתובת אימייל` from project.users , project.employees where users.empid=employees.empid and employees.emp_firstname Like '%" + searchkey + "%' ");
                 MySqlCommand MSQLcrcommand1 = new MySqlCommand(Query1, MySqlConn);
                 MSQLcrcommand1.ExecuteNonQuery();
                 MySqlDataAdapter mysqlDAdp = new MySqlDataAdapter(MSQLcrcommand1);
@@ -175,7 +181,9 @@ namespace project
                 MySqlConnection MySqlConn = new MySqlConnection(Connectionstring);
                 MySqlConn.Open();
                 String searchidkey = this.IDSearchTextBox.Text;
-                string Query1 = "select users.empid as `תעודת זהות` ,employees.emp_firstname as `שם פרטי` ,employees.emp_lastname as `שם משפחה` ,users.user_name as `שם משתמש` ,password as סיסמה ,role as תפקיד ,connected as מחובר ,email as `כתובת אימייל` from project.users , project.employees where users.empid=employees.empid and users.empid Like '%" + searchidkey + "%' ";
+                string Query1 = "select email as `כתובת אימייל`,connected as מחובר ,role as תפקיד ,password as סיסמה ,users.user_name as `שם משתמש` ,employees.emp_lastname as `שם משפחה` ,employees.emp_firstname as `שם פרטי` ,users.empid as `תעודת זהות` from project.users , project.employees where users.empid=employees.empid and  users.empid Like '%" + searchidkey + "%' ";
+                //בגלל השינוי חזרה של הטבלה משמאל לימין הייתי צריך לשנות את סדר העמודות כך שידפיס בצורה הזאת.
+               // string Query1 = "select users.empid as `תעודת זהות` ,employees.emp_firstname as `שם פרטי` ,employees.emp_lastname as `שם משפחה` ,users.user_name as `שם משתמש` ,password as סיסמה ,role as תפקיד ,connected as מחובר ,email as `כתובת אימייל` from project.users , project.employees where users.empid=employees.empid and users.empid Like '%" + searchidkey + "%' ";
                 MySqlCommand MSQLcrcommand1 = new MySqlCommand(Query1, MySqlConn);
                 MSQLcrcommand1.ExecuteNonQuery();
                 MySqlDataAdapter mysqlDAdp = new MySqlDataAdapter(MSQLcrcommand1);
