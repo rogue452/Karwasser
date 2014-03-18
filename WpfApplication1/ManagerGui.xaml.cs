@@ -22,7 +22,7 @@ namespace project
         {
             InitializeComponent();
             this.WindowStartupLocation = WindowStartupLocation.CenterScreen;
-            NameLabel.Content = Login.user_name;
+            NameLabel.Content = "                                    שלום "+ Login.user_name +"!\n               אנא בחר/י מה ברצונך/ה לעשות.";
         }
 
         private void Users_Button_Click(object sender, RoutedEventArgs e)
