@@ -59,19 +59,28 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="DBConnection.cs" />
-    <Compile Include="EMPGui.xaml.cs">
-      <DependentUpon>EMPGui.xaml</DependentUpon>
+    <Compile Include="ManagerEMPGui.xaml.cs">
+      <DependentUpon>ManagerEMPGui.xaml</DependentUpon>
     </Compile>
     <Compile Include="Forgot_pass.xaml.cs">
       <DependentUpon>Forgot_pass.xaml</DependentUpon>
     </Compile>
-    <Compile Include="UsersGui.xaml.cs">
-      <DependentUpon>UsersGui.xaml</DependentUpon>
+    <Compile Include="QualityGui.xaml.cs">
+      <DependentUpon>QualityGui.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="SecEMPGui.xaml.cs">
+      <DependentUpon>SecEMPGui.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="SecretaryGui.xaml.cs">
+      <DependentUpon>SecretaryGui.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="ManagerUsersGui.xaml.cs">
+      <DependentUpon>ManagerUsersGui.xaml</DependentUpon>
     </Compile>
     <Compile Include="ManagerGui.xaml.cs">
       <DependentUpon>ManagerGui.xaml</DependentUpon>
     </Compile>
-    <Page Include="EMPGui.xaml">
+    <Page Include="ManagerEMPGui.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -95,7 +104,19 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="UsersGui.xaml">
+    <Page Include="QualityGui.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="SecEMPGui.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="SecretaryGui.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="ManagerUsersGui.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
