@@ -29,7 +29,6 @@ namespace project
         public static string connected;
         public static string user_id;
         public static string user_name;
-        public static string userpassword;
         public static string useremail;
 
         public Login()
@@ -61,7 +60,7 @@ namespace project
                     string Connectionstring1 = " Server=localhost;Database=project; UId=root;Password=1234;";
                     MySqlConnection objc1 = new MySqlConnection(Connectionstring1);
                     objc1.Open();
-                    string Query1 =  "select * from project.users where user_name='" + this.textBox1.Text +"'and password='"+this.textBox2.Password+"'" ;
+                    string Query1 = "select users.userid, employees.emp_firstname, employees.emp_lastname, users.user_name,  users.connected, users.email from project.users, project.employees where users.empid=employees.empid and users.user_name='" + this.textBox1.Text + "'and users.password='" + this.textBox2.Password + "'";
                     MySqlCommand crcommand1 = new MySqlCommand(Query1, objc1);
                     crcommand1.ExecuteNonQuery();
                     MySqlDataReader dr1 = crcommand1.ExecuteReader();
@@ -73,9 +72,8 @@ namespace project
                         first_name = dr1.GetString(1);
                         last_name = dr1.GetString(2);
                         user_name = dr1.GetString(3);
-                        userpassword = dr1.GetString(4);                    
-                        connected = dr1.GetString(6);
-                        useremail = dr1.GetString(7);
+                        connected = dr1.GetString(4);                    
+                        useremail = dr1.GetString(5);
                     }
                     if (count1 == 1)
                     {
