@@ -74,7 +74,7 @@ namespace project
         {
             try
             {
-                if (client.Equals(true)) // if this is a remote computer.
+                if (client.Equals(true)) // if this is a remote computer. 
                 {
                     serverip = this.IP_textBox.Text;
                     Connectionstring = " Server=" + serverip + ";Database=project; UId=root;Password=1234;";
@@ -244,15 +244,25 @@ namespace project
           {
               try
               {
-               //   IPHostEntry hostEntry = Dns.GetHostEntry(Dns.GetHostName());
-              //    IPAddress[] address = hostEntry.AddressList;
-              //    myip = address.GetValue(1).ToString();
-                  var defaultGateway =
+                  IPHostEntry hostEntry = Dns.GetHostEntry(Dns.GetHostName());
+                  IPAddress[] address = hostEntry.AddressList;
+                  myip = address.GetValue(2).ToString();
+
+
+                  //!!!!הפונקציה הזאת מציגה לי את האי פי השני- לא למחוק אותה עד שאדע איזה איפי מתאים
+               /*   var defaultGateway =
                   from nics in NetworkInterface.GetAllNetworkInterfaces()
                   from props in nics.GetIPProperties().GatewayAddresses
                   where nics.OperationalStatus == OperationalStatus.Up
                   select props.Address.ToString();
-                  myip = defaultGateway.First();
+                  myip = defaultGateway.First();*/
+
+
+
+
+
+
+
 
                  /* string localHostName = Dns.GetHostName();
                   IPAddress[] ipAddresses = Dns.GetHostAddresses(localHostName);
