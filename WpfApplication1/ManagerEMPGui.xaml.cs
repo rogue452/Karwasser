@@ -70,7 +70,7 @@ namespace project
             SaveFileDialog dialog = new SaveFileDialog();
             dialog.FileName = "רשימת עובדים"; // Default file name
             dialog.DefaultExt = ".text"; // Default file extension
-            dialog.Filter = "Text documents (.txt)|*.txt"; // Filter files by extension 
+            dialog.Filter = "Text documents (.txt)|*.txt";  //EXcel documents (.xlsx)|*.xlsx";    // Filter files by extension 
 
             // Show save file dialog box
             Nullable<bool> result = dialog.ShowDialog();
@@ -81,18 +81,16 @@ namespace project
                 dataGrid1.SelectAllCells();
                 dataGrid1.ClipboardCopyMode = DataGridClipboardCopyMode.IncludeHeader;
                 ApplicationCommands.Copy.Execute(null, dataGrid1);
-                String resultat1 = (string)Clipboard.GetData(DataFormats.CommaSeparatedValue);
                 String result1 = (string)Clipboard.GetData(DataFormats.Text);
                 dataGrid1.UnselectAllCells();
                 string saveto = dialog.FileName;
-                System.IO.StreamWriter file = new System.IO.StreamWriter(@saveto);
+                System.IO.StreamWriter file = new System.IO.StreamWriter(@saveto, false, Encoding.Default);
 
                 file.WriteLine(result1.Replace("‘,’", "‘ ‘"));
                 file.Close();
-
+                file.Dispose();
                 // Save document 
-                string filename = dialog.FileName;
-                MessageBox.Show("Unicode קובץ הטקסט נוצר - להצגה באקסל שמור מחדש בתבנית ");
+                MessageBox.Show("                                                                             !קובץ הטקסט נשמר\n\n           :כדי לפתוח באקסל מומלץ להשתמש ב''פתיחה באמצעות'' ולבחור ב\n\n                                                 ''Microsoft Excel''");
             }
         }
 
