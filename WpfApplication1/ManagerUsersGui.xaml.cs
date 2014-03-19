@@ -33,9 +33,10 @@ namespace project
                  //   DataSet ds = new DataSet();
 
                     try
-                    {
-                        string Connectionstring = " Server=localhost;Database=project; UId=root;Password=1234;";
-                        MySqlConnection MySqlConn = new MySqlConnection(Connectionstring);
+                    {   
+                        //string Connectionstring = " Server=localhost;Database=project; UId=root;Password=1234;";
+                       // MySqlConnection MySqlConn = new MySqlConnection(Connectionstring);
+                        MySqlConnection MySqlConn = new MySqlConnection(Login.Connectionstring);
                         MySqlConn.Open();
                         string Query1 = ("select users.empid as `תעודת זהות`,employees.emp_firstname as `שם פרטי` ,employees.emp_lastname as `שם משפחה` ,users.user_name as `שם משתמש` ,password as סיסמה ,role as תפקיד ,connected as מחובר ,email as `כתובת אימייל` from project.users , project.employees where users.empid=employees.empid");
                         MySqlCommand MSQLcrcommand1 = new MySqlCommand(Query1, MySqlConn);
@@ -122,8 +123,9 @@ namespace project
         {
             try
             {
-                string Connectionstring = " Server=localhost;Database=project; UId=root;Password=1234;";
-                MySqlConnection MySqlConn = new MySqlConnection(Connectionstring);
+               // string Connectionstring = " Server=localhost;Database=project; UId=root;Password=1234;";
+               // MySqlConnection MySqlConn = new MySqlConnection(Connectionstring);
+                MySqlConnection MySqlConn = new MySqlConnection(Login.Connectionstring);
                 MySqlConn.Open();
                 String searchkey = this.FirstNameSearchTextBox.Text;
                 string Query1 = "select users.empid as `תעודת זהות` ,employees.emp_firstname as `שם פרטי` ,employees.emp_lastname as `שם משפחה` ,users.user_name as `שם משתמש` ,password as סיסמה ,role as תפקיד ,connected as מחובר ,email as `כתובת אימייל` from project.users , project.employees where users.empid=employees.empid and employees.emp_firstname Like '%" + searchkey + "%' ";
@@ -146,8 +148,9 @@ namespace project
         {
            try
                 {
-                string Connectionstring = " Server=localhost;Database=project; UId=root;Password=1234;";
-                MySqlConnection MySqlConn = new MySqlConnection(Connectionstring);
+              //  string Connectionstring = " Server=localhost;Database=project; UId=root;Password=1234;";
+              //  MySqlConnection MySqlConn = new MySqlConnection(Connectionstring);
+                MySqlConnection MySqlConn = new MySqlConnection(Login.Connectionstring);
                 MySqlConn.Open();
                 String searchidkey = this.IDSearchTextBox.Text;
                 string Query1 = "select users.empid as `תעודת זהות` ,employees.emp_firstname as `שם פרטי` ,employees.emp_lastname as `שם משפחה` ,users.user_name as `שם משתמש` ,password as סיסמה ,role as תפקיד ,connected as מחובר ,email as `כתובת אימייל` from project.users , project.employees where users.empid=employees.empid and users.empid Like '%" + searchidkey + "%' ";
