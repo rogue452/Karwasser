@@ -16,6 +16,8 @@ using System.Threading;
 using System.Timers;
 using System.Windows.Threading;
 using MySql.Data.MySqlClient;
+using System.Net;
+using System.Net.NetworkInformation;
 
 namespace project
 {
@@ -30,18 +32,58 @@ namespace project
         public static string user_id;
         public static string user_name;
         public static string useremail;
+        public static string Connectionstring;
+        public static Boolean client;
+        public static string serverip;
+        public static string myip;
 
         public Login()
         {
             InitializeComponent();
+            client = false;
+            IP_label.Visibility = Visibility.Hidden;
+            IP_textBox.Visibility = Visibility.Hidden;
+            My_IP();
+            myip_label.Content = myip;
+            //IsLocalIpAddress(Dns.GetHostName());
+         //   if (IsLocalIpAddress(Dns.GetHostName()) == true)
+         //   {
+                
+         //   }
+         //   else
+         //   {
+        //        myip_label.Content = "IP - בעיה במציאת כתובת ה";
+        //    }
+            labelIP.Visibility = Visibility.Visible;
+            myip_label.Visibility = Visibility.Visible;
             this.WindowStartupLocation = WindowStartupLocation.CenterScreen;
+
+
+
+        //    string localComputerName = Dns.GetHostName();
+        //    if (IsLocalIpAddress(localComputerName)==true)
+        //    {
+                
+        //    }
+        //    IPAddress[] localIPs = Dns.GetHostAddresses(Dns.GetHostName());
         }
+
+
 
         private void button1_Click(object sender, RoutedEventArgs e)//כפתור כניסה 
         {
             try
             {
-                string Connectionstring = " Server=localhost;Database=project; UId=root;Password=1234;";
+                if (client.Equals(true)) // if this is a remote computer.
+                {
+                    serverip = this.IP_textBox.Text;
+                    Connectionstring = " Server=" + serverip + ";Database=project; UId=root;Password=1234;";
+                }
+                else if (client.Equals(false)) // // if this is the host computer (the one with the SQL DataBase on it).
+                {
+                    Connectionstring = " Server=localhost;Database=project; UId=root;Password=1234;";
+                }
+               // string Connectionstring = " Server=localhost;Database=project; UId=root;Password=1234;";
                 MySqlConnection objc = new MySqlConnection(Connectionstring);
                 objc.Open();
                 
@@ -165,5 +207,86 @@ namespace project
             fp.Show();
             this.Close();
         }
+
+        private void Clinet_checkBox_Checked(object sender, RoutedEventArgs e)
+        {
+            client = true;
+            IP_label.Visibility = Visibility.Visible;
+            IP_textBox.Visibility = Visibility.Visible;
+            labelIP.Visibility = Visibility.Hidden;
+            myip_label.Visibility = Visibility.Hidden;
+        }
+
+        private void Clinet_checkBox_UnChecked(object sender, RoutedEventArgs e)
+        {
+          //  IPAddress[] a = Dns.GetHostEntry(Dns.GetHostName()).AddressList;
+           // string ip = a[0].ToString();
+          //  myip_label.Content = ip;
+     //       if (IsLocalIpAddress(Dns.GetHostName()) == true)
+     //       {
+    //            myip_label.Content = myip;
+     //       }
+     //       else 
+     //       {
+     //           myip_label.Content = "IP - בעיה במציאת כתובת ה";
+     //       }
+         //   IPHostEntry ipEntry = DNS.GetHostByName(strHostName);
+            client = false;
+            IP_label.Visibility = Visibility.Hidden;
+            IP_textBox.Visibility = Visibility.Hidden;
+            labelIP.Visibility = Visibility.Visible;
+            myip_label.Visibility = Visibility.Visible;
+        }
+
+
+        public static void My_IP()
+         // public static bool IsLocalIpAddress(string host)
+          {
+              try
+              {
+               //   IPHostEntry hostEntry = Dns.GetHostEntry(Dns.GetHostName());
+              //    IPAddress[] address = hostEntry.AddressList;
+              //    myip = address.GetValue(1).ToString();
+                  var defaultGateway =
+                  from nics in NetworkInterface.GetAllNetworkInterfaces()
+                  from props in nics.GetIPProperties().GatewayAddresses
+                  where nics.OperationalStatus == OperationalStatus.Up
+                  select props.Address.ToString();
+                  myip = defaultGateway.First();
+
+                 /* string localHostName = Dns.GetHostName();
+                  IPAddress[] ipAddresses = Dns.GetHostAddresses(localHostName);
+                  foreach (IPAddress ipAddress in ipAddresses.Where(ip => ip.AddressFamily == System.Net.Sockets.AddressFamily.InterNetwork))
+                  {
+                      myip=ipAddress.ToString();
+                  }*/
+
+                  /*// get host IP addresses
+                  IPAddress[] hostIPs = Dns.GetHostAddresses(host);
+                  // get local IP addresses
+                  IPAddress[] localIPs = Dns.GetHostAddresses(Dns.GetHostName());
+
+                  // test if any host IP equals to any local IP or to localhost
+                  foreach (IPAddress hostIP in hostIPs)
+                  {
+                      // is localhost
+                      if (IPAddress.IsLoopback(hostIP)) return true;
+                      // is local address
+                      foreach (IPAddress localIP in localIPs)
+                      {
+                          if (hostIP.Equals(localIP))
+                          {
+                              myip = localIP.ToString();
+                              return true;
+                          }
+                      }
+                  }*/
+              }
+              catch (Exception ex)
+              {
+                  MessageBox.Show(ex.Message);
+              }
+             // return false;
+          } 
     }
 }
