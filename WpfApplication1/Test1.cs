@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Management;
 using System.Net.NetworkInformation;
+using System.Windows;
 
 namespace project
 {
@@ -13,15 +14,21 @@ namespace project
         {
                
         }
-         public static String do_test()
+         public static void do_test()
          {
+             Ping pingClass = new Ping();        
+             PingReply pingReply = pingClass.Send("10.0.0.1");
+             MessageBox.Show(pingReply.RoundtripTime.ToString() + "ms");
+             //System.Diagnostics.Debug.WriteLine(pingReply.RoundtripTime.ToString() + "ms");
+
+             /*
               var defaultGateway =
               from nics in NetworkInterface.GetAllNetworkInterfaces()
               from props in nics.GetIPProperties().GatewayAddresses
               where nics.OperationalStatus == OperationalStatus.Up
               select props.Address.ToString();
 
-              return defaultGateway.First(); 
+              return defaultGateway.First(); */
          
          }
 

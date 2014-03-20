@@ -77,16 +77,25 @@ namespace project
                 if (client.Equals(true)) // if this is a remote computer. 
                 {
                     serverip = this.IP_textBox.Text;
-                    Connectionstring = " Server=" + serverip + ";Database=project; UId=root;Password=1234;";
+                    Connectionstring = "Server=" + serverip + "; Database=project; UId=root;Password=1234;";
+                   // MessageBox.Show("" + Connectionstring +"");
                 }
                 else if (client.Equals(false)) // // if this is the host computer (the one with the SQL DataBase on it).
                 {
-                    Connectionstring = " Server=localhost;Database=project; UId=root;Password=1234;";
+                    Connectionstring = "Server=localhost;Database=project; UId=root;Password=1234;";
                 }
                // string Connectionstring = " Server=localhost;Database=project; UId=root;Password=1234;";
                 MySqlConnection objc = new MySqlConnection(Connectionstring);
-                objc.Open();
-                
+                try
+                {
+                    MessageBox.Show("ניסיון התחברות");
+                    objc.Open();
+                    MessageBox.Show("התחברות הצליחה");
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message);
+                }
                 string Query = "select * from project.users where user_name='" + this.textBox1.Text +"'and password='"+this.textBox2.Password+"'" ;
                 MySqlCommand crcommand = new MySqlCommand(Query, objc);
                 crcommand.ExecuteNonQuery();
@@ -99,10 +108,21 @@ namespace project
                 }
                 if (count == 1)
                 {
-                    string Connectionstring1 = " Server=localhost;Database=project; UId=root;Password=1234;";
-                    MySqlConnection objc1 = new MySqlConnection(Connectionstring1);
-                    objc1.Open();
+                  //  string Connectionstring1 = " Server=localhost;Database=project; UId=root;Password=1234;";
+                 //   MySqlConnection objc1 = new MySqlConnection(Connectionstring1);
+                    MySqlConnection objc1 = new MySqlConnection(Connectionstring);
+                    try
+                    {
+                        MessageBox.Show(" 1 ניסיון התחברות");
+                        objc1.Open();
+                        MessageBox.Show("התחברות הצליחה 1");
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show(ex.Message);
+                    }
                     string Query1 = "select users.userid, employees.emp_firstname, employees.emp_lastname, users.user_name,  users.connected, users.email from project.users, project.employees where users.empid=employees.empid and users.user_name='" + this.textBox1.Text + "'and users.password='" + this.textBox2.Password + "'";
+                    //MySqlCommand crcommand1 = new MySqlCommand(Query1, objc);
                     MySqlCommand crcommand1 = new MySqlCommand(Query1, objc1);
                     crcommand1.ExecuteNonQuery();
                     MySqlDataReader dr1 = crcommand1.ExecuteReader();
@@ -117,6 +137,7 @@ namespace project
                         connected = dr1.GetString(4);                    
                         useremail = dr1.GetString(5);
                     }
+                    MessageBox.Show(""+connected+"");
                     if (count1 == 1)
                     {
                         if (connected != "מחובר" && connected != "לא מחובר")
