@@ -88,9 +88,9 @@ namespace project
                 MySqlConnection objc = new MySqlConnection(Connectionstring);
                 try
                 {
-                    MessageBox.Show("ניסיון התחברות");
+                   // MessageBox.Show("ניסיון התחברות");
                     objc.Open();
-                    MessageBox.Show("התחברות הצליחה");
+                   // MessageBox.Show("התחברות הצליחה");
                 }
                 catch (Exception ex)
                 {
@@ -113,9 +113,9 @@ namespace project
                     MySqlConnection objc1 = new MySqlConnection(Connectionstring);
                     try
                     {
-                        MessageBox.Show(" 1 ניסיון התחברות");
+                        //MessageBox.Show(" 1 ניסיון התחברות");
                         objc1.Open();
-                        MessageBox.Show("התחברות הצליחה 1");
+                       // MessageBox.Show("התחברות הצליחה 1");
                     }
                     catch (Exception ex)
                     {
@@ -137,7 +137,7 @@ namespace project
                         connected = dr1.GetString(4);                    
                         useremail = dr1.GetString(5);
                     }
-                    MessageBox.Show(""+connected+"");
+                    //MessageBox.Show(""+connected+"");
                     if (count1 == 1)
                     {
                         if (connected != "מחובר" && connected != "לא מחובר")
@@ -222,6 +222,9 @@ namespace project
             this.Close();
         }
 
+
+
+        //  This button will open on click a new Forgot_pass window
         private void button4_Click(object sender, RoutedEventArgs e)
         {
             Forgot_pass fp = new Forgot_pass();
