@@ -36,15 +36,18 @@ namespace project
         public static Boolean client;
         public static string serverip;
         public static string myip;
+        public static string my_host_name;
 
         public Login()
         {
             InitializeComponent();
             client = false;
-            IP_label.Visibility = Visibility.Hidden;
-            IP_textBox.Visibility = Visibility.Hidden;
-            My_IP();
-            myip_label.Content = myip;
+            Req_Host_label.Visibility = Visibility.Hidden;
+            Host_textBox.Visibility = Visibility.Hidden;
+           // My_IP();
+            My_Host_Name();
+            host_name_label.Content = my_host_name;
+          //  myip_label.Content = myip;
             //IsLocalIpAddress(Dns.GetHostName());
          //   if (IsLocalIpAddress(Dns.GetHostName()) == true)
          //   {
@@ -54,8 +57,10 @@ namespace project
          //   {
         //        myip_label.Content = "IP - בעיה במציאת כתובת ה";
         //    }
-            labelIP.Visibility = Visibility.Visible;
-            myip_label.Visibility = Visibility.Visible;
+            this_cpu_HostName_label.Visibility = Visibility.Visible;
+            host_name_label.Visibility = Visibility.Visible;
+          //  myip_label.Visibility = Visibility.Visible;
+            myip_label.Visibility = Visibility.Hidden;
             this.WindowStartupLocation = WindowStartupLocation.CenterScreen;
 
 
@@ -76,7 +81,7 @@ namespace project
             {
                 if (client.Equals(true)) // if this is a remote computer. 
                 {
-                    serverip = this.IP_textBox.Text;
+                    serverip = this.Host_textBox.Text;
                     Connectionstring = "Server=" + serverip + "; Database=project; UId=root;Password=1234;";
                    // MessageBox.Show("" + Connectionstring +"");
                 }
@@ -235,10 +240,11 @@ namespace project
         private void Clinet_checkBox_Checked(object sender, RoutedEventArgs e)
         {
             client = true;
-            IP_label.Visibility = Visibility.Visible;
-            IP_textBox.Visibility = Visibility.Visible;
-            labelIP.Visibility = Visibility.Hidden;
-            myip_label.Visibility = Visibility.Hidden;
+            Req_Host_label.Visibility = Visibility.Visible;
+            Host_textBox.Visibility = Visibility.Visible;
+            this_cpu_HostName_label.Visibility = Visibility.Hidden;
+            //myip_label.Visibility = Visibility.Hidden;
+            host_name_label.Visibility = Visibility.Hidden;
         }
 
         private void Clinet_checkBox_UnChecked(object sender, RoutedEventArgs e)
@@ -256,22 +262,54 @@ namespace project
      //       }
          //   IPHostEntry ipEntry = DNS.GetHostByName(strHostName);
             client = false;
-            IP_label.Visibility = Visibility.Hidden;
-            IP_textBox.Visibility = Visibility.Hidden;
-            labelIP.Visibility = Visibility.Visible;
-            myip_label.Visibility = Visibility.Visible;
+            Req_Host_label.Visibility = Visibility.Hidden;
+            Host_textBox.Visibility = Visibility.Hidden;
+            this_cpu_HostName_label.Visibility = Visibility.Visible;
+            host_name_label.Visibility = Visibility.Visible;
+           // myip_label.Visibility = Visibility.Visible;
         }
+
+
+        public static void My_Host_Name()
+        {
+            my_host_name = System.Environment.MachineName;
+        }
+
 
 
         public static void My_IP()
          // public static bool IsLocalIpAddress(string host)
           {
+           try
+            {
               try
               {
                   IPHostEntry hostEntry = Dns.GetHostEntry(Dns.GetHostName());
                   IPAddress[] address = hostEntry.AddressList;
                   myip = address.GetValue(2).ToString();
 
+              }
+              catch (Exception ex)
+              {
+                  MessageBox.Show(ex.Message);
+              }
+
+               // maybe we will change it from IP to Hostname, i will see what i can do.
+
+               // i think this will give the IP on Windows XP
+            try
+            {
+                  IPAddress[] ip = Dns.GetHostAddresses(Dns.GetHostName());
+                  foreach (IPAddress theaddress in ip)
+                  {
+                      myip = theaddress.ToString();
+                  }
+
+                  }
+              catch (Exception ex)
+              {
+                  MessageBox.Show(ex.Message);
+              }
 
                   //!!!!הפונקציה הזאת מציגה לי את האי פי השני- לא למחוק אותה עד שאדע איזה איפי מתאים
                /*   var defaultGateway =
