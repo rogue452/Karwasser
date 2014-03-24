@@ -29,7 +29,7 @@ namespace project
         {
             ManagerUsersGui MUG = new ManagerUsersGui();
             MUG.Show();
-          //  this.Close();
+            this.Close();
           //  this.Hide();
        
         }

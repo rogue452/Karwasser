@@ -59,9 +59,8 @@ namespace project
         /// </summary>
         /// <param name="query">The query.</param>
         /// <returns>DataSet.</returns>
-        public DataSet InsertDataIntoDB(string query)
+        public DataSet InsertDataIntoDB(string Connectionstring, string query)
         {
-            string Connectionstring = "Data Source=localhost; Username=root;Password=1234; Initial Catalog=project";
             this.objConnection = new MySqlConnection(Connectionstring);
             try
             {

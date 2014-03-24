@@ -62,6 +62,9 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="DBConnection.cs" />
+    <Compile Include="ManagerAddNewUserGUI.xaml.cs">
+      <DependentUpon>ManagerAddNewUserGUI.xaml</DependentUpon>
+    </Compile>
     <Compile Include="ManagerEMPGui.xaml.cs">
       <DependentUpon>ManagerEMPGui.xaml</DependentUpon>
     </Compile>
@@ -87,6 +90,10 @@
       <DependentUpon>Test.xaml</DependentUpon>
     </Compile>
     <Compile Include="Test1.cs" />
+    <Page Include="ManagerAddNewUserGUI.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="ManagerEMPGui.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

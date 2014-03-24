@@ -10,11 +10,12 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
-//SelectionChanged="dataGrid1_SelectionChanged" הורדתי את זה מהXML
 using MySql.Data.MySqlClient;
 using System.Data;
 using System.ComponentModel;
 using Microsoft.Win32;
+
+
 
 
 namespace project
@@ -34,8 +35,6 @@ namespace project
 
                     try
                     {   
-                        //string Connectionstring = " Server=localhost;Database=project; UId=root;Password=1234;";
-                       // MySqlConnection MySqlConn = new MySqlConnection(Connectionstring);
                         MySqlConnection MySqlConn = new MySqlConnection(Login.Connectionstring);
                         MySqlConn.Open();
                         string Query1 = ("select users.empid as `תעודת זהות`,employees.emp_firstname as `שם פרטי` ,employees.emp_lastname as `שם משפחה` ,users.user_name as `שם משתמש` ,password as סיסמה ,role as תפקיד ,connected as מחובר ,email as `כתובת אימייל` from project.users , project.employees where users.empid=employees.empid");
@@ -45,11 +44,6 @@ namespace project
                         DataTable dt = new DataTable("users");
                         mysqlDAdp.Fill(dt);
                         dataGrid1.ItemsSource = dt.DefaultView; 
-
-                    //    mysqlDAdp.Fill(ds);
-                    //    ICollectionView UsersView = CollectionViewSource.GetDefaultView(dt);
-                    //    UsersView.Filter
-                   //     CollectionViewList = new ListCollectionView(ds);
                         mysqlDAdp.Update(dt);
                         MySqlConn.Close();
                     }
@@ -167,6 +161,75 @@ namespace project
             {
                 MessageBox.Show(ex.Message);
             }    
+        }
+
+        private void ADD_Btn_Click(object sender, RoutedEventArgs e)
+        {
+            ManagerAddNewUserGUI MAUG = new ManagerAddNewUserGUI();
+            MAUG.Show();
+            this.Close();
+        }
+
+        private void DeleteBtn_Click(object sender, RoutedEventArgs e)
+        {
+            if (MessageBox.Show("?האם אתה בטוח שברצונך למחוק משתמש זה", "וידוא מחיקה", MessageBoxButton.YesNo, MessageBoxImage.Warning) == MessageBoxResult.No)
+            {
+                //do no stuff
+            }
+            else // if the user clicked on "Yes" so he wants to Delete.
+            {
+                // this will give us the first colum of the selected row in the DataGrid.
+                System.Collections.IList rows = dataGrid1.SelectedItems;
+                DataRowView row = (DataRowView)dataGrid1.SelectedItems[0];
+                string selected = row["תעודת זהות"].ToString();
+               // MessageBox.Show("" + selected + "");
+
+                try
+                {
+                    MySqlConnection MySqlConn = new MySqlConnection(Login.Connectionstring);
+                    MySqlConn.Open();
+                    string Query1 = "delete from users where empid='" + selected + "'";
+                    MySqlCommand MSQLcrcommand1 = new MySqlCommand(Query1, MySqlConn);
+                    MSQLcrcommand1.ExecuteNonQuery();
+                    MySqlDataAdapter mysqlDAdp = new MySqlDataAdapter(MSQLcrcommand1);
+                    MySqlConn.Close();
+                    MessageBox.Show("!המשתמש נמחק מהמערכת");
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message);
+                }
+                try
+                {
+                    MySqlConnection MySqlConn = new MySqlConnection(Login.Connectionstring);
+                    MySqlConn.Open();
+                    string Query1 = ("select users.empid as `תעודת זהות`,employees.emp_firstname as `שם פרטי` ,employees.emp_lastname as `שם משפחה` ,users.user_name as `שם משתמש` ,password as סיסמה ,role as תפקיד ,connected as מחובר ,email as `כתובת אימייל` from project.users , project.employees where users.empid=employees.empid");
+                    MySqlCommand MSQLcrcommand1 = new MySqlCommand(Query1, MySqlConn);
+                    MSQLcrcommand1.ExecuteNonQuery();
+                    MySqlDataAdapter mysqlDAdp = new MySqlDataAdapter(MSQLcrcommand1);
+                    DataTable dt = new DataTable("users");
+                    mysqlDAdp.Fill(dt);
+                    dataGrid1.ItemsSource = dt.DefaultView;
+                    mysqlDAdp.Update(dt);
+                    MySqlConn.Close();
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message);
+                }
+            }
+
+            
+        }
+
+
+
+        // go to previous screen.
+        private void Back_Btn_Click(object sender, RoutedEventArgs e)
+        {
+            ManagerGui MG = new ManagerGui();
+            MG.Show();
+            this.Close();
         }
 
 
