@@ -39,6 +39,7 @@ namespace project
                 DataTable dt = new DataTable("users");
                 mysqlDAdp.Fill(dt);
                 dataGrid1.ItemsSource = dt.DefaultView;
+                
 
                 mysqlDAdp.Update(dt);
                 MySqlConn.Close();
