@@ -46,6 +46,14 @@ namespace project
                         dataGrid1.ItemsSource = dt.DefaultView; 
                         mysqlDAdp.Update(dt);
                         MySqlConn.Close();
+
+
+
+
+
+
+
+
                     }
                     catch (Exception ex)
                     {
@@ -232,9 +240,90 @@ namespace project
             this.Close();
         }
 
+        private void UpdateBtn_Click(object sender, RoutedEventArgs e)
+        {
+            System.Collections.IList rows = dataGrid1.SelectedItems;
+            if (dataGrid1.SelectedItems[0] != null)
+            {
+                DataRowView row = (DataRowView)dataGrid1.SelectedItems[0];
+                string selected = row["תעודת זהות"].ToString();
+                // MessageBox.Show(""+selected+ "");
+
+                if (!selected.Equals(""))   // if empid is null do nothing else make the update
+                {
+
+                    if (MessageBox.Show("?האם אתה בטוח שברצונך לעדכן משתמש זה", "וידוא עדכון", MessageBoxButton.YesNo, MessageBoxImage.Warning) == MessageBoxResult.No)
+                    {
+                        //dont do stuff
+                    }
+                    else // if the user clicked on "Yes" so he wants to Update.
+                    {
+
+                        string firstname = row["שם פרטי"].ToString();
+                        string lastname = row["שם משפחה"].ToString();
+                        string username = row["שם משתמש"].ToString();
+                        string pass = row["סיסמה"].ToString();
+                        string role = row["תפקיד"].ToString();
+                        string connected = row["מחובר"].ToString();
+                        string email = row["כתובת אימייל"].ToString();
+
+                        try
+                        {
+
+                            MySqlConnection MySqlConn = new MySqlConnection(Login.Connectionstring);
+                            MySqlConn.Open();
+                            string Query1 = "update users set empid='" + selected + "',user_name='" + username + "',password='" + pass + "',role='" + role + "',connected='" + connected + "',email='" + email + "'where empid='" + selected + "'";
+                            MySqlCommand MSQLcrcommand1 = new MySqlCommand(Query1, MySqlConn);
+                            MSQLcrcommand1.ExecuteNonQuery();
+                            MySqlDataAdapter mysqlDAdp = new MySqlDataAdapter(MSQLcrcommand1);
+                            MySqlConn.Close();
+                            MessageBox.Show("!המשתמש התעדכן מהמערכת");
+                        }
+                        catch (Exception ex)
+                        {
+                            MessageBox.Show(ex.Message);
+                        }
+                        try
+                        {
+                            MySqlConnection MySqlConn = new MySqlConnection(Login.Connectionstring);
+                            MySqlConn.Open();
+                            string Query1 = ("select users.empid as `תעודת זהות`,employees.emp_firstname as `שם פרטי` ,employees.emp_lastname as `שם משפחה` ,users.user_name as `שם משתמש` ,password as סיסמה ,role as תפקיד ,connected as מחובר ,email as `כתובת אימייל` from project.users , project.employees where users.empid=employees.empid");
+                            MySqlCommand MSQLcrcommand1 = new MySqlCommand(Query1, MySqlConn);
+                            MSQLcrcommand1.ExecuteNonQuery();
+                            MySqlDataAdapter mysqlDAdp = new MySqlDataAdapter(MSQLcrcommand1);
+                            DataTable dt = new DataTable("users");
+                            mysqlDAdp.Fill(dt);
+                            dataGrid1.ItemsSource = dt.DefaultView;
+                            mysqlDAdp.Update(dt);
+                            MySqlConn.Close();
+                        }
+                        catch (Exception ex)
+                        {
+                            MessageBox.Show(ex.Message);
+                        }
+                    }
+
+                }
+                else MessageBox.Show("לא נבחר משתמש לעדכון ");
+            }
+        }
+
+
+
+        private void Grid_AutoGeneratingColumn(object sender, DataGridAutoGeneratingColumnEventArgs e)
+        {
+            if (e.Column.Header.ToString() == "תעודת זהות" || e.Column.Header.ToString() == "שם פרטי" || e.Column.Header.ToString() == "שם משפחה")
+            {
+                // e.Cancel = true;   // For not to include 
+                 e.Column.IsReadOnly = true; // Makes the column as read only
+            }
+
+        }
+
 
 
 
 
     }
+
 }
