@@ -29,20 +29,18 @@ namespace project
 
             try
             {
-                string Connectionstring = " Server=localhost;Database=project; UId=root;Password=1234;";
-                MySqlConnection MySqlConn = new MySqlConnection(Connectionstring);
+                MySqlConnection MySqlConn = new MySqlConnection(Login.Connectionstring);
                 MySqlConn.Open();
-                string Query1 = ("select users.empid as `תעודת זהות`,employees.emp_firstname as `שם פרטי` ,employees.emp_lastname as `שם משפחה` ,users.user_name as `שם משתמש` ,password as סיסמה ,role as תפקיד ,connected as מחובר ,email as `כתובת אימייל` from project.users , project.employees where users.empid=employees.empid");
+                string Query1 = ("select empid as `תעודת זהות`,emp_firstname as `שם פרטי` ,emp_lastname as `שם משפחה` ,emp_address as `כתובת` ,emp_phone as `מס טלפון` from project.employees ");
                 MySqlCommand MSQLcrcommand1 = new MySqlCommand(Query1, MySqlConn);
                 MSQLcrcommand1.ExecuteNonQuery();
                 MySqlDataAdapter mysqlDAdp = new MySqlDataAdapter(MSQLcrcommand1);
-                DataTable dt = new DataTable("users");
+                DataTable dt = new DataTable("employess");
                 mysqlDAdp.Fill(dt);
                 dataGrid1.ItemsSource = dt.DefaultView;
-                
-
                 mysqlDAdp.Update(dt);
                 MySqlConn.Close();
+
             }
             catch (Exception ex)
             {
@@ -68,6 +66,7 @@ namespace project
 
         private void ExportToTXT()
         {
+
             SaveFileDialog dialog = new SaveFileDialog();
             dialog.FileName = "רשימת עובדים"; // Default file name
             dialog.DefaultExt = ".text"; // Default file extension
@@ -93,23 +92,30 @@ namespace project
                 // Save document 
                 MessageBox.Show("                                                                             !קובץ הטקסט נשמר\n\n           :כדי לפתוח באקסל מומלץ להשתמש ב''פתיחה באמצעות'' ולבחור ב\n\n                                                 ''Microsoft Excel''");
             }
+        
+        
+        
+        
+        
+        
+        
+        
         }
-
-
 
         private void FirstNameSearchTextBox_TextChanged(object sender, TextChangedEventArgs e)
         {
             try
             {
-                string Connectionstring = " Server=localhost;Database=project; UId=root;Password=1234;";
-                MySqlConnection MySqlConn = new MySqlConnection(Connectionstring);
+                // string Connectionstring = " Server=localhost;Database=project; UId=root;Password=1234;";
+                // MySqlConnection MySqlConn = new MySqlConnection(Connectionstring);
+                MySqlConnection MySqlConn = new MySqlConnection(Login.Connectionstring);
                 MySqlConn.Open();
                 String searchkey = this.FirstNameSearchTextBox.Text;
-                string Query1 = "select users.empid as `תעודת זהות` ,employees.emp_firstname as `שם פרטי` ,employees.emp_lastname as `שם משפחה` ,users.user_name as `שם משתמש` ,password as סיסמה ,role as תפקיד ,connected as מחובר ,email as `כתובת אימייל` from project.users , project.employees where users.empid=employees.empid and employees.emp_firstname Like '%" + searchkey + "%' ";
+                string Query1 = "select empid as `תעודת זהות`,emp_firstname as `שם פרטי` ,emp_lastname as `שם משפחה` ,emp_address as `כתובת` ,emp_phone as `מס טלפון` from  employees where  emp_firstname Like '%" + searchkey + "%' ";
                 MySqlCommand MSQLcrcommand1 = new MySqlCommand(Query1, MySqlConn);
                 MSQLcrcommand1.ExecuteNonQuery();
                 MySqlDataAdapter mysqlDAdp = new MySqlDataAdapter(MSQLcrcommand1);
-                DataTable dt = new DataTable("users");
+                DataTable dt = new DataTable("employess");
                 mysqlDAdp.Fill(dt);
                 dataGrid1.ItemsSource = dt.DefaultView;
                 mysqlDAdp.Update(dt);
@@ -127,34 +133,90 @@ namespace project
 
         private void IDSearchTextBox_TextChanged(object sender, TextChangedEventArgs e)
         {
-            try
-            {
-                string Connectionstring = " Server=localhost;Database=project; UId=root;Password=1234;";
-                MySqlConnection MySqlConn = new MySqlConnection(Connectionstring);
+           try
+                {
+             
+                MySqlConnection MySqlConn = new MySqlConnection(Login.Connectionstring);
                 MySqlConn.Open();
                 String searchidkey = this.IDSearchTextBox.Text;
-                string Query1 = "select users.empid as `תעודת זהות` ,employees.emp_firstname as `שם פרטי` ,employees.emp_lastname as `שם משפחה` ,users.user_name as `שם משתמש` ,password as סיסמה ,role as תפקיד ,connected as מחובר ,email as `כתובת אימייל` from project.users , project.employees where users.empid=employees.empid and users.empid Like '%" + searchidkey + "%' ";
+                string Query1 = "select empid as `תעודת זהות`,emp_firstname as `שם פרטי` ,emp_lastname as `שם משפחה` ,emp_address as `כתובת` ,emp_phone as `מס טלפון` from employees where  empid Like '%" + searchidkey + "%' ";
                 MySqlCommand MSQLcrcommand1 = new MySqlCommand(Query1, MySqlConn);
                 MSQLcrcommand1.ExecuteNonQuery();
                 MySqlDataAdapter mysqlDAdp = new MySqlDataAdapter(MSQLcrcommand1);
-                DataTable dt = new DataTable("users");
+                DataTable dt = new DataTable("employees");
                 mysqlDAdp.Fill(dt);
                 dataGrid1.ItemsSource = dt.DefaultView;
                 mysqlDAdp.Update(dt);
                 MySqlConn.Close();
+                }
+           catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }    
+        }
+
+        private void AddBtn_Click(object sender, RoutedEventArgs e)
+        {
+             ManagerAddEmployeeGUI MAEG = new ManagerAddEmployeeGUI();
+            MAEG.Show();
+            this.Close();
+
+        }
+
+        private void DeleteBtn_Click(object sender, RoutedEventArgs e)
+        {
+            if (MessageBox.Show("?האם אתה בטוח שברצונך למחוק עובד זה", "וידוא מחיקה", MessageBoxButton.YesNo, MessageBoxImage.Warning) == MessageBoxResult.No)
+            {
+                //do no stuff
+            }
+            else // if the user clicked on "Yes" so he wants to Delete.
+            {
+                // this will give us the first colum of the selected row in the DataGrid.
+                System.Collections.IList rows = dataGrid1.SelectedItems;
+                DataRowView row = (DataRowView)dataGrid1.SelectedItems[0];
+                string selected = row["תעודת זהות"].ToString();
+                // MessageBox.Show("" + selected + "");
+
+                try
+                {
+                    MySqlConnection MySqlConn = new MySqlConnection(Login.Connectionstring);
+                    MySqlConn.Open();
+                    string Query1 = "delete from employees where empid ='" + selected + "'";
+                    MySqlCommand MSQLcrcommand1 = new MySqlCommand(Query1, MySqlConn);
+                    MSQLcrcommand1.ExecuteNonQuery();
+                    MySqlDataAdapter mysqlDAdp = new MySqlDataAdapter(MSQLcrcommand1);
+                    MySqlConn.Close();
+                    MessageBox.Show("!המשתמש נמחק מהמערכת");
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message);
+                }
+                 try
+            {
+                MySqlConnection MySqlConn = new MySqlConnection(Login.Connectionstring);
+                MySqlConn.Open();
+                string Query1 = ("select empid as `תעודת זהות`,emp_firstname as `שם פרטי` ,emp_lastname as `שם משפחה` ,emp_address as `כתובת` ,emp_phone as `מס טלפון` from project.employees ");
+                MySqlCommand MSQLcrcommand1 = new MySqlCommand(Query1, MySqlConn);
+                MSQLcrcommand1.ExecuteNonQuery();
+                MySqlDataAdapter mysqlDAdp = new MySqlDataAdapter(MSQLcrcommand1);
+                DataTable dt = new DataTable("employess");
+                mysqlDAdp.Fill(dt);
+                dataGrid1.ItemsSource = dt.DefaultView;
+                mysqlDAdp.Update(dt);
+                MySqlConn.Close();
+
             }
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message);
             }
         }
-
-
-
-
-
+            }
+           
+        }
     }
-}
+
 
             /*
             this.WindowStartupLocation = WindowStartupLocation.CenterScreen;
