@@ -14,6 +14,7 @@ using MySql.Data.MySqlClient;
 using System.Data;
 using System.ComponentModel;
 using Microsoft.Win32;
+using System.Text.RegularExpressions;
 
 
 
@@ -178,106 +179,37 @@ namespace project
             this.Close();
         }
 
+
+
+
         private void DeleteBtn_Click(object sender, RoutedEventArgs e)
         {
-            if (MessageBox.Show("?האם אתה בטוח שברצונך למחוק משתמש זה", "וידוא מחיקה", MessageBoxButton.YesNo, MessageBoxImage.Warning) == MessageBoxResult.No)
-            {
-                //do no stuff
-            }
-            else // if the user clicked on "Yes" so he wants to Delete.
-            {
-                // this will give us the first colum of the selected row in the DataGrid.
-                System.Collections.IList rows = dataGrid1.SelectedItems;
-                DataRowView row = (DataRowView)dataGrid1.SelectedItems[0];
-                string selected = row["תעודת זהות"].ToString();
-               // MessageBox.Show("" + selected + "");
-
+       
                 try
                 {
-                    MySqlConnection MySqlConn = new MySqlConnection(Login.Connectionstring);
-                    MySqlConn.Open();
-                    string Query1 = "delete from users where empid='" + selected + "'";
-                    MySqlCommand MSQLcrcommand1 = new MySqlCommand(Query1, MySqlConn);
-                    MSQLcrcommand1.ExecuteNonQuery();
-                    MySqlDataAdapter mysqlDAdp = new MySqlDataAdapter(MSQLcrcommand1);
-                    MySqlConn.Close();
-                    MessageBox.Show("!המשתמש נמחק מהמערכת");
-                }
-                catch (Exception ex)
-                {
-                    MessageBox.Show(ex.Message);
-                }
-                try
-                {
-                    MySqlConnection MySqlConn = new MySqlConnection(Login.Connectionstring);
-                    MySqlConn.Open();
-                    string Query1 = ("select users.empid as `תעודת זהות`,employees.emp_firstname as `שם פרטי` ,employees.emp_lastname as `שם משפחה` ,users.user_name as `שם משתמש` ,password as סיסמה ,role as תפקיד ,connected as מחובר ,email as `כתובת אימייל` from project.users , project.employees where users.empid=employees.empid");
-                    MySqlCommand MSQLcrcommand1 = new MySqlCommand(Query1, MySqlConn);
-                    MSQLcrcommand1.ExecuteNonQuery();
-                    MySqlDataAdapter mysqlDAdp = new MySqlDataAdapter(MSQLcrcommand1);
-                    DataTable dt = new DataTable("users");
-                    mysqlDAdp.Fill(dt);
-                    dataGrid1.ItemsSource = dt.DefaultView;
-                    mysqlDAdp.Update(dt);
-                    MySqlConn.Close();
-                }
-                catch (Exception ex)
-                {
-                    MessageBox.Show(ex.Message);
-                }
-            }
-
-            
-        }
-
-
-
-        // go to previous screen.
-        private void Back_Btn_Click(object sender, RoutedEventArgs e)
-        {
-            ManagerGui MG = new ManagerGui();
-            MG.Show();
-            this.Close();
-        }
-
-        private void UpdateBtn_Click(object sender, RoutedEventArgs e)
-        {
-            System.Collections.IList rows = dataGrid1.SelectedItems;
-            if (dataGrid1.SelectedItems[0] != null)
-            {
-                DataRowView row = (DataRowView)dataGrid1.SelectedItems[0];
-                string selected = row["תעודת זהות"].ToString();
-                // MessageBox.Show(""+selected+ "");
-
-                if (!selected.Equals(""))   // if empid is null do nothing else make the update
-                {
-
-                    if (MessageBox.Show("?האם אתה בטוח שברצונך לעדכן משתמש זה", "וידוא עדכון", MessageBoxButton.YesNo, MessageBoxImage.Warning) == MessageBoxResult.No)
+                    System.Collections.IList rows = dataGrid1.SelectedItems;
+                    DataRowView row = (DataRowView)dataGrid1.SelectedItems[0];
+                    if (MessageBox.Show("?האם אתה בטוח שברצונך למחוק משתמש זה", "וידוא מחיקה", MessageBoxButton.YesNo, MessageBoxImage.Warning) == MessageBoxResult.No)
                     {
-                        //dont do stuff
+                        //do no stuff
                     }
-                    else // if the user clicked on "Yes" so he wants to Update.
+                    else // if the user clicked on "Yes" so he wants to Delete.
                     {
-
-                        string firstname = row["שם פרטי"].ToString();
-                        string lastname = row["שם משפחה"].ToString();
-                        string username = row["שם משתמש"].ToString();
-                        string pass = row["סיסמה"].ToString();
-                        string role = row["תפקיד"].ToString();
-                        string connected = row["מחובר"].ToString();
-                        string email = row["כתובת אימייל"].ToString();
+                        // this will give us the first colum of the selected row in the DataGrid.
+                        
+                        string selected = row["תעודת זהות"].ToString();
+                        // MessageBox.Show("" + selected + "");
 
                         try
                         {
-
                             MySqlConnection MySqlConn = new MySqlConnection(Login.Connectionstring);
                             MySqlConn.Open();
-                            string Query1 = "update users set empid='" + selected + "',user_name='" + username + "',password='" + pass + "',role='" + role + "',connected='" + connected + "',email='" + email + "'where empid='" + selected + "'";
+                            string Query1 = "delete from users where empid='" + selected + "'";
                             MySqlCommand MSQLcrcommand1 = new MySqlCommand(Query1, MySqlConn);
                             MSQLcrcommand1.ExecuteNonQuery();
                             MySqlDataAdapter mysqlDAdp = new MySqlDataAdapter(MSQLcrcommand1);
                             MySqlConn.Close();
-                            MessageBox.Show("!המשתמש התעדכן מהמערכת");
+                            MessageBox.Show("!המשתמש נמחק מהמערכת");
                         }
                         catch (Exception ex)
                         {
@@ -301,11 +233,96 @@ namespace project
                         {
                             MessageBox.Show(ex.Message);
                         }
-                    }
+                    }//end else
+                
+            }//end try
+            catch { MessageBox.Show("לא נבחר משתמש למחיקה"); }
+            
+        }//end function
 
-                }
-                else MessageBox.Show("לא נבחר משתמש לעדכון ");
+
+
+        // go to previous screen.
+        private void Back_Btn_Click(object sender, RoutedEventArgs e)
+        {
+            ManagerGui MG = new ManagerGui();
+            MG.Show();
+            this.Close();
+        }
+
+        private void UpdateBtn_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                System.Collections.IList rows = dataGrid1.SelectedItems;
+
+                    DataRowView row = (DataRowView)dataGrid1.SelectedItems[0];
+                    string selected = row["תעודת זהות"].ToString();
+                    // MessageBox.Show(""+selected+ "");
+
+
+
+                        if (MessageBox.Show("?האם אתה בטוח שברצונך לעדכן משתמש זה", "וידוא עדכון", MessageBoxButton.YesNo, MessageBoxImage.Warning) == MessageBoxResult.No)
+                        {
+                            //dont do stuff
+                        }
+                        else // if the user clicked on "Yes" so he wants to Update.
+                        {
+                            //checking if the email intered correctlly.
+                            if ((Regex.IsMatch(row["כתובת אימייל"].ToString(), @"^[a-zA-Z][\w\.-]*[a-zA-Z0-9]@[a-zA-Z0-9][\w\.-]*[a-zA-Z0-9]\.[a-zA-Z][a-zA-Z\.]*[a-zA-Z]$")))
+                            {
+                                string firstname = row["שם פרטי"].ToString();
+                                string lastname = row["שם משפחה"].ToString();
+                                string username = row["שם משתמש"].ToString();
+                                string pass = row["סיסמה"].ToString();
+                                string role = row["תפקיד"].ToString();
+                                string connected = row["מחובר"].ToString();
+                                string email = row["כתובת אימייל"].ToString();
+
+                                try
+                                {
+
+                                    MySqlConnection MySqlConn = new MySqlConnection(Login.Connectionstring);
+                                    MySqlConn.Open();
+                                    string Query1 = "update users set empid='" + selected + "',user_name='" + username + "',password='" + pass + "',role='" + role + "',connected='" + connected + "',email='" + email + "'where empid='" + selected + "'";
+                                    MySqlCommand MSQLcrcommand1 = new MySqlCommand(Query1, MySqlConn);
+                                    MSQLcrcommand1.ExecuteNonQuery();
+                                    MySqlDataAdapter mysqlDAdp = new MySqlDataAdapter(MSQLcrcommand1);
+                                    MySqlConn.Close();
+                                    MessageBox.Show("!פרטי המשתמש עודכנו");
+                                }
+                                catch (Exception ex)
+                                {
+                                    MessageBox.Show(ex.Message);
+                                }
+                                try
+                                {
+                                    MySqlConnection MySqlConn = new MySqlConnection(Login.Connectionstring);
+                                    MySqlConn.Open();
+                                    string Query1 = ("select users.empid as `תעודת זהות`,employees.emp_firstname as `שם פרטי` ,employees.emp_lastname as `שם משפחה` ,users.user_name as `שם משתמש` ,password as סיסמה ,role as תפקיד ,connected as מחובר ,email as `כתובת אימייל` from project.users , project.employees where users.empid=employees.empid");
+                                    MySqlCommand MSQLcrcommand1 = new MySqlCommand(Query1, MySqlConn);
+                                    MSQLcrcommand1.ExecuteNonQuery();
+                                    MySqlDataAdapter mysqlDAdp = new MySqlDataAdapter(MSQLcrcommand1);
+                                    DataTable dt = new DataTable("users");
+                                    mysqlDAdp.Fill(dt);
+                                    dataGrid1.ItemsSource = dt.DefaultView;
+                                    mysqlDAdp.Update(dt);
+                                    MySqlConn.Close();
+                                }
+                                catch (Exception ex)
+                                {
+                                    MessageBox.Show(ex.Message);
+                                }
+                            }
+                            else MessageBox.Show("כתובת האימייל שהזנת לא תקינה");
+
+                        }
+
+
+                    
+                
             }
+            catch { MessageBox.Show("לא נבחר משתמש לעדכון "); }
         }
 
 

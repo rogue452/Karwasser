@@ -4,7 +4,7 @@
         Title="מסך ניהול עובדים" Height="647" Width="1212" FlowDirection="RightToLeft" ResizeMode="NoResize" Icon="/WpfApplication1;component/Images/Israel.ico">
     <Grid>
         <Image Source="/WpfApplication1;component/Images/31.jpg"  Stretch="UniformToFill" FlowDirection="RightToLeft" />
-        <DataGrid x:Name="dataGrid1" HorizontalAlignment="Left" Margin="12,99,0,0" VerticalAlignment="Top" Height="468" Width="1166" FontSize="15"  AutoGenerateColumns="True" ItemsSource="{Binding}" CanUserAddRows="false" />
+        <DataGrid x:Name="dataGrid1" HorizontalAlignment="Left" Margin="12,99,0,0" VerticalAlignment="Top" Height="468" Width="1166" FontSize="15"  AutoGenerateColumns="True" ItemsSource="{Binding}" CanUserAddRows="false" AutoGeneratingColumn="Grid_AutoGeneratingColumn"/>
         <TextBox HorizontalAlignment="Left" Height="22" Margin="177,67,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="197" FontSize="15" Name="FirstNameSearchTextBox" TextChanged="FirstNameSearchTextBox_TextChanged" />
         <TextBox HorizontalAlignment="Left" Height="23" Margin="177,34,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="197" Name="IDSearchTextBox" TextChanged="IDSearchTextBox_TextChanged" />
         <Label Content="תעודת זהות (ללא 0 ראשוני)" HorizontalAlignment="Left" Margin="12,34,0,0" VerticalAlignment="Top"/>
@@ -13,9 +13,9 @@
         <Button Content="הוסף עובד" HorizontalAlignment="Left" Margin="586,41,0,0" VerticalAlignment="Top" Width="180" Height="56" Name="AddBtn" Background="#8400A500" FontWeight="Bold" Click="AddBtn_Click" />
         <Label Content="ניהול עובדים:" HorizontalAlignment="Left" VerticalAlignment="Top" Width="112" Margin="507,0,0,0" FontStyle="Normal" FontWeight="Bold" />
         <Button Content="מחק עובד" HorizontalAlignment="Left" Margin="998,41,0,0" VerticalAlignment="Top" Width="180" Height="56" Name="DeleteBtn" FontWeight="Bold" Background="#A5FF0000" Click="DeleteBtn_Click" />
-        <Button Content="עדכון פרטי עובד" HorizontalAlignment="Left" Margin="792,41,0,0" VerticalAlignment="Top" Width="180" Height="56" Name="UpdateBtn" FontWeight="Bold"  />
+        <Button Content="עדכון פרטי עובד" HorizontalAlignment="Left" Margin="792,41,0,0" VerticalAlignment="Top" Width="180" Height="56" Name="UpdateBtn" FontWeight="Bold" Click="UpdateBtn_Click" />
         <Button Content="יציאה מהמערכת" HorizontalAlignment="Left" Margin="1036,573,0,0" VerticalAlignment="Top" Width="142" Height="28" />
-        <Button Content="חזור למסך ראשי" HorizontalAlignment="Left" Margin="47,573,0,0" VerticalAlignment="Top" Width="134" Height="28" />
+        <Button Content="חזור למסך ראשי" HorizontalAlignment="Left" Margin="47,573,0,0" VerticalAlignment="Top" Width="134" Height="28" Click="Back_Btn_Click" />
         <Button Content="ייצא רשימה לקובץ טקסט" Height="28" HorizontalAlignment="Left" Margin="538,573,0,0" Name="TXTBtn" VerticalAlignment="Top" Width="161" Click="TXTBtn_Click" />
         <Image Height="36" HorizontalAlignment="Left" Margin="657,3,0,0" Name="image1" Stretch="Fill" VerticalAlignment="Top" Width="42" FlowDirection="RightToLeft" Source="/WpfApplication1;component/Images/add_user.png" />
         <Image Height="36" HorizontalAlignment="Right" Margin="0,3,88,0" Name="image2" Stretch="Fill" VerticalAlignment="Top" Width="31" Source="/WpfApplication1;component/Images/delete_user.png" />

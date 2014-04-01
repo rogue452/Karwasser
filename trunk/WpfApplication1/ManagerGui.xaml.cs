@@ -25,20 +25,24 @@ namespace project
             NameLabel.Content = "                                    שלום "+ Login.user_name +"!\n               אנא בחר/י מה ברצונך/ה לעשות.";
         }
 
+
+
+
         private void Users_Button_Click(object sender, RoutedEventArgs e)
         {
             ManagerUsersGui MUG = new ManagerUsersGui();
             MUG.Show();
-            this.Close();
-          //  this.Hide();
-       
+            this.Close();      
         }
+
+
+
 
         private void Employees_Button_Click(object sender, RoutedEventArgs e)
         {
             ManagerEMPGui MEG = new ManagerEMPGui();
             MEG.Show();
-         //   this.Close();
+            this.Close();
         }
     }
 }
