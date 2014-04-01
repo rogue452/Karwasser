@@ -4,7 +4,7 @@
         Title="מסך ניהול עובדים" Height="647" Width="1212" FlowDirection="RightToLeft" ResizeMode="NoResize" Icon="/WpfApplication1;component/Images/Israel.ico">
     <Grid>
         <Image Source="/WpfApplication1;component/Images/31.jpg"  Stretch="UniformToFill" FlowDirection="RightToLeft" />
-        <DataGrid x:Name="dataGrid1" HorizontalAlignment="Left" Margin="12,99,0,0" VerticalAlignment="Top" Height="468" Width="1166" FontSize="15"  AutoGenerateColumns="True" ItemsSource="{Binding}" />
+        <DataGrid x:Name="dataGrid1" HorizontalAlignment="Left" Margin="12,99,0,0" VerticalAlignment="Top" Height="468" Width="1166" FontSize="15"  AutoGenerateColumns="True" ItemsSource="{Binding}" CanUserAddRows="false"/>
         <TextBox HorizontalAlignment="Left" Height="22" Margin="177,67,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="197" FontSize="15" Name="FirstNameSearchTextBox" TextChanged="FirstNameSearchTextBox_TextChanged" />
         <TextBox HorizontalAlignment="Left" Height="23" Margin="177,34,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="197" Name="IDSearchTextBox" TextChanged="IDSearchTextBox_TextChanged" />
         <Label Content="תעודת זהות (ללא 0 ראשוני)" HorizontalAlignment="Left" Margin="12,34,0,0" VerticalAlignment="Top"/>
