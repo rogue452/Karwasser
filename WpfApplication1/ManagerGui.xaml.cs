@@ -13,9 +13,9 @@ using System.Windows.Shapes;
 
 namespace project
 {
-    /// <summary>
+   
     /// Interaction logic for ManagerGui.xaml
-    /// </summary>
+    
     public partial class ManagerGui : Window
     {
         public ManagerGui()
@@ -43,6 +43,14 @@ namespace project
             ManagerEMPGui MEG = new ManagerEMPGui();
             MEG.Show();
             this.Close();
+        }
+
+        private void Custumer_Button_Click(object sender, RoutedEventArgs e)
+        {
+            ManagerCusGui MCG = new ManagerCusGui();
+            MCG.Show();
+            this.Close();
+
         }
     }
 }

@@ -7,7 +7,7 @@
         <Button Content="ניהול משתמשי המערכת" HorizontalAlignment="Left" Margin="772,116,0,0" VerticalAlignment="Top" Width="301" Height="88" Click="Users_Button_Click" Name="Users" FontSize="18" FontWeight="Bold" />
         <Button Content="ניהול עובדי החברה" HorizontalAlignment="Left" Margin="772,308,0,0" VerticalAlignment="Top" Width="301" Height="88" Click="Employees_Button_Click" FontWeight="Bold" FontSize="18" />
         <Button Content="ניהול הזמנות" HorizontalAlignment="Left" Margin="125,116,0,0" VerticalAlignment="Top" Width="301" Height="88" FontWeight="Bold" FontSize="18" />
-        <Button Content="ניהול לקוחות" HorizontalAlignment="Left" Margin="125,308,0,0" VerticalAlignment="Top" Width="301" Height="88" FontSize="18" FontWeight="Bold" />
+        <Button Content="ניהול לקוחות" HorizontalAlignment="Left" Margin="125,308,0,0" VerticalAlignment="Top" Width="301" Height="88" FontSize="18" FontWeight="Bold" Click="Custumer_Button_Click" Name="Custumer_Button" />
         <Button Content="סטטיסטיקה" HorizontalAlignment="Left" Margin="448,398,0,0" VerticalAlignment="Top" Width="301" RenderTransformOrigin="0.613,0.5" Height="88" FontSize="18" FontWeight="Bold" />
         <Button Content="יציאה מהמערכת" HorizontalAlignment="Right" Margin="0,550,105,0" VerticalAlignment="Top" Width="186" RenderTransformOrigin="0.463,0.8" Height="46" FontSize="15" />
         <Label Content="שם המשתמש וברכה" HorizontalAlignment="Left" Margin="232,12,0,498" RenderTransformOrigin="-0.343,0.125" Name="NameLabel" FontWeight="Bold" FontSize="28" Width="754" />
