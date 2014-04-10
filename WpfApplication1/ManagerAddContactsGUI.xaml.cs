@@ -13,27 +13,32 @@ using System.Windows.Shapes;
 using MySql.Data.MySqlClient;
 using System.Data;
 using System.Text.RegularExpressions;
+
+
 namespace project
 {
     /// <summary>
-    /// Interaction logic for Window1.xaml
+    /// Interaction logic for ManagerAddContactsGUI.xaml
     /// </summary>
-    public partial class ManagerAddNewCusGUI : Window
+    public partial class ManagerAddContactsGUI : Window
     {
 
-        string cusid;
-        string custname;
-        string cusaddress;
         string contact_name;
         string contact_email;
         string contact_phone;
         string contact_dep;
+        string cosADDs;
 
-
-        public ManagerAddNewCusGUI()
+        public ManagerAddContactsGUI(string selected, string cosName,string cosADDs)
         {
             InitializeComponent();
+            CostName_label.Content = cosName;
+            CostNum_label.Content = selected;
+            this.cosADDs=cosADDs;
         }
+
+
+
 
         private void Back_button_Click(object sender, RoutedEventArgs e)
         {
@@ -46,39 +51,7 @@ namespace project
 
         private void Add_button_Click(object sender, RoutedEventArgs e)
         {
-            bool f1 = false, f2 = false, f3 = false, f4 = false, f5 = false, f6 = false, f7 = false;
-            if (id_textBox != null && !string.IsNullOrWhiteSpace(id_textBox.Text))
-            {
-                cusid = id_textBox.Text;
-                f1 = true;
-            }
-            else
-            {
-                MessageBox.Show("אנא הכנס מס לקוח ");
-            }
-
-            // if (firstname_textBox.Text != null)
-            if (custname_textBox != null && !string.IsNullOrWhiteSpace(custname_textBox.Text))
-            {
-                custname = custname_textBox.Text;
-                f2 = true;
-                //  MessageBox.Show("" + username + "");
-            }
-            else
-            {
-                MessageBox.Show("אנא הכנס שם לקוח");
-            }
-
-            //  if (address_textBox != null)
-            if (address_textBox != null && !string.IsNullOrWhiteSpace(address_textBox.Text))
-            {
-                cusaddress = address_textBox.Text;
-                f3 = true;
-            }
-            else
-            {
-                MessageBox.Show("אנא הכנס כתובת לקוח ");
-            }
+            bool f1 = false, f2 = false, f3 = false, f4 = false;
 
             // if (email_textBox1.Text != null)
             if (email_textBox1 != null && !string.IsNullOrWhiteSpace(email_textBox1.Text))
@@ -88,7 +61,7 @@ namespace project
                     contact_email = email_textBox1.Text;
                     //   MessageBox.Show("" + email + "");
 
-                    f4 = true;
+                    f1 = true;
                 }
                 else
                 {
@@ -103,7 +76,7 @@ namespace project
             if (contact_name_textBox != null && !string.IsNullOrWhiteSpace(contact_name_textBox.Text))
             {
                 contact_name = contact_name_textBox.Text;
-                f5 = true;
+                f2 = true;
             }
             else
             {
@@ -113,7 +86,7 @@ namespace project
             if (cont_phone_text != null && !string.IsNullOrWhiteSpace(cont_phone_text.Text))
             {
                 contact_phone = cont_phone_text.Text;
-                f6 = true;
+                f3 = true;
             }
             else
             {
@@ -123,7 +96,7 @@ namespace project
             if (cont_dep_text != null && !string.IsNullOrWhiteSpace(cont_dep_text.Text))
             {
                 contact_dep = cont_dep_text.Text;
-                f7 = true;
+                f4 = true;
             }
             else
             {
@@ -134,41 +107,51 @@ namespace project
 
 
             // if all is ok then add new user to the DB.
-            if (f1 && f2 && f3 && f4 && f5 && f6 && f7)
+            if (f1 && f2 && f3 && f4)
             {
-                //string not = "לא מחובר";
+          
                 // string query = ("insert into project.costumers (costumerid, costumerName, contactName , contactEmail,contactPhone,costumerAddress,contactDepartment) values ('" + cusid + "','" + custname + "','" + contact_name + "','" + contact_email + "','" + contact_phone + "','" + cusaddress + "','" + contact_dep + "')");
-
-                MySqlConnection MySqlConn = new MySqlConnection(Login.Connectionstring);
-                MySqlConn.Open();
-                string query1 = ("select costumerid from costumers where costumerid='" + cusid + "'");
-                MySqlCommand MSQLcrcommand1 = new MySqlCommand(query1, MySqlConn);
-                MSQLcrcommand1.ExecuteNonQuery();
-                MySqlDataReader dr = MSQLcrcommand1.ExecuteReader();
-                int count = 0;
-                while (dr.Read())
+                try
                 {
+                    MySqlConnection MySqlConn = new MySqlConnection(Login.Connectionstring);
+                    MySqlConn.Open();
+                    
+                    MessageBox.Show("" + CostNum_label.Content + "");
+                    string query1 = ("select MAX(contactid) from costumers where costumerid='" + CostNum_label.Content + "'");
+                    MySqlCommand MSQLcrcommand1 = new MySqlCommand(query1, MySqlConn);
+                    MSQLcrcommand1.ExecuteNonQuery();
+                    //MySqlDataReader dr = MSQLcrcommand1.ExecuteReader();
+                  //  int max;
+                   // Object max;
+                  //  while (dr.Read())
+                   // {
+                    // max = MSQLcrcommand1.ExecuteScalar();
+                     int max = Convert.ToInt32(MSQLcrcommand1.ExecuteScalar());
+                     max++;
+                    
+                      //  max = dr["MAX(contactid)"];
+                     
 
-                    count++;
-                
-                }
-                //MessageBox.Show("" + count + "");
-                if (count == 0)
-                {
-                    string query = ("insert into project.costumers (costumerid, contactid, costumerName, contactName , contactEmail,contactPhone,costumerAddress,contactDepartment) values ('" + cusid + "','  1 ','" + custname + "','" + contact_name + "','" + contact_email + "','" + contact_phone + "','" + cusaddress + "','" + contact_dep + "')");
+                  //  }
+                    //max = (int) dr.GetValue(0);
+                     MessageBox.Show("" + max + "");
+                    //MessageBox.Show("" + max + "");
+                    //MessageBox.Show("" + count + "");
+
+                    string query = ("insert into project.costumers (costumerid, contactid, costumerName, contactName , contactEmail,contactPhone,costumerAddress,contactDepartment) values ('" + CostNum_label.Content + "','" + max + "','" + CostName_label.Content + "','" + contact_name + "','" + contact_email + "','" + contact_phone + "','" + cosADDs + "','" + contact_dep + "')");
                     DBConnection DBC = new DBConnection();
                     DBC.InsertDataIntoDB(Login.Connectionstring, query);
-
                 }
-                else
+                catch (Exception ex)
                 {
-                    
-                    MySqlConn.Close();
-                    MessageBox.Show("מספר לקוח כבר קיים במערכת ");
+                    MessageBox.Show(ex.Message);
                 }
+               
             }
 
         }
+
+
+
     }
 }
-
