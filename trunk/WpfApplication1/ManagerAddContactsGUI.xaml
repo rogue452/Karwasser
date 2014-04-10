@@ -1,0 +1,22 @@
+﻿<Window x:Class="project.ManagerAddContactsGUI"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+       Title="הוסף איש קשר חדש למערכת" Height="470" Width="563" FlowDirection="RightToLeft" ResizeMode="CanMinimize" Icon="/WpfApplication1;component/Images/Israel.ico" WindowStartupLocation="CenterScreen">
+    <Grid>
+        <Image Source="/WpfApplication1;component/Images/31.jpg"  Stretch="UniformToFill" FlowDirection="RightToLeft" />
+        <Label Content="שם איש הקשר" HorizontalAlignment="Left" Margin="12,52,0,351" Name="contname_label" Width="101" />
+        <Label Content="מס הלקוח:" Height="28" HorizontalAlignment="Left" Margin="299,12,0,0" Name="cusid_label" VerticalAlignment="Top" />
+        <Label Content="שם הלקוח:" HorizontalAlignment="Left" Margin="12,12,0,394" Name="cusname_label" />
+        <Button Content="הוסף למערכת" Height="57" HorizontalAlignment="Left" Margin="174,309,0,0" Name="Add_button" VerticalAlignment="Top" Width="183" Click="Add_button_Click" />
+        <Button Content="חזור למסך לקוחות" Height="32" HorizontalAlignment="Left" Margin="12,387,0,0" Name="Back_button" VerticalAlignment="Top" Width="138" Click="Back_button_Click" />
+        <TextBox Height="23" HorizontalAlignment="Left" Margin="131,52,0,0" Name="contact_name_textBox" VerticalAlignment="Top" Width="153" />
+        <Label Content="אימייל איש הקשר " Height="28" HorizontalAlignment="Left" Margin="12,102,0,0" Name="label1" VerticalAlignment="Top" Width="111" />
+        <TextBox Height="23" HorizontalAlignment="Left" Margin="131,102,0,0" Name="email_textBox1" VerticalAlignment="Top" Width="153" />
+        <Label Content="טלפון איש הקשר " Height="28" HorizontalAlignment="Left" Margin="12,154,0,0" Name="cont_phone_label" VerticalAlignment="Top" Width="111" />
+        <TextBox Height="23" HorizontalAlignment="Left" Margin="131,154,0,0" Name="cont_phone_text" VerticalAlignment="Top" Width="153" />
+        <Label Content="מחלקת איש הקשר " Height="28" HorizontalAlignment="Left" Margin="12,209,0,0" Name="label2" VerticalAlignment="Top" Width="111" />
+        <TextBox Height="23" HorizontalAlignment="Left" Margin="131,209,0,0" Name="cont_dep_text" VerticalAlignment="Top" Width="153" />
+        <Label Content="תוית שם לקוח" Height="28" HorizontalAlignment="Left" Margin="81,12,0,0" Name="CostName_label" VerticalAlignment="Top" Width="159" />
+        <Label Content="תוית מספר לקוח" Height="28" HorizontalAlignment="Right" Margin="0,12,-1,0" Name="CostNum_label" VerticalAlignment="Top" Width="176" />
+    </Grid>
+</Window>

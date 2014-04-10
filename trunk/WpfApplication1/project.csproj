@@ -36,7 +36,7 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="MySql.Data, Version=6.8.3.0, Culture=neutral, PublicKeyToken=c5687fc88969c44d, processorArchitecture=MSIL" />
+    <Reference Include="MySql.Data, Version=6.6.5.0, Culture=neutral, PublicKeyToken=c5687fc88969c44d, processorArchitecture=MSIL" />
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
@@ -60,11 +60,17 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="DBConnection.cs" />
+    <Compile Include="ManagerAddContactsGUI.xaml.cs">
+      <DependentUpon>ManagerAddContactsGUI.xaml</DependentUpon>
+    </Compile>
     <Compile Include="ManagerAddEmployeeGUI.xaml.cs">
       <DependentUpon>ManagerAddEmployeeGUI.xaml</DependentUpon>
     </Compile>
     <Compile Include="ManagerAddNewUserGUI.xaml.cs">
       <DependentUpon>ManagerAddNewUserGUI.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="ManagerContactsGUI.xaml.cs">
+      <DependentUpon>ManagerContactsGUI.xaml</DependentUpon>
     </Compile>
     <Compile Include="ManagerEMPGui.xaml.cs">
       <DependentUpon>ManagerEMPGui.xaml</DependentUpon>
@@ -94,11 +100,19 @@
     <Compile Include="ManagerAddNewCusGUI.xaml.cs">
       <DependentUpon>ManagerAddNewCusGUI.xaml</DependentUpon>
     </Compile>
+    <Page Include="ManagerAddContactsGUI.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="ManagerAddEmployeeGUI.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="ManagerAddNewUserGUI.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="ManagerContactsGUI.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
