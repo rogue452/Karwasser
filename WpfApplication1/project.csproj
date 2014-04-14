@@ -36,7 +36,7 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="MySql.Data, Version=6.6.5.0, Culture=neutral, PublicKeyToken=c5687fc88969c44d, processorArchitecture=MSIL" />
+    <Reference Include="MySql.Data, Version=6.8.3.0, Culture=neutral, PublicKeyToken=c5687fc88969c44d, processorArchitecture=MSIL" />
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
@@ -77,6 +77,9 @@
     </Compile>
     <Compile Include="Forgot_pass.xaml.cs">
       <DependentUpon>Forgot_pass.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="ManagerJobGui.xaml.cs">
+      <DependentUpon>ManagerJobGui.xaml</DependentUpon>
     </Compile>
     <Compile Include="QualityGui.xaml.cs">
       <DependentUpon>QualityGui.xaml</DependentUpon>
@@ -137,6 +140,10 @@
       <SubType>Code</SubType>
     </Compile>
     <Page Include="ManagerGui.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="ManagerJobGui.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
