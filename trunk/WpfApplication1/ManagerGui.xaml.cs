@@ -52,5 +52,13 @@ namespace project
             this.Close();
 
         }
+
+        private void job_btn_Click(object sender, RoutedEventArgs e)
+        {
+            ManagerJobGui MJG = new ManagerJobGui();
+            MJG.Show();
+            this.Close();
+
+        }
     }
 }
