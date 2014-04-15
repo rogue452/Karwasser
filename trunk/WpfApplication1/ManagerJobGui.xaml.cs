@@ -19,6 +19,7 @@ namespace project
 {
     /// <summary>
     /// Interaction logic for ManagerJobGui.xaml
+    /// 
     /// </summary>
     public partial class ManagerJobGui : Window
     {
