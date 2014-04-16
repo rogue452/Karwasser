@@ -83,7 +83,7 @@ namespace project
         /// </summary>
         /// <param name="sender">The source of the event.</param>
         /// <param name="e">The <see cref="RoutedEventArgs"/> instance containing the event data.</param>
-        private void Send_Mail_Btn(object sender, RoutedEventArgs e)
+        private void Send_Mail_Btn_Click(object sender, RoutedEventArgs e)
         {
 
             // MessageBox.Show("!לפני בדיקת מייל", "b4 if", MessageBoxButton.OK);
