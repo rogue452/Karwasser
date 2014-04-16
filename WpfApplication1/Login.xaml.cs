@@ -60,7 +60,6 @@ namespace project
             this_cpu_HostName_label.Visibility = Visibility.Visible;
             host_name_label.Visibility = Visibility.Visible;
           //  myip_label.Visibility = Visibility.Visible;
-            myip_label.Visibility = Visibility.Hidden;
             this.WindowStartupLocation = WindowStartupLocation.CenterScreen;
 
 
