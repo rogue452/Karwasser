@@ -53,45 +53,51 @@ namespace project
 
 
 
-        private void TXTBtn_Click(object sender, RoutedEventArgs e)
+        private void ExcelBtn_Click(object sender, RoutedEventArgs e)
         {
 
-            ExportToTXT();
+            ExportToExcel();
         }
 
 
 
 
 
-        private void ExportToTXT()
+        private void ExportToExcel()
         {
-            SaveFileDialog dialog = new SaveFileDialog();
-            dialog.FileName = "רשימת עובדים"; // Default file name
-            dialog.DefaultExt = ".text"; // Default file extension
-            dialog.Filter = "Text documents (.txt)|*.txt";  //EXcel documents (.xlsx)|*.xlsx";    // Filter files by extension 
-
-            // Show save file dialog box
-            Nullable<bool> result = dialog.ShowDialog();
-
-            // Process save file dialog box results 
-            if (result == true)
+            try
             {
-                dataGrid1.SelectAllCells();
-                dataGrid1.ClipboardCopyMode = DataGridClipboardCopyMode.IncludeHeader;
-                ApplicationCommands.Copy.Execute(null, dataGrid1);
-               // String resultat1 = (string)Clipboard.GetData(DataFormats.CommaSeparatedValue);
-                String result1 = (string)Clipboard.GetData(DataFormats.Text);
-                dataGrid1.UnselectAllCells();
-                string saveto = dialog.FileName;
-                System.IO.StreamWriter file = new System.IO.StreamWriter(@saveto,false,Encoding.Default);
-                
-                file.WriteLine(result1.Replace("‘,’", "‘ ‘"));
-                file.Close();
-                file.Dispose();
-                // Save document 
-               // string filename = dialog.FileName;
-                MessageBox.Show("                                                                             !קובץ הטקסט נשמר\n\n           :כדי לפתוח באקסל מומלץ להשתמש ב''פתיחה באמצעות'' ולבחור ב\n\n                                                 ''Microsoft Excel''");
+                MySqlConnection MySqlConn = new MySqlConnection(Login.Connectionstring);
+                MySqlConn.Open();
+                string Query1 = ("select empid as `תעודת זהות`,emp_firstname as `שם פרטי` ,emp_lastname as `שם משפחה` ,emp_address as `כתובת` ,emp_phone as `מספר טלפון` from project.employees ");
+                MySqlCommand MSQLcrcommand1 = new MySqlCommand(Query1, MySqlConn);
+                MSQLcrcommand1.ExecuteNonQuery();
+                MySqlDataAdapter mysqlDAdp = new MySqlDataAdapter(MSQLcrcommand1);
+                DataTable dt = new DataTable("employess");
+                mysqlDAdp.Fill(dt);
+                mysqlDAdp.Update(dt);
+                MySqlConn.Close();
+                SaveFileDialog dialog = new SaveFileDialog();
+                dialog.FileName = "רשימת עובדים" + "_" + DateTime.Now.Year.ToString() + "_" + DateTime.Now.Month.ToString() + "_" + DateTime.Now.Day.ToString(); ; // Default file name
+                dialog.DefaultExt = ".xlsx"; // Default file extension
+                dialog.Filter = "Microsoft Excel 2003 and above Documents (.xlsx)|*.xlsx";  // |Text documents (.txt)|*.txt| Filter files by extension 
+
+                // Show save file dialog box
+                Nullable<bool> result = dialog.ShowDialog();
+
+                // Process save file dialog box results 
+                if (result == true)
+                {
+                    string saveto = dialog.FileName;
+                    CreateExcelFile.CreateExcelDocument(dt, saveto);
+                    MessageBox.Show(" נוצר בהצלחה Microsoft Excel -מסמך ה");
+                }
             }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+
         }
 
 

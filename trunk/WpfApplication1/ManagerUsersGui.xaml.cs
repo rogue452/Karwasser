@@ -78,44 +78,52 @@ namespace project
 
 
 
-            private void TXTBtn_Click(object sender, RoutedEventArgs e)
+            private void ExcelBtn_Click(object sender, RoutedEventArgs e)
+        {
+
+            ExportToExcel();
+        }
+
+
+
+
+
+        private void ExportToExcel()
+        {
+            try
+            {
+                MySqlConnection MySqlConn = new MySqlConnection(Login.Connectionstring);
+                MySqlConn.Open();
+                string Query1 = ("select users.empid as `תעודת זהות`,employees.emp_firstname as `שם פרטי` ,employees.emp_lastname as `שם משפחה` ,users.user_name as `שם משתמש` ,password as סיסמה ,role as תפקיד ,connected as מחובר ,email as `כתובת אימייל` from project.users , project.employees where users.empid=employees.empid");
+                MySqlCommand MSQLcrcommand1 = new MySqlCommand(Query1, MySqlConn);
+                MSQLcrcommand1.ExecuteNonQuery();
+                MySqlDataAdapter mysqlDAdp = new MySqlDataAdapter(MSQLcrcommand1);
+                DataTable dt = new DataTable("users");
+                mysqlDAdp.Fill(dt);
+                mysqlDAdp.Update(dt);
+                MySqlConn.Close();
+                SaveFileDialog dialog = new SaveFileDialog();
+                dialog.FileName = "רשימת משתמשים" + "_" + DateTime.Now.Year.ToString() + "_" + DateTime.Now.Month.ToString() + "_" + DateTime.Now.Day.ToString(); ; // Default file name
+                dialog.DefaultExt = ".xlsx"; // Default file extension
+                dialog.Filter = "Microsoft Excel 2003 and above Documents (.xlsx)|*.xlsx";  // |Text documents (.txt)|*.txt| Filter files by extension 
+
+                // Show save file dialog box
+                Nullable<bool> result = dialog.ShowDialog();
+
+                // Process save file dialog box results 
+                if (result == true)
                 {
-           
-                    ExportToTXT();
+                    string saveto = dialog.FileName;
+                    CreateExcelFile.CreateExcelDocument(dt, saveto);
+                    MessageBox.Show(" נוצר בהצלחה Microsoft Excel -מסמך ה");
                 }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
 
-
-
-
-
-            private void ExportToTXT()
-                {
-                    SaveFileDialog dialog = new SaveFileDialog();
-                    dialog.FileName = "רשימת משתמשים"; // Default file name
-                    dialog.DefaultExt = ".text"; // Default file extension
-                    dialog.Filter = "Text documents (.txt)|*.txt";  //EXcel documents (.xlsx)|*.xlsx";    // Filter files by extension 
-
-                    // Show save file dialog box
-                    Nullable<bool> result = dialog.ShowDialog();
-
-                    // Process save file dialog box results 
-                    if (result == true)
-                    {
-                        dataGrid1.SelectAllCells();
-                        dataGrid1.ClipboardCopyMode = DataGridClipboardCopyMode.IncludeHeader;
-                        ApplicationCommands.Copy.Execute(null, dataGrid1);
-                        String result1 = (string)Clipboard.GetData(DataFormats.Text);
-                        dataGrid1.UnselectAllCells();
-                        string saveto = dialog.FileName;
-                        System.IO.StreamWriter file = new System.IO.StreamWriter(@saveto,false,Encoding.Default);
-                
-                        file.WriteLine(result1.Replace("‘,’", "‘ ‘"));
-                        file.Close();
-                        file.Dispose();
-                        // Save document 
-                        MessageBox.Show("                                                                             !קובץ הטקסט נשמר\n\n           :כדי לפתוח באקסל מומלץ להשתמש ב''פתיחה באמצעות'' ולבחור ב\n\n                                                 ''Microsoft Excel''");
-                    }
-                }
+        }
 
 
     

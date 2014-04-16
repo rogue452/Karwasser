@@ -56,44 +56,78 @@ namespace project
 
 
 
-    private void TXTBtn_Click(object sender, RoutedEventArgs e)
+        private void ExcelBtn_Click(object sender, RoutedEventArgs e)
+        {
+
+            ExportToExcel();
+        }
+
+
+
+
+
+        private void ExportToExcel()
+        {
+            try
+            {
+                MySqlConnection MySqlConn = new MySqlConnection(Login.Connectionstring);
+                MySqlConn.Open();
+                string Query1 = ("select contactid as `מספר איש קשר`,contactName as `שם איש קשר` ,contactEmail as `אימייל איש קשר` ,contactPhone as `טלפון איש קשר` ,contactDepartment as `מחלקת איש קשר` from costumers  where costumerid='" + costid + "'");
+                MySqlCommand MSQLcrcommand1 = new MySqlCommand(Query1, MySqlConn);
+                MSQLcrcommand1.ExecuteNonQuery();
+                MySqlDataAdapter mysqlDAdp = new MySqlDataAdapter(MSQLcrcommand1);
+                DataTable dt = new DataTable("contacts");
+                mysqlDAdp.Fill(dt);
+                mysqlDAdp.Update(dt);
+                MySqlConn.Close();
+                SaveFileDialog dialog = new SaveFileDialog();
+                dialog.FileName = "רשימת אנשי הקשר של " +cosName+ "_" + DateTime.Now.Year.ToString() + "_" + DateTime.Now.Month.ToString() + "_" + DateTime.Now.Day.ToString(); ; // Default file name
+                dialog.DefaultExt = ".xlsx"; // Default file extension
+                dialog.Filter = "Microsoft Excel 2003 and above Documents (.xlsx)|*.xlsx";  // |Text documents (.txt)|*.txt| Filter files by extension 
+
+                // Show save file dialog box
+                Nullable<bool> result = dialog.ShowDialog();
+
+                // Process save file dialog box results 
+                if (result == true)
                 {
-           
-                    ExportToTXT();
+                    string saveto = dialog.FileName;
+                    CreateExcelFile.CreateExcelDocument(dt, saveto);
+                    MessageBox.Show(" נוצר בהצלחה Microsoft Excel -מסמך ה");
                 }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
 
+        
+            /*SaveFileDialog dialog = new SaveFileDialog();
+            dialog.FileName = "רשימת לקוחות"; // Default file name
+            dialog.DefaultExt = ".text"; // Default file extension
+            dialog.Filter = "Text documents (.txt)|*.txt";  //EXcel documents (.xlsx)|*.xlsx";    // Filter files by extension 
 
+            // Show save file dialog box
+            Nullable<bool> result = dialog.ShowDialog();
 
+            // Process save file dialog box results 
+            if (result == true)
+            {
+                dataGrid1.SelectAllCells();
+                dataGrid1.ClipboardCopyMode = DataGridClipboardCopyMode.IncludeHeader;
+                ApplicationCommands.Copy.Execute(null, dataGrid1);
+                String result1 = (string)Clipboard.GetData(DataFormats.Text);
+                dataGrid1.UnselectAllCells();
+                string saveto = dialog.FileName;
+                System.IO.StreamWriter file = new System.IO.StreamWriter(@saveto, false, Encoding.Default);
 
-
-            private void ExportToTXT()
-                {
-                    SaveFileDialog dialog = new SaveFileDialog();
-                    dialog.FileName = "רשימת אנשי קשר"; // Default file name
-                    dialog.DefaultExt = ".text"; // Default file extension
-                    dialog.Filter = "Text documents (.txt)|*.txt";  //EXcel documents (.xlsx)|*.xlsx";    // Filter files by extension 
-
-                    // Show save file dialog box
-                    Nullable<bool> result = dialog.ShowDialog();
-
-                    // Process save file dialog box results 
-                    if (result == true)
-                    {
-                        dataGrid1.SelectAllCells();
-                        dataGrid1.ClipboardCopyMode = DataGridClipboardCopyMode.IncludeHeader;
-                        ApplicationCommands.Copy.Execute(null, dataGrid1);
-                        String result1 = (string)Clipboard.GetData(DataFormats.Text);
-                        dataGrid1.UnselectAllCells();
-                        string saveto = dialog.FileName;
-                        System.IO.StreamWriter file = new System.IO.StreamWriter(@saveto,false,Encoding.Default);
-                
-                        file.WriteLine(result1.Replace("‘,’", "‘ ‘"));
-                        file.Close();
-                        file.Dispose();
-                        // Save document 
-                        MessageBox.Show("                                                                             !קובץ הטקסט נשמר\n\n           :כדי לפתוח באקסל מומלץ להשתמש ב''פתיחה באמצעות'' ולבחור ב\n\n                                                 ''Microsoft Excel''");
-                    }
-                }
+                file.WriteLine(result1.Replace("‘,’", "‘ ‘"));
+                file.Close();
+                file.Dispose();
+                // Save document 
+                MessageBox.Show("                                                                             !קובץ הטקסט נשמר\n\n           :כדי לפתוח באקסל מומלץ להשתמש ב''פתיחה באמצעות'' ולבחור ב\n\n                                                 ''Microsoft Excel''");
+            }*/
+        }
 
 
     

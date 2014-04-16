@@ -16,7 +16,7 @@
         <Button Content="עדכון פרטי עובד" HorizontalAlignment="Left" Margin="792,41,0,0" VerticalAlignment="Top" Width="180" Height="56" Name="UpdateBtn" FontWeight="Bold" Click="UpdateBtn_Click" />
         <Button Content="יציאה מהמערכת" HorizontalAlignment="Left" Margin="1036,573,0,0" VerticalAlignment="Top" Width="142" Height="28" />
         <Button Content="חזור למסך ראשי" HorizontalAlignment="Left" Margin="47,573,0,0" VerticalAlignment="Top" Width="134" Height="28" Click="Back_Btn_Click" />
-        <Button Content="ייצא רשימה לקובץ טקסט" Height="28" HorizontalAlignment="Left" Margin="538,573,0,0" Name="TXTBtn" VerticalAlignment="Top" Width="161" Click="TXTBtn_Click" />
+        <Button Content="ייצא רשימה לקובץ אקסל" Height="28" HorizontalAlignment="Left" Margin="538,573,0,0" Name="ExcelBtn" VerticalAlignment="Top" Width="161" Click="ExcelBtn_Click" />
         <Image Height="36" HorizontalAlignment="Left" Margin="657,3,0,0" Name="image1" Stretch="Fill" VerticalAlignment="Top" Width="42" FlowDirection="RightToLeft" Source="/WpfApplication1;component/Images/add_user.png" />
         <Image Height="36" HorizontalAlignment="Right" Margin="0,3,88,0" Name="image2" Stretch="Fill" VerticalAlignment="Top" Width="31" Source="/WpfApplication1;component/Images/delete_user.png" />
         <Image Height="36" HorizontalAlignment="Left" Margin="867,3,0,0" Name="image3" Stretch="Fill" VerticalAlignment="Top" Width="42" Source="/WpfApplication1;component/Images/update.png" />

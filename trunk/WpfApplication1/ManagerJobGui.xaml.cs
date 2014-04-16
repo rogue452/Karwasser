@@ -55,16 +55,50 @@ namespace project
         private void TXTBtn_Click(object sender, RoutedEventArgs e)
         {
 
-            ExportToTXT();
+            ExportToExcel();
         }
 
 
 
 
 
-        private void ExportToTXT()
+        private void ExportToExcel()
         {
-            SaveFileDialog dialog = new SaveFileDialog();
+            try
+            {
+                MySqlConnection MySqlConn = new MySqlConnection(Login.Connectionstring);
+                MySqlConn.Open();
+                string Query1 = ("select jobid as `מספר עבודה`,costumerid as `מספר לקוח` ,job_status as `סטטוס עבודה`,jobdescription  as `תאור עבודה` ,startDate  as `תאריך התחלה`,expectedFinishDate as `תאריך סיום משוער` ,actualFinishDate as `תאריך סיום בפועל`  from jobs group by jobid");
+                MySqlCommand MSQLcrcommand1 = new MySqlCommand(Query1, MySqlConn);
+                MSQLcrcommand1.ExecuteNonQuery();
+                MySqlDataAdapter mysqlDAdp = new MySqlDataAdapter(MSQLcrcommand1);
+                DataTable dt = new DataTable("jobs");
+                mysqlDAdp.Fill(dt);
+                mysqlDAdp.Update(dt);
+                MySqlConn.Close();
+                SaveFileDialog dialog = new SaveFileDialog();
+                dialog.FileName = "רשימת עבודות" + "_" + DateTime.Now.Year.ToString() + "_" + DateTime.Now.Month.ToString() + "_" + DateTime.Now.Day.ToString(); ; // Default file name
+                dialog.DefaultExt = ".xlsx"; // Default file extension
+                dialog.Filter = "Microsoft Excel 2003 and above Documents (.xlsx)|*.xlsx";  // |Text documents (.txt)|*.txt| Filter files by extension 
+
+                // Show save file dialog box
+                Nullable<bool> result = dialog.ShowDialog();
+
+                // Process save file dialog box results 
+                if (result == true)
+                {
+                    string saveto = dialog.FileName;
+                    CreateExcelFile.CreateExcelDocument(dt, saveto);
+                    MessageBox.Show(" נוצר בהצלחה Microsoft Excel -מסמך ה");
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+
+
+            /*SaveFileDialog dialog = new SaveFileDialog();
             dialog.FileName = "רשימת לקוחות"; // Default file name
             dialog.DefaultExt = ".text"; // Default file extension
             dialog.Filter = "Text documents (.txt)|*.txt";  //EXcel documents (.xlsx)|*.xlsx";    // Filter files by extension 
@@ -88,7 +122,7 @@ namespace project
                 file.Dispose();
                 // Save document 
                 MessageBox.Show("                                                                             !קובץ הטקסט נשמר\n\n           :כדי לפתוח באקסל מומלץ להשתמש ב''פתיחה באמצעות'' ולבחור ב\n\n                                                 ''Microsoft Excel''");
-            }
+            }*/
         }
 
 
