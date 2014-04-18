@@ -1,8 +1,4 @@
-﻿// #define INCLUDE_WEB_FUNCTIONS
-
-//http://www.mikesknowledgebase.com/pages/CSharp/ExportToExcel.htm this is the web site i got it from (Shuki)
-
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -15,41 +11,7 @@ using DocumentFormat.OpenXml;
 
 namespace project
 {
-    //
-    //  March 2014
-    //  http://www.mikesknowledgebase.com
-    //
-    //  Note: if you plan to use this in an ASP.Net application, remember to add a reference to "System.Web", and to uncomment
-    //  the "INCLUDE_WEB_FUNCTIONS" definition at the top of this file.
-    //
-    //  Release history
-    //   - Mar 2014: 
-    //        Now writes the Excel data using the OpenXmlWriter classes, which are much more memory efficient.
-    //   - Nov 2013: 
-    //        Changed "CreateExcelDocument(DataTable dt, string xlsxFilePath)" to remove the DataTable from the DataSet after creating the Excel file.
-    //        You can now create an Excel file via a Stream (making it more ASP.Net friendly)
-    //   - Jan 2013: Fix: Couldn't open .xlsx files using OLEDB  (was missing "WorkbookStylesPart" part)
-    //   - Nov 2012: 
-    //        List<>s with Nullable columns weren't be handled properly.
-    //        If a value in a numeric column doesn't have any data, don't write anything to the Excel file (previously, it'd write a '0')
-    //   - Jul 2012: Fix: Some worksheets weren't exporting their numeric data properly, causing "Excel found unreadable content in '___.xslx'" errors.
-    //   - Mar 2012: Fixed issue, where Microsoft.ACE.OLEDB.12.0 wasn't able to connect to the Excel files created using this class.
-    //
-    //
-    //   (c) www.mikesknowledgebase.com 2014 
-    //   
-    //   Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files 
-    //   (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, 
-    //   publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, 
-    //   subject to the following conditions:
-    //   
-    //   The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
-    //   
-    //   THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF 
-    //   MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE 
-    //   FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION 
-    //   WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
-    //   
+    
     public class CreateExcelFile
     {
         public static bool CreateExcelDocument<T>(List<T> list, string xlsxFilePath)
