@@ -261,6 +261,18 @@
   <ItemGroup>
     <Resource Include="Images\orders.png" />
   </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\templatemo_header_bg_wrapper.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\Dark-Blue-Wallpaper-60.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\dark_blue_background_texture.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\dark-blue-background.jpg" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
