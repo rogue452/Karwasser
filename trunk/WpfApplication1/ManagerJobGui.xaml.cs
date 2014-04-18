@@ -23,10 +23,12 @@ namespace project
     /// </summary>
     public partial class ManagerJobGui : Window
     {
+        DataTable dt = new DataTable("jobs");
         public ManagerJobGui()
         {
             InitializeComponent();
             this.WindowStartupLocation = WindowStartupLocation.CenterScreen;
+            
 
 
             try
@@ -37,7 +39,8 @@ namespace project
                 MySqlCommand MSQLcrcommand1 = new MySqlCommand(Query1, MySqlConn);
                 MSQLcrcommand1.ExecuteNonQuery();
                 MySqlDataAdapter mysqlDAdp = new MySqlDataAdapter(MSQLcrcommand1);
-                DataTable dt = new DataTable("jobs");
+                //DataTable dt = new DataTable("jobs");
+                dt.Clear();
                 mysqlDAdp.Fill(dt);
                 dataGrid1.ItemsSource = dt.DefaultView;
                 mysqlDAdp.Update(dt);
@@ -66,18 +69,19 @@ namespace project
         {
             try
             {
-                MySqlConnection MySqlConn = new MySqlConnection(Login.Connectionstring);
+                /*MySqlConnection MySqlConn = new MySqlConnection(Login.Connectionstring);
                 MySqlConn.Open();
                 string Query1 = ("select jobid as `מספר עבודה`,costumerid as `מספר לקוח` ,job_status as `סטטוס עבודה`,jobdescription  as `תאור עבודה` ,startDate  as `תאריך התחלה`,expectedFinishDate as `תאריך סיום משוער` ,actualFinishDate as `תאריך סיום בפועל`  from jobs group by jobid");
                 MySqlCommand MSQLcrcommand1 = new MySqlCommand(Query1, MySqlConn);
                 MSQLcrcommand1.ExecuteNonQuery();
                 MySqlDataAdapter mysqlDAdp = new MySqlDataAdapter(MSQLcrcommand1);
-                DataTable dt = new DataTable("jobs");
+                //DataTable dt = new DataTable("jobs");
+                dt.Clear();
                 mysqlDAdp.Fill(dt);
                 mysqlDAdp.Update(dt);
-                MySqlConn.Close();
+                MySqlConn.Close();*/
                 SaveFileDialog dialog = new SaveFileDialog();
-                dialog.FileName = "רשימת עבודות" + "_" + DateTime.Now.Year.ToString() + "_" + DateTime.Now.Month.ToString() + "_" + DateTime.Now.Day.ToString(); ; // Default file name
+                dialog.FileName = "רשימת עבודות" + " נכון לתאריך - " + DateTime.Now.Year.ToString() + "_" + DateTime.Now.Month.ToString() + "_" + DateTime.Now.Day.ToString(); ; // Default file name
                 dialog.DefaultExt = ".xlsx"; // Default file extension
                 dialog.Filter = "Microsoft Excel 2003 and above Documents (.xlsx)|*.xlsx";  // |Text documents (.txt)|*.txt| Filter files by extension 
 
@@ -88,8 +92,14 @@ namespace project
                 if (result == true)
                 {
                     string saveto = dialog.FileName;
-                    CreateExcelFile.CreateExcelDocument(dt, saveto);
-                    MessageBox.Show(" נוצר בהצלחה Microsoft Excel -מסמך ה");
+                    bool success = CreateExcelFile.CreateExcelDocument(dt, saveto);
+                    if (success)
+                    {
+                        MessageBox.Show(" נוצר בהצלחה Microsoft Excel -מסמך ה");
+                    }
+                    else { 
+                            MessageBox.Show(" לא נוצר  Microsoft Excel -התרחשה שגיאה ולכן מסמך ה"); 
+                         }
                 }
             }
             catch (Exception ex)
@@ -139,7 +149,8 @@ namespace project
                 MySqlCommand MSQLcrcommand1 = new MySqlCommand(Query1, MySqlConn);
                 MSQLcrcommand1.ExecuteNonQuery();
                 MySqlDataAdapter mysqlDAdp = new MySqlDataAdapter(MSQLcrcommand1);
-                DataTable dt = new DataTable("jobs");
+                //DataTable dt = new DataTable("jobs");
+                dt.Clear();
                 mysqlDAdp.Fill(dt);
                 dataGrid1.ItemsSource = dt.DefaultView;
                 mysqlDAdp.Update(dt);
@@ -162,7 +173,8 @@ namespace project
                 MySqlCommand MSQLcrcommand1 = new MySqlCommand(Query1, MySqlConn);
                 MSQLcrcommand1.ExecuteNonQuery();
                 MySqlDataAdapter mysqlDAdp = new MySqlDataAdapter(MSQLcrcommand1);
-                DataTable dt = new DataTable("jobs");
+                //DataTable dt = new DataTable("jobs");
+                dt.Clear();
                 mysqlDAdp.Fill(dt);
                 dataGrid1.ItemsSource = dt.DefaultView;
                 mysqlDAdp.Update(dt);
@@ -429,6 +441,113 @@ namespace project
             }
             catch { MessageBox.Show("לא נבחר לקוח"); }
         }
+
+
+        //This function will set the 2 DatePickers to today and will reaload to the default datagrid.
+        private void Refresh_button_Click(object sender, RoutedEventArgs e)
+        {
+            Start_datePicker.SelectedDate = DateTime.Today;
+            End_datePicker.SelectedDate = DateTime.Today;
+            try
+            {
+                MySqlConnection MySqlConn = new MySqlConnection(Login.Connectionstring);
+                MySqlConn.Open();
+                string Query1 = ("select jobid as `מספר עבודה`,costumerid as `מספר לקוח` ,job_status as `סטטוס עבודה`,jobdescription  as `תאור עבודה` ,startDate  as `תאריך התחלה`,expectedFinishDate as `תאריך סיום משוער` ,actualFinishDate as `תאריך סיום בפועל`  from jobs group by jobid");
+                MySqlCommand MSQLcrcommand1 = new MySqlCommand(Query1, MySqlConn);
+                MSQLcrcommand1.ExecuteNonQuery();
+                MySqlDataAdapter mysqlDAdp = new MySqlDataAdapter(MSQLcrcommand1);
+                dt.Clear();
+                mysqlDAdp.Fill(dt);
+                dataGrid1.ItemsSource = dt.DefaultView;
+                mysqlDAdp.Update(dt);
+                MySqlConn.Close();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+        }
+
+
+
+        //This function will filter the startDate by date selected from 2 DatePickers.
+        // if the dates were not right a message will be shown. 
+        private void Filter_button_Click(object sender, RoutedEventArgs e)
+        {
+            //MessageBox.Show("" + Start_datePicker.Text + "");
+            if (Start_datePicker.Text != "" && End_datePicker.Text != "")
+            {
+                String start, end;
+                DateTime s = (DateTime)Convert.ToDateTime(Start_datePicker.Text);
+                DateTime f = (DateTime)Convert.ToDateTime(End_datePicker.Text);
+                TimeSpan ts = f - s;
+                //MessageBox.Show("" + s + "");
+                //MessageBox.Show("" + f + "");
+                //MessageBox.Show("" + ts.Days + "");
+                if (ts.Days >= 0)
+                {
+                    start = Convert.ToDateTime(Start_datePicker.Text).ToString("yyyy-MM-dd");
+                    end = Convert.ToDateTime(End_datePicker.Text).ToString("yyyy-MM-dd");
+
+                    string radio = "startDate";
+                    if (ExpectedFinishDate_radioButton.IsChecked == true)
+                    {
+                        radio = "expectedFinishDate";
+                    }
+                    if (ActualFinishDate_radioButton.IsChecked == true)
+                    {
+                        radio = "actualFinishDate";
+                    }
+                    //MessageBox.Show("" + radio + "");
+                    try
+                    {
+                        MySqlConnection MySqlConn = new MySqlConnection(Login.Connectionstring);
+                        MySqlConn.Open();
+                        string Query1 = ("SELECT jobid as `מספר עבודה`,costumerid as `מספר לקוח` ,job_status as `סטטוס עבודה`,jobdescription  as `תאור עבודה` ,startDate  as `תאריך התחלה`,expectedFinishDate as `תאריך סיום משוער` ,actualFinishDate as `תאריך סיום בפועל`  FROM jobs WHERE " + radio + " BETWEEN '" + start + "' AND '" + end + "' ");
+                        //MessageBox.Show("" + Query1 + "");
+                        MySqlCommand MSQLcrcommand1 = new MySqlCommand(Query1, MySqlConn);
+                        MSQLcrcommand1.ExecuteNonQuery();
+                        MySqlDataAdapter mysqlDAdp = new MySqlDataAdapter(MSQLcrcommand1);
+                        dt.Clear();
+                        mysqlDAdp.Fill(dt);
+                        dataGrid1.ItemsSource = dt.DefaultView;
+                        mysqlDAdp.Update(dt);
+                        MySqlConn.Close();
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show(ex.Message);
+                    }
+                }
+                else
+                {
+                    MessageBox.Show("אסור שתאריך הסוף הנבחר יהיה לפני תאריך ההתחלה הנבחר");
+                }
+            }
+            else 
+            {
+                if (Start_datePicker.Text == "" && End_datePicker.Text != "")
+                {MessageBox.Show("לא נבחר תאריך התחלה לסינון");}
+                if (Start_datePicker.Text != "" && End_datePicker.Text == "")
+                { MessageBox.Show("לא נבחר תאריך סוף לסינון"); }
+                if (Start_datePicker.Text == "" && End_datePicker.Text == "")
+                { MessageBox.Show("לא נבחרו תאריכי התחלה וסוף לסינון "); }
+            }
+
+        }
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

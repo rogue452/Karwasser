@@ -23,6 +23,7 @@ namespace project
             InitializeComponent();
             this.WindowStartupLocation = WindowStartupLocation.CenterScreen;
             NameLabel.Content = "                                    שלום "+ Login.user_name +"!\n               אנא בחר/י מה ברצונך/ה לעשות.";
+            CPUName_label.Content = Login.my_host_name;
         }
 
 
