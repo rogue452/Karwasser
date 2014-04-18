@@ -18,6 +18,7 @@ using System.Windows.Threading;
 using MySql.Data.MySqlClient;
 using System.Net;
 using System.Net.NetworkInformation;
+using System.IO;
 
 namespace project
 {
@@ -47,29 +48,16 @@ namespace project
            // My_IP();
             My_Host_Name();
             host_name_label.Content = my_host_name;
-          //  myip_label.Content = myip;
-            //IsLocalIpAddress(Dns.GetHostName());
-         //   if (IsLocalIpAddress(Dns.GetHostName()) == true)
-         //   {
-                
-         //   }
-         //   else
-         //   {
-        //        myip_label.Content = "IP - בעיה במציאת כתובת ה";
-        //    }
+
+            // checks if the text file exists and if does then the text in the file will be loaded to the Host_textBox.
+            if (File.Exists("C:/Users/Public//Host Name Login.txt"))
+            {
+                //if we want to load the text from a file the we will enable this line (and also the using System.IO line above) and we will give it the text Source path.
+                Host_textBox.Text = File.ReadAllText("C:/Users/Public//Host Name Login.txt");
+            }
             this_cpu_HostName_label.Visibility = Visibility.Visible;
             host_name_label.Visibility = Visibility.Visible;
-          //  myip_label.Visibility = Visibility.Visible;
             this.WindowStartupLocation = WindowStartupLocation.CenterScreen;
-
-
-
-        //    string localComputerName = Dns.GetHostName();
-        //    if (IsLocalIpAddress(localComputerName)==true)
-        //    {
-                
-        //    }
-        //    IPAddress[] localIPs = Dns.GetHostAddresses(Dns.GetHostName());
         }
 
 
