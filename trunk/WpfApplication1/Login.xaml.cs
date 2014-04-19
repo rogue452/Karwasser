@@ -48,7 +48,7 @@ namespace project
            // My_IP();
             My_Host_Name();
             host_name_label.Content = my_host_name;
-
+      
             // checks if the text file exists and if does then the text in the file will be loaded to the Host_textBox.
             if (File.Exists("C:/Users/Public//Host Name Login.txt"))
             {
