@@ -111,6 +111,37 @@ namespace project
 
                             // copy the file to the user selected place.
                             File.WriteAllText(saveto, File.ReadAllText(schepath));
+
+                            // Delete a file by using File class static method... 
+                            if (System.IO.File.Exists(@tempPlace))
+                            {
+                                // Use a try block to catch IOExceptions, to 
+                                // handle the case of the file already being 
+                                // opened by another process. 
+                                try
+                                {
+                                    System.IO.File.Delete(@tempPlace);
+                                }
+                                catch (Exception ex)
+                                {
+                                    MessageBox.Show(ex.Message);
+                                }
+                            }
+
+                            if (System.IO.File.Exists(schepath))
+                            {
+                                // Use a try block to catch IOExceptions, to 
+                                // handle the case of the file already being 
+                                // opened by another process. 
+                                try
+                                {
+                                    System.IO.File.Delete(schepath);
+                                }
+                                catch (Exception ex)
+                                {
+                                    MessageBox.Show(ex.Message);
+                                }
+                            }
                             MessageBox.Show("נשמר בהצלחה למיקום שצויין SQL -קובץ גיבוי ה");
                         }
                 }
