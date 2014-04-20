@@ -76,6 +76,12 @@
     <Compile Include="ManagerAddEmployeeGUI.xaml.cs">
       <DependentUpon>ManagerAddEmployeeGUI.xaml</DependentUpon>
     </Compile>
+    <Compile Include="ManagerAddExistingItemGui.xaml.cs">
+      <DependentUpon>ManagerAddExistingItemGui.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="ManagerAddNewItemGUI.xaml.cs">
+      <DependentUpon>ManagerAddNewItemGUI.xaml</DependentUpon>
+    </Compile>
     <Compile Include="ManagerAddNewUserGUI.xaml.cs">
       <DependentUpon>ManagerAddNewUserGUI.xaml</DependentUpon>
     </Compile>
@@ -88,8 +94,17 @@
     <Compile Include="Forgot_pass.xaml.cs">
       <DependentUpon>Forgot_pass.xaml</DependentUpon>
     </Compile>
+    <Compile Include="ManagerItemInfoGui.xaml.cs">
+      <DependentUpon>ManagerItemInfoGui.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="ManagerItemStagesGui.xaml.cs">
+      <DependentUpon>ManagerItemStagesGui.xaml</DependentUpon>
+    </Compile>
     <Compile Include="ManagerJobGui.xaml.cs">
       <DependentUpon>ManagerJobGui.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="ManagerJobInfoGui.xaml.cs">
+      <DependentUpon>ManagerJobInfoGui.xaml</DependentUpon>
     </Compile>
     <Compile Include="QualityGui.xaml.cs">
       <DependentUpon>QualityGui.xaml</DependentUpon>
@@ -118,6 +133,14 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="ManagerAddEmployeeGUI.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="ManagerAddExistingItemGui.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="ManagerAddNewItemGUI.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -153,7 +176,19 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="ManagerItemInfoGui.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="ManagerItemStagesGui.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="ManagerJobGui.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="ManagerJobInfoGui.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -279,6 +314,42 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Images\dark-blue-background.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\add-item.gif" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\add_item_list_icon_med_hr.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\remove.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\update item.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\icon_microsoftexcel.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\window_process.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\5757984146_a9957998d6.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\Sign Files Icon Base.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\sign-up.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\window_process1.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\Prev.gif" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\Next.gif" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

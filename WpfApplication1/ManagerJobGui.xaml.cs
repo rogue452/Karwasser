@@ -408,13 +408,13 @@ namespace project
                 Binding b = new Binding("תאריך סיום בפועל");
                 b.StringFormat = "dd/MM/yyyy";
 
-                //#region Editing
+                #region Editing
                 FrameworkElementFactory factory = new FrameworkElementFactory(typeof(DatePicker));
                 factory.SetValue(DatePicker.SelectedDateProperty, b);
                 DataTemplate cellEditingTemplate = new DataTemplate();
                 cellEditingTemplate.VisualTree = factory;
                 dgct.CellEditingTemplate = cellEditingTemplate;
-                //#endregion
+                #endregion
 
                 #region View
                 FrameworkElementFactory sfactory = new FrameworkElementFactory(typeof(TextBlock));
@@ -534,6 +534,27 @@ namespace project
                 { MessageBox.Show("לא נבחרו תאריכי התחלה וסוף לסינון "); }
             }
 
+        }
+
+
+
+
+
+
+        private void ViewJobIInfo_button_Click(object sender, RoutedEventArgs e)
+        {
+            
+            try
+            {
+                System.Collections.IList rows = dataGrid1.SelectedItems;
+
+                DataRowView row = (DataRowView)dataGrid1.SelectedItems[0];
+                string selected = row["מספר עבודה"].ToString();
+                ManagerJobInfoGui MJIG = new ManagerJobInfoGui(selected);
+                MJIG.Show();
+                this.Close();
+            }//end try
+            catch { MessageBox.Show("לא נבחרה עבודה לצפיה"); }
         }
 
 

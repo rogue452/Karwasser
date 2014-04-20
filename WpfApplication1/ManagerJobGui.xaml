@@ -3,36 +3,36 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
           Title="  ניהול הזמנות " Height="647" Width="1212" FlowDirection="RightToLeft" ResizeMode="CanMinimize" Icon="/WpfApplication1;component/Images/Israel.ico" HorizontalAlignment="Right" HorizontalContentAlignment="Right">
     <Grid>
-        <Image Source="/WpfApplication1;component/Images/31.jpg"  Stretch="UniformToFill" FlowDirection="RightToLeft" />
-        <DataGrid x:Name="dataGrid1" HorizontalAlignment="Right" Margin="0,103,12,0" VerticalAlignment="Top" Height="471" Width="1178" FontSize="15"  AutoGenerateColumns="True" AutoGeneratingColumn="Grid_AutoGeneratingColumn"  ItemsSource="{Binding}" HeadersVisibility="All" MaxColumnWidth="Infinity" CanUserAddRows="false" HorizontalContentAlignment="Right" />
-        <TextBox HorizontalAlignment="Right" Height="22" Margin="0,30,942,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="164" FontSize="15" Name="JobIDSearchTextBox" TextChanged="JobIDSearchTextBox_TextChanged" />
-        <TextBox HorizontalAlignment="Right" Height="23" Margin="0,65,942,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="164" Name="IDSearchTextBox" TextChanged="IDSearchTextBox_TextChanged" />
+        <Image Source="/WpfApplication1;component/Images/31.jpg"  Stretch="UniformToFill" FlowDirection="RightToLeft" Grid.ColumnSpan="2" />
+        <DataGrid x:Name="dataGrid1" HorizontalAlignment="Right" Margin="0,103,12,0" VerticalAlignment="Top" Height="471" Width="1178" FontSize="15"  AutoGenerateColumns="True" AutoGeneratingColumn="Grid_AutoGeneratingColumn"  ItemsSource="{Binding}" HeadersVisibility="All" MaxColumnWidth="Infinity" CanUserAddRows="false" HorizontalContentAlignment="Right" Grid.ColumnSpan="2" />
+        <TextBox HorizontalAlignment="Right" Height="22" Margin="0,33,937,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="164" FontSize="15" Name="JobIDSearchTextBox" TextChanged="JobIDSearchTextBox_TextChanged" />
+        <TextBox HorizontalAlignment="Right" Height="23" Margin="0,68,937,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="164" Name="IDSearchTextBox" TextChanged="IDSearchTextBox_TextChanged" />
         <Label Content="מספר לקוח" HorizontalAlignment="Left" Margin="12,65,0,0" VerticalAlignment="Top"/>
         <Label Content="מספר עבודה" HorizontalAlignment="Left" Margin="12,31,0,0" VerticalAlignment="Top" Width="83"/>
         <Label Content="החל להקליד כדי לחפש לפי:" HorizontalAlignment="Left" Margin="12,0,0,0" VerticalAlignment="Top" FontWeight="Bold" />
-        <Button Content="הוסף עבודה" Margin="796,41,272,0" VerticalAlignment="Top" Height="56" Name="ADD_Btn" Background="#8400A500" FontWeight="Bold" Click="ADD_Btn_Click" />
-        <Label Content="ניהול עבודות:" HorizontalAlignment="Right" VerticalAlignment="Top" Width="112" Margin="0,-2,366,0" FontStyle="Normal" FontWeight="Bold" />
-        <Button Content="מחק לקוח" HorizontalAlignment="Right" Margin="0,41,12,0" VerticalAlignment="Top" Width="126" Height="56" Name="DeleteBtn" FontWeight="Bold" Background="#A5FF0000" Click="DeleteBtn_Click" />
-        <Button Content="עדכון פרטי לקוח" HorizontalAlignment="Right" Margin="0,41,144,0" VerticalAlignment="Top" Width="122" Height="56" Name="UpdateBtn" FontWeight="Bold" Click="UpdateBtn_Click" />
-        <Button Content="יציאה מהמערכת" HorizontalAlignment="Right" Margin="0,579,12,0" VerticalAlignment="Top" Width="142" Height="28" />
-        <Button Content="חזור למסך ראשי" HorizontalAlignment="Right" Margin="0,580,1014,0" VerticalAlignment="Top" Width="134" Height="28" Click="Back_Btn_Click" Name="Back_Btn" />
-        <Button Content="ייצא רשימה לקובץ טקסט" Height="28" HorizontalAlignment="Right" Margin="0,580,522,0" Name="TXTBtn" VerticalAlignment="Top" Width="161" Click="TXTBtn_Click" />
-        <Image Height="36" HorizontalAlignment="Right" Margin="0,3,302,0" Name="image1" Stretch="Fill" VerticalAlignment="Top" Width="42" FlowDirection="RightToLeft" Source="/WpfApplication1;component/Images/add_user.png" />
-        <Image Height="36" HorizontalAlignment="Right" Margin="0,3,56,0" Name="image2" Stretch="Fill" VerticalAlignment="Top" Width="31" Source="/WpfApplication1;component/Images/delete_user.png" />
-        <Image Height="36" HorizontalAlignment="Right" Margin="0,3,186,0" Name="image3" Stretch="Fill" VerticalAlignment="Top" Width="42" Source="/WpfApplication1;component/Images/update.png" />
-        <Image Height="28" HorizontalAlignment="Right" Margin="0,580,156,0" Name="image4" Stretch="Fill" VerticalAlignment="Top" Width="25" Source="/WpfApplication1;component/Images/exit.png" />
-        <Image Height="35" HorizontalAlignment="Right" Margin="0,577,689,0" Name="image6" Stretch="Fill" VerticalAlignment="Top" Width="33" Source="/WpfApplication1;component/Images/save_to.png"  />
-        <Image Height="29" HorizontalAlignment="Left" Margin="12,578,0,0" Name="image7" Stretch="Fill" VerticalAlignment="Top" Width="33" Source="/WpfApplication1;component/Images/back.png" />
-        <Button Content="צפה בהזמנות הלקוח" Height="56" HorizontalAlignment="Right" Margin="0,41,417,0" Name="ViewJobsbutton" VerticalAlignment="Top" Width="125" />
-        <DatePicker Height="25" HorizontalAlignment="Right" Margin="0,20,709,0" Name="Start_datePicker" VerticalAlignment="Top" Width="166" />
-        <DatePicker Height="25" HorizontalAlignment="Right" Margin="0,47,709,0" Name="End_datePicker" VerticalAlignment="Top" Width="166"  />
-        <Button Content="סנן" Height="23" HorizontalAlignment="Right" Margin="0,74,800,0" Name="Filter_button" VerticalAlignment="Top" Width="75" Click="Filter_button_Click" />
-        <Button Content="רענן" Height="23" HorizontalAlignment="Right" Margin="0,74,709,0" Name="Refresh_button" VerticalAlignment="Top" Width="75" Click="Refresh_button_Click" />
-        <Label Content="מ" HorizontalAlignment="Left" Margin="293,-20,0,600" Name="From_Start_date_label" />
-        <Label Content="עד" HorizontalAlignment="Left" Margin="294,7,0,576" Name="To_Start_date_label" />
-        <Label Content="סנן לפי תאריך" Height="28" HorizontalAlignment="Right" Margin="0,-41,800,0" Name="Filter_From_To_label" VerticalAlignment="Top" FontWeight="Bold" />
-        <RadioButton GroupName="Date" Content="תאריך התחלה" HorizontalAlignment="Left" Margin="509,20,0,571" Name="StartDate_radioButton" IsChecked="True"/>
-        <RadioButton GroupName="Date" Content="תאריך סיום משוער" Height="16" HorizontalAlignment="Left" Margin="509,41,0,0" Name="ExpectedFinishDate_radioButton" VerticalAlignment="Top" />
-        <RadioButton GroupName="Date" Content="תאריך סיום בפועל" HorizontalAlignment="Left" Margin="509,62,0,530" Name="ActualFinishDate_radioButton" />
+        <Button Content="פרטי ההזמנה" Height="56" HorizontalAlignment="Right" Margin="0,41,400,0" Name="ViewJobIInfo_button" VerticalAlignment="Top" Width="125" Click="ViewJobIInfo_button_Click" />
+        <Button Content="הוסף עבודה" Margin="0,41,272,0" VerticalAlignment="Top" Height="56" Name="ADD_Btn" Background="#8400A500" FontWeight="Bold" Click="ADD_Btn_Click" HorizontalAlignment="Right" Width="122" />
+        <Label Content="ניהול עבודות:" HorizontalAlignment="Right" VerticalAlignment="Top" Width="112" Margin="0,-2,366,0" FontStyle="Normal" FontWeight="Bold" Grid.Column="1" />
+        <Button Content="מחק לקוח" HorizontalAlignment="Right" Margin="0,41,12,0" VerticalAlignment="Top" Width="126" Height="56" Name="DeleteBtn" FontWeight="Bold" Background="#A5FF0000" Click="DeleteBtn_Click" Grid.Column="1" />
+        <Button Content="עדכון פרטי לקוח" HorizontalAlignment="Right" Margin="0,41,144,0" VerticalAlignment="Top" Width="122" Height="56" Name="UpdateBtn" FontWeight="Bold" Click="UpdateBtn_Click" Grid.Column="1" />
+        <Button Content="יציאה מהמערכת" HorizontalAlignment="Right" Margin="0,579,12,0" VerticalAlignment="Top" Width="142" Height="28" Grid.Column="1" />
+        <Button Content="חזור למסך ראשי" HorizontalAlignment="Right" Margin="0,578,1017,0" VerticalAlignment="Top" Width="134" Height="28" Click="Back_Btn_Click" Name="Back_Btn" />
+        <Button Content="ייצא רשימה לקובץ טקסט" Height="28" HorizontalAlignment="Right" Margin="0,580,522,0" Name="TXTBtn" VerticalAlignment="Top" Width="161" Click="TXTBtn_Click" Grid.Column="1" />
+        <Image Height="36" HorizontalAlignment="Right" Margin="0,3,302,0" Name="image1" Stretch="Fill" VerticalAlignment="Top" Width="42" FlowDirection="RightToLeft" Source="/WpfApplication1;component/Images/add_user.png" Grid.Column="1" />
+        <Image Height="36" HorizontalAlignment="Right" Margin="0,3,56,0" Name="image2" Stretch="Fill" VerticalAlignment="Top" Width="31" Source="/WpfApplication1;component/Images/delete_user.png" Grid.Column="1" />
+        <Image Height="36" HorizontalAlignment="Right" Margin="0,3,186,0" Name="image3" Stretch="Fill" VerticalAlignment="Top" Width="42" Source="/WpfApplication1;component/Images/update.png" Grid.Column="1" />
+        <Image Height="28" HorizontalAlignment="Right" Margin="0,580,156,0" Name="image4" Stretch="Fill" VerticalAlignment="Top" Width="25" Source="/WpfApplication1;component/Images/exit.png" Grid.Column="1" />
+        <Image Height="35" HorizontalAlignment="Right" Margin="0,577,689,0" Name="image6" Stretch="Fill" VerticalAlignment="Top" Width="33" Source="/WpfApplication1;component/Images/save_to.png" Grid.Column="1" />
+        <Image Height="29" HorizontalAlignment="Left" Margin="0,577,0,0" Name="image7" Stretch="Fill" VerticalAlignment="Top" Width="33" Source="/WpfApplication1;component/Images/back.png" />
+        <DatePicker Height="25" HorizontalAlignment="Right" Margin="0,20,681,0" Name="Start_datePicker" VerticalAlignment="Top" Width="166" />
+        <DatePicker Height="25" HorizontalAlignment="Right" Margin="0,47,681,0" Name="End_datePicker" VerticalAlignment="Top" Width="166" />
+        <Button Content="סנן" Height="23" HorizontalAlignment="Right" Margin="0,74,772,0" Name="Filter_button" VerticalAlignment="Top" Width="75" Click="Filter_button_Click" />
+        <Button Content="רענן" Height="23" HorizontalAlignment="Right" Margin="0,74,681,0" Name="Refresh_button" VerticalAlignment="Top" Width="75" Click="Refresh_button_Click" />
+        <Label Content="עד" HorizontalAlignment="Left" Margin="315,47,0,536" Name="To_Start_date_label" />
+        <RadioButton GroupName="Date" Content="תאריך התחלה" HorizontalAlignment="Left" Margin="521,20,0,571" Name="StartDate_radioButton" IsChecked="True" />
+        <RadioButton GroupName="Date" Content="תאריך סיום משוער" Height="16" HorizontalAlignment="Left" Margin="521,41,0,0" Name="ExpectedFinishDate_radioButton" VerticalAlignment="Top" />
+        <RadioButton GroupName="Date" Content="תאריך סיום בפועל" HorizontalAlignment="Left" Margin="521,62,0,530" Name="ActualFinishDate_radioButton" />
+        <Label Content="מ" Height="28" HorizontalAlignment="Left" Margin="315,20,0,0" Name="From_Start_date_label" VerticalAlignment="Top" />
+        <Label Content="חפש לפי תאריך" Height="28" HorizontalAlignment="Left" Margin="315,0,0,0" Name="Filter_From_To_label" VerticalAlignment="Top" />
     </Grid>
 </Window>

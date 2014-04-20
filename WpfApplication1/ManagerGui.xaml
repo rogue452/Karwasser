@@ -19,6 +19,6 @@
         <Image Height="45" HorizontalAlignment="Left" Margin="1113,550,0,0" Name="image6" Stretch="Fill" VerticalAlignment="Top" Width="65" Source="/WpfApplication1;component/Images/exit.png" />
         <Label Content="שם מחשב זה הוא:" Height="30" HorizontalAlignment="Left" Margin="144,565,0,0" Name="Thisname_label" VerticalAlignment="Top" FontWeight="Bold" FontSize="20" Width="201" />
         <Label Content="שם המחשב" Height="30" HorizontalAlignment="Right" Margin="0,565,593,0" Name="CPUName_label" VerticalAlignment="Top" Width="261" FontSize="20" FontWeight="Bold" />
-        <Button Content="גיבוי MySql" Height="38" HorizontalAlignment="Left" Margin="12,558,0,0" Name="MySQL_Backup_button" VerticalAlignment="Top" Width="126" Click="MySQL_Backup_button_Click" FontWeight="Bold" FontSize="15" />
+        <Button Content="גיבוי MySQL" Height="38" HorizontalAlignment="Left" Margin="12,558,0,0" Name="MySQL_Backup_button" VerticalAlignment="Top" Width="126" Click="MySQL_Backup_button_Click" FontWeight="Bold" FontSize="15" />
     </Grid>
 </Window>
