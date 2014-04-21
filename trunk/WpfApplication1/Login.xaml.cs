@@ -346,6 +346,13 @@ namespace project
                   MessageBox.Show(ex.Message);
               }
              // return false;
-          } 
+          }
+
+        private void MySQL_button_Click(object sender, RoutedEventArgs e)
+        {
+            MySQLPasswordREQuestGui MSQLPRG = new MySQLPasswordREQuestGui();
+            MSQLPRG.Show();
+            this.Close();
+        } 
     }
 }
