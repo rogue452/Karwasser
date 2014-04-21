@@ -36,9 +36,9 @@ namespace project
 
         private void Back_button_Click(object sender, RoutedEventArgs e)
         {
-            ManagerEMPGui MEG = new ManagerEMPGui();
+            //ManagerEMPGui MEG = new ManagerEMPGui();
             this.Close();
-            MEG.Show();
+           // MEG.Show();
         }
 
 
@@ -112,10 +112,30 @@ namespace project
             // if all is ok then add new user to the DB.
             if (f1 && f2 && f3 && f4 && f5)
             {
+                try
+                {
+                    string query = ("insert into project.employees (empid, emp_firstname, emp_lastname, emp_address , emp_phone) values ('" + empid + "','" + firstname + "','" + lastname + "','" + address + "','" + phone + "')");
+                    DBConnection DBC = new DBConnection();
+                    DBC.InsertDataIntoDB(Login.Connectionstring, query);
+                    //MessageBox.Show("העובד התווסף למערכת");
                 
-                string query = ("insert into project.employees (empid, emp_firstname, emp_lastname, emp_address , emp_phone) values ('" + empid + "','" + firstname + "','" + lastname + "','" + address + "','" + phone + "')");
-                DBConnection DBC = new DBConnection();
-                DBC.InsertDataIntoDB(Login.Connectionstring, query);
+                    MySqlConnection MySqlConn = new MySqlConnection(Login.Connectionstring);
+                    MySqlConn.Open();
+                    string Query1 = ("select empid as `תעודת זהות`,emp_firstname as `שם פרטי` ,emp_lastname as `שם משפחה` ,emp_address as `כתובת` ,emp_phone as `מספר טלפון` from project.employees ");
+                    MySqlCommand MSQLcrcommand1 = new MySqlCommand(Query1, MySqlConn);
+                    MSQLcrcommand1.ExecuteNonQuery();
+                    MySqlDataAdapter mysqlDAdp = new MySqlDataAdapter(MSQLcrcommand1);
+                    // DataTable dt = new DataTable("employess");
+                    ManagerEMPGui.dt.Clear();
+                    mysqlDAdp.Fill(ManagerEMPGui.dt);
+                   // ManagerEMPGui.dataGrid1.ItemsSource = ManagerEMPGui.dt.DefaultView;
+                    mysqlDAdp.Update(ManagerEMPGui.dt);
+                    MySqlConn.Close();
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message);
+                }
 
             }
         }

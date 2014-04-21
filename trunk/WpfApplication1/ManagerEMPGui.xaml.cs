@@ -22,6 +22,8 @@ namespace project
     /// </summary>
     public partial class ManagerEMPGui : Window
     {
+        public static DataTable dt = new DataTable("employess");
+       // public static DataGrid dataGrid1 = new DataGrid();
         public ManagerEMPGui()
         {
             InitializeComponent();
@@ -35,7 +37,8 @@ namespace project
                 MySqlCommand MSQLcrcommand1 = new MySqlCommand(Query1, MySqlConn);
                 MSQLcrcommand1.ExecuteNonQuery();
                 MySqlDataAdapter mysqlDAdp = new MySqlDataAdapter(MSQLcrcommand1);
-                DataTable dt = new DataTable("employess");
+                //DataTable dt = new DataTable("employess");
+                dt.Clear();
                 mysqlDAdp.Fill(dt);
                 dataGrid1.ItemsSource = dt.DefaultView;
                 mysqlDAdp.Update(dt);
@@ -74,7 +77,8 @@ namespace project
                 MySqlCommand MSQLcrcommand1 = new MySqlCommand(Query1, MySqlConn);
                 MSQLcrcommand1.ExecuteNonQuery();
                 MySqlDataAdapter mysqlDAdp = new MySqlDataAdapter(MSQLcrcommand1);
-                DataTable dt = new DataTable("employess");
+                //DataTable dt = new DataTable("employess");
+                dt.Clear();
                 mysqlDAdp.Fill(dt);
                 mysqlDAdp.Update(dt);
                 MySqlConn.Close();
@@ -105,8 +109,6 @@ namespace project
         {
             try
             {
-                // string Connectionstring = " Server=localhost;Database=project; UId=root;Password=1234;";
-                // MySqlConnection MySqlConn = new MySqlConnection(Connectionstring);
                 MySqlConnection MySqlConn = new MySqlConnection(Login.Connectionstring);
                 MySqlConn.Open();
                 String searchkey = this.FirstNameSearchTextBox.Text;
@@ -114,7 +116,8 @@ namespace project
                 MySqlCommand MSQLcrcommand1 = new MySqlCommand(Query1, MySqlConn);
                 MSQLcrcommand1.ExecuteNonQuery();
                 MySqlDataAdapter mysqlDAdp = new MySqlDataAdapter(MSQLcrcommand1);
-                DataTable dt = new DataTable("employess");
+                //DataTable dt = new DataTable("employess");
+                dt.Clear();
                 mysqlDAdp.Fill(dt);
                 dataGrid1.ItemsSource = dt.DefaultView;
                 mysqlDAdp.Update(dt);
@@ -142,7 +145,8 @@ namespace project
                 MySqlCommand MSQLcrcommand1 = new MySqlCommand(Query1, MySqlConn);
                 MSQLcrcommand1.ExecuteNonQuery();
                 MySqlDataAdapter mysqlDAdp = new MySqlDataAdapter(MSQLcrcommand1);
-                DataTable dt = new DataTable("employees");
+                //DataTable dt = new DataTable("employees");
+                dt.Clear();
                 mysqlDAdp.Fill(dt);
                 dataGrid1.ItemsSource = dt.DefaultView;
                 mysqlDAdp.Update(dt);
@@ -153,12 +157,13 @@ namespace project
                 MessageBox.Show(ex.Message);
             }
         }
-
+        
         private void AddBtn_Click(object sender, RoutedEventArgs e)
         {
             ManagerAddEmployeeGUI MAEG = new ManagerAddEmployeeGUI();
-            MAEG.Show();
-            this.Close();
+            //MAEG.Show();
+            MAEG.ShowDialog();
+            //this.Close();
 
         }
 
@@ -203,7 +208,8 @@ namespace project
                             MySqlCommand MSQLcrcommand1 = new MySqlCommand(Query1, MySqlConn);
                             MSQLcrcommand1.ExecuteNonQuery();
                             MySqlDataAdapter mysqlDAdp = new MySqlDataAdapter(MSQLcrcommand1);
-                            DataTable dt = new DataTable("employess");
+                            //DataTable dt = new DataTable("employess");
+                            dt.Clear();
                             mysqlDAdp.Fill(dt);
                             dataGrid1.ItemsSource = dt.DefaultView;
                             mysqlDAdp.Update(dt);
@@ -265,7 +271,8 @@ namespace project
                                 MySqlCommand MSQLcrcommand1 = new MySqlCommand(Query1, MySqlConn);
                                 MSQLcrcommand1.ExecuteNonQuery();
                                 MySqlDataAdapter mysqlDAdp = new MySqlDataAdapter(MSQLcrcommand1);
-                                DataTable dt = new DataTable("employess");
+                               // DataTable dt = new DataTable("employess");
+                                dt.Clear();
                                 mysqlDAdp.Fill(dt);
                                 dataGrid1.ItemsSource = dt.DefaultView;
                                 mysqlDAdp.Update(dt);
