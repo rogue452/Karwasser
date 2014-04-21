@@ -106,6 +106,12 @@
     <Compile Include="ManagerJobInfoGui.xaml.cs">
       <DependentUpon>ManagerJobInfoGui.xaml</DependentUpon>
     </Compile>
+    <Compile Include="MySQLImpotrGui.xaml.cs">
+      <DependentUpon>MySQLImpotrGui.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="MySQLPasswordREQuestGui.xaml.cs">
+      <DependentUpon>MySQLPasswordREQuestGui.xaml</DependentUpon>
+    </Compile>
     <Compile Include="QualityGui.xaml.cs">
       <DependentUpon>QualityGui.xaml</DependentUpon>
     </Compile>
@@ -189,6 +195,14 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="ManagerJobInfoGui.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="MySQLImpotrGui.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="MySQLPasswordREQuestGui.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

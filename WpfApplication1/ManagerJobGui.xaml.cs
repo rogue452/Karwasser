@@ -425,6 +425,49 @@ namespace project
                 #endregion
                 e.Column = dgct;
             }
+
+
+           /* if (e.Column.Header.ToString() == "סטטוס עבודה")
+            {
+                string name = e.Column.Header.ToString();
+                DataGridTemplateColumn dgct = new DataGridTemplateColumn();
+                dgct.Header = name;
+                dgct.SortMemberPath = name;
+
+                Binding b = new Binding(name);
+                //b.StringFormat = "dd/MM/yyyy";
+                ListBox ls = new ListBox();
+              //  ListBoxItem lsi = new ListBoxItem();
+              //  lsi.Content = "a";
+                ls.Items.Add("a");
+               // lsi.Content = "b";
+                ls.Items.Add("b");
+              //  lsi.Content = "c";
+                ls.Items.Add("c");
+                //ls.Items.Add("בעבודה");
+                //ls.Items.Add("מושהה");
+                //ls.Items.Add("מבוטל");
+               // ls.Items.Add("הסתיים");
+                #region Editing
+                FrameworkElementFactory factory = new FrameworkElementFactory(typeof(ListBox));
+                factory.SetValue(ListBox.AddSelectedHandler, ls);
+                factory.SetValue(ListBox.SelectedValueProperty, b);
+                factory.SetValue(ListBox.DisplayMemberPathProperty, "Value");
+                factory.SetValue(ListBox.SelectedItemProperty, dgct);
+                DataTemplate cellEditingTemplate = new DataTemplate();
+                cellEditingTemplate.VisualTree = factory;
+                dgct.CellEditingTemplate = cellEditingTemplate;
+                #endregion
+
+                #region View
+                FrameworkElementFactory sfactory = new FrameworkElementFactory(typeof(ListBox));
+                sfactory.SetValue(TextBlock.TextProperty, b);
+                DataTemplate cellTemplate = new DataTemplate();
+                cellTemplate.VisualTree = sfactory;
+                dgct.CellTemplate = cellTemplate;
+                #endregion
+                e.Column = dgct;
+            }*/
         }
 
         private void Contacts_button_Click(object sender, RoutedEventArgs e)
