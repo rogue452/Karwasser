@@ -134,6 +134,9 @@
     <Compile Include="ManagerAddNewCusGUI.xaml.cs">
       <DependentUpon>ManagerAddNewCusGUI.xaml</DependentUpon>
     </Compile>
+    <Compile Include="ManagerAddNewJobGUI.xaml.cs">
+      <DependentUpon>ManagerAddNewJobGUI.xaml</DependentUpon>
+    </Compile>
     <Page Include="ManagerAddContactsGUI.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -227,6 +230,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="ManagerAddNewCusGUI.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="ManagerAddNewJobGUI.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
