@@ -299,18 +299,7 @@ namespace project
                 // e.Cancel = true;   // For not to include 
                 e.Column.IsReadOnly = true; // Makes the column as read only
             }
-
-            if ((e.Column.Header.ToString() != "תעודת זהות") || (e.Column.Header.ToString() != "שם פרטי") || (e.Column.Header.ToString() != "שם משפחה") || (e.Column.Header.ToString() != "כתובת") || (e.Column.Header.ToString() != "מספר טלפון"))
-            {
-                 //e.Cancel = true;   // For not to include 
-                 e.Column.MaxWidth = 0;
-                //e.Column.IsReadOnly = true; // Makes the column as read only
-            }
-           
         }
-
-
-        //תעודת זהות`,emp_firstname as `שם פרטי` ,emp_lastname as `שם משפחה` ,emp_address as `כתובת` ,emp_phone as `מספר טלפון` 
 
 
 
