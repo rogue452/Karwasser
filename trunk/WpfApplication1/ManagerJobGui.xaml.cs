@@ -294,7 +294,28 @@ namespace project
             if (e.Column.Header.ToString() == "מספר לקוח")
             {
                 // e.Cancel = true;   // For not to include 
-                e.Column.IsReadOnly = true; // Makes the column as read only
+            //    e.Column.IsReadOnly = true; // Makes the column as read only
+
+
+                DataGridTemplateColumn dgtc = new DataGridTemplateColumn
+                {
+                    Header = "blah",
+                    CanUserSort = false,
+                    CanUserReorder = false,
+                };
+                DataTemplate t = new DataTemplate();
+
+                DataTemplate ced = new DataTemplate();
+                FrameworkElementFactory f2 = new FrameworkElementFactory(typeof(TextBox));
+                Binding tempmb2 = new Binding();
+
+                tempmb2.Mode = BindingMode.TwoWay;
+
+                f2.SetBinding(TextBox.TextProperty, tempmb2);
+                ced.VisualTree = f2;
+                dgtc.CellEditingTemplate = ced;
+
+                dataGrid1.Columns.Add(dgtc);
             }
 
             //if the Column is a date Column then show me only the date
