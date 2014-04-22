@@ -42,8 +42,10 @@ namespace project
                 MSQLcrcommand1.ExecuteNonQuery();
                 MySqlDataAdapter mysqlDAdp = new MySqlDataAdapter(MSQLcrcommand1);
                // DataTable dt = new DataTable("custumers");
+                Create_DataTable_Columns_Start();
                 mysqlDAdp.Fill(dt);
-                MessageBox.Show("" + dt.Rows.Count + "");
+                //MessageBox.Show("" + dt.Rows.Count + "");
+               // Create_DataTable_Columns_Start();
               //  Make_CheckBox_Columns_False();
                 dataGrid1.ItemsSource = dt.DefaultView;
                 mysqlDAdp.Update(dt);
@@ -171,6 +173,9 @@ namespace project
 
         private void Create_DataTable_Columns_Start()
         {
+
+            dt.Columns.Add(new DataColumn("בחר לקוח", typeof(string)));
+
           /*  DataColumn i = new DataColumn();
             i.ColumnName = "בחר/י פריט/ים"; // adding the / to the name will make it 2 states checkbox, took me hours to find it out......
             i.DataType = typeof(string);
@@ -178,11 +183,11 @@ namespace project
             dt1.Columns.Add(i);
            */ 
 
-            DataColumn i = new DataColumn();
-            i.ColumnName = "בחר/י פריט/ים"; // adding the / to the name will make it 2 states checkbox, took me hours to find it out......
-            i.DataType = typeof(bool);
-            i.ReadOnly = false;
-            dt1.Columns.Add(i);
+  //          DataColumn i = new DataColumn();
+  //          i.ColumnName = "בחר/י פריט/ים"; // adding the / to the name will make it 2 states checkbox, took me hours to find it out......
+  //          i.DataType = typeof(bool);
+  //          i.ReadOnly = false;
+  //          dt1.Columns.Add(i);
           
 /*
             DataColumn i = new DataColumn();
@@ -190,14 +195,26 @@ namespace project
             i.DataType = typeof(bool);
             dt1.Columns.Add(i);
 */
-            DataColumn c = new DataColumn();
-            c.ColumnName = "בחר/י לקוח";
-            c.DataType = typeof(bool);
+   //         DataColumn c = new DataColumn();
+   //         c.ColumnName = "בחר/י לקוח";
+   //         c.DataType = typeof(bool);
            // c.ReadOnly = false;
-            dt.Columns.Add(c);
+   //         dt.Columns.Add(c);
            // dt1.Columns.Add(new DataColumn("בחר פריט/ים", typeof(bool))); //this will show checkboxes
            // dt.Columns.Add(new DataColumn("בחר לקוח", typeof(bool))); //this will show checkboxes
         }
+
+
+        private void Create_DataTable1_Columns_End()
+        {
+            // DataColumn q = new DataColumn();
+            // q.ColumnName = "כמות";
+            // q.DataType = typeof(string);
+            // dt1.Columns.Add(q);
+            dt1.Columns.Add(new DataColumn("כמות", typeof(string)));
+        }
+
+
 
 
         private void Make_CheckBox_Columns_False()
@@ -239,14 +256,6 @@ namespace project
         }
 
 
-        private void Create_DataTable1_Columns_End()
-        {
-           // DataColumn q = new DataColumn();
-           // q.ColumnName = "כמות";
-           // q.DataType = typeof(string);
-           // dt1.Columns.Add(q);
-            dt1.Columns.Add(new DataColumn("כמות", typeof(string)));
-        }
 
         private void ExportToExcel()
         {
@@ -593,6 +602,48 @@ namespace project
 
         private void Grid_AutoGeneratingColumn(object sender, DataGridAutoGeneratingColumnEventArgs e)
         {
+
+             //   if (e.Column.Header.ToString() == "תאור פריט")
+            if (e.Column.Header.ToString() == "בחר לקוח")
+            {
+                /*
+                   DataGridTextColumn textColumn = new DataGridTextColumn();
+                 * string colname = e.Column.Header.ToString();
+                   textColumn.Header = "colname";
+                   textColumn.SortMemberPath = "colname";
+                   textColumn.Binding = new Binding("colname");
+                  // dataGrid2.Columns.Add(textColumn);
+                   Binding tempmb2 = new Binding("colname");
+                   tempmb2.Mode = BindingMode.TwoWay;
+                   dataGrid2.Columns.Add(textColumn);
+                   */
+
+
+                DataGridTemplateColumn dgct = new DataGridTemplateColumn();
+                string colname = e.Column.Header.ToString();
+                dgct.Header = colname;
+                dgct.SortMemberPath = colname;
+                //    dgct.DisplayIndex = 4;
+                Binding b = new Binding(colname);
+                b.Mode = BindingMode.TwoWay;
+
+                #region Editing
+                FrameworkElementFactory factory = new FrameworkElementFactory(typeof(TextBox));
+                factory.SetValue(TextBox.TextProperty, b);
+                DataTemplate cellEditingTemplate = new DataTemplate();
+                cellEditingTemplate.VisualTree = factory;
+                dgct.CellEditingTemplate = cellEditingTemplate;
+                #endregion
+
+                #region View
+                FrameworkElementFactory sfactory = new FrameworkElementFactory(typeof(TextBox));
+                sfactory.SetValue(TextBox.TextProperty, b);
+                DataTemplate cellTemplate = new DataTemplate();
+                cellTemplate.VisualTree = sfactory;
+                dgct.CellTemplate = cellTemplate;
+                #endregion
+            } 
+
             /*
             if (e.Column.Header.ToString() == "בחר לקוח")
             {
