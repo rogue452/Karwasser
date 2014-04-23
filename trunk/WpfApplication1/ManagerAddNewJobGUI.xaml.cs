@@ -100,43 +100,79 @@ namespace project
 
          //   list =(DataRowView)dataGrid2.SelectedItems[0];
 
-            DataTable changedRecordsTable = dt1.GetChanges();
-            int sizeofnewtable;
+            DataTable changedRecordsItemsTable = dt1.GetChanges();
+            DataTable changedRecordsTableCust = dt.GetChanges();
+            int sizeofItemsnewtable, sizeofCustnewtable, custcheck=0;
             try
             {
-                sizeofnewtable = changedRecordsTable.Rows.Count; // will gice an exp if the size of the table is zero.
-                foreach (DataRow dr in changedRecordsTable.Rows)
-                    {
-                        string q = dr["כמות"].ToString();
-                        try
+                sizeofCustnewtable = changedRecordsTableCust.Rows.Count; // will give an exp if the size of the new cust table is zero.
+                try
+                {
+                   
+                    foreach (DataRow drc in changedRecordsTableCust.Rows)
                         {
-                            int check = Convert.ToInt32(q);
+                            string c = drc["בחר לקוח"].ToString();
 
-                            if (check > 0)
-                            {
-                                //  foreach (DataColumn col in changedRecordsTable.Columns)
-                                // {
-                                Console.WriteLine(q);
-                                // Console.WriteLine(dr[col.ColumnName]);
-                                //  }
+                            
+                                if (c != "") // in case the user deleted a cell in the cust tableand now it have a string of-  "".
+                                { 
+                                  custcheck++; // if it will be more then one then the user chosen more then one cust.
+                                  if (custcheck<2)
+                                      {
+                                        Console.WriteLine("לקוח - " + c + "");
+                                      }// if (custcheck<2)
+                                    else { MessageBox.Show("אנא בחר רק לקוח אחד"); return; }
+                                }// if (c != "") 
+                       
+                        }// foreach (DataRow drc in changedRecordsTableCust.Rows)
+                    if (custcheck == 0) { MessageBox.Show("לא נבחר לקוח"); return; }
 
-                                /* foreach (DataRow dr in changedRecordsTable.Rows)
-                                 {
-                                     foreach (DataColumn col in changedRecordsTable.Columns)
-                                     {
-                                         Console.WriteLine(dr[col.ColumnName]);
-                                     }
-                                 }
-                                 */
-                            }//end if ((Convert.ToInt32(q) > 0))
-                            else { MessageBox.Show("שדה הכמות מכיל כמות שלילית או 0 בפריט מספר - " + dr["מספר פריט"].ToString() + ""); }
-                        }// end try
-                        catch
-                        { MessageBox.Show("שדה הכמות לא כולל רק מספרים בפריט מספר - " + dr["מספר פריט"].ToString() + ""); }
-                    }// end foreach (DataRow dr in changedRecordsTable.Rows)
+                    sizeofItemsnewtable = changedRecordsItemsTable.Rows.Count; // will give an exp if the size of the new items table is zero.
+                    foreach (DataRow dri in changedRecordsItemsTable.Rows)
+                           {
+                              string q = dri["כמות"].ToString();
+
+                             try
+                               {
+                                 if (q != "") // in case the user deleted a cell in the item and now it have a string of-  "" .
+                                   {
+                                      int check = Convert.ToInt32(q);
+
+                                      if (check > 0)
+                                        {
+                                                            //  foreach (DataColumn col in changedRecordsTable.Columns)
+                                                            // {
+                                                            //  Console.WriteLine(q);
+                                                
+                                          Console.WriteLine("כמות - " + check + "");
+                                                            // Console.WriteLine(dr[col.ColumnName]);
+                                                            //  }
+
+                                                            /* foreach (DataRow dr in changedRecordsTable.Rows)
+                                                             {
+                                                                 foreach (DataColumn col in changedRecordsTable.Columns)
+                                                                 {
+                                                                     Console.WriteLine(dr[col.ColumnName]);
+                                                                 }
+                                                             }
+                                                             */
+                                        }//end if (check > 0)
+                                        else { MessageBox.Show("שדה הכמות מכיל כמות שלילית או 0 בפריט מספר - " + dri["מספר פריט"].ToString() + ""); return; }
+
+                                   }// if (q != "")
+
+                               }// end try
+                               catch
+                               { MessageBox.Show("שדה הכמות לא כולל רק מספרים בפריט מספר - " + dri["מספר פריט"].ToString() + ""); return; }
+
+                           }// end foreach (DataRow dri in changedRecordsTable.Rows)
+  
+                }
+                catch { MessageBox.Show("לא נבחרו פריטים"); return; }
                 
+
             }
-            catch { MessageBox.Show("לא נבחרו פריטים"); }
+            catch { MessageBox.Show("לא נבחר לקוח"); Console.WriteLine("לא נבחר לקוח"); return; }
 
 
         //    MessageBox.Show("" + dataGrid1.CurrentCell + "");
