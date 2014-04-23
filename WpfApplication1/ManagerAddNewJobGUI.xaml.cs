@@ -111,17 +111,23 @@ namespace project
                    
                     foreach (DataRow drc in changedRecordsTableCust.Rows)
                         {
-                            string c = drc["בחר לקוח"].ToString();
+                            string c = drc["מספר לקוח"].ToString();
 
-                            
+                            Console.WriteLine("מספר הלקוח לפני האיף לא ריק - " + c + "");
                                 if (c != "") // in case the user deleted a cell in the cust tableand now it have a string of-  "".
                                 { 
                                   custcheck++; // if it will be more then one then the user chosen more then one cust.
                                   if (custcheck<2)
                                       {
-                                        Console.WriteLine("לקוח - " + c + "");
+                                        Console.WriteLine("מספר הלקוח הנבחר הוא - " + drc["מספר לקוח"].ToString() + "");
                                       }// if (custcheck<2)
-                                    else { MessageBox.Show("אנא בחר רק לקוח אחד"); return; }
+                                    else 
+                                      { 
+                                        MessageBox.Show(".אנא בחר רק לקוח אחד\n הטבלאות יאופסו כעת");
+                                        Reload_Cust_Table();
+                                        Reload_Items_Table();
+                                        return; 
+                                      }
                                 }// if (c != "") 
                        
                         }// foreach (DataRow drc in changedRecordsTableCust.Rows)
@@ -144,7 +150,7 @@ namespace project
                                                             // {
                                                             //  Console.WriteLine(q);
                                                 
-                                          Console.WriteLine("כמות - " + check + "");
+                                          Console.WriteLine("הכמות היא  - " + check + "ומספר הפריט הוא -  "+dri["מספר פריט"].ToString()+"");
                                                             // Console.WriteLine(dr[col.ColumnName]);
                                                             //  }
 
@@ -205,6 +211,51 @@ namespace project
 
 
             //ExportToExcel();
+        }
+            
+        private void Reload_Cust_Table()
+        {
+            try
+            {
+                MySqlConnection MySqlConn = new MySqlConnection(Login.Connectionstring);
+                MySqlConn.Open();
+                String searchidkey = this.IDSearchTextBox.Text;
+                string Query1 = "select costumerid as `מספר לקוח`,costumerName as `שם לקוח` ,costumerAddress as `כתובת לקוח`  from project.costumers group by costumerid";
+                MySqlCommand MSQLcrcommand1 = new MySqlCommand(Query1, MySqlConn);
+                MSQLcrcommand1.ExecuteNonQuery();
+                MySqlDataAdapter mysqlDAdp = new MySqlDataAdapter(MSQLcrcommand1);
+                dt.Clear();
+                mysqlDAdp.Fill(dt);
+                dataGrid1.ItemsSource = dt.DefaultView;
+                mysqlDAdp.Update(dt);
+                MySqlConn.Close();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+
+        }
+        private void Reload_Items_Table()
+        {
+            try
+            {
+                MySqlConnection MySqlConn = new MySqlConnection(Login.Connectionstring);
+                MySqlConn.Open();
+                string Query1 = ("select itemid as `מספר פריט`,itemName as `שם פריט`, discription as `תאור פריט` from project.item group by itemid");
+                MySqlCommand MSQLcrcommand1 = new MySqlCommand(Query1, MySqlConn);
+                MSQLcrcommand1.ExecuteNonQuery();
+                MySqlDataAdapter mysqlDAdp = new MySqlDataAdapter(MSQLcrcommand1);
+                dt1.Clear();
+                mysqlDAdp.Fill(dt1);
+                dataGrid2.ItemsSource = dt1.DefaultView;
+                mysqlDAdp.Update(dt1);
+                MySqlConn.Close();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            } 
         }
 
         private void Create_DataTable_Columns_Start()
@@ -345,10 +396,10 @@ namespace project
                 MSQLcrcommand1.ExecuteNonQuery();
                 MySqlDataAdapter mysqlDAdp = new MySqlDataAdapter(MSQLcrcommand1);
            //     DataTable dt = new DataTable("custumers");
-                DataColumn d = dt.Columns["בחר/י לקוח"];
+          //      DataColumn d = dt.Columns["בחר/י לקוח"];
                 dt.Clear();
-                dt.Columns.Remove("בחר/י לקוח");
-                dt.Columns.Add(d);
+         //       dt.Columns.Remove("בחר/י לקוח");
+          //      dt.Columns.Add(d);
                // dt.Columns["בחר לקוח"] = d;
 
                 mysqlDAdp.Fill(dt);
@@ -386,121 +437,164 @@ namespace project
             }
         }
 
+
+
+
+
+
         private void ADD_Btn_Click(object sender, RoutedEventArgs e)
         {
+           						// if dates were intered.
+            if (startdatePicker.Text != "" && finishdatePicker.Text != "")
+            {
+                string jobid, jobdes;
+                jobid = jobid_textBox.Text;
+                try
+                {
+                    MySqlConnection MySqlConn = new MySqlConnection(Login.Connectionstring);
+                    MySqlConn.Open();
+                    string Query1 = ("SELECT COUNT(jobid) FROM project.jobs WHERE jobid='" + jobid + "'"); //to see if the jobid already in the system.
+                    MySqlCommand MSQLcrcommand1 = new MySqlCommand(Query1, MySqlConn);
+                    MSQLcrcommand1.ExecuteNonQuery();
+                    int times = Convert.ToInt32(MSQLcrcommand1.ExecuteScalar());
+                    MySqlDataReader dr = MSQLcrcommand1.ExecuteReader();
+                    MySqlDataAdapter mysqlDAdp = new MySqlDataAdapter(MSQLcrcommand1);
+                    MySqlConn.Close();
+
+                    if (times != 0)
+                    {
+                        MessageBox.Show("כבר קיים מספר עבודה - " + jobid + "");
+                        return;
+                    }
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message);
+                    return; ;
+                }
+
+                jobdes = jobdes_textbox.Text;
+                String start, end;
+                DateTime s = (DateTime)Convert.ToDateTime(startdatePicker.Text);
+                DateTime f = (DateTime)Convert.ToDateTime(finishdatePicker.Text);
+                TimeSpan ts = f - s;
+
+                // if the days are ok.
+                if (ts.Days >= 0)
+                {
+                    start = Convert.ToDateTime(startdatePicker.Text).ToString("yyyy-MM-dd");
+                    end = Convert.ToDateTime(finishdatePicker.Text).ToString("yyyy-MM-dd");
+                }
+                else { MessageBox.Show(".תאריך ההתחלה שנבחר הוא לאחר תאריך הסיום"); return; }
+
+            }// the if (startdatePicker.Text != "" && finishdatePicker.Text != "") closer.
+            else { MessageBox.Show(".לא נבחרו 2 התאריכים"); return; }
+			
+			DataTable changedRecordsItemsTable = dt1.GetChanges();
+            DataTable changedRecordsTableCust = dt.GetChanges();
+            int sizeofItemsnewtable, sizeofCustnewtable, custcheck=0;
+            string customerid1;
             try
             {
-                string one = "עבודה", two="נרשם", tree="1";// just for TEST!!!!!!!!!!
-                    DataRowView dg1row = (DataRowView)dataGrid1.SelectedItems[0];
-                    DataTable changedRecordsTable = dt1.GetChanges(); //a new DT with only the changes (כמות) of dt1 (items).
-                    if (changedRecordsTable.Rows.Count != 0)
-                    {
-                        string customerid = dg1row["מספר לקוח"].ToString();
-                        //     string customerid = "1"; // just for TEST!!!!!!!!!!
-                        IList dg2rows = dataGrid2.SelectedItems;
-                        //            DataRowView dg2row;
-                        //             int numberofrowsDG2 = dg2rows.Count;
-                        int numberofrowsDG2 = 3; // just for TEST!!!!!!!!!!
-                        // only if there where items and one customer selected.
-                        if (numberofrowsDG2 != 0)
+                sizeofCustnewtable = changedRecordsTableCust.Rows.Count; // will give an exp if the size of the new cust table is zero.
+                try
+                {
+                   
+                    foreach (DataRow drc in changedRecordsTableCust.Rows)
                         {
-                            // if there dates were intered.
-                            if (startdatePicker.Text != "" && finishdatePicker.Text != "")
-                            {
-                                string selected_itemid, item_quantity, jobid, jobdes, itemsdes;
-                                jobid = jobid_textBox.Text;
-                                jobdes = jobdes_textbox.Text;
-                                String start, end;
-                                DateTime s = (DateTime)Convert.ToDateTime(startdatePicker.Text);
-                                DateTime f = (DateTime)Convert.ToDateTime(finishdatePicker.Text);
-                                TimeSpan ts = f - s;
+                            string customerid = drc["מספר לקוח"].ToString();
 
-                                // if the days are ok.
-                                if (ts.Days >= 0)
-                                {
-                                    start = Convert.ToDateTime(startdatePicker.Text).ToString("yyyy-MM-dd");
-                                    end = Convert.ToDateTime(finishdatePicker.Text).ToString("yyyy-MM-dd");
+                            Console.WriteLine("מספר הלקוח לפני האיף לא ריק - " + customerid + "");
+                                if (customerid != "") // in case the user deleted a cell in the cust tableand now it have a string of-  "".
+                                { 
+                                  custcheck++; // if it will be more then one then the user chosen more then one cust.
+                                  if (custcheck<2)
+                                      {
+                                          customerid1_label.Content = customerid;
+                                        Console.WriteLine("מספר הלקוח הנבחר הוא - " + drc["מספר לקוח"].ToString() + "");
+                                      }// if (custcheck<2)
+                                    else 
+                                      { 
+                                        MessageBox.Show(".אנא בחר רק לקוח אחד\n הטבלאות יאופסו כעת");
+                                        Reload_Items_Table();
+                                        Reload_Cust_Table();
+                                        return; 
+                                      }
+                                }// end if (customerid != "") 
+                       
+                         }// end foreach (DataRow drc in changedRecordsTableCust.Rows)
 
-                                    int for1 = 1, for2 = 1; //  just for TEST!!!!!!!!!!!!!!!!!!!!!
-                                    // get the data from each selected row (group of items).
-                                    for (int i = 1; i <= numberofrowsDG2; i++)
-                                    {
+                    if (custcheck == 0) { MessageBox.Show("לא נבחר לקוח"); return; }
 
-                                        //                               dg2row = (DataRowView)dg2rows[i];
-                                        //                               selected_itemid = dg2row["מספר פריט"].ToString();
+                    sizeofItemsnewtable = changedRecordsItemsTable.Rows.Count; // will give an exp if the size of the new items table is zero.
+					int itemNum=0;
+                    string itemStatus = "נרשם", itemStageOrder = "1", job_status = "נרשמה" ;
+                    string jobid, jobdes, itemsdes = "לא נרשם תיאור עדיין";
+                    jobid = jobid_textBox.Text;
+                    jobdes = jobdes_textbox.Text;
+                    String start = Convert.ToDateTime(startdatePicker.Text).ToString("yyyy-MM-dd"), end = Convert.ToDateTime(finishdatePicker.Text).ToString("yyyy-MM-dd");
+                    customerid1 = customerid1_label.Content.ToString();
+                    
+                    foreach (DataRow dri in changedRecordsItemsTable.Rows)
+                           {
+                              string q = dri["כמות"].ToString();
 
-                                        selected_itemid = for1.ToString(); //  just for TEST!!!!!!!!!!!!!!!!!!!!!
-                                        for1++;//  just for TEST!!!!!!!!!!!!!!!!!!!!!
-                                        //                              item_quantity = dg2row["כמות"].ToString();
+                             try
+                               {
+                                 if (q != "") // in case the user deleted a cell in the item and now it have a string of-  "" .
+                                   {
+                                      int item_quantity = Convert.ToInt32(q);
 
-                                        item_quantity = for2.ToString();
-                                        for2++; //  just for TEST!!!!!!!!!!!!!!!!!!!!!
-                                        //                              itemsdes = dg2row["הערות"].ToString();
-                                        itemsdes = "ניסיון ראשון";
-
-                                        // test if the field input of quantity if the items in each group is numbers only.
-                                        try
+                                      if (item_quantity > 0)
                                         {
-                                            int test = Convert.ToInt32(item_quantity);
-                                        }
-                                        catch
-                                        {
-                                            MessageBox.Show("שדה הכמות לא כולל רק מספרים בפריט מספר - " + selected_itemid + "");
-                                        }
-
-                                        int no_of_group_items = Convert.ToInt32(item_quantity);
-                                        if (item_quantity != "0")
-                                        {
-                                            // int itemnum = 0; // this will be the number on an item in the same item group.
-
-                                            //for each item in the same items group add to the DB in the jobs table.
-                                            for (int j = 1; j <= no_of_group_items; j++)
+                                            for (int i = 1; i <= item_quantity; i++)
                                             {
+                                                itemNum++;
+                                                string itemid = dri["מספר פריט"].ToString();
                                                 try
                                                 {
                                                     MySqlConnection MySqlConn = new MySqlConnection(Login.Connectionstring);
                                                     MySqlConn.Open();
-                                                    string Query1 = ("INSERT INTO project.jobs (jobid, itemid,itemNum,itemStatus,itemStageOrder, expectedItemQuantity,costumerid, itemsDescription, job_status, jobdescription, startDate, expectedFinishDate) VALUES ('" + jobid + "','" + selected_itemid + "','" + j.ToString() + "','" + one + "','" + tree + "','" + no_of_group_items + "','" + customerid + "','" + itemsdes + "','" + two + "','" + jobdes + "','" + start + "','" + end + "')"); //this is here just for now
+                                                    string Query1 = ("INSERT INTO project.jobs (jobid, itemid,itemNum,itemStatus,itemStageOrder, expectedItemQuantity,costumerid, itemsDescription, job_status, jobdescription, startDate, expectedFinishDate) VALUES ('" + jobid + "','" + itemid + "','" + itemNum + "','" + itemStatus + "','" + itemStageOrder + "','" + item_quantity + "','" + customerid1 + "','" + itemsdes + "','" + job_status + "','" + jobdes + "','" + start + "','" + end + "')");
                                                     MySqlCommand MSQLcrcommand1 = new MySqlCommand(Query1, MySqlConn);
                                                     MSQLcrcommand1.ExecuteNonQuery();
                                                     MySqlDataAdapter mysqlDAdp = new MySqlDataAdapter(MSQLcrcommand1);
                                                     MySqlConn.Close();
-                                                    MessageBox.Show("!הלקוח נמחק מהמערכת");
+
                                                 }
                                                 catch (Exception ex)
                                                 {
-                                                    MessageBox.Show(ex.Message);
+                                                    MessageBox.Show(ex.Message); 
+                                                    return; ;
                                                 }
 
-                                            }// the for with a j closer.
 
-                                        }// the if (item_quantity != "0") closer
+                                                Console.WriteLine("הכמות היא  - " + customerid1 + "");
+                                                Console.WriteLine("הכמות היא  - " + item_quantity + "ומספר הפריט הוא -  " + dri["מספר פריט"].ToString() + "");
+                                            }                  
+                                        }//end if (item_quantity > 0)
+                                        else { MessageBox.Show("שדה הכמות מכיל כמות שלילית או 0 בפריט מספר - " + dri["מספר פריט"].ToString() + ""); return; }
 
-                                    }// the for with a i closer.
+                                   }// if (q != "")
 
-                                }//the if (ts.Days >= 0) closer.
+                               }// end try
+                               catch
+                               { MessageBox.Show("שדה הכמות לא כולל רק מספרים בפריט מספר - " + dri["מספר פריט"].ToString() + ""); return; }
 
-                            }// the if (startdatePicker.Text != "" && finishdatePicker.Text != "") closer.
+                           }// end foreach (DataRow dri in changedRecordsTable.Rows)
 
-                        }// the if (numberofrowsDG2 != 0) closer.
+                    MessageBox.Show("!העבודה נוספה למערכת");
+                }
+                catch { 
+                        MessageBox.Show("לא נבחרו פריטים");
+                        Reload_Items_Table();
+                        Reload_Cust_Table();
+                        return;
+                      }
+                
 
-                        else
-                        {
-                            MessageBox.Show("לא נבחר/ו פריטי/ם");
-                        }
-                    }// the  if (changedRecordsTable.Rows.Count != 0)
-                    else
-                    {
-                        MessageBox.Show("לא נבחר/ו פריטי/ם");
-                    }
-
-            }//end first try.
-
-            catch 
-               {
-                    MessageBox.Show("לא נבחר לקוח");
-               }
-
+            }
+            catch { MessageBox.Show("לא נבחר לקוח"); Console.WriteLine("לא נבחר לקוח"); return; }
         }
 
 
