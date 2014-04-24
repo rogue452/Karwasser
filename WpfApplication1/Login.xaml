@@ -20,6 +20,6 @@
         <Image Height="184" HorizontalAlignment="Left" Name="image1" Stretch="Fill" VerticalAlignment="Top" Width="1228" Source="/WpfApplication1;component/Images/templatemo_header_bg_wrapper.jpg" />
         <Button Content="MySQL" Height="66" HorizontalAlignment="Left" Margin="931,392,0,0" Name="MySQL_button" VerticalAlignment="Top" Width="172" Click="MySQL_button_Click" Background="#B20000FF" FontSize="20" />
         <Label Content="אנא הזדהה לשם כניסה למערכת  (KARWASSER (2003" Height="34" HorizontalAlignment="Left" Margin="299,190,0,0" Name="label3" VerticalAlignment="Top" FontSize="20" FontWeight="Bold" Foreground="DarkGreen" />
-        <Button Content="שמור שם" Height="23" HorizontalAlignment="Left" Margin="702,532,0,0" Name="Name_save_button" VerticalAlignment="Top" Width="75" />
+        <Button Content="שמור שם" Height="23" HorizontalAlignment="Left" Margin="702,532,0,0" Name="Name_save_button" VerticalAlignment="Top" Width="75" Click="Name_save_button_Click" />
     </Grid>
 </Window>
