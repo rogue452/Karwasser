@@ -26,6 +26,7 @@ namespace project
     {
         DataTable dt = new DataTable("custumers");
         DataTable dt1 = new DataTable("items");
+        DataTable dt2 = new DataTable("Contacts");
         public ManagerAddNewJobGUI()
         {
             InitializeComponent();
@@ -742,7 +743,11 @@ namespace project
         
         private void Grid_AutoGeneratingColumn(object sender, DataGridAutoGeneratingColumnEventArgs e)
         {
-
+            if (e.Column.Header.ToString() == "מספר לקוח" || e.Column.Header.ToString() == "שם לקוח" || e.Column.Header.ToString() == "כתובת לקוח")
+            {
+                // e.Cancel = true;   // For not to include 
+                e.Column.IsReadOnly = true; // Makes the column as read only
+            }
              //   if (e.Column.Header.ToString() == "תאור פריט")
            // if (e.Column.Header.ToString() == "בחר לקוח")
            // {
@@ -822,6 +827,17 @@ namespace project
              */
 
         }
+
+        private void dataGrid3_AutoGeneratingColumn(object sender, DataGridAutoGeneratingColumnEventArgs e)
+        {
+            if (e.Column.Header.ToString() == "מספר איש קשר" || e.Column.Header.ToString() == "שם איש קשר" || e.Column.Header.ToString() == "מחלקת איש קשר")
+            {
+                // e.Cancel = true;   // For not to include 
+                e.Column.IsReadOnly = true; // Makes the column as read only
+            }
+        }
+
+
 
        private void chkSelect_Checked(object sender, RoutedEventArgs e)
         {
@@ -910,9 +926,13 @@ namespace project
 
         private void Grid_AutoGeneratingColumn1(object sender, DataGridAutoGeneratingColumnEventArgs e)
         {
-         /*   
-          //  if (e.Column.Header.ToString() == "מספר פריט")
-          */
+            if (e.Column.Header.ToString() == "מספר פריט" || e.Column.Header.ToString() == "שם פריט" || e.Column.Header.ToString() == "תאור פריט")
+            {
+                // e.Cancel = true;   // For not to include 
+                e.Column.IsReadOnly = true; // Makes the column as read only
+            }
+
+
             if (e.Column.Header.ToString() == "בחר/י פריט/ים")
             {
                 // e.Cancel = true;   // For not to include 
@@ -1034,6 +1054,144 @@ namespace project
             }
             catch { MessageBox.Show("לא נבחר לקוח"); }
         }
-        }  
-    }
+
+        private void dataGrid1_Preview_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        {
+            try
+            {
+                DataRowView row = (DataRowView)dataGrid1.SelectedItems[0];
+                string selected = row["מספר לקוח"].ToString();
+                try
+                {
+                    MySqlConnection MySqlConn = new MySqlConnection(Login.Connectionstring);
+                    MySqlConn.Open();
+                    string Query1 = ("select costumerid as `מספר לקוח`,costumerName as `שם לקוח` ,costumerAddress as `כתובת לקוח`  from project.costumers group by costumerid");
+                    MySqlCommand MSQLcrcommand1 = new MySqlCommand(Query1, MySqlConn);
+                    MSQLcrcommand1.ExecuteNonQuery();
+                    MySqlDataAdapter mysqlDAdp = new MySqlDataAdapter(MSQLcrcommand1);
+                    dt2.Clear();
+                    mysqlDAdp.Fill(dt2);
+                    dataGrid3.ItemsSource = dt2.DefaultView;
+                    mysqlDAdp.Update(dt2);
+                    MySqlConn.Close();
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message);
+                }   
+            }// end try
+
+            catch { return; }
+        }
+
+
+        private void dataGrid1_Focus(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                DataRowView row = (DataRowView)dataGrid1.SelectedItems[0];
+                string selected = row["מספר לקוח"].ToString();
+                try
+                {
+                    MySqlConnection MySqlConn = new MySqlConnection(Login.Connectionstring);
+                    MySqlConn.Open();
+                    string Query1 = ("select costumerid as `מספר לקוח`,costumerName as `שם לקוח` ,costumerAddress as `כתובת לקוח`  from project.costumers group by costumerid");
+                    MySqlCommand MSQLcrcommand1 = new MySqlCommand(Query1, MySqlConn);
+                    MSQLcrcommand1.ExecuteNonQuery();
+                    MySqlDataAdapter mysqlDAdp = new MySqlDataAdapter(MSQLcrcommand1);
+                    dt2.Clear();
+                    mysqlDAdp.Fill(dt2);
+                    dataGrid3.ItemsSource = dt2.DefaultView;
+                    mysqlDAdp.Update(dt2);
+                    MySqlConn.Close();
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message);
+                }   
+            }// end try
+
+            catch { return; }
+        }
+
+        private void dataGrid1_Focusable(object sender, DependencyPropertyChangedEventArgs e)
+        {
+            try
+            {
+                DataRowView row = (DataRowView)dataGrid1.SelectedItems[0];
+                string selected = row["מספר לקוח"].ToString();
+                try
+                {
+                    MySqlConnection MySqlConn = new MySqlConnection(Login.Connectionstring);
+                    MySqlConn.Open();
+                    string Query1 = ("select costumerid as `מספר לקוח`,costumerName as `שם לקוח` ,costumerAddress as `כתובת לקוח`  from project.costumers group by costumerid");
+                    MySqlCommand MSQLcrcommand1 = new MySqlCommand(Query1, MySqlConn);
+                    MSQLcrcommand1.ExecuteNonQuery();
+                    MySqlDataAdapter mysqlDAdp = new MySqlDataAdapter(MSQLcrcommand1);
+                    dt2.Clear();
+                    mysqlDAdp.Fill(dt2);
+                    dataGrid3.ItemsSource = dt2.DefaultView;
+                    mysqlDAdp.Update(dt2);
+                    MySqlConn.Close();
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message);
+                }
+            }// end try
+
+            catch { return; }
+
+            }
+
+        private void dataGrid1_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            try
+            {
+                DataRowView row = (DataRowView)dataGrid1.SelectedItems[0];
+                string selected = row["מספר לקוח"].ToString();
+                try
+                {
+                    MySqlConnection MySqlConn = new MySqlConnection(Login.Connectionstring);
+                    MySqlConn.Open();
+                    string Query1 = ("select contactid as `מספר איש קשר`,contactName as `שם איש קשר` ,contactDepartment as `מחלקת איש קשר` from costumers  where costumerid='" + selected + "'");
+                    MySqlCommand MSQLcrcommand1 = new MySqlCommand(Query1, MySqlConn);
+                    MSQLcrcommand1.ExecuteNonQuery();
+                    MySqlDataAdapter mysqlDAdp = new MySqlDataAdapter(MSQLcrcommand1);
+                    dt2.Clear();
+                    mysqlDAdp.Fill(dt2);
+                    dataGrid3.ItemsSource = dt2.DefaultView;
+                    mysqlDAdp.Update(dt2);
+                    MySqlConn.Close();
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message);
+                }
+            }// end try
+
+            catch { return; }
+
+        }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  }  
+}
 
