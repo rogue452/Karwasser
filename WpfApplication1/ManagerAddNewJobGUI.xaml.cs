@@ -443,9 +443,10 @@ namespace project
 
 
 
+
         private void ADD_Btn_Click(object sender, RoutedEventArgs e)
         {
-       		// if dates were intered.
+            // if dates were intered.
             if (startdatePicker.Text != "" && finishdatePicker.Text != "")
             {
                 string jobid, jobdes;
@@ -493,116 +494,99 @@ namespace project
                 else { MessageBox.Show("לא הוכנס מספר עבודה"); return; }
             }// the if (startdatePicker.Text != "" && finishdatePicker.Text != "") closer.
             else { MessageBox.Show(".לא נבחרו 2 התאריכים"); return; }
-			
-			DataTable changedRecordsItemsTable = dt1.GetChanges();
-          //DataTable changedRecordsTableCust = dt.GetChanges();
+
+            DataTable changedRecordsItemsTable = dt1.GetChanges();
+            //DataTable changedRecordsTableCust = dt.GetChanges();
             int sizeofItemsnewtable;
             //sizeofCustnewtable, custcheck=0;
             //string customerid1;
             try
             {
-               // sizeofCustnewtable = changedRecordsTableCust.Rows.Count; // will give an exp if the size of the new cust table is zero.
+                // sizeofCustnewtable = changedRecordsTableCust.Rows.Count; // will give an exp if the size of the new cust table is zero.
                 DataRowView row = (DataRowView)dataGrid1.SelectedItems[0];
 
                 try
                 {
-                 string selected = row["מספר לקוח"].ToString();
+                    DataRowView row1 = (DataRowView)dataGrid3.SelectedItems[0];
 
-                   /*
-                    foreach (DataRow drc in changedRecordsTableCust.Rows)
+
+                    try
+                    {
+                        string contactid = row1["מספר איש קשר"].ToString();
+                        string selected = row["מספר לקוח"].ToString();
+
+
+                        sizeofItemsnewtable = changedRecordsItemsTable.Rows.Count; // will give an exp if the size of the new items table is zero.
+                        int itemNum = 0;
+                        string itemStatus = "נרשם", itemStageOrder = "1", job_status = "נרשמה";
+                        string jobid, jobdes, itemsdes = "לא נרשם תיאור עדיין";
+                        jobid = jobid_textBox.Text;
+                        jobdes = jobdes_textbox.Text;
+                        String start = Convert.ToDateTime(startdatePicker.Text).ToString("yyyy-MM-dd"), end = Convert.ToDateTime(finishdatePicker.Text).ToString("yyyy-MM-dd");
+                        // customerid1 = customerid1_label.Content.ToString();
+
+                        foreach (DataRow dri in changedRecordsItemsTable.Rows)
                         {
-                            string customerid = drc["מספר לקוח"].ToString();
+                            string q = dri["כמות"].ToString();
 
-                            Console.WriteLine("מספר הלקוח לפני האיף לא ריק - " + customerid + "");
-                                if (customerid != "") // in case the user deleted a cell in the cust tableand now it have a string of-  "".
-                                { 
-                                  custcheck++; // if it will be more then one then the user chosen more then one cust.
-                                  if (custcheck<2)
-                                      {
-                                          customerid1_label.Content = customerid;
-                                        Console.WriteLine("מספר הלקוח הנבחר הוא - " + drc["מספר לקוח"].ToString() + "");
-                                      }// if (custcheck<2)
-                                    else 
-                                      { 
-                                        MessageBox.Show(".אנא בחר רק לקוח אחד\n הטבלאות יאופסו כעת");
-                                        Reload_Items_Table();
-                                        Reload_Cust_Table();
-                                        return; 
-                                      }
-                                }// end if (customerid != "") 
-                       
-                         }// end foreach (DataRow drc in changedRecordsTableCust.Rows)
-                   */
-                  //  if (custcheck == 0) { MessageBox.Show("לא נבחר לקוח"); return; }
+                            try
+                            {
+                                if (q != "") // in case the user deleted a cell in the item and now it have a string of-  "" .
+                                {
+                                    int item_quantity = Convert.ToInt32(q);
 
-                    sizeofItemsnewtable = changedRecordsItemsTable.Rows.Count; // will give an exp if the size of the new items table is zero.
-					int itemNum=0;
-                    string itemStatus = "נרשם", itemStageOrder = "1", job_status = "נרשמה" ;
-                    string jobid, jobdes, itemsdes = "לא נרשם תיאור עדיין";
-                    jobid = jobid_textBox.Text;
-                    jobdes = jobdes_textbox.Text;
-                    String start = Convert.ToDateTime(startdatePicker.Text).ToString("yyyy-MM-dd"), end = Convert.ToDateTime(finishdatePicker.Text).ToString("yyyy-MM-dd");
-                   // customerid1 = customerid1_label.Content.ToString();
-                    
-                    foreach (DataRow dri in changedRecordsItemsTable.Rows)
-                           {
-                              string q = dri["כמות"].ToString();
-
-                             try
-                               {
-                                 if (q != "") // in case the user deleted a cell in the item and now it have a string of-  "" .
-                                   {
-                                      int item_quantity = Convert.ToInt32(q);
-
-                                      if (item_quantity > 0)
+                                    if (item_quantity > 0)
+                                    {
+                                        for (int i = 1; i <= item_quantity; i++)
                                         {
-                                            for (int i = 1; i <= item_quantity; i++)
+                                            itemNum++;
+                                            string itemid = dri["מספר פריט"].ToString();
+                                            try
                                             {
-                                                itemNum++;
-                                                string itemid = dri["מספר פריט"].ToString();
-                                                try
-                                                {
-                                                    MySqlConnection MySqlConn = new MySqlConnection(Login.Connectionstring);
-                                                    MySqlConn.Open();
-                                                    string Query1 = ("INSERT INTO project.jobs (jobid, itemid,itemNum,itemStatus,itemStageOrder, expectedItemQuantity,costumerid, itemsDescription, job_status, jobdescription, startDate, expectedFinishDate) VALUES ('" + jobid + "','" + itemid + "','" + itemNum + "','" + itemStatus + "','" + itemStageOrder + "','" + item_quantity + "','" + selected + "','" + itemsdes + "','" + job_status + "','" + jobdes + "','" + start + "','" + end + "')");
-                                                    MySqlCommand MSQLcrcommand1 = new MySqlCommand(Query1, MySqlConn);
-                                                    MSQLcrcommand1.ExecuteNonQuery();
-                                                    MySqlDataAdapter mysqlDAdp = new MySqlDataAdapter(MSQLcrcommand1);
-                                                    MySqlConn.Close();
+                                                MySqlConnection MySqlConn = new MySqlConnection(Login.Connectionstring);
+                                                MySqlConn.Open();
+                                                string Query1 = ("INSERT INTO project.jobs (jobid, itemid,itemNum,itemStatus,itemStageOrder, expectedItemQuantity,costumerid, itemsDescription, job_status, jobdescription, startDate, expectedFinishDate, contact_id) VALUES ('" + jobid + "','" + itemid + "','" + itemNum + "','" + itemStatus + "','" + itemStageOrder + "','" + item_quantity + "','" + selected + "','" + itemsdes + "','" + job_status + "','" + jobdes + "','" + start + "','" + end + "','" + contactid + "')");
+                                                MySqlCommand MSQLcrcommand1 = new MySqlCommand(Query1, MySqlConn);
+                                                MSQLcrcommand1.ExecuteNonQuery();
+                                                MySqlDataAdapter mysqlDAdp = new MySqlDataAdapter(MSQLcrcommand1);
+                                                MySqlConn.Close();
 
-                                                }
-                                                catch (Exception ex)
-                                                {
-                                                    MessageBox.Show(ex.Message);  
-                                                    return; 
-                                                }
+                                            }
+                                            catch (Exception ex)
+                                            {
+                                                MessageBox.Show(ex.Message);
+                                                return;
+                                            }
 
 
-                                                Console.WriteLine("הלקוח הוא  - " + selected + "");
-                                                Console.WriteLine("הכמות היא  - " + item_quantity + "ומספר הפריט הוא -  " + dri["מספר פריט"].ToString() + "");
-                                                Console.WriteLine("מספר עבודה - " + jobid + "");
-                                            }                  
-                                        }//end if (item_quantity > 0)
-                                        else { MessageBox.Show("שדה הכמות מכיל כמות שלילית או 0 בפריט מספר - " + dri["מספר פריט"].ToString() + ""); return; }
+                                            Console.WriteLine("הלקוח הוא  - " + selected + "");
+                                            Console.WriteLine("הכמות היא  - " + item_quantity + "ומספר הפריט הוא -  " + dri["מספר פריט"].ToString() + "");
+                                            Console.WriteLine("מספר עבודה - " + jobid + "");
+                                            Console.WriteLine("מספר איש קשר - " + contactid + "");
+                                        }
+                                    }//end if (item_quantity > 0)
+                                    else { MessageBox.Show("שדה הכמות מכיל כמות שלילית או 0 בפריט מספר - " + dri["מספר פריט"].ToString() + ""); return; }
 
-                                   } // if (q != "")
-                                 else { MessageBox.Show("לא נבחרו פריטים "); return; }
+                                } // if (q != "")
+                                else { MessageBox.Show("  לא נבחרו פריטים מהטבלה "); return; }
 
-                               }// end try
-                               catch
-                               { MessageBox.Show("שדה הכמות לא כולל רק מספרים בפריט מספר - " + dri["מספר פריט"].ToString() + ""); return; }
+                            }// end try
+                            catch
+                            { MessageBox.Show("שדה הכמות לא כולל רק מספרים בפריט מספר - " + dri["מספר פריט"].ToString() + ""); return; }
 
-                           }// end foreach (DataRow dri in changedRecordsTable.Rows)
+                        }// end foreach (DataRow dri in changedRecordsTable.Rows)
 
-                    MessageBox.Show("!העבודה נוספה למערכת");
-                }
-                catch { 
+                        MessageBox.Show("!העבודה נוספה למערכת");
+                    }
+                    catch
+                    {
                         MessageBox.Show("לא נבחרו פריטים");
                         Reload_Items_Table();
-                        Reload_Cust_Table();
+
                         return;
-                      }
-                
+                    }
+                }
+                catch { MessageBox.Show("לא נבחר איש קשר"); Console.WriteLine("לא נבחר איש קשר"); return; }
 
             }
             catch { MessageBox.Show("לא נבחר לקוח"); Console.WriteLine("לא נבחר לקוח"); return; }
