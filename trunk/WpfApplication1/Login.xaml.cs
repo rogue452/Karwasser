@@ -51,10 +51,10 @@ namespace project
             host_name_label.Content = my_host_name;
       
             // checks if the text file exists and if does then the text in the file will be loaded to the Host_textBox.
-            if (File.Exists("C:/Users/Public//Host Name Login.txt"))
-            {
+            if (File.Exists("C:/Users/Public//Host Name Login DO NOT DELETE.txt"))
+            { 
                 //if we want to load the text from a file the we will enable this line (and also the using System.IO line above) and we will give it the text Source path.
-                Host_textBox.Text = File.ReadAllText("C:/Users/Public//Host Name Login.txt");
+                Host_textBox.Text = File.ReadAllText("C:/Users/Public//Host Name Login DO NOT DELETE.txt");
             }
             this_cpu_HostName_label.Visibility = Visibility.Visible;
             host_name_label.Visibility = Visibility.Visible;
@@ -153,18 +153,33 @@ namespace project
  
                             if (user_role.Equals("מנהל"))
                             {
+                                //string user_connected = "מחובר";
+                                string user_connected = "לא מחובר";
+                                DBConnection conn = new DBConnection();
+                                string query2 = "Update users SET connected='" + user_connected + "',last_log_in_date='" + DateTime.Now.ToString("yyyy-MM-dd") + "' where user_name= '" + this.textBox1.Text + "' and password ='" + this.textBox2.Password + "'";
+                                conn.LogIn(query2);
                                 ManagerGui MG = new ManagerGui();
                                 MG.Show();
                             }
 
                             if (user_role.Equals("מזכירה"))
                             {
+                                //string user_connected = "מחובר";
+                                string user_connected = "לא מחובר";
+                                DBConnection conn = new DBConnection();
+                                string query2 = "Update users SET connected='" + user_connected + "',last_log_in_date='" + DateTime.Now.ToString("yyyy-MM-dd") + "' where user_name= '" + this.textBox1.Text + "' and password ='" + this.textBox2.Password + "'";
+                                conn.LogIn(query2);
                                 SecretaryGui SG = new SecretaryGui();
                                 SG.Show();
                             }
 
                             if (user_role.Equals("איכות"))
                             {
+                                //string user_connected = "מחובר";
+                                string user_connected = "לא מחובר";
+                                DBConnection conn = new DBConnection();
+                                string query2 = "Update users SET connected='" + user_connected + "',last_log_in_date='" + DateTime.Now.ToString("yyyy-MM-dd") + "' where user_name= '" + this.textBox1.Text + "' and password ='" + this.textBox2.Password + "'";
+                                conn.LogIn(query2);
                                 QualityGui QG = new QualityGui();
                                 QG.Show();
                             }
@@ -356,6 +371,29 @@ namespace project
             MySQLPasswordREQuestGui MSQLPRG = new MySQLPasswordREQuestGui();
             MSQLPRG.Show();
             this.Close();
+        }
+
+        private void Name_save_button_Click(object sender, RoutedEventArgs e)
+        {
+            string newhost = Host_textBox.Text, to = "C:/Users/Public//Host Name Login DO NOT DELETE.txt";
+            File.WriteAllText(to, newhost);
+            if (File.Exists(to))
+            {
+                //if we want to load the text from a file the we will enable this line (and also the using System.IO line above) and we will give it the text Source path.
+                Host_textBox.Text = File.ReadAllText(to);
+                MessageBox.Show(".השם נשמר בהצלחה");
+            }
+            else 
+            {
+                MessageBox.Show(".התרחשה בעיה בשמירת השם");
+            }
         } 
+
+
+
+
+
+
+
     }
 }
