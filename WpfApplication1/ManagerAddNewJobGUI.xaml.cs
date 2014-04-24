@@ -525,12 +525,15 @@ namespace project
                         String start = Convert.ToDateTime(startdatePicker.Text).ToString("yyyy-MM-dd"), end = Convert.ToDateTime(finishdatePicker.Text).ToString("yyyy-MM-dd");
                         // customerid1 = customerid1_label.Content.ToString();
 
+                        int count = 0; // will count the number of rows with cell "" in the  changedRecordsItemsTable.
                         foreach (DataRow dri in changedRecordsItemsTable.Rows)
                         {
+                            
                             string q = dri["כמות"].ToString();
 
                             try
                             {
+                              
                                 if (q != "") // in case the user deleted a cell in the item and now it have a string of-  "" .
                                 {
                                     int item_quantity = Convert.ToInt32(q);
@@ -568,15 +571,20 @@ namespace project
                                     else { MessageBox.Show("שדה הכמות מכיל כמות שלילית או 0 בפריט מספר - " + dri["מספר פריט"].ToString() + ""); return; }
 
                                 } // if (q != "")
-                                else { MessageBox.Show("  לא נבחרו פריטים מהטבלה "); return; }
+                                else { count++; }
+                               // else { MessageBox.Show("  לא נבחרו פריטים מהטבלה "); return; }
 
                             }// end try
                             catch
                             { MessageBox.Show("שדה הכמות לא כולל רק מספרים בפריט מספר - " + dri["מספר פריט"].ToString() + ""); return; }
 
                         }// end foreach (DataRow dri in changedRecordsTable.Rows)
+                        if (count == changedRecordsItemsTable.Rows.Count)
+                            {
+                                MessageBox.Show("  לא נבחרו פריטים מהטבלה "); return; 
+                            }
 
-                        MessageBox.Show("!העבודה נוספה למערכת");
+                        else { MessageBox.Show("!העבודה נוספה למערכת"); }
                     }
                     catch
                     {
