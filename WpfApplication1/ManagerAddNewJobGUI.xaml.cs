@@ -572,7 +572,7 @@ namespace project
 
                                 } // if (q != "")
                                 else { count++; }
-                               // else { MessageBox.Show("  לא נבחרו פריטים מהטבלה "); return; }
+                               
 
                             }// end try
                             catch
@@ -589,7 +589,7 @@ namespace project
                     catch
                     {
                         MessageBox.Show("לא נבחרו פריטים");
-                        Reload_Items_Table();
+                        //Reload_Items_Table();
 
                         return;
                     }
