@@ -45,6 +45,7 @@ namespace project
             client = false;
             Req_Host_label.Visibility = Visibility.Hidden;
             Host_textBox.Visibility = Visibility.Hidden;
+            Name_save_button.Visibility = Visibility.Hidden;
            // My_IP();
             My_Host_Name();
             host_name_label.Content = my_host_name;
@@ -229,6 +230,7 @@ namespace project
             client = true;
             Req_Host_label.Visibility = Visibility.Visible;
             Host_textBox.Visibility = Visibility.Visible;
+            Name_save_button.Visibility = Visibility.Visible;
             this_cpu_HostName_label.Visibility = Visibility.Hidden;
             //myip_label.Visibility = Visibility.Hidden;
             host_name_label.Visibility = Visibility.Hidden;
@@ -249,6 +251,7 @@ namespace project
      //       }
          //   IPHostEntry ipEntry = DNS.GetHostByName(strHostName);
             client = false;
+            host_name_label.Visibility = Visibility.Visible;
             Req_Host_label.Visibility = Visibility.Hidden;
             Host_textBox.Visibility = Visibility.Hidden;
             this_cpu_HostName_label.Visibility = Visibility.Visible;
