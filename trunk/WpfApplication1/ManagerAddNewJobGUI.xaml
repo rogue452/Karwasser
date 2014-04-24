@@ -4,37 +4,32 @@
         Title="מסך הוספת עבודה" Height="647" Width="1212" FlowDirection="RightToLeft" ResizeMode="CanMinimize" Icon="/WpfApplication1;component/Images/Israel.ico">
     <Grid>
         <Image Source="/WpfApplication1;component/Images/31.jpg"  Stretch="UniformToFill" FlowDirection="RightToLeft" Margin="-12,0,0,0"  />
-        <DataGrid x:Name="dataGrid1" Margin="12,127,876,0" VerticalAlignment="Top" Height="439" FontSize="15"  AutoGenerateColumns="True" AutoGeneratingColumn="Grid_AutoGeneratingColumn"  ItemsSource="{Binding}" HeadersVisibility="All" MaxColumnWidth="Infinity" CanUserAddRows="false" SelectionMode="Single"  SelectionChanged="dataGrid1_SelectionChanged" />
+        <DataGrid x:Name="dataGrid1" Margin="6,127,867,0" VerticalAlignment="Top" Height="439" FontSize="15"  AutoGenerateColumns="True" AutoGeneratingColumn="Grid_AutoGeneratingColumn"  ItemsSource="{Binding}" HeadersVisibility="All" MaxColumnWidth="Infinity" CanUserAddRows="false" SelectionMode="Single"  SelectionChanged="dataGrid1_SelectionChanged" />
         <TextBox HorizontalAlignment="Left" Height="22" Margin="169,67,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="164" FontSize="15" Name="CustumerNameSearchTextBox" TextChanged="CustumerNameSearchTextBox_TextChanged" />
         <TextBox HorizontalAlignment="Left" Height="23" Margin="169,34,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="164" Name="IDSearchTextBox" TextChanged="IDSearchTextBox_TextChanged" />
         <Label Content="מספר לקוח (ללא 0 ראשוני)" HorizontalAlignment="Left" Margin="4,34,0,0" VerticalAlignment="Top" PreviewMouseLeftButtonDown="dataGrid1_Preview_MouseLeftButtonDown" />
         <Label Content="שם לקוח " HorizontalAlignment="Left" Margin="6,65,0,0" VerticalAlignment="Top" Width="71"/>
         <Label Content="החל להקליד כדי לחפש לפי:" HorizontalAlignment="Left" Margin="12,0,0,0" VerticalAlignment="Top" FontWeight="Bold" />
-        <Button Content="הוסף לקוח" HorizontalAlignment="Left" Margin="705,41,0,0" VerticalAlignment="Top" Width="145" Height="56" Name="ADD_Btn" Background="#8400A500" FontWeight="Bold" Click="ADD_Btn_Click" />
-        <Label Content="ניהול לקוחות:" HorizontalAlignment="Left" VerticalAlignment="Top" Width="112" Margin="673,0,0,0" FontStyle="Normal" FontWeight="Bold" />
-        <Button Content="מחק לקוח" HorizontalAlignment="Right" Margin="0,41,28,0" VerticalAlignment="Top" Width="145" Height="56" Name="DeleteBtn" FontWeight="Bold" Background="#A5FF0000" Click="DeleteBtn_Click" />
-        <Button Content="עדכון פרטי לקוח" HorizontalAlignment="Right" Margin="0,41,179,0" VerticalAlignment="Top" Width="145" Height="56" Name="UpdateBtn" FontWeight="Bold" Click="UpdateBtn_Click" />
+        <Button Content="הוסף עבודה" HorizontalAlignment="Left" Margin="1009,486,0,0" VerticalAlignment="Top" Width="145" Height="56" Name="ADD_Btn" Background="#8400A500" FontWeight="Bold" Click="ADD_Btn_Click" />
+        <Label Content="בחר לקוח מהרשימה" HorizontalAlignment="Left" VerticalAlignment="Top" Width="179" Margin="6,96,0,0" FontStyle="Normal" FontWeight="Bold" Name="selecet_cust_label" FontSize="15" />
         <Button Content="יציאה מהמערכת" HorizontalAlignment="Left" Margin="1036,573,0,0" VerticalAlignment="Top" Width="142" Height="28" />
         <Button Content="חזור למסך ראשי" HorizontalAlignment="Left" Margin="47,573,0,0" VerticalAlignment="Top" Width="134" Height="28" Click="Back_Btn_Click" Name="Back_Btn" />
-        <Button Content="ייצא רשימה לקובץ אקסל" Height="28" HorizontalAlignment="Left" Margin="507,572,0,0" Name="ExcelBtn" VerticalAlignment="Top" Width="161" Click="ExcelBtn_Click" />
-        <Image Height="36" HorizontalAlignment="Left" Margin="766,3,0,0" Name="image1" Stretch="Fill" VerticalAlignment="Top" Width="42" FlowDirection="RightToLeft" Source="/WpfApplication1;component/Images/add_user.png" />
-        <Image Height="36" HorizontalAlignment="Right" Margin="0,3,86,0" Name="image2" Stretch="Fill" VerticalAlignment="Top" Width="31" Source="/WpfApplication1;component/Images/delete_user.png" />
-        <Image Height="36" HorizontalAlignment="Right" Margin="0,3,236,0" Name="image3" Stretch="Fill" VerticalAlignment="Top" Width="42" Source="/WpfApplication1;component/Images/update.png" />
+        <Image Height="36" HorizontalAlignment="Left" Margin="1055,445,0,0" Name="image1" Stretch="Fill" VerticalAlignment="Top" Width="42" FlowDirection="RightToLeft" Source="/WpfApplication1;component/Images/add_user.png" />
         <Image Height="28" HorizontalAlignment="Left" Margin="1009,573,0,0" Name="image4" Stretch="Fill" VerticalAlignment="Top" Width="25" Source="/WpfApplication1;component/Images/exit.png" />
-        <Image Height="35" HorizontalAlignment="Left" Margin="468,566,0,0" Name="image6" Stretch="Fill" VerticalAlignment="Top" Width="33" Source="/WpfApplication1;component/Images/save_to.png"  />
         <Image Height="29" HorizontalAlignment="Left" Margin="12,573,0,0" Name="image7" Stretch="Fill" VerticalAlignment="Top" Width="33" Source="/WpfApplication1;component/Images/back.png" />
-        <Button Content="ניהול אנשי קשר" Height="56" HorizontalAlignment="Left" Margin="543,41,0,0" Name="Contacts_button" VerticalAlignment="Top" Width="145" Background="#B9FF6AB2" FontWeight="Bold" Click="Contacts_button_Click" />
-        <Button Content="צפה בהזמנות הלקוח" Height="56" HorizontalAlignment="Left" Margin="372,41,0,0" Name="ViewJobsbutton" VerticalAlignment="Top" Width="145" />
-        <DataGrid AutoGenerateColumns="True"  AutoGeneratingColumn="Grid_AutoGeneratingColumn1" HorizontalAlignment="Left" Margin="673,127,0,42" Name="dataGrid2" Width="291" CanUserAddRows="false" SelectionMode="Extended"  />
-        <Label Content="מספר הזמנה " Height="25" HorizontalAlignment="Left" Margin="1073,113,0,0" Name="job_id_label" VerticalAlignment="Top" Width="90" />
-        <TextBox Height="30" HorizontalAlignment="Right" Margin="0,141,2,0" Name="jobid_textBox" VerticalAlignment="Top" Width="145" />
-        <Label Content="תאריך התחלה " Height="25" HorizontalAlignment="Left" Margin="1073,194,0,0" Name="startDate_label" VerticalAlignment="Top" Width="91"  />
-        <Label Content="תאור עבודה " Height="26" HorizontalAlignment="Left" Margin="1050,344,0,0" Name="jobdescription_label" VerticalAlignment="Top" Width="90" />
-        <TextBox Height="167" HorizontalAlignment="Left" Margin="970,376,0,0" Name="jobdes_textbox" VerticalAlignment="Top" Width="220" />
-        <DatePicker Height="30" HorizontalAlignment="Left" Margin="1045,225,0,0" Name="startdatePicker" VerticalAlignment="Top" Width="145" />
-        <DatePicker Height="32" HorizontalAlignment="Left" Margin="1045,302,0,0" Name="finishdatePicker" VerticalAlignment="Top" Width="145" />
-        <Label Content="תאריך סיום " Height="26" HorizontalAlignment="Left" Margin="1073,270,0,0" Name="lexpectedFinishDate_label1" VerticalAlignment="Top" Width="91" />
-        <DataGrid AutoGenerateColumns="True" Height="439" HorizontalAlignment="Left" Margin="334,127,0,0" Name="dataGrid3" VerticalAlignment="Top" Width="317" SelectionMode="Single" AutoGeneratingColumn="dataGrid3_AutoGeneratingColumn" CanUserAddRows="False"  />
+        <Button Content="צפה בהזמנות הלקוח" Height="56" HorizontalAlignment="Left" Margin="372,33,0,0" Name="ViewJobsbutton" VerticalAlignment="Top" Width="145" />
+        <DataGrid AutoGenerateColumns="True"  AutoGeneratingColumn="Grid_AutoGeneratingColumn1"  Margin="329,127,544,42" Name="dataGrid2" Width="317" CanUserAddRows="false" SelectionMode="Extended"  />
+        <Label Content="מספר הזמנה " Height="25" HorizontalAlignment="Left" Margin="613,40,0,0" Name="job_id_label" VerticalAlignment="Top" Width="90" />
+        <TextBox Height="30" HorizontalAlignment="Right" Margin="0,37,336,0" Name="jobid_textBox" VerticalAlignment="Top" Width="145" />
+        <Label Content="תאריך התחלה " Height="25" HorizontalAlignment="Left" Margin="934,35,0,0" Name="startDate_label" VerticalAlignment="Top" Width="91"  />
+        <Label Content="תאור עבודה " Height="26" HorizontalAlignment="Left" Margin="970,142,0,0" Name="jobdescription_label" VerticalAlignment="Top" Width="90" />
+        <TextBox Height="259" HorizontalAlignment="Left" Margin="970,174,0,0" Name="jobdes_textbox" VerticalAlignment="Top" Width="220" />
+        <DatePicker Height="30" HorizontalAlignment="Left" Margin="1033,35,0,0" Name="startdatePicker" VerticalAlignment="Top" Width="145" />
+        <DatePicker Height="32" HorizontalAlignment="Left" Margin="1033,91,0,0" Name="finishdatePicker" VerticalAlignment="Top" Width="145" />
+        <Label Content="תאריך סיום " Height="26" HorizontalAlignment="Left" Margin="934,90,0,0" Name="lexpectedFinishDate_label1" VerticalAlignment="Top" Width="91" />
+        <DataGrid AutoGenerateColumns="True" Height="415" HorizontalAlignment="Left" Margin="647,127,0,0" Name="dataGrid3" VerticalAlignment="Top" Width="317" SelectionMode="Single" AutoGeneratingColumn="dataGrid3_AutoGeneratingColumn" CanUserAddRows="False"  />
+        <Label Content="בחר איש קשר מהרשימה" Height="28" HorizontalAlignment="Right" Margin="0,92,675,0" Name="label1" VerticalAlignment="Top" FontSize="15" FontWeight="Bold" />
+        <Label Content="בחר פריטים מהרשימה" Height="28" HorizontalAlignment="Left" Margin="647,96,0,0" Name="label2" VerticalAlignment="Top" FontSize="15" FontWeight="Bold" />
     </Grid>
 </Window>
 
