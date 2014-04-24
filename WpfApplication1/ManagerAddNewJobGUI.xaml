@@ -34,7 +34,7 @@
         <DatePicker Height="30" HorizontalAlignment="Left" Margin="912,223,0,0" Name="startdatePicker" VerticalAlignment="Top" Width="145" />
         <DatePicker Height="32" HorizontalAlignment="Left" Margin="912,311,0,0" Name="finishdatePicker" VerticalAlignment="Top" Width="145" />
         <Label Content="תאריך סיום " Height="43" HorizontalAlignment="Left" Margin="746,315,0,0" Name="lexpectedFinishDate_label1" VerticalAlignment="Top" Width="77" />
-        <Label Content="לא למחוק! אני משתמש בזה להשמה של מספר לקוח ל DB" Height="28" HorizontalAlignment="Left" Margin="673,574,0,0" Name="customerid1_label" VerticalAlignment="Top" Visibility="Hidden" />
+        
     </Grid>
 </Window>
 

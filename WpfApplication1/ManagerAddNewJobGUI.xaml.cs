@@ -42,7 +42,7 @@ namespace project
                 MSQLcrcommand1.ExecuteNonQuery();
                 MySqlDataAdapter mysqlDAdp = new MySqlDataAdapter(MSQLcrcommand1);
                // DataTable dt = new DataTable("custumers");
-                Create_DataTable_Columns_Start();
+               // Create_DataTable_Columns_Start();
                 mysqlDAdp.Fill(dt);
                 //MessageBox.Show("" + dt.Rows.Count + "");
                // Create_DataTable_Columns_Start();
@@ -444,62 +444,70 @@ namespace project
 
         private void ADD_Btn_Click(object sender, RoutedEventArgs e)
         {
-           						// if dates were intered.
+       		// if dates were intered.
             if (startdatePicker.Text != "" && finishdatePicker.Text != "")
             {
                 string jobid, jobdes;
                 jobid = jobid_textBox.Text;
-                try
+                if (jobid != "")
                 {
-                    MySqlConnection MySqlConn = new MySqlConnection(Login.Connectionstring);
-                    MySqlConn.Open();
-                    string Query1 = ("SELECT COUNT(jobid) FROM project.jobs WHERE jobid='" + jobid + "'"); //to see if the jobid already in the system.
-                    MySqlCommand MSQLcrcommand1 = new MySqlCommand(Query1, MySqlConn);
-                    MSQLcrcommand1.ExecuteNonQuery();
-                    int times = Convert.ToInt32(MSQLcrcommand1.ExecuteScalar());
-                    MySqlDataReader dr = MSQLcrcommand1.ExecuteReader();
-                    MySqlDataAdapter mysqlDAdp = new MySqlDataAdapter(MSQLcrcommand1);
-                    MySqlConn.Close();
-
-                    if (times != 0)
+                    try
                     {
-                        MessageBox.Show("כבר קיים מספר עבודה - " + jobid + "");
-                        return;
+                        MySqlConnection MySqlConn = new MySqlConnection(Login.Connectionstring);
+                        MySqlConn.Open();
+                        string Query1 = ("SELECT COUNT(jobid) FROM project.jobs WHERE jobid='" + jobid + "'"); //to see if the jobid already in the system.
+                        MySqlCommand MSQLcrcommand1 = new MySqlCommand(Query1, MySqlConn);
+                        MSQLcrcommand1.ExecuteNonQuery();
+                        int times = Convert.ToInt32(MSQLcrcommand1.ExecuteScalar());
+                        MySqlDataReader dr = MSQLcrcommand1.ExecuteReader();
+                        MySqlDataAdapter mysqlDAdp = new MySqlDataAdapter(MSQLcrcommand1);
+                        MySqlConn.Close();
+
+                        if (times != 0)
+                        {
+                            MessageBox.Show("כבר קיים מספר עבודה - " + jobid + "");
+                            return;
+                        }
                     }
-                }
-                catch (Exception ex)
-                {
-                    MessageBox.Show(ex.Message);
-                    return; ;
-                }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show(ex.Message);
+                        return; ;
+                    }
 
-                jobdes = jobdes_textbox.Text;
-                String start, end;
-                DateTime s = (DateTime)Convert.ToDateTime(startdatePicker.Text);
-                DateTime f = (DateTime)Convert.ToDateTime(finishdatePicker.Text);
-                TimeSpan ts = f - s;
+                    jobdes = jobdes_textbox.Text;
+                    String start, end;
+                    DateTime s = (DateTime)Convert.ToDateTime(startdatePicker.Text);
+                    DateTime f = (DateTime)Convert.ToDateTime(finishdatePicker.Text);
+                    TimeSpan ts = f - s;
 
-                // if the days are ok.
-                if (ts.Days >= 0)
-                {
-                    start = Convert.ToDateTime(startdatePicker.Text).ToString("yyyy-MM-dd");
-                    end = Convert.ToDateTime(finishdatePicker.Text).ToString("yyyy-MM-dd");
+                    // if the days are ok.
+                    if (ts.Days >= 0)
+                    {
+                        start = Convert.ToDateTime(startdatePicker.Text).ToString("yyyy-MM-dd");
+                        end = Convert.ToDateTime(finishdatePicker.Text).ToString("yyyy-MM-dd");
+                    }
+                    else { MessageBox.Show(".תאריך ההתחלה שנבחר הוא לאחר תאריך הסיום"); return; }
                 }
-                else { MessageBox.Show(".תאריך ההתחלה שנבחר הוא לאחר תאריך הסיום"); return; }
-
+                else { MessageBox.Show("לא הוכנס מספר עבודה"); return; }
             }// the if (startdatePicker.Text != "" && finishdatePicker.Text != "") closer.
             else { MessageBox.Show(".לא נבחרו 2 התאריכים"); return; }
 			
 			DataTable changedRecordsItemsTable = dt1.GetChanges();
-            DataTable changedRecordsTableCust = dt.GetChanges();
-            int sizeofItemsnewtable, sizeofCustnewtable, custcheck=0;
-            string customerid1;
+          //DataTable changedRecordsTableCust = dt.GetChanges();
+            int sizeofItemsnewtable;
+            //sizeofCustnewtable, custcheck=0;
+            //string customerid1;
             try
             {
-                sizeofCustnewtable = changedRecordsTableCust.Rows.Count; // will give an exp if the size of the new cust table is zero.
+               // sizeofCustnewtable = changedRecordsTableCust.Rows.Count; // will give an exp if the size of the new cust table is zero.
+                DataRowView row = (DataRowView)dataGrid1.SelectedItems[0];
+
                 try
                 {
-                   
+                 string selected = row["מספר לקוח"].ToString();
+
+                   /*
                     foreach (DataRow drc in changedRecordsTableCust.Rows)
                         {
                             string customerid = drc["מספר לקוח"].ToString();
@@ -523,8 +531,8 @@ namespace project
                                 }// end if (customerid != "") 
                        
                          }// end foreach (DataRow drc in changedRecordsTableCust.Rows)
-
-                    if (custcheck == 0) { MessageBox.Show("לא נבחר לקוח"); return; }
+                   */
+                  //  if (custcheck == 0) { MessageBox.Show("לא נבחר לקוח"); return; }
 
                     sizeofItemsnewtable = changedRecordsItemsTable.Rows.Count; // will give an exp if the size of the new items table is zero.
 					int itemNum=0;
@@ -533,7 +541,7 @@ namespace project
                     jobid = jobid_textBox.Text;
                     jobdes = jobdes_textbox.Text;
                     String start = Convert.ToDateTime(startdatePicker.Text).ToString("yyyy-MM-dd"), end = Convert.ToDateTime(finishdatePicker.Text).ToString("yyyy-MM-dd");
-                    customerid1 = customerid1_label.Content.ToString();
+                   // customerid1 = customerid1_label.Content.ToString();
                     
                     foreach (DataRow dri in changedRecordsItemsTable.Rows)
                            {
@@ -555,7 +563,7 @@ namespace project
                                                 {
                                                     MySqlConnection MySqlConn = new MySqlConnection(Login.Connectionstring);
                                                     MySqlConn.Open();
-                                                    string Query1 = ("INSERT INTO project.jobs (jobid, itemid,itemNum,itemStatus,itemStageOrder, expectedItemQuantity,costumerid, itemsDescription, job_status, jobdescription, startDate, expectedFinishDate) VALUES ('" + jobid + "','" + itemid + "','" + itemNum + "','" + itemStatus + "','" + itemStageOrder + "','" + item_quantity + "','" + customerid1 + "','" + itemsdes + "','" + job_status + "','" + jobdes + "','" + start + "','" + end + "')");
+                                                    string Query1 = ("INSERT INTO project.jobs (jobid, itemid,itemNum,itemStatus,itemStageOrder, expectedItemQuantity,costumerid, itemsDescription, job_status, jobdescription, startDate, expectedFinishDate) VALUES ('" + jobid + "','" + itemid + "','" + itemNum + "','" + itemStatus + "','" + itemStageOrder + "','" + item_quantity + "','" + selected + "','" + itemsdes + "','" + job_status + "','" + jobdes + "','" + start + "','" + end + "')");
                                                     MySqlCommand MSQLcrcommand1 = new MySqlCommand(Query1, MySqlConn);
                                                     MSQLcrcommand1.ExecuteNonQuery();
                                                     MySqlDataAdapter mysqlDAdp = new MySqlDataAdapter(MSQLcrcommand1);
@@ -564,18 +572,20 @@ namespace project
                                                 }
                                                 catch (Exception ex)
                                                 {
-                                                    MessageBox.Show(ex.Message); 
-                                                    return; ;
+                                                    MessageBox.Show(ex.Message);  
+                                                    return; 
                                                 }
 
 
-                                                Console.WriteLine("הכמות היא  - " + customerid1 + "");
+                                                Console.WriteLine("הלקוח הוא  - " + selected + "");
                                                 Console.WriteLine("הכמות היא  - " + item_quantity + "ומספר הפריט הוא -  " + dri["מספר פריט"].ToString() + "");
+                                                Console.WriteLine("מספר עבודה - " + jobid + "");
                                             }                  
                                         }//end if (item_quantity > 0)
                                         else { MessageBox.Show("שדה הכמות מכיל כמות שלילית או 0 בפריט מספר - " + dri["מספר פריט"].ToString() + ""); return; }
 
-                                   }// if (q != "")
+                                   } // if (q != "")
+                                 else { MessageBox.Show("לא נבחרו פריטים "); return; }
 
                                }// end try
                                catch
@@ -729,13 +739,13 @@ namespace project
         }
 
 
-
+        
         private void Grid_AutoGeneratingColumn(object sender, DataGridAutoGeneratingColumnEventArgs e)
         {
 
              //   if (e.Column.Header.ToString() == "תאור פריט")
-            if (e.Column.Header.ToString() == "בחר לקוח")
-            {
+           // if (e.Column.Header.ToString() == "בחר לקוח")
+           // {
                 /*
                    DataGridTextColumn textColumn = new DataGridTextColumn();
                  * string colname = e.Column.Header.ToString();
@@ -746,7 +756,7 @@ namespace project
                    Binding tempmb2 = new Binding("colname");
                    tempmb2.Mode = BindingMode.TwoWay;
                    dataGrid2.Columns.Add(textColumn);
-                   */
+                  
 
 
                 DataGridTemplateColumn dgct = new DataGridTemplateColumn();
@@ -772,7 +782,8 @@ namespace project
                 cellTemplate.VisualTree = sfactory;
                 dgct.CellTemplate = cellTemplate;
                 #endregion
-            } 
+           */
+         //   }
 
             /*
             if (e.Column.Header.ToString() == "בחר לקוח")
@@ -808,7 +819,7 @@ namespace project
                 col1.CellTemplate = cellTemplate1;
                 dataGrid1.Columns.Add(col1);
             }
-             * */
+             */
 
         }
 
