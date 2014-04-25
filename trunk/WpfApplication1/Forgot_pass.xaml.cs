@@ -51,7 +51,7 @@ namespace project
         // this func will send an EMail in the form of (all must be Strings): (Email Address to send,EMail Title,Email Body)   /Shuki Porat  
         protected string SendEmail(string toAddress, string subject, string body)
         {
-            string result = "Message Sent Successfully..!!";
+            string result = "true";
             string senderID = "karwasser2003@gmail.com";// sender's email id
             const string senderPassword = "SP271984"; // sender password
             try
@@ -70,7 +70,7 @@ namespace project
             }
             catch (Exception )
             {
-                result = "Error sending email.!!!";
+                result = "false";
             }
             return result;
         }
@@ -118,13 +118,19 @@ namespace project
                     //    MessageBox.Show("בדיקה האם המייל קיים במערכת");
                     if (count == 1)
                     {
+                        string ress = "false";
                         // this func will send an EMail in the form of (all must be Strings): (Email Address to send,EMail Title,Email Body)   /Shuki Porat  
-                        SendEmail(this.Email_box.Text, "שיחזור סיסמא למערכת קרוסאר", mail_body);
-
-                        MessageBox.Show("!שם המשתמש והסיסמא נשלחו לכתובת האימייל", "!הפעולה הושלמה", MessageBoxButton.OK);
-                        Login window = new Login();
-                        window.Show();
-                        this.Close();
+                        if (ress != SendEmail(this.Email_box.Text, "שיחזור סיסמא למערכת קרוסאר", mail_body)) 
+                        {
+                            MessageBox.Show("!שם המשתמש והסיסמא נשלחו לכתובת האימייל", "!הפעולה הושלמה", MessageBoxButton.OK);
+                            Login window = new Login();
+                            window.Show();
+                            this.Close();
+                        }
+                        else
+                        {
+                            MessageBox.Show(".כישלון בשליחה - לא ניתן להתחבר לשרת האימייל\n\n     (? האם קיים חיבור פעיל ותקין לאינטרנט)");
+                        }
                     }
                     else
                     {
