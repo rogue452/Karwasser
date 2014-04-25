@@ -14,8 +14,7 @@ using System.Windows.Shapes;
 using MySql.Data.MySqlClient;
 using Microsoft.Win32;
 using System.IO;
-
-
+using System.Net.Mail;
 
 namespace project
 {
@@ -30,6 +29,7 @@ namespace project
             this.WindowStartupLocation = WindowStartupLocation.CenterScreen;
             NameLabel.Content = "                                    שלום "+ Login.user_name +"!\n               אנא בחר/י מה ברצונך/ה לעשות.";
             CPUName_label.Content = Login.my_host_name;
+            Check_Jobs_Time();
         }
 
 
@@ -152,5 +152,92 @@ namespace project
                 MessageBox.Show(ex.Message);
             } 
         }
+
+
+
+        private void Check_Jobs_Time()
+        {
+            try
+            {
+                MySqlConnection MySqlConn = new MySqlConnection(Login.Connectionstring);
+                MySqlConn.Open();
+                string today = DateTime.Now.ToString("yyyy-MM-dd");
+                string Query1 = ("SELECT jobs.jobid FROM project.jobs ,project.users WHERE (DATEDIFF('" + today + "',jobs.expectedFinishDate)<=3) AND users.userid='" + Login.user_id + "' AND (DATEDIFF(users.last_email_sent_date, '" + today + "')<0) GROUP BY jobid");
+                Console.WriteLine(Query1);
+                MySqlCommand MSQLcrcommand1 = new MySqlCommand(Query1, MySqlConn);
+                MSQLcrcommand1.ExecuteNonQuery();
+                MySqlDataReader dr = MSQLcrcommand1.ExecuteReader();
+                
+                int count=0;
+                string jobids = "";
+                string jobid = "";
+                while (dr.Read())   // run on all the jobs
+                    {
+                    count++;
+                    jobid = dr.GetString(0);
+                    jobids = jobids +"מספר עבודה - "+ jobid + ".\n";   // setting up the email body.
+                }
+                MySqlConn.Close();
+                Console.WriteLine(" כמות העבודות שתאריך הסיום שלהן מתקרב (יירשם 0 גם במידה ונשלח כבר אי מייל היום) "+count);
+                if (count>0)    // if there are jobs.
+                {
+                    //string body = ("תאריך הסיום של העבודות הבאות הוא בעוד עד 3 ימים מהיום:");
+
+                    string body = ("תאריך הסיום של העבודות הבאות הוא בעוד פחות מארבע ימים  מהיום - ") + DateTime.Now.ToString("dd/MM/yyyy") + " :\n" + jobids;
+                    string subject = "הודעה אוטומטית ממערכת Karwasser 2003";
+                    string toAddress = Login.useremail;
+                    string senderID = "karwasser2003@gmail.com";// sender's email id
+                    const string senderPassword = "SP271984"; // sender password
+                    Console.WriteLine(body);
+                    try
+                    {
+                        SmtpClient smtp = new SmtpClient
+                        {
+                            Host = "smtp.gmail.com", // smtp server address
+                            Port = 587,
+                            EnableSsl = true,
+                            DeliveryMethod = SmtpDeliveryMethod.Network,
+                            Credentials = new System.Net.NetworkCredential(senderID, senderPassword),
+                            Timeout = 30000,
+                        };
+                        MailMessage message = new MailMessage(senderID, toAddress, subject, body);
+                        smtp.Send(message);
+                        Console.WriteLine("נשלח האימייל");
+                        try
+                        {
+
+                            //MySqlConnection MySqlConn = new MySqlConnection(Login.Connectionstring);
+                            MySqlConn.Open();
+                            string Query2 = "update users set last_email_sent_date='" + today + "' WHERE userid='" + Login.user_id + "'";
+                            MySqlCommand MSQLcrcommand2 = new MySqlCommand(Query2, MySqlConn);
+                            MSQLcrcommand2.ExecuteNonQuery();
+                            MySqlDataAdapter mysqlDAdp = new MySqlDataAdapter(MSQLcrcommand2);
+                            MySqlConn.Close();
+                        }
+                        catch (Exception ex)
+                        {
+                            MessageBox.Show(ex.Message);
+                        }
+                    }
+                    catch (Exception)
+                    {
+                        Console.WriteLine("!!!.בעיה בשליחת אימייל");
+                        //MessageBox.Show("!!!.בעיה בשליחת אימייל");
+                    }
+
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+
+        }
+
+
+
+
+
+
     }
 }
