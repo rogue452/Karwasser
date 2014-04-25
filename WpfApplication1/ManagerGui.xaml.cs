@@ -221,7 +221,7 @@ namespace project
                     }
                     catch (Exception)
                     {
-                        Console.WriteLine("!!!.בעיה בשליחת אימייל");
+                        Console.WriteLine("(אולי אין חיבור לאינטרנט) !!!.בעיה בשליחת אימייל");
                         //MessageBox.Show("!!!.בעיה בשליחת אימייל");
                     }
 
