@@ -10,7 +10,7 @@
         <Button Content="ניהול לקוחות" HorizontalAlignment="Left" Margin="125,308,0,0" VerticalAlignment="Top" Width="301" Height="88" FontSize="18" FontWeight="Bold" Click="Custumer_Button_Click" Name="Custumer_Button" />
         <Button Content="סטטיסטיקה" HorizontalAlignment="Left" Margin="448,398,0,0" VerticalAlignment="Top" Width="301" RenderTransformOrigin="0.613,0.5" Height="88" FontSize="18" FontWeight="Bold" />
         <Button Content="יציאה מהמערכת" HorizontalAlignment="Right" Margin="0,550,105,0" VerticalAlignment="Top" Width="186" RenderTransformOrigin="0.463,0.8" Height="46" FontSize="15" FontWeight="Bold" />
-        <Label Content="שם המשתמש וברכה" HorizontalAlignment="Left" Margin="232,12,0,498" RenderTransformOrigin="-0.343,0.125" Name="NameLabel" FontWeight="Bold" FontSize="28" Width="754" />
+        <Label Content="שם המשתמש וברכה" HorizontalAlignment="Left" Margin="232,6,0,504" RenderTransformOrigin="-0.343,0.125" Name="NameLabel" FontWeight="Bold" FontSize="28" Width="754" />
         <Image Height="88" HorizontalAlignment="Left" Margin="12,116,0,0" Name="image1" Stretch="Fill" VerticalAlignment="Top" Width="107" Source="/WpfApplication1;component/Images/orders.png" />
         <Image Height="88" HorizontalAlignment="Left" Margin="1079,116,0,0" Name="image2" Stretch="Fill" VerticalAlignment="Top" Width="99" Source="/WpfApplication1;component/Images/user_group.png" />
         <Image Height="88" HorizontalAlignment="Left" Margin="1079,308,0,0" Name="image3" Stretch="Fill" VerticalAlignment="Top" Width="99" Source="/WpfApplication1;component/Images/emp.jpg" />
@@ -20,5 +20,6 @@
         <Label Content="שם מחשב זה הוא:" Height="30" HorizontalAlignment="Left" Margin="144,565,0,0" Name="Thisname_label" VerticalAlignment="Top" FontWeight="Bold" FontSize="20" Width="201" />
         <Label Content="שם המחשב" Height="30" HorizontalAlignment="Right" Margin="0,565,593,0" Name="CPUName_label" VerticalAlignment="Top" Width="261" FontSize="20" FontWeight="Bold" />
         <Button Content="גיבוי MySQL" Height="38" HorizontalAlignment="Left" Margin="12,558,0,0" Name="MySQL_Backup_button" VerticalAlignment="Top" Width="126" Click="MySQL_Backup_button_Click" FontWeight="Bold" FontSize="15" />
+        <Label Content="בעיה בשליחת אימייל עבור תאריכי סיום עבודה מתקרבים (אולי אין חיבור לאינטרנט ?)." Margin="232,80,252,494" Name="Email_label"  FontSize="16" FontWeight="Bold" Foreground="Red" />
     </Grid>
 </Window>

@@ -27,9 +27,10 @@ namespace project
         {
             InitializeComponent();
             this.WindowStartupLocation = WindowStartupLocation.CenterScreen;
-            NameLabel.Content = "                                    שלום "+ Login.user_name +"!\n               אנא בחר/י מה ברצונך/ה לעשות.";
+            NameLabel.Content = "                    שלום " + Login.first_name + " " + Login.last_name + "!\n               אנא בחר/י מה ברצונך/ה לעשות.";
             CPUName_label.Content = Login.my_host_name;
-            Check_Jobs_Time();
+            Email_label.Visibility = Visibility.Hidden;
+            Check_Jobs_Time(); 
         }
 
 
@@ -162,20 +163,23 @@ namespace project
                 MySqlConnection MySqlConn = new MySqlConnection(Login.Connectionstring);
                 MySqlConn.Open();
                 string today = DateTime.Now.ToString("yyyy-MM-dd");
-                string Query1 = ("SELECT jobs.jobid FROM project.jobs ,project.users WHERE (DATEDIFF('" + today + "',jobs.expectedFinishDate)<=3) AND users.userid='" + Login.user_id + "' AND (DATEDIFF(users.last_email_sent_date, '" + today + "')<0) GROUP BY jobid");
+                string Query1 = ("SELECT jobs.jobid ,jobs.expectedFinishDate FROM project.jobs ,project.users WHERE (DATEDIFF('" + today + "',jobs.expectedFinishDate)<=3) AND users.empid='" + Login.empid + "' AND (DATEDIFF(users.last_email_sent_date, '" + today + "')<0) AND jobs.job_status!='הסתיימה' AND jobs.job_status!='מבוטלת'GROUP BY jobid");
                 Console.WriteLine(Query1);
                 MySqlCommand MSQLcrcommand1 = new MySqlCommand(Query1, MySqlConn);
                 MSQLcrcommand1.ExecuteNonQuery();
                 MySqlDataReader dr = MSQLcrcommand1.ExecuteReader();
                 
                 int count=0;
+                DateTime date_to=new DateTime();
                 string jobids = "";
-                string jobid = "";
+                string jobid = "", date_to_send="";
                 while (dr.Read())   // run on all the jobs
                     {
                     count++;
                     jobid = dr.GetString(0);
-                    jobids = jobids +"מספר עבודה - "+ jobid + ".\n";   // setting up the email body.
+                    date_to = dr.GetDateTime(1);
+                    date_to_send = date_to.ToString("dd/MM/yyyy");
+                    jobids = jobids + "מספר עבודה - " + jobid + " עד תאריך: " + date_to_send + ".\n";   // setting up the email body.
                 }
                 MySqlConn.Close();
                 Console.WriteLine(" כמות העבודות שתאריך הסיום שלהן מתקרב (יירשם 0 גם במידה ונשלח כבר אי מייל היום) "+count);
@@ -208,7 +212,7 @@ namespace project
 
                             //MySqlConnection MySqlConn = new MySqlConnection(Login.Connectionstring);
                             MySqlConn.Open();
-                            string Query2 = "update users set last_email_sent_date='" + today + "' WHERE userid='" + Login.user_id + "'";
+                            string Query2 = "update users set last_email_sent_date='" + today + "' WHERE empid='" + Login.empid + "'";
                             MySqlCommand MSQLcrcommand2 = new MySqlCommand(Query2, MySqlConn);
                             MSQLcrcommand2.ExecuteNonQuery();
                             MySqlDataAdapter mysqlDAdp = new MySqlDataAdapter(MSQLcrcommand2);
@@ -221,6 +225,7 @@ namespace project
                     }
                     catch (Exception)
                     {
+                        Email_label.Visibility = Visibility.Visible;
                         Console.WriteLine("(אולי אין חיבור לאינטרנט) !!!.בעיה בשליחת אימייל");
                         //MessageBox.Show("!!!.בעיה בשליחת אימייל");
                     }

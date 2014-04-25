@@ -30,7 +30,7 @@ namespace project
         public static string last_name;
         public static string user_role;
         public static string connected;
-        public static string user_id;
+        public static string empid;
         public static string user_name;
         public static string useremail;
         public static string Connectionstring;
@@ -89,7 +89,7 @@ namespace project
                 {
                     MessageBox.Show(ex.Message);
                 }
-                string Query = "select * from project.users where user_name='" + this.textBox1.Text +"'and password='"+this.textBox2.Password+"'" ;
+                string Query = "select * from project.users where empid='" + this.textBox1.Text +"'and password='"+this.textBox2.Password+"'" ;
                 MySqlCommand crcommand = new MySqlCommand(Query, objc);
                 crcommand.ExecuteNonQuery();
                 MySqlDataReader dr = crcommand.ExecuteReader();
@@ -97,7 +97,7 @@ namespace project
                 while (dr.Read())
                 {
                     count++;
-                    user_role = dr.GetString(4);
+                    user_role = dr.GetString(2);
                 }
                 if (count == 1)
                 {
@@ -114,7 +114,7 @@ namespace project
                     {
                         MessageBox.Show(ex.Message);
                     }
-                    string Query1 = "select users.userid, employees.emp_firstname, employees.emp_lastname, users.user_name,  users.connected, users.email from project.users, project.employees where users.empid=employees.empid and users.user_name='" + this.textBox1.Text + "'and users.password='" + this.textBox2.Password + "'";
+                    string Query1 = "SELECT  employees.emp_firstname, employees.emp_lastname, users.connected, users.email FROM project.users, project.employees WHERE users.empid=employees.empid and users.empid='" + this.textBox1.Text + "'and users.password='" + this.textBox2.Password + "'";
                     //MySqlCommand crcommand1 = new MySqlCommand(Query1, objc);
                     MySqlCommand crcommand1 = new MySqlCommand(Query1, objc1);
                     crcommand1.ExecuteNonQuery();
@@ -123,12 +123,10 @@ namespace project
                     while (dr1.Read())
                     {
                         count1++;
-                        user_id = dr1.GetString(0);
-                        first_name = dr1.GetString(1);
-                        last_name = dr1.GetString(2);
-                        user_name = dr1.GetString(3);
-                        connected = dr1.GetString(4);                    
-                        useremail = dr1.GetString(5);
+                        first_name = dr1.GetString(0);
+                        last_name = dr1.GetString(1);
+                        connected = dr1.GetString(2);                    
+                        useremail = dr1.GetString(3);
                     }
                     //MessageBox.Show(""+connected+"");
                     if (count1 == 1)
@@ -147,14 +145,14 @@ namespace project
                         if (connected.Equals("לא מחובר"))
                         {
                             MessageBox.Show("      ברוכ/ה הבא/ה " + Login.last_name + " " + Login.first_name + "", "!ההתחברות למערכת בוצעה בהצלחה", MessageBoxButton.OK);
-
+                            empid = this.textBox1.Text;
                             //string user_connected = "מחובר";
                             string user_connected = "לא מחובר";
 
                             if (user_role.Equals("מנהל"))
                             {
                                 DBConnection conn = new DBConnection();
-                                string query2 = "Update users SET connected='" + user_connected + "',last_log_in_date='" + DateTime.Now.ToString("yyyy-MM-dd-HH-mm-ss") + "' where user_name= '" + this.textBox1.Text + "' and password ='" + this.textBox2.Password + "'";
+                                string query2 = "UPDATE users SET connected='" + user_connected + "',last_log_in_date='" + DateTime.Now.ToString("yyyy-MM-dd-HH-mm-ss") + "' WHERE empid= '" + this.textBox1.Text + "' and password ='" + this.textBox2.Password + "'";
                                 conn.LogIn(query2);
                                 ManagerGui MG = new ManagerGui();
                                 MG.Show();
@@ -163,7 +161,7 @@ namespace project
                             if (user_role.Equals("מזכירה"))
                             {
                                 DBConnection conn = new DBConnection();
-                                string query2 = "Update users SET connected='" + user_connected + "',last_log_in_date='" + DateTime.Now.ToString("yyyy-MM-dd-HH-mm-ss") + "' where user_name= '" + this.textBox1.Text + "' and password ='" + this.textBox2.Password + "'";
+                                string query2 = "UPDATE users SET connected='" + user_connected + "',last_log_in_date='" + DateTime.Now.ToString("yyyy-MM-dd-HH-mm-ss") + "' WHERE empid= '" + this.textBox1.Text + "' and password ='" + this.textBox2.Password + "'";
                                 conn.LogIn(query2);
                                 SecretaryGui SG = new SecretaryGui();
                                 SG.Show();
@@ -172,7 +170,7 @@ namespace project
                             if (user_role.Equals("איכות"))
                             {
                                 DBConnection conn = new DBConnection();
-                                string query2 = "Update users SET connected='" + user_connected + "',last_log_in_date='" + DateTime.Now.ToString("yyyy-MM-dd-HH-mm-ss") + "' where user_name= '" + this.textBox1.Text + "' and password ='" + this.textBox2.Password + "'";
+                                string query2 = "UPDATE users SET connected='" + user_connected + "',last_log_in_date='" + DateTime.Now.ToString("yyyy-MM-dd-HH-mm-ss") + "' WHERE empid= '" + this.textBox1.Text + "' and password ='" + this.textBox2.Password + "'";
                                 conn.LogIn(query2);
                                 QualityGui QG = new QualityGui();
                                 QG.Show();
