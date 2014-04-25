@@ -38,7 +38,7 @@ namespace project
                     {   
                         MySqlConnection MySqlConn = new MySqlConnection(Login.Connectionstring);
                         MySqlConn.Open();
-                        string Query1 = ("select users.empid as `תעודת זהות`,employees.emp_firstname as `שם פרטי` ,employees.emp_lastname as `שם משפחה` ,users.user_name as `שם משתמש` ,password as סיסמה ,role as תפקיד ,connected as מחובר ,email as `כתובת אימייל`, users.last_log_in_date as `התחברות אחרונה`, users.last_email_sent_date as `שליחת האימייל האחרון` , users.user_description as `הערות לגבי המשתמש` from project.users , project.employees where users.empid=employees.empid");
+                        string Query1 = ("select users.empid as `תעודת זהות`,employees.emp_firstname as `שם פרטי` ,employees.emp_lastname as `שם משפחה` ,password as סיסמה ,role as תפקיד ,connected as מחובר ,email as `כתובת אימייל`, users.last_log_in_date as `התחברות אחרונה` , users.user_description as `הערות לגבי המשתמש` FROM project.users , project.employees WHERE users.empid=employees.empid");
                         MySqlCommand MSQLcrcommand1 = new MySqlCommand(Query1, MySqlConn);
                         MSQLcrcommand1.ExecuteNonQuery();
                         MySqlDataAdapter mysqlDAdp = new MySqlDataAdapter(MSQLcrcommand1);
@@ -86,7 +86,7 @@ namespace project
             {
                 MySqlConnection MySqlConn = new MySqlConnection(Login.Connectionstring);
                 MySqlConn.Open();
-                string Query1 = ("select users.empid as `תעודת זהות`,employees.emp_firstname as `שם פרטי` ,employees.emp_lastname as `שם משפחה` ,users.user_name as `שם משתמש` ,password as סיסמה ,role as תפקיד ,connected as מחובר ,email as `כתובת אימייל`, users.last_log_in_date as `התחברות אחרונה`, users.last_email_sent_date as `שליחת האימייל האחרון` , users.user_description as `הערות לגבי המשתמש` from project.users , project.employees where users.empid=employees.empid");
+                string Query1 = ("select users.empid as `תעודת זהות`,employees.emp_firstname as `שם פרטי` ,employees.emp_lastname as `שם משפחה` ,password as סיסמה ,role as תפקיד ,connected as מחובר ,email as `כתובת אימייל`, users.last_log_in_date as `התחברות אחרונה` , users.user_description as `הערות לגבי המשתמש` from project.users , project.employees where users.empid=employees.empid");
                 MySqlCommand MSQLcrcommand1 = new MySqlCommand(Query1, MySqlConn);
                 MSQLcrcommand1.ExecuteNonQuery();
                 MySqlDataAdapter mysqlDAdp = new MySqlDataAdapter(MSQLcrcommand1);
@@ -131,7 +131,7 @@ namespace project
                 MySqlConnection MySqlConn = new MySqlConnection(Login.Connectionstring);
                 MySqlConn.Open();
                 String searchkey = this.FirstNameSearchTextBox.Text;
-                string Query1 = ("select users.empid as `תעודת זהות`,employees.emp_firstname as `שם פרטי` ,employees.emp_lastname as `שם משפחה` ,users.user_name as `שם משתמש` ,password as סיסמה ,role as תפקיד ,connected as מחובר ,email as `כתובת אימייל`, users.last_log_in_date as `התחברות אחרונה`, users.last_email_sent_date as `שליחת האימייל האחרון` , users.user_description as `הערות לגבי המשתמש` from project.users , project.employees where users.empid=employees.empid and employees.emp_firstname Like '%" + searchkey + "%' ");
+                string Query1 = ("select users.empid as `תעודת זהות`,employees.emp_firstname as `שם פרטי` ,employees.emp_lastname as `שם משפחה` ,password as סיסמה ,role as תפקיד ,connected as מחובר ,email as `כתובת אימייל`, users.last_log_in_date as `התחברות אחרונה` , users.user_description as `הערות לגבי המשתמש` from project.users , project.employees where users.empid=employees.empid and employees.emp_firstname Like '%" + searchkey + "%' ");
                 MySqlCommand MSQLcrcommand1 = new MySqlCommand(Query1, MySqlConn);
                 MSQLcrcommand1.ExecuteNonQuery();
                 MySqlDataAdapter mysqlDAdp = new MySqlDataAdapter(MSQLcrcommand1);
@@ -157,7 +157,7 @@ namespace project
                 MySqlConn.Open();
                 String searchidkey = this.IDSearchTextBox.Text;
              //   string Query1 = "select users.empid as `תעודת זהות` ,employees.emp_firstname as `שם פרטי` ,employees.emp_lastname as `שם משפחה` ,users.user_name as `שם משתמש` ,password as סיסמה ,role as תפקיד ,connected as מחובר ,email as `כתובת אימייל` from project.users , project.employees where users.empid=employees.empid and users.empid Like '%" + searchidkey + "%' ";
-                string Query1 = ("select users.empid as `תעודת זהות`,employees.emp_firstname as `שם פרטי` ,employees.emp_lastname as `שם משפחה` ,users.user_name as `שם משתמש` ,password as סיסמה ,role as תפקיד ,connected as מחובר ,email as `כתובת אימייל`, users.last_log_in_date as `התחברות אחרונה`, users.last_email_sent_date as `שליחת האימייל האחרון` , users.user_description as `הערות לגבי המשתמש` from project.users , project.employees where users.empid=employees.empid and users.empid Like '%" + searchidkey + "%' ");
+                string Query1 = ("select users.empid as `תעודת זהות`,employees.emp_firstname as `שם פרטי` ,employees.emp_lastname as `שם משפחה` ,password as סיסמה ,role as תפקיד ,connected as מחובר ,email as `כתובת אימייל`, users.last_log_in_date as `התחברות אחרונה` , users.user_description as `הערות לגבי המשתמש` from project.users , project.employees where users.empid=employees.empid and users.empid Like '%" + searchidkey + "%' ");
                 MySqlCommand MSQLcrcommand1 = new MySqlCommand(Query1, MySqlConn);
                 MSQLcrcommand1.ExecuteNonQuery();
                 MySqlDataAdapter mysqlDAdp = new MySqlDataAdapter(MSQLcrcommand1);
@@ -220,7 +220,7 @@ namespace project
                         {
                             MySqlConnection MySqlConn = new MySqlConnection(Login.Connectionstring);
                             MySqlConn.Open();
-                            string Query1 = ("select users.empid as `תעודת זהות`,employees.emp_firstname as `שם פרטי` ,employees.emp_lastname as `שם משפחה` ,users.user_name as `שם משתמש` ,password as סיסמה ,role as תפקיד ,connected as מחובר ,email as `כתובת אימייל`, users.last_log_in_date as `התחברות אחרונה`, users.last_email_sent_date as `שליחת האימייל האחרון` , users.user_description as `הערות לגבי המשתמש` from project.users , project.employees where users.empid=employees.empid");
+                            string Query1 = ("select users.empid as `תעודת זהות`,employees.emp_firstname as `שם פרטי` ,employees.emp_lastname as `שם משפחה` ,password as סיסמה ,role as תפקיד ,connected as מחובר ,email as `כתובת אימייל`, users.last_log_in_date as `התחברות אחרונה` , users.user_description as `הערות לגבי המשתמש` FROM project.users , project.employees WHERE users.empid=employees.empid");
                             MySqlCommand MSQLcrcommand1 = new MySqlCommand(Query1, MySqlConn);
                             MSQLcrcommand1.ExecuteNonQuery();
                             MySqlDataAdapter mysqlDAdp = new MySqlDataAdapter(MSQLcrcommand1);
@@ -274,7 +274,6 @@ namespace project
                             {
                                 string firstname = row["שם פרטי"].ToString();
                                 string lastname = row["שם משפחה"].ToString();
-                                string username = row["שם משתמש"].ToString();
                                 string pass = row["סיסמה"].ToString();
                                 string role = row["תפקיד"].ToString();
                                 string connected = row["מחובר"].ToString();
@@ -285,7 +284,7 @@ namespace project
 
                                     MySqlConnection MySqlConn = new MySqlConnection(Login.Connectionstring);
                                     MySqlConn.Open();
-                                    string Query1 = "update users set empid='" + selected + "',user_name='" + username + "',password='" + pass + "',role='" + role + "',connected='" + connected + "',email='" + email + "'where empid='" + selected + "'";
+                                    string Query1 = "update users set empid='" + selected + "',password='" + pass + "',role='" + role + "',connected='" + connected + "',email='" + email + "'where empid='" + selected + "'";
                                     MySqlCommand MSQLcrcommand1 = new MySqlCommand(Query1, MySqlConn);
                                     MSQLcrcommand1.ExecuteNonQuery();
                                     MySqlDataAdapter mysqlDAdp = new MySqlDataAdapter(MSQLcrcommand1);
@@ -300,7 +299,7 @@ namespace project
                                 {
                                     MySqlConnection MySqlConn = new MySqlConnection(Login.Connectionstring);
                                     MySqlConn.Open();
-                                    string Query1 = ("select users.empid as `תעודת זהות`,employees.emp_firstname as `שם פרטי` ,employees.emp_lastname as `שם משפחה` ,users.user_name as `שם משתמש` ,password as סיסמה ,role as תפקיד ,connected as מחובר ,email as `כתובת אימייל`, users.last_log_in_date as `התחברות אחרונה`, users.last_email_sent_date as `שליחת האימייל האחרון` , users.user_description as `הערות לגבי המשתמש` from project.users , project.employees where users.empid=employees.empid");
+                                    string Query1 = ("select users.empid as `תעודת זהות`,employees.emp_firstname as `שם פרטי` ,employees.emp_lastname as `שם משפחה` ,password as סיסמה ,role as תפקיד ,connected as מחובר ,email as `כתובת אימייל`, users.last_log_in_date as `התחברות אחרונה` , users.user_description as `הערות לגבי המשתמש` FROM project.users , project.employees WHERE users.empid=employees.empid");
                                     MySqlCommand MSQLcrcommand1 = new MySqlCommand(Query1, MySqlConn);
                                     MSQLcrcommand1.ExecuteNonQuery();
                                     MySqlDataAdapter mysqlDAdp = new MySqlDataAdapter(MSQLcrcommand1);
@@ -342,11 +341,11 @@ namespace project
                 e.Column.IsReadOnly = true; // Makes the column as read only
              }
 
-            if (e.Column.Header.ToString() == "שליחת האימייל האחרון")
-            {
-                (e.Column as DataGridTextColumn).Binding.StringFormat = "dd/MM/yyyy";
-                e.Column.IsReadOnly = true; // Makes the column as read only
-            }
+          //  if (e.Column.Header.ToString() == "שליחת האימייל האחרון")
+          //  {
+          //      (e.Column as DataGridTextColumn).Binding.StringFormat = "dd/MM/yyyy";
+           //     e.Column.IsReadOnly = true; // Makes the column as read only
+           // }
         }
 
 

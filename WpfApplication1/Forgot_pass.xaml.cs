@@ -17,7 +17,7 @@ using System.Data.SqlClient;
 using System.Text.RegularExpressions;
 using MySql.Data.MySqlClient;
 
-
+/////////////////////////////// need to fix Connectionstring for remote computers.
 namespace project
 {
     /// <summary>
@@ -109,8 +109,8 @@ namespace project
                     while (dr.Read())
                     {
                         count++;
-                        username = dr.GetString(2);
-                        userpass = dr.GetString(3);
+                        username = dr.GetString(0);
+                        userpass = dr.GetString(1);
                         mail_body = "סיסמתך היא: " + userpass + " \nשם המשתמש שלך הוא:  " + username + "";
 
                     }

@@ -5,7 +5,7 @@
    <Grid>
         <Image Source="/WpfApplication1;component/Images/31.jpg"  Stretch="UniformToFill" />
         <Label Content="כתובת האימייל שאיתה נרשמת:" Height="28"  Margin="25,90,336,140" Name="label2"  Width="179" FlowDirection="RightToLeft" />
-        <Label Content="תעודת זהות (ללא 0 ראשוני):" Height="28"  Margin="24,56,352,174" Name="label1"  Width="164" FlowDirection="RightToLeft" />
+        <Label Content="תעודת זהות:" Height="28"  Margin="24,56,352,174" Name="label1"  Width="164" FlowDirection="RightToLeft" />
         <TextBox Height="23" HorizontalAlignment="Left" Margin="209,56,0,180" Name="ID_box"  Width="164" />
         <TextBox Height="23" HorizontalAlignment="Left" Margin="209,90,0,145" Name="Email_box"  Width="164" />
         <Button Content="שלח לאימייל" Height="49" HorizontalAlignment="Right" Margin="0,164,409,0" Name="Send_Mail_Btn" VerticalAlignment="Top" Width="106" Click="Send_Mail_Btn_Click" />
