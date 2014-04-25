@@ -147,16 +147,14 @@ namespace project
                         if (connected.Equals("לא מחובר"))
                         {
                             MessageBox.Show("      ברוכ/ה הבא/ה " + Login.last_name + " " + Login.first_name + "", "!ההתחברות למערכת בוצעה בהצלחה", MessageBoxButton.OK);
-                 //           DBConnection conn = new DBConnection();
-                 //         string query2 = "update users set connected='true' where user_name= '" + this.textBox1.Text + "' and password ='" + this.textBox2.Password + "'";
-                 //          conn.LogIn(query2);
- 
+
+                            //string user_connected = "מחובר";
+                            string user_connected = "לא מחובר";
+
                             if (user_role.Equals("מנהל"))
                             {
-                                //string user_connected = "מחובר";
-                                string user_connected = "לא מחובר";
                                 DBConnection conn = new DBConnection();
-                                string query2 = "Update users SET connected='" + user_connected + "',last_log_in_date='" + DateTime.Now.ToString("yyyy-MM-dd") + "' where user_name= '" + this.textBox1.Text + "' and password ='" + this.textBox2.Password + "'";
+                                string query2 = "Update users SET connected='" + user_connected + "',last_log_in_date='" + DateTime.Now.ToString("yyyy-MM-dd-HH-mm-ss") + "' where user_name= '" + this.textBox1.Text + "' and password ='" + this.textBox2.Password + "'";
                                 conn.LogIn(query2);
                                 ManagerGui MG = new ManagerGui();
                                 MG.Show();
@@ -164,10 +162,8 @@ namespace project
 
                             if (user_role.Equals("מזכירה"))
                             {
-                                //string user_connected = "מחובר";
-                                string user_connected = "לא מחובר";
                                 DBConnection conn = new DBConnection();
-                                string query2 = "Update users SET connected='" + user_connected + "',last_log_in_date='" + DateTime.Now.ToString("yyyy-MM-dd") + "' where user_name= '" + this.textBox1.Text + "' and password ='" + this.textBox2.Password + "'";
+                                string query2 = "Update users SET connected='" + user_connected + "',last_log_in_date='" + DateTime.Now.ToString("yyyy-MM-dd-HH-mm-ss") + "' where user_name= '" + this.textBox1.Text + "' and password ='" + this.textBox2.Password + "'";
                                 conn.LogIn(query2);
                                 SecretaryGui SG = new SecretaryGui();
                                 SG.Show();
@@ -175,10 +171,8 @@ namespace project
 
                             if (user_role.Equals("איכות"))
                             {
-                                //string user_connected = "מחובר";
-                                string user_connected = "לא מחובר";
                                 DBConnection conn = new DBConnection();
-                                string query2 = "Update users SET connected='" + user_connected + "',last_log_in_date='" + DateTime.Now.ToString("yyyy-MM-dd") + "' where user_name= '" + this.textBox1.Text + "' and password ='" + this.textBox2.Password + "'";
+                                string query2 = "Update users SET connected='" + user_connected + "',last_log_in_date='" + DateTime.Now.ToString("yyyy-MM-dd-HH-mm-ss") + "' where user_name= '" + this.textBox1.Text + "' and password ='" + this.textBox2.Password + "'";
                                 conn.LogIn(query2);
                                 QualityGui QG = new QualityGui();
                                 QG.Show();
