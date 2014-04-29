@@ -13,8 +13,8 @@
         <Button Content="פרטי ההזמנה" Height="56" HorizontalAlignment="Right" Margin="0,41,400,0" Name="ViewJobIInfo_button" VerticalAlignment="Top" Width="125" Click="ViewJobIInfo_button_Click" />
         <Button Content="הוסף עבודה" Margin="796,41,0,0" VerticalAlignment="Top" Height="56" Name="ADD_Btn" Background="#8400A500" FontWeight="Bold" Click="ADD_Btn_Click" HorizontalAlignment="Left" Width="122" />
         <Label Content="ניהול עבודות:" HorizontalAlignment="Right" VerticalAlignment="Top" Width="112" Margin="0,-2,366,0" FontStyle="Normal" FontWeight="Bold" Grid.Column="1" />
-        <Button Content="מחק לקוח" HorizontalAlignment="Right" Margin="0,41,12,0" VerticalAlignment="Top" Width="126" Height="56" Name="DeleteBtn" FontWeight="Bold" Background="#A5FF0000" Click="DeleteBtn_Click" Grid.Column="1" />
-        <Button Content="עדכון פרטי לקוח" HorizontalAlignment="Right" Margin="0,41,144,0" VerticalAlignment="Top" Width="122" Height="56" Name="UpdateBtn" FontWeight="Bold" Click="UpdateBtn_Click" Grid.Column="1" />
+        <Button Content="מחק עבודה" HorizontalAlignment="Right" Margin="0,41,12,0" VerticalAlignment="Top" Width="126" Height="56" Name="DeleteBtn" FontWeight="Bold" Background="#A5FF0000" Click="DeleteBtn_Click" Grid.Column="1" />
+        <Button Content="עדכון פרטי עבודה" HorizontalAlignment="Right" Margin="0,41,144,0" VerticalAlignment="Top" Width="122" Height="56" Name="UpdateBtn" FontWeight="Bold" Click="UpdateBtn_Click" Grid.Column="1" />
         <Button Content="יציאה מהמערכת" HorizontalAlignment="Right" Margin="0,579,12,0" VerticalAlignment="Top" Width="142" Height="28" Grid.Column="1" />
         <Button Content="חזור למסך ראשי" HorizontalAlignment="Right" Margin="0,578,1017,0" VerticalAlignment="Top" Width="134" Height="28" Click="Back_Btn_Click" Name="Back_Btn" />
         <Button Content="ייצא רשימה לקובץ טקסט" Height="28" HorizontalAlignment="Right" Margin="0,580,522,0" Name="TXTBtn" VerticalAlignment="Top" Width="161" Click="TXTBtn_Click" Grid.Column="1" />

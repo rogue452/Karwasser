@@ -229,34 +229,41 @@ namespace project
         {
             try
             {
-                System.Collections.IList rows = dataGrid1.SelectedItems;
-
                 DataRowView row = (DataRowView)dataGrid1.SelectedItems[0];
-                string selected = row["מספר לקוח"].ToString();
-                // MessageBox.Show(""+selected+ "");
+                string jobid = row["מספר עבודה"].ToString();
+                // MessageBox.Show("" + jobid + "");
 
-
-
-                if (MessageBox.Show("?האם אתה בטוח שברצונך לעדכן לקוח זה", "וידוא עדכון", MessageBoxButton.YesNo, MessageBoxImage.Warning) == MessageBoxResult.No)
+                if (MessageBox.Show("?האם אתה בטוח שברצונך לעדכן עבודה זו", "וידוא עדכון", MessageBoxButton.YesNo, MessageBoxImage.Warning) == MessageBoxResult.No)
                 {
                     //dont do stuff
                 }
                 else // if the user clicked on "Yes" so he wants to Update.
                 {
-                    string custumername = row["שם לקוח"].ToString();
-                    string custumeraddress = row["כתובת לקוח"].ToString();
+                    string status = row["סטטוס עבודה"].ToString();
+                    string description = row["תאור עבודה"].ToString();
+                    string start_date =  Convert.ToDateTime(row["תאריך התחלה"].ToString()).ToString("yyyy-MM-dd");
+                    string finish_date = Convert.ToDateTime(row["תאריך סיום משוער"].ToString()).ToString("yyyy-MM-dd");
+                    string actual_finish_date;
+                    if (row["תאריך סיום בפועל"].ToString().Equals(""))
+                    {
+                        
+                       // actual_finish_date = "2014-12-10";
+                        actual_finish_date = "1111-11-11";
 
+                      ///////  needs to think what to put in here in case actual_finish_date is Null  
+                    }
+                    else { actual_finish_date = Convert.ToDateTime(row["תאריך סיום בפועל"].ToString()).ToString("yyyy-MM-dd"); }
                     try
                     {
 
                         MySqlConnection MySqlConn = new MySqlConnection(Login.Connectionstring);
                         MySqlConn.Open();
-                        string Query1 = "update costumers set costumerName='" + custumername + "',costumerAddress='" + custumeraddress + "' where costumerid='" + selected + "'";
+                        string Query1 = "update jobs set job_status='" + status + "',jobdescription='" + description + "',startDate='" + start_date + "',expectedFinishDate='" + finish_date + "',actualFinishDate='" + actual_finish_date + "' where jobid='" + jobid + "'";
                         MySqlCommand MSQLcrcommand1 = new MySqlCommand(Query1, MySqlConn);
                         MSQLcrcommand1.ExecuteNonQuery();
                         MySqlDataAdapter mysqlDAdp = new MySqlDataAdapter(MSQLcrcommand1);
                         MySqlConn.Close();
-                        MessageBox.Show("!פרטי הלקוח עודכנו");
+                        MessageBox.Show("!פרטי העבודה עודכנו");
                     }
                     catch (Exception ex)
                     {
@@ -266,11 +273,12 @@ namespace project
                     {
                         MySqlConnection MySqlConn = new MySqlConnection(Login.Connectionstring);
                         MySqlConn.Open();
-                        string Query1 = ("select costumerid as `מספר לקוח`,costumerName as `שם לקוח` ,costumerAddress as `כתובת לקוח`  from project.costumers group by costumerid");
+                        string Query1 = ("select jobid as `מספר עבודה`,costumerid as `מספר לקוח` ,job_status as `סטטוס עבודה`,jobdescription  as `תאור עבודה` ,startDate  as `תאריך התחלה`,expectedFinishDate as `תאריך סיום משוער` ,actualFinishDate as `תאריך סיום בפועל`  from jobs group by jobid");
                         MySqlCommand MSQLcrcommand1 = new MySqlCommand(Query1, MySqlConn);
                         MSQLcrcommand1.ExecuteNonQuery();
                         MySqlDataAdapter mysqlDAdp = new MySqlDataAdapter(MSQLcrcommand1);
-                        DataTable dt = new DataTable("custumers");
+                        //DataTable dt = new DataTable("jobs");
+                        dt.Clear();
                         mysqlDAdp.Fill(dt);
                         dataGrid1.ItemsSource = dt.DefaultView;
                         mysqlDAdp.Update(dt);
@@ -280,11 +288,10 @@ namespace project
                     {
                         MessageBox.Show(ex.Message);
                     }
-
                 }
 
             }
-            catch { MessageBox.Show("לא נבחר לקוח לעדכון "); }
+            catch { MessageBox.Show("לא נבחרה עבודה לעדכון "); }
         }
 
 
