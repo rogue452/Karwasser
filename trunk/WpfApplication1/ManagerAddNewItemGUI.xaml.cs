@@ -18,9 +18,24 @@ namespace project
     /// </summary>
     public partial class ManagerAddNewItemGUI : Window
     {
-        public ManagerAddNewItemGUI()
+
+        string jobID;
+        public ManagerAddNewItemGUI(string  jobID)
         {
             InitializeComponent();
+            this.jobID = jobID;
+        }
+
+
+
+        private void Back_button_Click(object sender, RoutedEventArgs e)
+        {
+            ManagerJobInfoGui MJIG = new ManagerJobInfoGui(jobID);
+            MJIG.Show();
+            this.Close();
+
         }
     }
 }
+
+
