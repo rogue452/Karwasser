@@ -37,7 +37,9 @@ namespace project
             {
                 MySqlConnection MySqlConn = new MySqlConnection(Login.Connectionstring);
                 MySqlConn.Open();
-                string Query1 = ("SELECT jobs.itemid as `מספר פריט`,quantity as `כמות` ,jobs.itemStageOrder as `מספר השלב הנוכחי`,stageName  as `שם השלב הנוכחי` ,jobs.itemStatus  as `סטטוס הפריט`,itemToFixStageOrder as `מספר השלב שבו זוהה כתקול (אם זוהה)`  FROM jobs,item WHERE jobs.itemid=item.itemid and jobs.itemStageOrder=item.itemStageOrder and jobs.itemStatus=item.itemStatus and jobs.jobid='" + jobID + "' ");
+
+                /// need to think , dont have quantity in the db!
+                string Query1 = ("SELECT item.itemid as `מספר פריט`,quantity as `כמות` ,jobs.itemStageOrder as `מספר השלב הנוכחי`,stageName  as `שם השלב הנוכחי` ,jobs.itemStatus  as `סטטוס הפריט`,itemToFixStageOrder as `מספר השלב שבו זוהה כתקול (אם זוהה)`  FROM jobs,item WHERE jobs.itemid=item.itemid and jobs.itemStageOrder=item.itemStageOrder and jobs.itemStatus=item.itemStatus and jobs.jobid='" + jobID + "' ");
                 MySqlCommand MSQLcrcommand1 = new MySqlCommand(Query1, MySqlConn);
                 MSQLcrcommand1.ExecuteNonQuery();
                 MySqlDataAdapter mysqlDAdp = new MySqlDataAdapter(MSQLcrcommand1);
@@ -150,7 +152,7 @@ namespace project
 
         private void ADD_Btn_Click(object sender, RoutedEventArgs e)
         {
-            ManagerAddNewItemGUI MANIG = new ManagerAddNewItemGUI();
+            ManagerAddNewItemGUI MANIG = new ManagerAddNewItemGUI(jobID);
             MANIG.Show();
             this.Close();
         }

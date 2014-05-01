@@ -30,9 +30,6 @@ namespace project
             this.jobID = jobID1;
             InitializeComponent();
             this.WindowStartupLocation = WindowStartupLocation.CenterScreen;
-            
-
-
             try
             {
                 MySqlConnection MySqlConn = new MySqlConnection(Login.Connectionstring);
@@ -129,7 +126,7 @@ namespace project
 
         private void ADD_Btn_Click(object sender, RoutedEventArgs e)
         {
-            ManagerAddNewItemGUI MANIG = new ManagerAddNewItemGUI();
+            ManagerAddNewItemGUI MANIG = new ManagerAddNewItemGUI(jobID);
             MANIG.Show();
             this.Close();
         }
@@ -140,29 +137,26 @@ namespace project
         {
             try
             {
-                System.Collections.IList rows = dataGrid1.SelectedItems;
+               
                 DataRowView row = (DataRowView)dataGrid1.SelectedItems[0];
-                if (MessageBox.Show("?האם אתה בטוח שברצונך למחוק לקוח זה", "וידוא מחיקה", MessageBoxButton.YesNo, MessageBoxImage.Warning) == MessageBoxResult.No)
+                if (MessageBox.Show("?האם אתה בטוח שברצונך למחוק פריט זה", "וידוא מחיקה", MessageBoxButton.YesNo, MessageBoxImage.Warning) == MessageBoxResult.No)
                 {
                     //do no stuff
                 }
                 else // if the user clicked on "Yes" so he wants to Delete.
                 {
-                    // this will give us the first colum of the selected row in the DataGrid.
-
-                    string selected = row["מספר לקוח"].ToString();
-                    // MessageBox.Show("" + selected + "");
+                    string selected = row["מספר פריט"].ToString();
 
                     try
                     {
                         MySqlConnection MySqlConn = new MySqlConnection(Login.Connectionstring);
                         MySqlConn.Open();
-                        string Query1 = "delete from costumers where costumerid='" + selected + "'";
+                        string Query1 = "delete from item where itemid='" + selected + "'";
                         MySqlCommand MSQLcrcommand1 = new MySqlCommand(Query1, MySqlConn);
                         MSQLcrcommand1.ExecuteNonQuery();
                         MySqlDataAdapter mysqlDAdp = new MySqlDataAdapter(MSQLcrcommand1);
                         MySqlConn.Close();
-                        MessageBox.Show("!הלקוח נמחק מהמערכת");
+                        MessageBox.Show("!פריטים נמחקו מהמערכת");
                     }
                     catch (Exception ex)
                     {
@@ -172,7 +166,24 @@ namespace project
                     {
                         MySqlConnection MySqlConn = new MySqlConnection(Login.Connectionstring);
                         MySqlConn.Open();
-                        string Query1 = ("select costumerid as `מספר לקוח`,costumerName as `שם לקוח` ,costumerAddress as `כתובת לקוח`  from project.costumers group by costumerid");
+                        string Query1 = ("SELECT jobs.itemid as `מספר פריט`,expectedItemQuantity as `כמות נדרשת מהפריט`, COUNT(item.itemid) as `כמות בפועל מהפריט` ,itemsDescription as `תיאור לגבי הפריטים`  FROM jobs,item  WHERE jobs.itemid=item.itemid and jobs.itemStageOrder=item.itemStageOrder and jobs.jobid='" + jobID + "' group by item.itemid ");
+                        MySqlCommand MSQLcrcommand1 = new MySqlCommand(Query1, MySqlConn);
+                        MSQLcrcommand1.ExecuteNonQuery();
+                        MySqlDataAdapter mysqlDAdp = new MySqlDataAdapter(MSQLcrcommand1);
+                        dt.Clear();
+                        mysqlDAdp.Fill(dt);
+                        dataGrid1.ItemsSource = dt.DefaultView;
+                        mysqlDAdp.Update(dt);
+                        MySqlConn.Close();
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show(ex.Message);
+                    } try
+                    {
+                        MySqlConnection MySqlConn = new MySqlConnection(Login.Connectionstring);
+                        MySqlConn.Open();
+                        string Query1 = ("SELECT jobs.itemid as `מספר פריט`,expectedItemQuantity as `כמות נדרשת מהפריט`, COUNT(item.itemid) as `כמות בפועל מהפריט` ,itemsDescription as `תיאור לגבי הפריטים`  FROM jobs,item  WHERE jobs.itemid=item.itemid and jobs.itemStageOrder=item.itemStageOrder and jobs.jobid='" + jobID + "' group by item.itemid ");
                         MySqlCommand MSQLcrcommand1 = new MySqlCommand(Query1, MySqlConn);
                         MSQLcrcommand1.ExecuteNonQuery();
                         MySqlDataAdapter mysqlDAdp = new MySqlDataAdapter(MSQLcrcommand1);
