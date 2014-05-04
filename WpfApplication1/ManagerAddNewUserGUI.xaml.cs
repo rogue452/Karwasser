@@ -23,7 +23,7 @@ namespace project
     /// </summary>
     public partial class ManagerAddNewUserGUI : Window
     {
-        string empid;
+        //string empid;
         string password;
         string email;
         string role;

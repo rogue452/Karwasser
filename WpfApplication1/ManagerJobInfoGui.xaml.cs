@@ -122,14 +122,7 @@ namespace project
             }
         }
 
-        
-
-        private void ADD_Btn_Click(object sender, RoutedEventArgs e)
-        {
-            ManagerAddNewItemGUI MANIG = new ManagerAddNewItemGUI(jobID);
-            MANIG.Show();
-            this.Close();
-        }
+       
 
 
 
@@ -151,7 +144,7 @@ namespace project
                     {
                         MySqlConnection MySqlConn = new MySqlConnection(Login.Connectionstring);
                         MySqlConn.Open();
-                        string Query1 = "delete from item where itemid='" + selected + "'";
+                        string Query1 = "delete from jobs where itemid='" + selected + "'and jobs.jobid='" + jobID + "'";
                         MySqlCommand MSQLcrcommand1 = new MySqlCommand(Query1, MySqlConn);
                         MSQLcrcommand1.ExecuteNonQuery();
                         MySqlDataAdapter mysqlDAdp = new MySqlDataAdapter(MSQLcrcommand1);

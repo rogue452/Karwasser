@@ -61,7 +61,7 @@ namespace project
             {
                 MySqlConnection MySqlConn = new MySqlConnection(Login.Connectionstring);
                 MySqlConn.Open();
-                string Query1 = ("select itemid as `מספר פריט`,itemName as `שם פריט`, discription as `תאור פריט` from project.item group by itemid");
+                string Query1 = ("select itemid as `מספר פריט`,itemName as `שם פריט`, stage_discription as `תאור פריט` from project.item group by itemid");
                 MySqlCommand MSQLcrcommand1 = new MySqlCommand(Query1, MySqlConn);
                 MSQLcrcommand1.ExecuteNonQuery();
                 MySqlDataAdapter mysqlDAdp = new MySqlDataAdapter(MSQLcrcommand1);
