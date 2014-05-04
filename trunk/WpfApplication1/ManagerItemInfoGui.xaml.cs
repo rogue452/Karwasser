@@ -151,9 +151,9 @@ namespace project
 
         private void ADD_Btn_Click(object sender, RoutedEventArgs e)
         {
-            ManagerAddNewItemGUI MANIG = new ManagerAddNewItemGUI(jobID);
-            MANIG.Show();
-            this.Close();
+            //ManagerAddNewItemGUI MANIG = new ManagerAddNewItemGUI(jobID);
+           // MANIG.Show();
+           // this.Close();
         }
 
 

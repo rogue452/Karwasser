@@ -7,7 +7,7 @@
         <Label Content="תפקיד" Height="28" HorizontalAlignment="Left" Margin="708,22,0,0" Name="Role_label" VerticalAlignment="Top" />
         <Label Content="סיסמא" HorizontalAlignment="Left" Margin="428,24,0,556" Name="Password_label" />
         <Label Content="אימייל" Height="28" HorizontalAlignment="Left" Margin="428,56,0,0" Name="Email_label" VerticalAlignment="Top" />
-        <ComboBox Height="23" HorizontalAlignment="Left" Margin="784,27,0,0" Name="Role_comboBox" VerticalAlignment="Top" Width="153" />
+        <ComboBox Height="23" HorizontalAlignment="Left" Margin="784,27,0,0" Name="Role_comboBox" VerticalAlignment="Top" Width="153"  />
         <Button Content="הוסף" HorizontalAlignment="Left" Margin="964,42,0,0" VerticalAlignment="Top" Width="145" Height="56" Name="ADD_Btn" Background="#8400A500" FontWeight="Bold" Click="Add_button_Click" />
         <Button Content="חזור למסך משתמשים" Height="23" HorizontalAlignment="Left" Margin="12,573,0,0" Name="Back_button" VerticalAlignment="Top" Width="138" Click="Back_button_Click" />
         <PasswordBox Height="23" HorizontalAlignment="Left" Margin="508,27,0,0" Name="Password_textBox" VerticalAlignment="Top" Width="153" />

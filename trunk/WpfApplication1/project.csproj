@@ -79,8 +79,8 @@
     <Compile Include="ManagerAddExistingItemGui.xaml.cs">
       <DependentUpon>ManagerAddExistingItemGui.xaml</DependentUpon>
     </Compile>
-    <Compile Include="ManagerAddNewItemGUI.xaml.cs">
-      <DependentUpon>ManagerAddNewItemGUI.xaml</DependentUpon>
+    <Compile Include="ManagerAddNewItemPatternGUI.xaml.cs">
+      <DependentUpon>ManagerAddNewItemPatternGUI.xaml</DependentUpon>
     </Compile>
     <Compile Include="ManagerAddNewUserGUI.xaml.cs">
       <DependentUpon>ManagerAddNewUserGUI.xaml</DependentUpon>
@@ -149,7 +149,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="ManagerAddNewItemGUI.xaml">
+    <Page Include="ManagerAddNewItemPatternGUI.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
