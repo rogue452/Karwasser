@@ -34,7 +34,7 @@ namespace project
             {
                 MySqlConnection MySqlConn = new MySqlConnection(Login.Connectionstring);
                 MySqlConn.Open();
-                string Query1 = ("SELECT jobs.itemid as `מספר פריט`,expectedItemQuantity as `כמות נדרשת מהפריט`, COUNT(item.itemid) as `כמות בפועל מהפריט` ,itemsDescription as `תיאור לגבי הפריטים`  FROM jobs,item  WHERE jobs.itemid=item.itemid and jobs.itemStageOrder=item.itemStageOrder and jobs.jobid='" + jobID + "' group by item.itemid ");
+                string Query1 = ("SELECT jobs.itemid as `מספר פריט`,item.itemName as `שם פריט`, expectedItemQuantity as `כמות נדרשת מהפריט`, COUNT(jobs.itemid) as `כמות בפועל מהפריט` ,itemsDescription as `תיאור לגבי הפריטים`  FROM jobs,item  WHERE jobs.jobid='" + jobID + "' AND jobs.itemid=item.itemid AND jobs.itemStageOrder=item.itemStageOrder AND jobs.itemStatus=item.itemStatus group by jobs.itemid ");
                 MySqlCommand MSQLcrcommand1 = new MySqlCommand(Query1, MySqlConn);
                 MSQLcrcommand1.ExecuteNonQuery();
                 MySqlDataAdapter mysqlDAdp = new MySqlDataAdapter(MSQLcrcommand1);

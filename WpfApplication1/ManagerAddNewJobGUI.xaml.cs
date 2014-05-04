@@ -61,7 +61,7 @@ namespace project
             {
                 MySqlConnection MySqlConn = new MySqlConnection(Login.Connectionstring);
                 MySqlConn.Open();
-                string Query1 = ("select itemid as `מספר פריט`,itemName as `שם פריט`, stage_discription as `תאור פריט` from project.item group by itemid");
+                string Query1 = ("select itemid as `מספר פריט`,itemName as `שם פריט`, item_discription as `תאור פריט` from project.item WHERE itemStatus='בעבודה' group by itemid");
                 MySqlCommand MSQLcrcommand1 = new MySqlCommand(Query1, MySqlConn);
                 MSQLcrcommand1.ExecuteNonQuery();
                 MySqlDataAdapter mysqlDAdp = new MySqlDataAdapter(MSQLcrcommand1);
@@ -518,7 +518,7 @@ namespace project
 
                         sizeofItemsnewtable = changedRecordsItemsTable.Rows.Count; // will give an exp if the size of the new items table is zero.
                         int itemNum = 0;
-                        string itemStatus = "נרשם", itemStageOrder = "1", job_status = "נרשמה";
+                        string itemStatus = "בעבודה", itemStageOrder = "1", job_status = "נרשמה";
                         string jobid, jobdes, itemsdes = "לא נרשם תיאור עדיין";
                         jobid = jobid_textBox.Text;
                         jobdes = jobdes_textbox.Text;
@@ -542,6 +542,7 @@ namespace project
                                     {
                                         for (int i = 1; i <= item_quantity; i++)
                                         {
+                                            Console.WriteLine("לפני שאילתא");
                                             itemNum++;
                                             string itemid = dri["מספר פריט"].ToString();
                                             try

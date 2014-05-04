@@ -163,7 +163,7 @@ namespace project
                 MySqlConnection MySqlConn = new MySqlConnection(Login.Connectionstring);
                 MySqlConn.Open();
                 string today = DateTime.Now.ToString("yyyy-MM-dd");
-                string Query1 = ("SELECT jobs.jobid ,jobs.expectedFinishDate FROM project.jobs ,project.users WHERE (DATEDIFF('" + today + "',jobs.expectedFinishDate)<=3) AND users.empid='" + Login.empid + "' AND (DATEDIFF(users.last_email_sent_date, '" + today + "')<0) AND jobs.job_status!='הסתיימה' AND jobs.job_status!='מבוטלת'GROUP BY jobid");
+                string Query1 = ("SELECT jobs.jobid ,jobs.expectedFinishDate FROM project.jobs ,project.users WHERE (DATEDIFF(jobs.expectedFinishDate,'" + today + "')<4) AND (DATEDIFF(jobs.expectedFinishDate,'" + today + "')>=0) AND users.empid='" + Login.empid + "' AND (DATEDIFF(users.last_email_sent_date, '" + today + "')<0) AND jobs.job_status!='הסתיימה' AND jobs.job_status!='מבוטלת'GROUP BY jobid");
                 Console.WriteLine(Query1);
                 MySqlCommand MSQLcrcommand1 = new MySqlCommand(Query1, MySqlConn);
                 MSQLcrcommand1.ExecuteNonQuery();
