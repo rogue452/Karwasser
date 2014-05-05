@@ -153,7 +153,8 @@ namespace project
                             {
                                 DBConnection conn = new DBConnection();
                                 string query2 = "UPDATE users SET connected='" + user_connected + "',last_log_in_date='" + DateTime.Now.ToString("yyyy-MM-dd-HH-mm-ss") + "' WHERE empid= '" + this.textBox1.Text + "' and password ='" + this.textBox2.Password + "'";
-                                conn.LogIn(query2);
+                                conn.LogIn(query2, Connectionstring);
+                                //conn.LogIn(query2);
                                 ManagerGui MG = new ManagerGui();
                                 MG.Show();
                             }
@@ -162,7 +163,8 @@ namespace project
                             {
                                 DBConnection conn = new DBConnection();
                                 string query2 = "UPDATE users SET connected='" + user_connected + "',last_log_in_date='" + DateTime.Now.ToString("yyyy-MM-dd-HH-mm-ss") + "' WHERE empid= '" + this.textBox1.Text + "' and password ='" + this.textBox2.Password + "'";
-                                conn.LogIn(query2);
+                                //conn.LogIn(query2);
+                                conn.LogIn(query2, Connectionstring);
                                 SecretaryGui SG = new SecretaryGui();
                                 SG.Show();
                             }
@@ -171,7 +173,8 @@ namespace project
                             {
                                 DBConnection conn = new DBConnection();
                                 string query2 = "UPDATE users SET connected='" + user_connected + "',last_log_in_date='" + DateTime.Now.ToString("yyyy-MM-dd-HH-mm-ss") + "' WHERE empid= '" + this.textBox1.Text + "' and password ='" + this.textBox2.Password + "'";
-                                conn.LogIn(query2);
+                               // conn.LogIn(query2);
+                                conn.LogIn(query2, Connectionstring);
                                 QualityGui QG = new QualityGui();
                                 QG.Show();
                             }

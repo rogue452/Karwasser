@@ -147,9 +147,10 @@ namespace project
         /// </summary>
         /// <param name="query">The query.</param>
         /// <returns>DataSet.</returns>
-        public DataSet LogIn(string query)
+        public DataSet LogIn(string query, string Connectionstring)
         {
-            string Connectionstring = " SERVER=localhost;DATABASE=project; UId=root;Password=1234;";
+            //string Connectionstring = " SERVER=localhost;DATABASE=project; UId=root;Password=1234;";
+            
             this.objConnection = new MySqlConnection(Connectionstring);
             try
             {
