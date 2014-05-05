@@ -528,7 +528,7 @@ namespace project
                         int count = 0; // will count the number of rows with cell "" in the  changedRecordsItemsTable.
                         foreach (DataRow dri in changedRecordsItemsTable.Rows)
                         {
-                            
+                            itemNum = 0;
                             string q = dri["כמות"].ToString();
 
                             try

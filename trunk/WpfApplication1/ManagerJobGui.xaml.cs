@@ -590,8 +590,8 @@ namespace project
         private void ADD_new_item_pattern_click(object sender, RoutedEventArgs e)
         {
             ManagerAddNewItemPatternGUI MANIG = new ManagerAddNewItemPatternGUI();
-            MANIG.Show();
-            this.Close();
+            MANIG.ShowDialog();
+           // this.Close();
 
         }
 

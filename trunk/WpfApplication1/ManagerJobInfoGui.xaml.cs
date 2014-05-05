@@ -106,7 +106,7 @@ namespace project
                 MySqlConnection MySqlConn = new MySqlConnection(Login.Connectionstring);
                 MySqlConn.Open();
                 String searchkey = this.ItemIDSearch_TextBox.Text;
-                string Query1 = ("SELECT jobs.itemid as `מספר פריט`,expectedItemQuantity as `כמות נדרשת מהפריט`, COUNT(item.itemid) as `כמות בפועל מהפריט` ,itemsDescription as `תיאור לגבי הפריטים`   FROM jobs,item WHERE jobs.itemid=item.itemid and jobs.itemStageOrder=item.itemStageOrder and jobs.jobid='" + jobID + "' and jobs.itemid Like '%" + searchkey + "%'  group by item.itemid");
+                string Query1 = ("SELECT jobs.itemid as `מספר פריט`,item.itemName as `שם פריט`, expectedItemQuantity as `כמות נדרשת מהפריט`, COUNT(jobs.itemid) as `כמות בפועל מהפריט` ,itemsDescription as `תיאור לגבי הפריטים`  FROM jobs,item  WHERE jobs.jobid='" + jobID + "' AND jobs.itemid=item.itemid AND jobs.itemStageOrder=item.itemStageOrder AND jobs.itemStatus=item.itemStatus AND jobs.itemid Like '%" + searchkey + "%'  group by jobs.itemid ");
                 MySqlCommand MSQLcrcommand1 = new MySqlCommand(Query1, MySqlConn);
                 MSQLcrcommand1.ExecuteNonQuery();
                 MySqlDataAdapter mysqlDAdp = new MySqlDataAdapter(MSQLcrcommand1);
@@ -159,7 +159,7 @@ namespace project
                     {
                         MySqlConnection MySqlConn = new MySqlConnection(Login.Connectionstring);
                         MySqlConn.Open();
-                        string Query1 = ("SELECT jobs.itemid as `מספר פריט`,expectedItemQuantity as `כמות נדרשת מהפריט`, COUNT(item.itemid) as `כמות בפועל מהפריט` ,itemsDescription as `תיאור לגבי הפריטים`  FROM jobs,item  WHERE jobs.itemid=item.itemid and jobs.itemStageOrder=item.itemStageOrder and jobs.jobid='" + jobID + "' group by item.itemid ");
+                        string Query1 = ("SELECT jobs.itemid as `מספר פריט`,item.itemName as `שם פריט`, expectedItemQuantity as `כמות נדרשת מהפריט`, COUNT(jobs.itemid) as `כמות בפועל מהפריט` ,itemsDescription as `תיאור לגבי הפריטים`  FROM jobs,item  WHERE jobs.jobid='" + jobID + "' AND jobs.itemid=item.itemid AND jobs.itemStageOrder=item.itemStageOrder AND jobs.itemStatus=item.itemStatus group by jobs.itemid ");
                         MySqlCommand MSQLcrcommand1 = new MySqlCommand(Query1, MySqlConn);
                         MSQLcrcommand1.ExecuteNonQuery();
                         MySqlDataAdapter mysqlDAdp = new MySqlDataAdapter(MSQLcrcommand1);
@@ -172,24 +172,8 @@ namespace project
                     catch (Exception ex)
                     {
                         MessageBox.Show(ex.Message);
-                    } try
-                    {
-                        MySqlConnection MySqlConn = new MySqlConnection(Login.Connectionstring);
-                        MySqlConn.Open();
-                        string Query1 = ("SELECT jobs.itemid as `מספר פריט`,expectedItemQuantity as `כמות נדרשת מהפריט`, COUNT(item.itemid) as `כמות בפועל מהפריט` ,itemsDescription as `תיאור לגבי הפריטים`  FROM jobs,item  WHERE jobs.itemid=item.itemid and jobs.itemStageOrder=item.itemStageOrder and jobs.jobid='" + jobID + "' group by item.itemid ");
-                        MySqlCommand MSQLcrcommand1 = new MySqlCommand(Query1, MySqlConn);
-                        MSQLcrcommand1.ExecuteNonQuery();
-                        MySqlDataAdapter mysqlDAdp = new MySqlDataAdapter(MSQLcrcommand1);
-                        dt.Clear();
-                        mysqlDAdp.Fill(dt);
-                        dataGrid1.ItemsSource = dt.DefaultView;
-                        mysqlDAdp.Update(dt);
-                        MySqlConn.Close();
-                    }
-                    catch (Exception ex)
-                    {
-                        MessageBox.Show(ex.Message);
-                    }
+                    } 
+
                 }//end else
 
             }//end try
@@ -211,34 +195,39 @@ namespace project
         {
             try
             {
-                //System.Collections.IList rows = dataGrid1.SelectedItems;
 
                 DataRowView row = (DataRowView)dataGrid1.SelectedItems[0];
-                string selected = row["מספר לקוח"].ToString();
-                // MessageBox.Show(""+selected+ "");
 
-
-
-                if (MessageBox.Show("?האם אתה בטוח שברצונך לעדכן לקוח זה", "וידוא עדכון", MessageBoxButton.YesNo, MessageBoxImage.Warning) == MessageBoxResult.No)
+                if (MessageBox.Show("?האם אתה בטוח שברצונך לעדכן קבוצת פריט זו", "וידוא עדכון", MessageBoxButton.YesNo, MessageBoxImage.Warning) == MessageBoxResult.No)
                 {
                     //dont do stuff
                 }
+
                 else // if the user clicked on "Yes" so he wants to Update.
                 {
-                    string custumername = row["שם לקוח"].ToString();
-                    string custumeraddress = row["כתובת לקוח"].ToString();
+                    string selected_Item = row["מספר פריט"].ToString();
+                    string itemdesc = row["תיאור לגבי הפריטים"].ToString();
+                    string exqun = row["כמות נדרשת מהפריט"].ToString();
+                    try
+                    {
+                        int expectedq = Convert.ToInt32(exqun);
+                    }
+                    catch { 
+                            MessageBox.Show("שדה הכמות נדרשת לא מכיל רק מספרים");
+                            return; 
+                          }
 
                     try
                     {
 
                         MySqlConnection MySqlConn = new MySqlConnection(Login.Connectionstring);
                         MySqlConn.Open();
-                        string Query1 = "update costumers set costumerName='" + custumername + "',costumerAddress='" + custumeraddress + "' where costumerid='" + selected + "'";
+                        string Query1 = "UPDATE jobs SET itemsDescription='" + itemdesc + "',expectedItemQuantity='" + exqun + "' WHERE jobid='" + jobID + "' AND itemid='" + selected_Item + "'";
                         MySqlCommand MSQLcrcommand1 = new MySqlCommand(Query1, MySqlConn);
                         MSQLcrcommand1.ExecuteNonQuery();
                         MySqlDataAdapter mysqlDAdp = new MySqlDataAdapter(MSQLcrcommand1);
                         MySqlConn.Close();
-                        MessageBox.Show("!פרטי הלקוח עודכנו");
+                        MessageBox.Show("! קבוצת הפריט עודכנה");
                     }
                     catch (Exception ex)
                     {
@@ -248,7 +237,7 @@ namespace project
                     {
                         MySqlConnection MySqlConn = new MySqlConnection(Login.Connectionstring);
                         MySqlConn.Open();
-                        string Query1 = ("select costumerid as `מספר לקוח`,costumerName as `שם לקוח` ,costumerAddress as `כתובת לקוח`  from project.costumers group by costumerid");
+                        string Query1 = ("SELECT jobs.itemid as `מספר פריט`,item.itemName as `שם פריט`, expectedItemQuantity as `כמות נדרשת מהפריט`, COUNT(jobs.itemid) as `כמות בפועל מהפריט` ,itemsDescription as `תיאור לגבי הפריטים`  FROM jobs,item  WHERE jobs.jobid='" + jobID + "' AND jobs.itemid=item.itemid AND jobs.itemStageOrder=item.itemStageOrder AND jobs.itemStatus=item.itemStatus group by jobs.itemid ");
                         MySqlCommand MSQLcrcommand1 = new MySqlCommand(Query1, MySqlConn);
                         MSQLcrcommand1.ExecuteNonQuery();
                         MySqlDataAdapter mysqlDAdp = new MySqlDataAdapter(MSQLcrcommand1);
@@ -266,8 +255,11 @@ namespace project
                 }
 
             }
-            catch { MessageBox.Show("לא נבחר לקוח לעדכון "); }
+            catch { MessageBox.Show("לא נבחרה קבוצת פריט לעדכון "); }
         }
+
+
+
 
 
 
