@@ -30,31 +30,37 @@ namespace project
             this.jobID = jobID1;
             InitializeComponent();
             this.WindowStartupLocation = WindowStartupLocation.CenterScreen;
-            
+
 
 
             try
             {
                 MySqlConnection MySqlConn = new MySqlConnection(Login.Connectionstring);
                 MySqlConn.Open();
-
-                /// need to think , dont have quantity in the db!
-                string Query1 = ("SELECT item.itemid as `מספר פריט`,quantity as `כמות` ,jobs.itemStageOrder as `מספר השלב הנוכחי`,stageName  as `שם השלב הנוכחי` ,jobs.itemStatus  as `סטטוס הפריט`,itemToFixStageOrder as `מספר השלב שבו זוהה כתקול (אם זוהה)`  FROM jobs,item WHERE jobs.itemid=item.itemid and jobs.itemStageOrder=item.itemStageOrder and jobs.itemStatus=item.itemStatus and jobs.jobid='" + jobID + "' ");
+                string Query1 = ("select itemid as `מספר פריט`,itemName as `שם פריט`, item_discription as `תאור פריט` from project.item WHERE itemStatus='בעבודה' group by itemid");
                 MySqlCommand MSQLcrcommand1 = new MySqlCommand(Query1, MySqlConn);
                 MSQLcrcommand1.ExecuteNonQuery();
                 MySqlDataAdapter mysqlDAdp = new MySqlDataAdapter(MSQLcrcommand1);
-                dt.Clear();
+                //DataTable dt1 = new DataTable("items");
                 mysqlDAdp.Fill(dt);
+                Create_DataTable1_Columns_End();
+                //   Make_CheckBox1_Columns_False();
                 dataGrid1.ItemsSource = dt.DefaultView;
                 mysqlDAdp.Update(dt);
+
                 MySqlConn.Close();
             }
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message);
-            }
+            }  
         }
 
+
+        private void Create_DataTable1_Columns_End()
+        {
+            dt.Columns.Add(new DataColumn("כמות", typeof(string)));
+        }
 
 
 
@@ -359,10 +365,198 @@ namespace project
              catch { MessageBox.Show("לא נבחר פריט"); }
         }
 
+
+
         private void Add_Existing_button_Click(object sender, RoutedEventArgs e)
         {
-            
+            try
+            {
+                DataTable changedRecordsItemsTable = dt.GetChanges();
+                int sizeofItemsnewtable = changedRecordsItemsTable.Rows.Count;
+                int count = 0; // will count the number of rows with cell "" in the  changedRecordsItemsTable.
+                foreach (DataRow dri in changedRecordsItemsTable.Rows)// for every row in the updateds table.
+                {
+                    string q = dri["כמות"].ToString();
+                    string itemid = dri["מספר פריט"].ToString();
+                    try
+                    {
+
+                        if (q != "") // in case the user deleted a cell in the item and now it have a string of-  "" .
+                        {
+                            int new_item_quantity = Convert.ToInt32(q) , maxItemNum=0;
+                            if (new_item_quantity > 0)
+                            {
+                                string  itemStatus = "בעבודה", itemStageOrder = "1";
+                                try
+                                {
+                                    MySqlConnection MySqlConn = new MySqlConnection(Login.Connectionstring);
+                                    MySqlConn.Open();
+                                    string Query1 = "(SELECT *, MAX(itemNum) FROM project.jobs WHERE jobid='" + jobID + "' AND itemid='" + itemid + "')";
+                                    MySqlCommand crcommand1 = new MySqlCommand(Query1, MySqlConn);
+                                    crcommand1.ExecuteNonQuery();
+                                    MySqlDataReader dr1 = crcommand1.ExecuteReader();
+                                    int count1 = 0, expectedItemQuantity=0;
+                                    string costumerid = "", itemsDescription = "", job_status = "", jobdescription = "", startDate = "", expectedFinishDate = "", contact_id = "";
+                                    
+                                    while (dr1.Read())
+                                    {
+                                        if (!dr1.IsDBNull(0))
+                                        {
+                                            count1++;
+                                            Console.WriteLine(+count1);
+                                            maxItemNum = dr1.GetInt32(16);
+                                            expectedItemQuantity = dr1.GetInt32(5);
+                                            costumerid = dr1.GetString(6);
+                                            itemsDescription = dr1.GetString(8);
+                                            job_status = dr1.GetString(10);
+                                            jobdescription = dr1.GetString(11);
+                                            startDate = dr1.GetString(12);
+                                            startDate = Convert.ToDateTime(startDate).ToString("yyyy-MM-dd");
+                                            expectedFinishDate = dr1.GetString(13);
+                                            expectedFinishDate = Convert.ToDateTime(expectedFinishDate).ToString("yyyy-MM-dd");
+                                            contact_id = dr1.GetString(15);
+                                        }
+                                    }
+                                    MySqlConn.Close();
+
+                                    if (count1 == 1)// if an itemid already exist in this job.
+                                    {
+                                      //  int new_expected = new_item_quantity + expectedItemQuantity;
+                                        for (int i = 1; i <= new_item_quantity; i++)
+                                        {
+                                            Console.WriteLine("לפני שאילתא");
+                                            maxItemNum++; 
+                                          //  string itemid = dri["מספר פריט"].ToString();
+                                            try
+                                            {
+                                                MySqlConnection MySqlConn1 = new MySqlConnection(Login.Connectionstring);
+                                                MySqlConn1.Open();
+                                                string Query2 = ("INSERT INTO project.jobs (jobid, itemid,itemNum,itemStatus,itemStageOrder, expectedItemQuantity,costumerid, itemsDescription, job_status, jobdescription, startDate, expectedFinishDate, contact_id) VALUES ('" + jobID + "','" + itemid + "','" + maxItemNum + "','" + itemStatus + "','" + itemStageOrder + "','" + expectedItemQuantity + "','" + costumerid + "','" + itemsDescription + "','" + job_status + "','" + jobdescription + "','" + startDate + "','" + expectedFinishDate + "','" + contact_id + "')");
+                                                MySqlCommand MSQLcrcommand2 = new MySqlCommand(Query2, MySqlConn1);
+                                                MSQLcrcommand2.ExecuteNonQuery();
+                                                MySqlDataAdapter mysqlDAdp1 = new MySqlDataAdapter(MSQLcrcommand2);
+                                                MySqlConn1.Close();
+                                            }
+                                            catch (Exception ex)
+                                            {
+                                                MessageBox.Show(ex.Message);
+                                                Console.WriteLine("if (for (int i = 1; i <= new_item_quantity; i++))");
+                                                return;
+                                            }
+
+                                        }//end for (int i = 1; i <= new_item_quantity; i++)
+
+                                       /* try
+                                        {
+                                            MySqlConnection MySqlConn3 = new MySqlConnection(Login.Connectionstring);
+                                            MySqlConn3.Open();
+                                            string Query3 = "UPDATE project.jobs SET expectedItemQuantity='" + new_expected + "' WHERE jobid='"+jobID+"' AND itemid='"+itemid+"' ";
+                                            MySqlCommand MSQLcrcommand3 = new MySqlCommand(Query3, MySqlConn3);
+                                            MSQLcrcommand3.ExecuteNonQuery();
+                                            MySqlDataAdapter mysqlDAdp2 = new MySqlDataAdapter(MSQLcrcommand3);
+                                            MySqlConn.Close();
+                                        }
+                                        catch (Exception ex)
+                                        {
+                                            MessageBox.Show(ex.Message);
+                                            Console.WriteLine("Query3");
+                                            return;
+                                        }
+                                         */
+
+                                    }
+                                    else // cound1==0 so no such itemid for this jobid.
+                                    {
+                                        try
+                                        {
+                                            MySqlConnection MySqlConn5 = new MySqlConnection(Login.Connectionstring);
+                                            MySqlConn5.Open();
+                                            string Query5 = "(SELECT *, MAX(itemNum) FROM project.jobs WHERE jobid='" + jobID + "')";
+                                            MySqlCommand crcommand5 = new MySqlCommand(Query5, MySqlConn5);
+                                            crcommand5.ExecuteNonQuery();
+                                            MySqlDataReader dr5 = crcommand5.ExecuteReader();
+
+                                            while (dr5.Read())
+                                            {
+                                                expectedItemQuantity = dr5.GetInt32(5);
+                                                costumerid = dr5.GetString(6);
+                                                itemsDescription = dr5.GetString(8);
+                                                job_status = dr5.GetString(10);
+                                                jobdescription = dr5.GetString(11);
+                                                startDate = dr5.GetString(12);
+                                                startDate = Convert.ToDateTime(startDate).ToString("yyyy-MM-dd");
+                                                expectedFinishDate = dr5.GetString(13);
+                                                expectedFinishDate = Convert.ToDateTime(expectedFinishDate).ToString("yyyy-MM-dd");
+                                                contact_id = dr5.GetString(15);
+                                            }
+                                            MySqlConn5.Close();
+                                        }
+                                        catch (Exception ex)
+                                        {
+                                            MessageBox.Show(ex.Message);
+                                            Console.WriteLine("Query5");
+                                            return;
+                                        }
+
+                                        int itemNum = 0;
+                                        for (int i = 1; i <= new_item_quantity; i++)
+                                        {
+                                            itemNum++;
+                                            
+                                            try
+                                            {
+                                                MySqlConnection MySqlConn4 = new MySqlConnection(Login.Connectionstring);
+                                                MySqlConn4.Open();
+                                                string Query4 = ("INSERT INTO project.jobs (jobid, itemid,itemNum,itemStatus,itemStageOrder, expectedItemQuantity,costumerid, itemsDescription, job_status, jobdescription, startDate, expectedFinishDate, contact_id) VALUES ('" + jobID + "','" + itemid + "','" + itemNum + "','" + itemStatus + "','" + itemStageOrder + "','" + new_item_quantity + "','" + costumerid + "','" + itemsDescription + "','" + job_status + "','" + jobdescription + "','" + startDate + "','" + expectedFinishDate + "','" + contact_id + "')");
+                                                MySqlCommand MSQLcrcommand4 = new MySqlCommand(Query4, MySqlConn4);
+                                                MSQLcrcommand4.ExecuteNonQuery();
+                                                MySqlDataAdapter mysqlDAdp4 = new MySqlDataAdapter(MSQLcrcommand4);
+                                                MySqlConn4.Close();
+
+                                            }
+                                            catch (Exception ex)
+                                            {
+                                                MessageBox.Show(ex.Message);
+                                                Console.WriteLine("Query4");
+                                                return;
+                                            }
+
+                                        } // end for (int i = 1; i <= new_item_quantity; i++)
+                                    }// end else // cound1==0 so no such itemid for this jobid.
+
+                                }// end of first try.
+                                catch (Exception ex)
+                                {
+                                    MessageBox.Show(ex.Message);
+                                    Console.WriteLine("Query1");
+                                    return;
+                                }
+
+                               
+                            }//end if (item_quantity > 0)
+                            else { MessageBox.Show("שדה הכמות מכיל כמות שלילית או 0 בפריט מספר - " + dri["מספר פריט"].ToString() + ""); return; }
+
+                        } // if (q != "")
+                        else { count++; }
+
+
+                    }// end try
+                    catch
+                    { MessageBox.Show("שדה הכמות לא כולל רק מספרים בפריט מספר - " + dri["מספר פריט"].ToString() + ""); return; }
+
+                }// end foreach (DataRow dri in changedRecordsTable.Rows)}
+
+                if (count == changedRecordsItemsTable.Rows.Count)
+                {
+                    MessageBox.Show("  לא נבחרו פריטים מהטבלה "); return;
+                }
+
+                else { MessageBox.Show("!הפריט/ים נוסף/ו למערכת"); }
+            }
+            catch { MessageBox.Show("לא נבחר פריט"); }
         }
+
+
 
 
 

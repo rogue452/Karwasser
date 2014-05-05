@@ -25,7 +25,6 @@
         <Image Height="36" HorizontalAlignment="Left" Margin="1055,445,0,0" Name="image1" Stretch="Fill" VerticalAlignment="Top" Width="42" FlowDirection="RightToLeft" Source="/WpfApplication1;component/Images/add_user.png" />
         <Image Height="28" HorizontalAlignment="Left" Margin="1009,573,0,0" Name="image4" Stretch="Fill" VerticalAlignment="Top" Width="25" Source="/WpfApplication1;component/Images/exit.png" />
         <Image Height="29" HorizontalAlignment="Left" Margin="12,573,0,0" Name="image7" Stretch="Fill" VerticalAlignment="Top" Width="33" Source="/WpfApplication1;component/Images/back.png" />
-        <Button Content="צפה בהזמנות הלקוח" Height="56" HorizontalAlignment="Left" Margin="372,33,0,0" Name="ViewJobsbutton" VerticalAlignment="Top" Width="145" />
         <DataGrid AutoGenerateColumns="True"  AutoGeneratingColumn="Grid_AutoGeneratingColumn1"  Margin="647,132,241,52" Name="dataGrid2" CanUserAddRows="false" SelectionMode="Extended"  />
         <Label Content="מספר הזמנה " Height="25" HorizontalAlignment="Left" Margin="613,40,0,0" Name="job_id_label" VerticalAlignment="Top" Width="90" />
         <TextBox Height="30" HorizontalAlignment="Right" Margin="0,37,336,0" Name="jobid_textBox" VerticalAlignment="Top" Width="145" />
