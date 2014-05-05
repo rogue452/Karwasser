@@ -220,8 +220,8 @@ namespace project
         // go to previous screen.
         private void Back_Btn_Click(object sender, RoutedEventArgs e)
         {
-            ManagerGui MG = new ManagerGui();
-            MG.Show();
+            ManagerJobInfoGui MJIG = new ManagerJobInfoGui(jobID);
+            MJIG.Show();
             this.Close();
         }
 

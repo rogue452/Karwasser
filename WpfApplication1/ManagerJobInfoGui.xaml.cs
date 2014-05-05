@@ -186,8 +186,8 @@ namespace project
         // go to previous screen.
         private void Back_Btn_Click(object sender, RoutedEventArgs e)
         {
-            ManagerGui MG = new ManagerGui();
-            MG.Show();
+            ManagerJobGui MJG = new ManagerJobGui();
+            MJG.Show();
             this.Close();
         }
 
@@ -265,7 +265,7 @@ namespace project
 
         private void Grid_AutoGeneratingColumn(object sender, DataGridAutoGeneratingColumnEventArgs e)
         {
-            if (e.Column.Header.ToString() == "מספר פריט")
+            if (e.Column.Header.ToString() == "מספר פריט" || e.Column.Header.ToString() == "שם פריט" || e.Column.Header.ToString() == "כמות בפועל מהפריט")
             {
                 // e.Cancel = true;   // For not to include 
                 e.Column.IsReadOnly = true; // Makes the column as read only
