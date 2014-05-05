@@ -13,14 +13,14 @@
         <Button Content="יציאה מהמערכת" HorizontalAlignment="Right" Margin="0,577,12,0" VerticalAlignment="Top" Width="142" Height="28" />
         <Button Content="חזור למסך ראשי" HorizontalAlignment="Right" Margin="0,577,1017,0" VerticalAlignment="Top" Width="134" Height="28" Click="Back_Btn_Click" Name="Back_Btn" />
         <Button Content="ייצא רשימה לקובץ אקסל" Height="28" HorizontalAlignment="Right" Margin="0,578,522,0" Name="TXTBtn" VerticalAlignment="Top" Width="161" Click="TXTBtn_Click" />
-        <Image Height="36" HorizontalAlignment="Right" Margin="0,2,427,0" Name="image1" Stretch="Fill" VerticalAlignment="Top" Width="42" FlowDirection="RightToLeft" Source="/WpfApplication1;component/Images/add_item_list_icon_med_hr.png" />
+        <Image Height="36" HorizontalAlignment="Right" Margin="0,3,427,569" Name="image1" Stretch="Fill"  Width="42" FlowDirection="RightToLeft" Source="/WpfApplication1;component/Images/add_item_list_icon_med_hr.png" />
         <Image Height="36" HorizontalAlignment="Right" Margin="0,0,52,0" Name="image2" Stretch="Fill" VerticalAlignment="Top" Width="42" Source="/WpfApplication1;component/Images/remove.png" />
         <Image Height="28" HorizontalAlignment="Right" Margin="0,577,156,0" Name="image4" Stretch="Fill" VerticalAlignment="Top" Width="25" Source="/WpfApplication1;component/Images/exit.png" />
         <Image Height="35" HorizontalAlignment="Right" Margin="0,573,686,0" Name="image6" Stretch="Fill" VerticalAlignment="Top" Width="33" Source="/WpfApplication1;component/Images/icon_microsoftexcel.png" />
         <Image Height="29" HorizontalAlignment="Right" Margin="0,576,1157,0" Name="image7" Stretch="Fill" VerticalAlignment="Top" Width="33" Source="/WpfApplication1;component/Images/back.png" />
-        <Button Content="הצג קבוצת פריט" Height="56" HorizontalAlignment="Right" Margin="0,0,609,511" Name="Show_Item_button" VerticalAlignment="Bottom" Width="125" Click="Show_Item_button_Click" FontWeight="Bold" />
-        <Image Height="33" HorizontalAlignment="Right" Margin="0,5,654,0" Name="image5" Stretch="Fill" VerticalAlignment="Top" Width="41" Source="/WpfApplication1;component/Images/window_process.png" />
-        <Button Content="הוסף פריט לעבודה" Height="56"  Name="Add_Existing_button"   Click="Add_Existing_button_Click"   HorizontalAlignment="Right" Margin="0,0,389,511"  VerticalAlignment="Bottom" Width="125" FontWeight="Bold" Foreground="Black" Background="LimeGreen" />
+        <Button Content="הצג קבוצת פריט" Height="56"  Margin="456,42,609,510" Name="Show_Item_button" Width="125" Click="Show_Item_button_Click" FontWeight="Bold" />
+        <Image Height="33"  Margin="496,3,653,572" Name="image5" Stretch="Fill"  Width="41" Source="/WpfApplication1;component/Images/window_process.png" />
+        <Button Content="הוסף פריט לעבודה" Height="56"  Name="Add_Existing_button"   Click="Add_Existing_button_Click"    Margin="678,42,387,510"   Width="125" FontWeight="Bold" Foreground="Black" Background="LimeGreen" />
         <Button Content="עדכון קבוצה פריט" Height="56" HorizontalAlignment="Left" Margin="860,41,0,0" Name="Update_button" VerticalAlignment="Top" Width="125" Click="UpdateBtn_Click" FontWeight="Bold" />
         <Image Height="36" HorizontalAlignment="Left" Margin="901,5,0,0" Name="image3" Stretch="Fill" VerticalAlignment="Top" Width="42" Source="/WpfApplication1;component/Images/update.png" />
     </Grid>

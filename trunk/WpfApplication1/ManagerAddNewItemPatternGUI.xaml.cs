@@ -41,8 +41,8 @@ namespace project
 
         private void Back_button_Click(object sender, RoutedEventArgs e)
         {
-            ManagerJobGui MJG = new ManagerJobGui();
-            MJG.Show();
+           // ManagerJobGui MJG = new ManagerJobGui();
+          //  MJG.Show();
             this.Close();
 
         }
