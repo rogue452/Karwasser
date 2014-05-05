@@ -75,10 +75,10 @@ namespace project
                                         {
                                             cmd.Connection = conn;
                                             conn.Open();
-                                            MessageBox.Show(" מאר הנתונים יעודכן מהקובץ הנבחר\n.בסיום התהליך תופיע הודעה\n.לחץ אישור להתחלת התהליך");
+                                            MessageBox.Show(" מאגר הנתונים יעודכן מהקובץ הנבחר\n.בסיום התהליך תופיע הודעה\n.לחץ אישור להתחלת התהליך");
                                             mb.ImportFromFile(from);
                                             conn.Close();
-                                            MessageBox.Show(".SQL - מאר הנתונים עודכן מקובץ ה");
+                                            MessageBox.Show(".SQL - מאגר הנתונים עודכן מקובץ ה");
                                         }
                                 }
                         }

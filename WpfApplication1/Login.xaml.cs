@@ -49,13 +49,25 @@ namespace project
            // My_IP();
             My_Host_Name();
             host_name_label.Content = my_host_name;
-      
-            // checks if the text file exists and if does then the text in the file will be loaded to the Host_textBox.
-            if (File.Exists("C:/Users/Public//Host Name Login DO NOT DELETE.txt"))
-            { 
-                //if we want to load the text from a file the we will enable this line (and also the using System.IO line above) and we will give it the text Source path.
-                Host_textBox.Text = File.ReadAllText("C:/Users/Public//Host Name Login DO NOT DELETE.txt");
-            }
+
+            
+                // checks if the text file exists and if does then the text in the file will be loaded to the Host_textBox.
+                if (File.Exists("C:/Users/Public//Host Name Login DO NOT DELETE.txt"))
+                {
+                    //if we want to load the text from a file the we will enable this line (and also the using System.IO line above) and we will give it the text Source path.
+                    Host_textBox.Text = File.ReadAllText("C:/Users/Public//Host Name Login DO NOT DELETE.txt");
+                }
+            
+                else
+                    // if this is Windows XP
+                {
+                    if (File.Exists("C:/Documents and Settings/All Users/Host Name Login DO NOT DELETE.txt"))
+                    {
+                        //if we want to load the text from a file the we will enable this line (and also the using System.IO line above) and we will give it the text Source path.
+                        Host_textBox.Text = File.ReadAllText("C:/Documents and Settings/All Users/Host Name Login DO NOT DELETE.txt");
+                    }
+                }
+
             this_cpu_HostName_label.Visibility = Visibility.Visible;
             host_name_label.Visibility = Visibility.Visible;
             this.WindowStartupLocation = WindowStartupLocation.CenterScreen;
@@ -371,7 +383,15 @@ namespace project
         private void Name_save_button_Click(object sender, RoutedEventArgs e)
         {
             string newhost = Host_textBox.Text, to = "C:/Users/Public//Host Name Login DO NOT DELETE.txt";
-            File.WriteAllText(to, newhost);
+            try
+            {
+                File.WriteAllText(to, newhost);
+            }
+            catch
+            {
+                to = "C:/Documents and Settings/All Users/Host Name Login DO NOT DELETE.txt";
+                File.WriteAllText(to, newhost);
+            }
             if (File.Exists(to))
             {
                 //if we want to load the text from a file the we will enable this line (and also the using System.IO line above) and we will give it the text Source path.
