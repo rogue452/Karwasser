@@ -97,15 +97,32 @@ namespace project
                             string schepath = "C://Users/Public//sche.sql";
                             string tempPlace = "C://Users/Public//temp.sql";
 
-                            //create the sche.sql with the sche string.
-                            File.WriteAllText(schepath , sche);
-                            MSQLcrcommand1.Connection = MySqlConn;
-                            MySqlConn.Open();
-                            MessageBox.Show("פעולה זו עלולה להמשך כמה דקות, הודעה תופיע בסוף התהליך");
+                            try
+                            {
+                                //create the sche.sql with the sche string.
+                                File.WriteAllText(schepath, sche);
+                            }
+                            catch // if this is Windows XP
+                            {
+                                schepath = "C:/Documents and Settings/All Users/sche.sql";
+                                tempPlace = "C:/Documents and Settings/All Users/temp.sql";
+                                //create the sche.sql with the sche string.
+                                File.WriteAllText(schepath, sche);
+                            }
+                            try
+                            {
+                                MSQLcrcommand1.Connection = MySqlConn;
+                                MySqlConn.Open();
+                                MessageBox.Show("פעולה זו עלולה להמשך כמה דקות, הודעה תופיע בסוף התהליך");
 
-                            // create the sql dump file to the tempPlace path.
-                            mb.ExportToFile(tempPlace);
-                            MySqlConn.Close();
+                                // create the sql dump file to the tempPlace path.
+                                mb.ExportToFile(tempPlace);
+                                MySqlConn.Close();
+                            }
+                            catch (Exception ex)
+                            {
+                                MessageBox.Show(ex.Message);
+                            }
 
                             // Append the sql dump to the string file.
                             File.AppendAllText(schepath, File.ReadAllText(tempPlace));
