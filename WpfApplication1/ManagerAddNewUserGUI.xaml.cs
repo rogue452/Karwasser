@@ -210,9 +210,9 @@ namespace project
 
         private void Grid_AutoGeneratingColumn(object sender, DataGridAutoGeneratingColumnEventArgs e)
         {
-            if (e.Column.Header.ToString() == "תעודת זהות")
+            if (e.Column.Header.ToString() == "תעודת זהות" || e.Column.Header.ToString() == "שם פרטי" || e.Column.Header.ToString() == "שם משפחה" || e.Column.Header.ToString() == "כתובת"||e.Column.Header.ToString() == "מספר טלפון")
             {
-                // e.Cancel = true;   // For not to include 
+               
                 e.Column.IsReadOnly = true; // Makes the column as read only
             }
         }

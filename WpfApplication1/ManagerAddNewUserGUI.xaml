@@ -17,7 +17,7 @@
         <TextBox HorizontalAlignment="Left" Height="23" Margin="183,27,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="197" Name="IDSearchTextBox" TextChanged="IDSearchTextBox_TextChanged" />
         <Label Content="תעודת זהות (ללא 0 ראשוני)" HorizontalAlignment="Left" Margin="12,28,0,556" />
         <Label Content="שם פרטי" HorizontalAlignment="Left" Margin="12,56,0,0" VerticalAlignment="Top" Width="71"/>
-        <DataGrid AutoGenerateColumns="True" Height="463" HorizontalAlignment="Left" Margin="0,104,0,0" Name="dataGrid1" VerticalAlignment="Top" Width="1190" CanUserAddRows="false" SelectionMode="Single" FontSize="15" />
+        <DataGrid AutoGenerateColumns="True" Height="463" HorizontalAlignment="Left" Margin="0,104,0,0" Name="dataGrid1" VerticalAlignment="Top" Width="1190" CanUserAddRows="false" SelectionMode="Single" FontSize="15" AutoGeneratingColumn="Grid_AutoGeneratingColumn"/>
         <Label Content="החל להקליד כדי לחפש לפי:" Height="28" HorizontalAlignment="Left" Margin="12,0,0,0" Name="Search_label" VerticalAlignment="Top" />
         <Label Content="בחר עובד והכנס פירטי המשתמש החדש:" Height="28" HorizontalAlignment="Left" Margin="428,0,0,0" Name="label1" VerticalAlignment="Top" />
     </Grid>

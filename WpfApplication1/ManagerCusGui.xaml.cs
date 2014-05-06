@@ -154,8 +154,8 @@ namespace project
         private void ADD_Btn_Click(object sender, RoutedEventArgs e)
         {
             ManagerAddNewCusGUI MACG = new ManagerAddNewCusGUI();
-            MACG.Show();
-            this.Close();
+            MACG.ShowDialog();
+           // this.Close();
         }
 
 

@@ -341,11 +341,94 @@ namespace project
                 e.Column.IsReadOnly = true; // Makes the column as read only
              }
 
-          //  if (e.Column.Header.ToString() == "שליחת האימייל האחרון")
-          //  {
-          //      (e.Column as DataGridTextColumn).Binding.StringFormat = "dd/MM/yyyy";
-           //     e.Column.IsReadOnly = true; // Makes the column as read only
-           // }
+            if (e.Column.Header.ToString() == "תפקיד")
+            {
+              
+                string columnName = e.Column.Header.ToString();
+                Dictionary<string, string> comboKey = new Dictionary<string, string>()
+                    {
+                        {"מנהל","מנהל"},
+                        {"מזכירה","מזכירה"},
+                        {"איכות","איכות"},
+                        
+                    };
+                DataGridTemplateColumn col1 = new DataGridTemplateColumn();
+                col1.Header = columnName;
+
+                #region Editing
+                FrameworkElementFactory factory1 = new FrameworkElementFactory(typeof(ComboBox));
+                Binding b1 = new Binding(columnName);
+                b1.IsAsync = true;
+                b1.Mode = BindingMode.TwoWay;
+                factory1.SetValue(ComboBox.ItemsSourceProperty, comboKey);
+                factory1.SetValue(ComboBox.SelectedValuePathProperty, "Key");
+                factory1.SetValue(ComboBox.DisplayMemberPathProperty, "Value");
+                factory1.SetValue(ComboBox.SelectedValueProperty, b1);
+                factory1.SetValue(ComboBox.SelectedItemProperty, col1);
+
+                DataTemplate cellTemplate1 = new DataTemplate();
+                cellTemplate1.VisualTree = factory1;
+                col1.CellTemplate = cellTemplate1;
+                col1.CellEditingTemplate = cellTemplate1;
+                col1.IsReadOnly = false;
+                col1.InvalidateProperty(ComboBox.SelectedValueProperty);
+                #endregion
+
+                #region View
+                FrameworkElementFactory sfactory = new FrameworkElementFactory(typeof(TextBlock));
+                sfactory.SetValue(TextBlock.TextProperty, b1);
+                DataTemplate cellTemplate = new DataTemplate();
+                cellTemplate.VisualTree = sfactory;
+                col1.CellTemplate = cellTemplate;
+                #endregion
+
+                e.Column = col1;
+            }
+
+            if (e.Column.Header.ToString() == "מחובר")
+            {
+                string columnName1 = e.Column.Header.ToString();
+                Dictionary<string, string> comboKey1 = new Dictionary<string, string>()
+                    {
+                        {"מחובר","מחובר"},
+                        {"לא מחובר","לא מחובר"},
+                        
+                    };
+                DataGridTemplateColumn col11 = new DataGridTemplateColumn();
+                col11.Header = columnName1;
+
+                #region Editing
+                FrameworkElementFactory factory11 = new FrameworkElementFactory(typeof(ComboBox));
+                Binding b11 = new Binding(columnName1);
+                b11.IsAsync = true;
+                b11.Mode = BindingMode.TwoWay;
+                factory11.SetValue(ComboBox.ItemsSourceProperty, comboKey1);
+                factory11.SetValue(ComboBox.SelectedValuePathProperty, "Key");
+                factory11.SetValue(ComboBox.DisplayMemberPathProperty, "Value");
+                factory11.SetValue(ComboBox.SelectedValueProperty, b11);
+                factory11.SetValue(ComboBox.SelectedItemProperty, col11);
+
+                DataTemplate cellTemplate1 = new DataTemplate();
+                cellTemplate1.VisualTree = factory11;
+                col11.CellTemplate = cellTemplate1;
+                col11.CellEditingTemplate = cellTemplate1;
+                col11.IsReadOnly = false;
+                col11.InvalidateProperty(ComboBox.SelectedValueProperty);
+                #endregion
+
+                #region View
+                FrameworkElementFactory sfactory = new FrameworkElementFactory(typeof(TextBlock));
+                sfactory.SetValue(TextBlock.TextProperty, b11);
+                DataTemplate cellTemplate = new DataTemplate();
+                cellTemplate.VisualTree = sfactory;
+                col11.CellTemplate = cellTemplate;
+                #endregion
+
+                e.Column = col11;
+            }
+
+
+
         }
 
 
