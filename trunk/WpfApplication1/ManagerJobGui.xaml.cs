@@ -414,47 +414,52 @@ namespace project
             }
 
 
-           /* if (e.Column.Header.ToString() == "סטטוס עבודה")
+            if (e.Column.Header.ToString() == "סטטוס עבודה")
             {
-                string name = e.Column.Header.ToString();
-                DataGridTemplateColumn dgct = new DataGridTemplateColumn();
-                dgct.Header = name;
-                dgct.SortMemberPath = name;
 
-                Binding b = new Binding(name);
-                //b.StringFormat = "dd/MM/yyyy";
-                ListBox ls = new ListBox();
-              //  ListBoxItem lsi = new ListBoxItem();
-              //  lsi.Content = "a";
-                ls.Items.Add("a");
-               // lsi.Content = "b";
-                ls.Items.Add("b");
-              //  lsi.Content = "c";
-                ls.Items.Add("c");
-                //ls.Items.Add("בעבודה");
-                //ls.Items.Add("מושהה");
-                //ls.Items.Add("מבוטל");
-               // ls.Items.Add("הסתיים");
+                string columnName1 = e.Column.Header.ToString();
+                Dictionary<string, string> comboKey1 = new Dictionary<string, string>()
+                    {
+                        {"נרשמה","נרשמה"},
+                        {"בעבודה","בעבודה"},
+                        {"מושהת","מושהת"},
+                        {"בוטלה","בוטלה"},
+                        {"הסתיימה","הסתיימה"},
+                    };
+                DataGridTemplateColumn col11 = new DataGridTemplateColumn();
+                col11.Header = columnName1;
+
                 #region Editing
-                FrameworkElementFactory factory = new FrameworkElementFactory(typeof(ListBox));
-                factory.SetValue(ListBox.AddSelectedHandler, ls);
-                factory.SetValue(ListBox.SelectedValueProperty, b);
-                factory.SetValue(ListBox.DisplayMemberPathProperty, "Value");
-                factory.SetValue(ListBox.SelectedItemProperty, dgct);
-                DataTemplate cellEditingTemplate = new DataTemplate();
-                cellEditingTemplate.VisualTree = factory;
-                dgct.CellEditingTemplate = cellEditingTemplate;
+                FrameworkElementFactory factory11 = new FrameworkElementFactory(typeof(ComboBox));
+                Binding b11 = new Binding(columnName1);
+                b11.IsAsync = true;
+                b11.Mode = BindingMode.TwoWay;
+                factory11.SetValue(ComboBox.ItemsSourceProperty, comboKey1);
+                factory11.SetValue(ComboBox.SelectedValuePathProperty, "Key");
+                factory11.SetValue(ComboBox.DisplayMemberPathProperty, "Value");
+                factory11.SetValue(ComboBox.SelectedValueProperty, b11);
+                factory11.SetValue(ComboBox.SelectedItemProperty, col11);
+
+                DataTemplate cellTemplate1 = new DataTemplate();
+                cellTemplate1.VisualTree = factory11;
+                col11.CellTemplate = cellTemplate1;
+                col11.CellEditingTemplate = cellTemplate1;
+                col11.IsReadOnly = false;
+                col11.InvalidateProperty(ComboBox.SelectedValueProperty);
                 #endregion
 
                 #region View
-                FrameworkElementFactory sfactory = new FrameworkElementFactory(typeof(ListBox));
-                sfactory.SetValue(TextBlock.TextProperty, b);
+                FrameworkElementFactory sfactory = new FrameworkElementFactory(typeof(TextBlock));
+                sfactory.SetValue(TextBlock.TextProperty, b11);
                 DataTemplate cellTemplate = new DataTemplate();
                 cellTemplate.VisualTree = sfactory;
-                dgct.CellTemplate = cellTemplate;
+                col11.CellTemplate = cellTemplate;
                 #endregion
-                e.Column = dgct;
-            }*/
+
+                e.Column = col11;
+
+
+            }
         }
 
         private void Contacts_button_Click(object sender, RoutedEventArgs e)

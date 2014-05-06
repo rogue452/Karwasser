@@ -299,6 +299,57 @@ namespace project
                 // e.Cancel = true;   // For not to include 
                 e.Column.IsReadOnly = true; // Makes the column as read only
             }
+
+
+            if (e.Column.Header.ToString() == "תפקיד")
+            {
+                Console.WriteLine("dorrrrrrrrrrrrrr");
+                string columnName = e.Column.Header.ToString();
+                Dictionary<string, string> comboKey = new Dictionary<string, string>()
+                    {
+                        {"מנהל","מנהל"},
+                        {"מזכירה","מזכירה"},
+                        {"איכות","איכות"},
+                        
+                    };
+                DataGridTemplateColumn col1 = new DataGridTemplateColumn();
+                col1.Header = columnName;
+
+                #region Editing
+                FrameworkElementFactory factory1 = new FrameworkElementFactory(typeof(ComboBox));
+                Binding b1 = new Binding(columnName);
+                b1.IsAsync = true;
+                b1.Mode = BindingMode.TwoWay;
+                factory1.SetValue(ComboBox.ItemsSourceProperty, comboKey);
+                factory1.SetValue(ComboBox.SelectedValuePathProperty, "Key");
+                factory1.SetValue(ComboBox.DisplayMemberPathProperty, "Value");
+                factory1.SetValue(ComboBox.SelectedValueProperty, b1);
+                factory1.SetValue(ComboBox.SelectedItemProperty, col1);
+
+                DataTemplate cellTemplate1 = new DataTemplate();
+                cellTemplate1.VisualTree = factory1;
+                col1.CellTemplate = cellTemplate1;
+                col1.CellEditingTemplate = cellTemplate1;
+                col1.IsReadOnly = false;
+                col1.InvalidateProperty(ComboBox.SelectedValueProperty);
+                #endregion
+
+                #region View
+                FrameworkElementFactory sfactory = new FrameworkElementFactory(typeof(TextBlock));
+                sfactory.SetValue(TextBlock.TextProperty, b1);
+                DataTemplate cellTemplate = new DataTemplate();
+                cellTemplate.VisualTree = sfactory;
+                col1.CellTemplate = cellTemplate;
+                #endregion
+
+                e.Column = col1;
+            }
+
+
+
+
+
+
         }
 
 

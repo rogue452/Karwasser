@@ -19,7 +19,7 @@
         <ComboBox Height="23" HorizontalAlignment="Left" Margin="106,41,0,0" Name="comboBox1" VerticalAlignment="Top" Width="153" Visibility="Visible" />
         <Label Content="סטטוס פריט" Height="28" HorizontalAlignment="Left" Margin="5,41,0,0" Name="label1" VerticalAlignment="Top" Width="95" />
         <Label Content="Label" Height="23" HorizontalAlignment="Left" Margin="106,80,0,0" Name="item_num2_label" VerticalAlignment="Top" Width="153"  Visibility="Hidden"/>
-        <Label Content="Label" Height="28" Margin="106,114,282,0" Name="item_name2_label" VerticalAlignment="Top"  Visibility="Hidden"/>
+        <Label Content="Label" Height="28" Margin="106,116,282,0" Name="item_name2_label" VerticalAlignment="Top"  Visibility="Hidden"/>
         <Label Content="Label" Height="23" Margin="0,41,282,0" Name="stage_status_label" VerticalAlignment="Top" Visibility="Hidden" HorizontalAlignment="Right" Width="153" />
         <Label Content="תאור הפריט" Height="28" HorizontalAlignment="Left" Margin="369,12,0,0" Name="item_discription_label" VerticalAlignment="Top" />
         <TextBox Height="127" HorizontalAlignment="Left" Margin="275,41,0,0" Name="item_disc_textBox" VerticalAlignment="Top" Width="254" />
