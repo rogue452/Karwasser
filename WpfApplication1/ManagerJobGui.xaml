@@ -4,7 +4,7 @@
           Title="  ניהול הזמנות " Height="647" Width="1212" FlowDirection="RightToLeft" ResizeMode="CanMinimize" Icon="/WpfApplication1;component/Images/Israel.ico" HorizontalAlignment="Right" HorizontalContentAlignment="Right">
     <Grid>
         <Image Source="/WpfApplication1;component/Images/31.jpg"  Stretch="UniformToFill" FlowDirection="RightToLeft" Grid.ColumnSpan="2" />
-        <DataGrid x:Name="dataGrid1" HorizontalAlignment="Right" Margin="0,103,12,0" VerticalAlignment="Top" Height="471" Width="1178" FontSize="15"  AutoGenerateColumns="True" AutoGeneratingColumn="Grid_AutoGeneratingColumn"  ItemsSource="{Binding}" HeadersVisibility="All" MaxColumnWidth="Infinity" CanUserAddRows="false" HorizontalContentAlignment="Right" Grid.ColumnSpan="2" />
+        <DataGrid x:Name="dataGrid1" HorizontalAlignment="Right" Margin="0,103,12,0" VerticalAlignment="Top" Height="471" Width="1178" FontSize="15"  AutoGenerateColumns="True" AutoGeneratingColumn="Grid_AutoGeneratingColumn"  ItemsSource="{Binding}" HeadersVisibility="All" MaxColumnWidth="Infinity" CanUserAddRows="false" HorizontalContentAlignment="Right" Grid.ColumnSpan="2" SelectionMode="Single" />
         <TextBox HorizontalAlignment="Right" Height="22" Margin="0,33,937,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="164" FontSize="15" Name="JobIDSearchTextBox" TextChanged="JobIDSearchTextBox_TextChanged" />
         <TextBox HorizontalAlignment="Right" Height="23" Margin="0,68,937,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="164" Name="IDSearchTextBox" TextChanged="IDSearchTextBox_TextChanged" />
         <Label Content="מספר לקוח" HorizontalAlignment="Left" Margin="12,65,0,0" VerticalAlignment="Top"/>
