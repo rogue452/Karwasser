@@ -23,15 +23,15 @@ namespace project
     /// </summary>
     public partial class ManagerItemInfoGui : Window
     {
-       DataTable dt = new DataTable("iteminfo");
-       string itemID, jobID;
+        DataTable dt = new DataTable("iteminfo");
+        string itemID, jobID;
         public ManagerItemInfoGui(string itemID1, string jobID1)
         {
             this.itemID = itemID1;
             this.jobID = jobID1;
             InitializeComponent();
             this.WindowStartupLocation = WindowStartupLocation.CenterScreen;
-            
+
 
 
             try
@@ -88,9 +88,10 @@ namespace project
                     {
                         MessageBox.Show(" נוצר בהצלחה Microsoft Excel -מסמך ה");
                     }
-                    else { 
-                            MessageBox.Show(" לא נוצר  Microsoft Excel -התרחשה שגיאה ולכן מסמך ה"); 
-                         }
+                    else
+                    {
+                        MessageBox.Show(" לא נוצר  Microsoft Excel -התרחשה שגיאה ולכן מסמך ה");
+                    }
                 }
             }
             catch (Exception ex)
@@ -149,12 +150,7 @@ namespace project
             }
         }
 
-        private void ADD_Btn_Click(object sender, RoutedEventArgs e)
-        {
-            //ManagerAddNewItemGUI MANIG = new ManagerAddNewItemGUI(jobID);
-           // MANIG.Show();
-           // this.Close();
-        }
+
 
 
 
@@ -441,7 +437,7 @@ namespace project
 
         private void Item_Stages_button_Click(object sender, RoutedEventArgs e)
         {
-             try
+            try
             {
                 DataRowView row = (DataRowView)dataGrid1.SelectedItems[0];
                 string selected = row["מספר פריט"].ToString();
@@ -449,7 +445,7 @@ namespace project
                 MISG.Show();
                 this.Close();
             }
-             catch { MessageBox.Show("לא נבחר פריט"); }
+            catch { MessageBox.Show("לא נבחר פריט"); }
         }
 
         private void Add_Existing_button_Click(object sender, RoutedEventArgs e)
@@ -464,6 +460,118 @@ namespace project
 
 
 
-    }
 
+
+
+
+        private void NextStage_button_Click(object sender, RoutedEventArgs e)
+        {
+            string next_stage="";
+            try
+            {
+                DataRowView row = (DataRowView)dataGrid1.SelectedItems[0];
+                if (MessageBox.Show("?האם אתה בטוח שברצונך לקדם שלב פריט זה", "וידוא קידום", MessageBoxButton.YesNo, MessageBoxImage.Warning) == MessageBoxResult.No)
+                {
+                    //do no stuff
+                }
+                else // if the user clicked on "Yes" so he wants to Delete.
+                {
+                    // this will give us the first colum of the selected row in the DataGrid.
+
+                    string status = row["סטטוס הפריט"].ToString();
+                    string curr = row["מספר השלב הנוכחי"].ToString();
+                    string itemnum =row["מספר פריט בקבוצה"].ToString();
+                    // MessageBox.Show("" + status + "");
+                    if (status == "בעבודה")
+                    {
+
+                        try
+                        {
+                            MySqlConnection MySqlConn = new MySqlConnection(Login.Connectionstring);
+                            MySqlConn.Open();
+                            string Query1 = "select MIN(itemStageOrder) from item where itemid='" + itemID + "' and   itemStageOrder>'" + curr + "' and itemStatus= '" + status + "'     ";
+                            MySqlCommand MSQLcrcommand1 = new MySqlCommand(Query1, MySqlConn);
+                            MSQLcrcommand1.ExecuteNonQuery();
+                            MySqlDataAdapter mysqlDAdp = new MySqlDataAdapter(MSQLcrcommand1);
+
+
+                            MySqlDataReader dr = MSQLcrcommand1.ExecuteReader();
+
+                            while (dr.Read())
+                            {
+                                if (!dr.IsDBNull(0))
+                                {
+                                     next_stage = dr.GetString(0);
+                                }
+                                else { MessageBox.Show("בוצע השלב האחרון "); return; }
+                            }
+
+                             MySqlConn.Close();
+                           // MessageBox.Show("!הלקוח נמחק מהמערכת");
+                        }
+                        catch (Exception ex)
+                        {
+                            MessageBox.Show(ex.Message);
+                        }
+
+
+
+
+                        try
+                        {
+                            MySqlConnection MySqlConn = new MySqlConnection(Login.Connectionstring);
+                            MySqlConn.Open();
+                            string Query1 = "update jobs set itemStageOrder='" + next_stage + "' where jobid='" + jobID + "' and itemid='" + itemID + "'and itemNum='" + itemnum + "'";
+                            MySqlCommand MSQLcrcommand1 = new MySqlCommand(Query1, MySqlConn);
+                            MSQLcrcommand1.ExecuteNonQuery();
+                            MySqlDataAdapter mysqlDAdp = new MySqlDataAdapter(MSQLcrcommand1);
+                            MySqlConn.Close();
+
+
+                        }
+                        catch (Exception ex) { MessageBox.Show(ex.Message); return; }
+
+
+
+                        try
+                        {
+                            MySqlConnection MySqlConn = new MySqlConnection(Login.Connectionstring);
+                            MySqlConn.Open();
+                            string Query1 = ("SELECT jobs.itemNum as `מספר פריט בקבוצה`,jobs.itemStatus  as `סטטוס הפריט`, jobs.itemStageOrder as `מספר השלב הנוכחי`,stageName  as `שם השלב הנוכחי` ,item.stage_discription as `תאור השלב הנוכחי`,itemToFixStageOrder as `מספר השלב שבו זוהה כתקול (אם זוהה)`  FROM jobs,item WHERE jobs.itemid=item.itemid and jobs.itemStageOrder=item.itemStageOrder and jobs.itemStatus=item.itemStatus and jobs.jobid='" + jobID + "' and jobs.itemid='" + itemID + "' ");
+                            MySqlCommand MSQLcrcommand1 = new MySqlCommand(Query1, MySqlConn);
+                            MSQLcrcommand1.ExecuteNonQuery();
+                            MySqlDataAdapter mysqlDAdp = new MySqlDataAdapter(MSQLcrcommand1);
+                            dt.Clear();
+                            mysqlDAdp.Fill(dt);
+                            dataGrid1.ItemsSource = dt.DefaultView;
+                            mysqlDAdp.Update(dt);
+                            MySqlConn.Close();
+                            MessageBox.Show("פריט עבר לשלב הבא");
+                        }
+                        catch (Exception ex)
+                        {
+                            MessageBox.Show(ex.Message);
+                        }
+
+
+                    }// end of if בעבודה
+                }
+
+           
+
+            }
+            catch  { MessageBox.Show("לא נבחר פריט לקדם"); return; }
+
+        }
+      
+ 
+
+
+
+
+
+
+
+
+    }
 }
