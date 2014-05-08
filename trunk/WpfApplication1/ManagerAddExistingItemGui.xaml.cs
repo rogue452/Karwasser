@@ -358,8 +358,8 @@ namespace project
             {
                 DataRowView row = (DataRowView)dataGrid1.SelectedItems[0];
                 string selected = row["מספר פריט"].ToString();
-                ManagerItemStagesGui MISG = new ManagerItemStagesGui(selected);
-                MISG.Show();
+            //    ManagerItemStagesGui MISG = new ManagerItemStagesGui(selected);
+            //    MISG.Show();
                 this.Close();
             }
              catch { MessageBox.Show("לא נבחר פריט"); }

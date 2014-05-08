@@ -17,10 +17,7 @@ using Microsoft.Win32;
 using System.Text.RegularExpressions;
 
 namespace project
-{
-    /// <summary>
-    /// Interaction logic for ManagerItemInfoGui.xaml
-    /// </summary>
+{    
     public partial class ManagerItemInfoGui : Window
     {
         DataTable dt = new DataTable("iteminfo");
@@ -32,7 +29,8 @@ namespace project
             InitializeComponent();
             this.WindowStartupLocation = WindowStartupLocation.CenterScreen;
 
-
+            label1.Content = jobID;
+            label4.Content = itemID;
 
             try
             {
@@ -111,7 +109,7 @@ namespace project
                 MySqlConnection MySqlConn = new MySqlConnection(Login.Connectionstring);
                 MySqlConn.Open();
                 String searchkey = this.ItemIDSearch_TextBox.Text;
-                string Query1 = ("SELECT jobs.itemNum as `מספר פריט בקבוצה`,jobs.itemStatus  as `סטטוס הפריט`, jobs.itemStageOrder as `מספר השלב הנוכחי`,stageName  as `שם השלב הנוכחי` ,item.stage_discription as `תאור השלב הנוכחי`,itemToFixStageOrder as `מספר השלב שבו זוהה כתקול (אם זוהה)`  FROM jobs,item WHERE jobs.itemid=item.itemid and jobs.itemStageOrder=item.itemStageOrder and jobs.itemStatus=item.itemStatus and jobs.jobid='" + jobID + "' and jobs.itemid Like '%" + searchkey + "%'");
+                string Query1 = ("SELECT jobs.itemNum as `מספר פריט בקבוצה`,jobs.itemStatus  as `סטטוס הפריט`, jobs.itemStageOrder as `מספר השלב הנוכחי`,stageName  as `שם השלב הנוכחי` ,item.stage_discription as `תאור השלב הנוכחי`,itemToFixStageOrder as `מספר השלב שבו זוהה כתקול (אם זוהה)`  FROM jobs,item WHERE jobs.itemid=item.itemid and jobs.itemStageOrder=item.itemStageOrder and jobs.itemStatus=item.itemStatus and jobs.jobid='" + jobID + "' and jobs.itemid='" + itemID + "' and jobs.itemNum Like '%" + searchkey + "%'");
                 MySqlCommand MSQLcrcommand1 = new MySqlCommand(Query1, MySqlConn);
                 MSQLcrcommand1.ExecuteNonQuery();
                 MySqlDataAdapter mysqlDAdp = new MySqlDataAdapter(MSQLcrcommand1);
@@ -125,6 +123,8 @@ namespace project
             {
                 MessageBox.Show(ex.Message);
             }
+
+
         }
 
         private void StageNameSearchTextBox_TextChanged(object sender, TextChangedEventArgs e)
@@ -134,7 +134,7 @@ namespace project
                 MySqlConnection MySqlConn = new MySqlConnection(Login.Connectionstring);
                 MySqlConn.Open();
                 String searchNamekey = this.StageNameSearchTextBox.Text;
-                string Query1 = ("SELECT jobs.itemNum as `מספר פריט בקבוצה`,jobs.itemStatus  as `סטטוס הפריט`, jobs.itemStageOrder as `מספר השלב הנוכחי`,stageName  as `שם השלב הנוכחי` ,item.stage_discription as `תאור השלב הנוכחי`,itemToFixStageOrder as `מספר השלב שבו זוהה כתקול (אם זוהה)`  FROM jobs,item WHERE jobs.itemid=item.itemid and jobs.itemStageOrder=item.itemStageOrder and jobs.itemStatus=item.itemStatus and jobs.jobid='" + jobID + "' and item.stageName Like '%" + searchNamekey + "%'");
+                string Query1 = ("SELECT jobs.itemNum as `מספר פריט בקבוצה`,jobs.itemStatus  as `סטטוס הפריט`, jobs.itemStageOrder as `מספר השלב הנוכחי`,stageName  as `שם השלב הנוכחי` ,item.stage_discription as `תאור השלב הנוכחי`,itemToFixStageOrder as `מספר השלב שבו זוהה כתקול (אם זוהה)`  FROM jobs,item WHERE jobs.itemid=item.itemid and jobs.itemStageOrder=item.itemStageOrder and jobs.itemStatus=item.itemStatus and jobs.jobid='" + jobID + "'and jobs.itemid='" + itemID + "' and item.stageName Like '%" + searchNamekey + "%'");
                 MySqlCommand MSQLcrcommand1 = new MySqlCommand(Query1, MySqlConn);
                 MSQLcrcommand1.ExecuteNonQuery();
                 MySqlDataAdapter mysqlDAdp = new MySqlDataAdapter(MSQLcrcommand1);
@@ -287,7 +287,7 @@ namespace project
 
         private void Grid_AutoGeneratingColumn(object sender, DataGridAutoGeneratingColumnEventArgs e)
         {
-            if (e.Column.Header.ToString() == "שם השלב הנוכחי" || e.Column.Header.ToString() == "מספר השלב הנוכחי" || e.Column.Header.ToString() == "מספר פריט")
+            if (e.Column.Header.ToString() == "שם השלב הנוכחי" || e.Column.Header.ToString() == "מספר השלב הנוכחי" || e.Column.Header.ToString() == "מספר פריט" || e.Column.Header.ToString() == "מספר פריט בקבוצה" || e.Column.Header.ToString() == "תאור השלב הנוכחי" || e.Column.Header.ToString() == "מספר השלב שבו זוהה כתקול (אם זוהה)")
             {
                 // e.Cancel = true;   // For not to include 
                 e.Column.IsReadOnly = true; // Makes the column as read only
@@ -336,83 +336,7 @@ namespace project
                 e.Column = col1;
             }
 
-            /*if (e.Column.Header.ToString() == "מספר השלב שבו זוהה כתקול (אם זוהה)")
-            {
-                try
-                {
-                    string itemID, maxOrder;
-                    int numRows , i;
-                    Dictionary<string, string> comboKey = new Dictionary<string, string>();
-                    MySqlConnection MySqlConn = new MySqlConnection(Login.Connectionstring);
-                    MySqlConn.Open();
-                    string Query11 = ("SELECT COUNT(jobs.itemid) FROM jobs,item WHERE jobs.itemid=item.itemid and jobs.itemStageOrder=item.itemStageOrder and jobs.itemStatus=item.itemStatus and jobs.jobid='" + jobID + "' ");
-                    // string Query1 = ("SELECT MAX(item.itemStageOrder) FROM jobs,item WHERE jobs.itemid=item.itemid and item.itemid='" + jobID + "' and jobs.itemStageOrder=item.itemStageOrder and item.itemStatus="בעבודה" and jobs.itemStatus=item.itemStatus and jobs.jobid='" + jobID + "' ");
-                    MySqlCommand MSQLcrcommand1 = new MySqlCommand(Query11, MySqlConn);
-                    MSQLcrcommand1.ExecuteNonQuery();
-                    MySqlDataReader dr = MSQLcrcommand1.ExecuteReader();
-                    numRows = Convert.ToInt32(MSQLcrcommand1.ExecuteScalar());// number of rows
-                    //MySqlDataReader dr1 = MSQLcrcommand1.ExecuteReader();
-                    MySqlCommand MSQLcrcommand11;
-                    while (numRows>=1)
-                    {
-                        itemID = dr.GetString(1);
-                        string Query1 = ("SELECT MAX(item.itemStageOrder) FROM project.item WHERE item.itemid='" + itemID + "' and item.itemStatus='עבודה' ");
-                        MSQLcrcommand11 = new MySqlCommand(Query1, MySqlConn);
-                        MSQLcrcommand11.ExecuteNonQuery();
-                        //maxOr = Convert.ToInt32(MSQLcrcommand1.ExecuteScalar());
-
-                        maxOrder = maxOrder.ToString;
-                        for (i = 1; i <= maxOr; i++)
-                        {
-                            comboKey<maxOrder,maxOrder>[maxOrder] ;
-                        }
-                    }
-                    MySqlConn.Close();
-                }
-                catch (Exception ex)
-                {
-                    MessageBox.Show(ex.Message);
-                }
-                string columnName = e.Column.Header.ToString();
-                Dictionary<string, string> comboKey1 = new Dictionary<string, string>()
-                    {
-                        {"בעבודה","בעבודה"},
-                        {"בתיקון","בתיקון"},
-                        {"תקול","תקול"},
-                        {"הסתיים","הסתיים"},
-                    };
-                DataGridTemplateColumn col1 = new DataGridTemplateColumn();
-                col1.Header = columnName;
-
-                #region Editing
-                FrameworkElementFactory factory1 = new FrameworkElementFactory(typeof(ComboBox));
-                Binding b1 = new Binding(columnName);
-                b1.IsAsync = true;
-                b1.Mode = BindingMode.TwoWay;
-                factory1.SetValue(ComboBox.ItemsSourceProperty, comboKey);
-                factory1.SetValue(ComboBox.SelectedValuePathProperty, "Key");
-                factory1.SetValue(ComboBox.DisplayMemberPathProperty, "Value");
-                factory1.SetValue(ComboBox.SelectedValueProperty, b1);
-                factory1.SetValue(ComboBox.SelectedItemProperty, col1);
-
-                DataTemplate cellTemplate1 = new DataTemplate();
-                cellTemplate1.VisualTree = factory1;
-                col1.CellTemplate = cellTemplate1;
-                col1.CellEditingTemplate = cellTemplate1;
-                col1.IsReadOnly = false;
-                col1.InvalidateProperty(ComboBox.SelectedValueProperty);
-                #endregion
-
-                #region View
-                FrameworkElementFactory sfactory = new FrameworkElementFactory(typeof(TextBlock));
-                sfactory.SetValue(TextBlock.TextProperty, b1);
-                DataTemplate cellTemplate = new DataTemplate();
-                cellTemplate.VisualTree = sfactory;
-                col1.CellTemplate = cellTemplate;
-                #endregion
-
-                e.Column = col1;
-            }*/
+          
         }
 
         private void Contacts_button_Click(object sender, RoutedEventArgs e)
@@ -440,13 +364,18 @@ namespace project
             try
             {
                 DataRowView row = (DataRowView)dataGrid1.SelectedItems[0];
-                string selected = row["מספר פריט"].ToString();
-                ManagerItemStagesGui MISG = new ManagerItemStagesGui(selected);
-                MISG.Show();
-                this.Close();
+                string itemnum = row["מספר פריט בקבוצה"].ToString();
+
+                ManagerItemStagesGui MISG = new ManagerItemStagesGui(itemnum,jobID,itemID);
+                MISG.ShowDialog();
+                //this.Close();
             }
             catch { MessageBox.Show("לא נבחר פריט"); }
         }
+
+
+
+
 
         private void Add_Existing_button_Click(object sender, RoutedEventArgs e)
         {
@@ -467,6 +396,7 @@ namespace project
         private void NextStage_button_Click(object sender, RoutedEventArgs e)
         {
             string next_stage="";
+            string status = "";
             try
             {
                 DataRowView row = (DataRowView)dataGrid1.SelectedItems[0];
@@ -478,11 +408,42 @@ namespace project
                 {
                     // this will give us the first colum of the selected row in the DataGrid.
 
-                    string status = row["סטטוס הפריט"].ToString();
+                   // string status = row["סטטוס הפריט"].ToString();
                     string curr = row["מספר השלב הנוכחי"].ToString();
                     string itemnum =row["מספר פריט בקבוצה"].ToString();
                     // MessageBox.Show("" + status + "");
-                    if (status == "בעבודה")
+
+                    try
+                    {
+                        MySqlConnection MySqlConn = new MySqlConnection(Login.Connectionstring);
+                        MySqlConn.Open();
+                        string Query1 = "select itemStatus from jobs where itemid='" + itemID + "' and   jobid='" + jobID + "' and itemNum= '" + itemnum + "'     ";
+                        MySqlCommand MSQLcrcommand1 = new MySqlCommand(Query1, MySqlConn);
+                        MSQLcrcommand1.ExecuteNonQuery();
+                        MySqlDataAdapter mysqlDAdp = new MySqlDataAdapter(MSQLcrcommand1);
+                        MySqlDataReader dr = MSQLcrcommand1.ExecuteReader();
+
+                        while (dr.Read())
+                        {
+                            if (!dr.IsDBNull(0))
+                            {
+                                status = dr.GetString(0);
+                            }
+                           
+                        }
+
+                        MySqlConn.Close();
+                        // MessageBox.Show("!הלקוח נמחק מהמערכת");
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show(ex.Message);
+                    }
+                   
+
+
+
+                    if (status == "בעבודה" || status=="תיקון")
                     {
 
                         try
@@ -561,6 +522,151 @@ namespace project
 
             }
             catch  { MessageBox.Show("לא נבחר פריט לקדם"); return; }
+
+
+
+
+
+
+
+
+        }
+
+        private void PrevStage_button_Click(object sender, RoutedEventArgs e)
+        {
+
+            string prev_stage = "";
+            string status = "";
+            try
+            {
+                DataRowView row = (DataRowView)dataGrid1.SelectedItems[0];
+                if (MessageBox.Show("?האם אתה בטוח שברצונך לחזור שלב  אחורה בפריט זה", "וידוא חזרת שלב", MessageBoxButton.YesNo, MessageBoxImage.Warning) == MessageBoxResult.No)
+                {
+                    //do no stuff
+                }
+                else // if the user clicked on "Yes" so he wants to Delete.
+                {
+                    // this will give us the first colum of the selected row in the DataGrid.
+
+                    // string status = row["סטטוס הפריט"].ToString();
+                    string curr = row["מספר השלב הנוכחי"].ToString();
+                    string itemnum = row["מספר פריט בקבוצה"].ToString();
+                    // MessageBox.Show("" + status + "");
+
+                    try
+                    {
+                        MySqlConnection MySqlConn = new MySqlConnection(Login.Connectionstring);
+                        MySqlConn.Open();
+                        string Query1 = "select itemStatus from jobs where itemid='" + itemID + "' and   jobid='" + jobID + "' and itemNum= '" + itemnum + "'     ";
+                        MySqlCommand MSQLcrcommand1 = new MySqlCommand(Query1, MySqlConn);
+                        MSQLcrcommand1.ExecuteNonQuery();
+                        MySqlDataAdapter mysqlDAdp = new MySqlDataAdapter(MSQLcrcommand1);
+                        MySqlDataReader dr = MSQLcrcommand1.ExecuteReader();
+
+                        while (dr.Read())
+                        {
+                            if (!dr.IsDBNull(0))
+                            {
+                                status = dr.GetString(0);
+                            }
+
+                        }
+
+                        MySqlConn.Close();
+                        // MessageBox.Show("!הלקוח נמחק מהמערכת");
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show(ex.Message);
+                    }
+
+
+
+
+                    if (status == "בעבודה" || status == "תיקון")
+                    {
+
+                        try
+                        {
+                            MySqlConnection MySqlConn = new MySqlConnection(Login.Connectionstring);
+                            MySqlConn.Open();
+                            string Query1 = "select MAX(itemStageOrder) from item where itemid='" + itemID + "' and   itemStageOrder<'" + curr + "' and itemStatus= '" + status + "'     ";
+                            MySqlCommand MSQLcrcommand1 = new MySqlCommand(Query1, MySqlConn);
+                            MSQLcrcommand1.ExecuteNonQuery();
+                            MySqlDataAdapter mysqlDAdp = new MySqlDataAdapter(MSQLcrcommand1);
+
+
+                            MySqlDataReader dr = MSQLcrcommand1.ExecuteReader();
+
+                            while (dr.Read())
+                            {
+                                if (!dr.IsDBNull(0))
+                                {
+                                    prev_stage = dr.GetString(0);
+                                }
+                                else { MessageBox.Show("לא קיים שלב לפניו "); return; }
+                            }
+
+                            MySqlConn.Close();
+                            // MessageBox.Show("!הלקוח נמחק מהמערכת");
+                        }
+                        catch (Exception ex)
+                        {
+                            MessageBox.Show(ex.Message);
+                        }
+
+
+
+
+                        try
+                        {
+                            MySqlConnection MySqlConn = new MySqlConnection(Login.Connectionstring);
+                            MySqlConn.Open();
+                            string Query1 = "update jobs set itemStageOrder='" + prev_stage + "' where jobid='" + jobID + "' and itemid='" + itemID + "'and itemNum='" + itemnum + "'";
+                            MySqlCommand MSQLcrcommand1 = new MySqlCommand(Query1, MySqlConn);
+                            MSQLcrcommand1.ExecuteNonQuery();
+                            MySqlDataAdapter mysqlDAdp = new MySqlDataAdapter(MSQLcrcommand1);
+                            MySqlConn.Close();
+
+
+                        }
+                        catch (Exception ex) { MessageBox.Show(ex.Message); return; }
+
+
+
+                        try
+                        {
+                            MySqlConnection MySqlConn = new MySqlConnection(Login.Connectionstring);
+                            MySqlConn.Open();
+                            string Query1 = ("SELECT jobs.itemNum as `מספר פריט בקבוצה`,jobs.itemStatus  as `סטטוס הפריט`, jobs.itemStageOrder as `מספר השלב הנוכחי`,stageName  as `שם השלב הנוכחי` ,item.stage_discription as `תאור השלב הנוכחי`,itemToFixStageOrder as `מספר השלב שבו זוהה כתקול (אם זוהה)`  FROM jobs,item WHERE jobs.itemid=item.itemid and jobs.itemStageOrder=item.itemStageOrder and jobs.itemStatus=item.itemStatus and jobs.jobid='" + jobID + "' and jobs.itemid='" + itemID + "' ");
+                            MySqlCommand MSQLcrcommand1 = new MySqlCommand(Query1, MySqlConn);
+                            MSQLcrcommand1.ExecuteNonQuery();
+                            MySqlDataAdapter mysqlDAdp = new MySqlDataAdapter(MSQLcrcommand1);
+                            dt.Clear();
+                            mysqlDAdp.Fill(dt);
+                            dataGrid1.ItemsSource = dt.DefaultView;
+                            mysqlDAdp.Update(dt);
+                            MySqlConn.Close();
+                            MessageBox.Show("הפריט חזר לשלב הקודם");
+                        }
+                        catch (Exception ex)
+                        {
+                            MessageBox.Show(ex.Message);
+                        }
+
+
+                    }// end of if בעבודה
+                }
+
+
+
+            }
+            catch { MessageBox.Show("לא נבחר פריט לחזרת שלב"); return; }
+
+
+
+
+
 
         }
       
