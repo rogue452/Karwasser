@@ -10,7 +10,7 @@
         <Label Content="מספר לקוח" HorizontalAlignment="Left" Margin="12,65,0,0" VerticalAlignment="Top"/>
         <Label Content="מספר עבודה" HorizontalAlignment="Left" Margin="12,31,0,0" VerticalAlignment="Top" Width="83"/>
         <Label Content="החל להקליד כדי לחפש לפי:" HorizontalAlignment="Left" Margin="12,0,0,0" VerticalAlignment="Top" FontWeight="Bold" />
-        <Button Content="פרטי ההזמנה" Height="57"  Margin="0,41,486,0" Name="ViewJobIInfo_button" VerticalAlignment="Top" Click="ViewJobIInfo_button_Click" HorizontalAlignment="Right" Width="114" />
+        <Button Content="פרטי ההזמנה" Height="57"  Margin="570,41,0,0" Name="ViewJobIInfo_button" VerticalAlignment="Top" Click="ViewJobIInfo_button_Click" HorizontalAlignment="Left" Width="114" />
         <Button Content="הוסף עבודה" Margin="0,41,246,0" Name="ADD_Btn" Background="#8400A500" FontWeight="Bold" Click="ADD_Btn_Click" VerticalAlignment="Top" HorizontalAlignment="Right" Height="55" Width="114" />
         <Label Content="ניהול עבודות:" HorizontalAlignment="Left" VerticalAlignment="Top" Width="112" Margin="556,-2,0,0" FontStyle="Normal" FontWeight="Bold" />
         <Button Content="מחק עבודה" HorizontalAlignment="Right" Margin="0,40,0,0" VerticalAlignment="Top" Width="114" Height="56" Name="DeleteBtn" FontWeight="Bold" Background="#A5FF0000" Click="DeleteBtn_Click" />
@@ -34,7 +34,7 @@
         <RadioButton GroupName="Date" Content="תאריך סיום בפועל" HorizontalAlignment="Left" Margin="447,68,0,524" Name="ActualFinishDate_radioButton" />
         <Label Content="מ" Height="28" HorizontalAlignment="Left" Margin="259,20,0,0" Name="From_Start_date_label" VerticalAlignment="Top" />
         <Label Content="חפש לפי תאריך" Height="28" HorizontalAlignment="Left" Margin="259,-2,0,0" Name="Filter_From_To_label" VerticalAlignment="Top" />
-        <Button Content="צור פריט חדש" Margin="0,41,366,0" Height="56" Name="ADD_new_item_pattern" Background="LawnGreen"  Click="ADD_new_item_pattern_click" HorizontalAlignment="Right"  VerticalAlignment="Top" Width="114" FontWeight="Bold" />
+        <Button Content="צור תבנית פריט חדש" Margin="0,41,366,0" Height="56" Name="ADD_new_item_pattern" Background="LawnGreen"  Click="ADD_new_item_pattern_click" HorizontalAlignment="Right"  VerticalAlignment="Top" Width="134" FontWeight="Bold" />
         <Image Height="36" HorizontalAlignment="Left" Margin="743,3,0,0" Name="image8" Stretch="Fill" VerticalAlignment="Top" Width="42" Source="/WpfApplication1;component/Images/5757984146_a9957998d6.jpg" />
     </Grid>
 </Window>
