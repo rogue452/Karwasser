@@ -4,7 +4,7 @@
           Title="פירטי פריט" Height="647" Width="1212" FlowDirection="RightToLeft" ResizeMode="CanMinimize" Icon="/WpfApplication1;component/Images/Israel.ico" HorizontalAlignment="Right" HorizontalContentAlignment="Right">
     <Grid>
         <Image Source="/WpfApplication1;component/Images/31.jpg"  Stretch="UniformToFill" FlowDirection="RightToLeft" Grid.ColumnSpan="2" />
-        <DataGrid x:Name="dataGrid1" HorizontalAlignment="Right" Margin="0,103,12,0" VerticalAlignment="Top" Height="471" Width="1178" FontSize="15"  AutoGenerateColumns="True" AutoGeneratingColumn="Grid_AutoGeneratingColumn"  ItemsSource="{Binding}" HeadersVisibility="All" MaxColumnWidth="Infinity" CanUserAddRows="false" HorizontalContentAlignment="Right" Grid.ColumnSpan="2" />
+        <DataGrid x:Name="dataGrid1" HorizontalAlignment="Right" Margin="0,123,12,0" VerticalAlignment="Top" Height="451" Width="1178" FontSize="15"  AutoGenerateColumns="True" AutoGeneratingColumn="Grid_AutoGeneratingColumn"  ItemsSource="{Binding}" HeadersVisibility="All" MaxColumnWidth="Infinity" CanUserAddRows="false" HorizontalContentAlignment="Right" />
         <TextBox HorizontalAlignment="Right" Height="23" Margin="0,32,934,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="159" FontSize="15" Name="ItemIDSearch_TextBox" TextChanged="ItemIDSearch_TextBox_TextChanged" />
         <TextBox HorizontalAlignment="Right" Height="23" Margin="0,67,934,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="159" Name="StageNameSearchTextBox" TextChanged="StageNameSearchTextBox_TextChanged" />
         <Label Content="שם שלב נוכחי" HorizontalAlignment="Left" Margin="6,65,0,0" VerticalAlignment="Top" Width="94" />
@@ -21,11 +21,15 @@
         <Image Height="28" HorizontalAlignment="Right" Margin="0,577,156,0" Name="image4" Stretch="Fill" VerticalAlignment="Top" Width="25" Source="/WpfApplication1;component/Images/exit.png" />
         <Image Height="35" HorizontalAlignment="Right" Margin="0,573,686,0" Name="image6" Stretch="Fill" VerticalAlignment="Top" Width="33" Source="/WpfApplication1;component/Images/icon_microsoftexcel.png" />
         <Image Height="29" HorizontalAlignment="Right" Margin="0,576,1157,0" Name="image7" Stretch="Fill" VerticalAlignment="Top" Width="33" Source="/WpfApplication1;component/Images/back.png" />
-        <Button Content="שלבי הכנת פריט" Height="56" HorizontalAlignment="Right" Margin="0,41,774,0" Name="Item_Stages_button" VerticalAlignment="Top" Width="125" Click="Item_Stages_button_Click" FontWeight="Bold" />
+        <Button Content="שלבי הכנת פריט" Height="56" HorizontalAlignment="Right" Margin="0,39,774,0" Name="Item_Stages_button" VerticalAlignment="Top" Width="125" Click="Item_Stages_button_Click" FontWeight="Bold" />
         <Image Height="33" HorizontalAlignment="Right" Margin="0,4,814,0" Name="image5" Stretch="Fill" VerticalAlignment="Top" Width="41" Source="/WpfApplication1;component/Images/window_process.png" />
         <Button Content="עבור לשלב הבא" Height="56" HorizontalAlignment="Right" Margin="0,39,577,0" Name="NextStage_button" VerticalAlignment="Top" Width="125" FontWeight="Bold" Click="NextStage_button_Click" />
-        <Button Content="חזור לשלב הקודם" Height="56" HorizontalAlignment="Right" Margin="0,41,365,0" Name="PrevStage_button" VerticalAlignment="Top" Width="125" FontWeight="Bold" />
+        <Button Content="חזור לשלב הקודם" Height="56" HorizontalAlignment="Right" Margin="0,41,365,0" Name="PrevStage_button" VerticalAlignment="Top" Width="125" FontWeight="Bold" Click="PrevStage_button_Click" />
         <Image Height="36" HorizontalAlignment="Right" Margin="0,1,615,0" Name="image9" Stretch="Fill" VerticalAlignment="Top" Width="42" Source="/WpfApplication1;component/Images/Next.gif" />
         <Image HorizontalAlignment="Right" Margin="0,4,400,571" Name="image10" Stretch="Fill" Width="42" Source="/WpfApplication1;component/Images/Prev.gif" />
+        <Label Content="Label" Height="28" HorizontalAlignment="Left" Margin="124,95,0,0" Name="label1" VerticalAlignment="Top" />
+        <Label Content="עבודה מספר" Height="28" HorizontalAlignment="Left" Margin="23,95,0,0" Name="label2" VerticalAlignment="Top" />
+        <Label Content="עבור קבוצת פריט מספר " Height="28" HorizontalAlignment="Left" Margin="204,95,0,0" Name="label3" VerticalAlignment="Top" />
+        <Label Content="Label" Height="28" HorizontalAlignment="Left" Margin="353,95,0,0" Name="label4" VerticalAlignment="Top" Width="53" />
     </Grid>
 </Window>
