@@ -162,14 +162,14 @@ namespace project
                 DataRowView row = (DataRowView)dataGrid1.SelectedItems[0];
                 if (MessageBox.Show("?האם אתה בטוח שברצונך למחוק לקוח זה", "וידוא מחיקה", MessageBoxButton.YesNo, MessageBoxImage.Warning) == MessageBoxResult.No)
                 {
-                    //do no stuff
+                  
                 }
                 else // if the user clicked on "Yes" so he wants to Delete.
                 {
-                    // this will give us the first colum of the selected row in the DataGrid.
+                    
 
                     string selected = row["מספר לקוח"].ToString();
-                    // MessageBox.Show("" + selected + "");
+                 
 
                     try
                     {
@@ -225,44 +225,35 @@ namespace project
         {
             try
             {
-                //System.Collections.IList rows = dataGrid1.SelectedItems;
-
                 DataRowView row = (DataRowView)dataGrid1.SelectedItems[0];
-                string selected = row["מספר לקוח"].ToString();
-                // MessageBox.Show(""+selected+ "");
+                string itemnum = row["מספר פריט בקבוצה"].ToString();
 
-
-
-                if (MessageBox.Show("?האם אתה בטוח שברצונך לעדכן לקוח זה", "וידוא עדכון", MessageBoxButton.YesNo, MessageBoxImage.Warning) == MessageBoxResult.No)
-                {
-                    //dont do stuff
-                }
+                if (MessageBox.Show("?האם אתה בטוח שברצונך לעדכן סטטוס פריט זה", "וידוא עדכון", MessageBoxButton.YesNo, MessageBoxImage.Warning) == MessageBoxResult.No)
+                { }
                 else // if the user clicked on "Yes" so he wants to Update.
                 {
-                    string custumername = row["שם לקוח"].ToString();
-                    string custumeraddress = row["כתובת לקוח"].ToString();
-
+                    string status = row["סטטוס הפריט"].ToString();
                     try
                     {
-
                         MySqlConnection MySqlConn = new MySqlConnection(Login.Connectionstring);
                         MySqlConn.Open();
-                        string Query1 = "update costumers set costumerName='" + custumername + "',costumerAddress='" + custumeraddress + "' where costumerid='" + selected + "'";
+                        string Query1 = "update jobs set itemStatus='" + status + "' where jobid='" + jobID + "' and itemid='" + itemID + "'and itemNum='" + itemnum + "'";
                         MySqlCommand MSQLcrcommand1 = new MySqlCommand(Query1, MySqlConn);
                         MSQLcrcommand1.ExecuteNonQuery();
                         MySqlDataAdapter mysqlDAdp = new MySqlDataAdapter(MSQLcrcommand1);
                         MySqlConn.Close();
-                        MessageBox.Show("!פרטי הלקוח עודכנו");
+
+
                     }
-                    catch (Exception ex)
-                    {
-                        MessageBox.Show(ex.Message);
-                    }
+                    catch (Exception ex) { MessageBox.Show(ex.Message); return; }
+
+
+
                     try
                     {
                         MySqlConnection MySqlConn = new MySqlConnection(Login.Connectionstring);
                         MySqlConn.Open();
-                        string Query1 = ("select costumerid as `מספר לקוח`,costumerName as `שם לקוח` ,costumerAddress as `כתובת לקוח`  from project.costumers group by costumerid");
+                        string Query1 = ("SELECT jobs.itemNum as `מספר פריט בקבוצה`,jobs.itemStatus  as `סטטוס הפריט`, jobs.itemStageOrder as `מספר השלב הנוכחי`,stageName  as `שם השלב הנוכחי` ,item.stage_discription as `תאור השלב הנוכחי`,itemToFixStageOrder as `מספר השלב שבו זוהה כתקול (אם זוהה)`  FROM jobs,item WHERE jobs.itemid=item.itemid and jobs.itemStageOrder=item.itemStageOrder and jobs.itemStatus=item.itemStatus and jobs.jobid='" + jobID + "' and jobs.itemid='" + itemID + "' ");
                         MySqlCommand MSQLcrcommand1 = new MySqlCommand(Query1, MySqlConn);
                         MSQLcrcommand1.ExecuteNonQuery();
                         MySqlDataAdapter mysqlDAdp = new MySqlDataAdapter(MSQLcrcommand1);
@@ -271,19 +262,18 @@ namespace project
                         dataGrid1.ItemsSource = dt.DefaultView;
                         mysqlDAdp.Update(dt);
                         MySqlConn.Close();
+                        MessageBox.Show ("סטטוס התעדכן");
                     }
                     catch (Exception ex)
                     {
                         MessageBox.Show(ex.Message);
                     }
-
                 }
-
             }
-            catch { MessageBox.Show("לא נבחר לקוח לעדכון "); }
+            catch { MessageBox.Show("לא נבחר פריט לעדכון "); }
         }
-
-
+            
+    
 
         private void Grid_AutoGeneratingColumn(object sender, DataGridAutoGeneratingColumnEventArgs e)
         {
