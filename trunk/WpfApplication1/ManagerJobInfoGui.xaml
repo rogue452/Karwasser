@@ -18,9 +18,9 @@
         <Image Height="28" HorizontalAlignment="Right" Margin="0,577,156,0" Name="image4" Stretch="Fill" VerticalAlignment="Top" Width="25" Source="/WpfApplication1;component/Images/exit.png" />
         <Image Height="35" HorizontalAlignment="Right" Margin="0,573,686,0" Name="image6" Stretch="Fill" VerticalAlignment="Top" Width="33" Source="/WpfApplication1;component/Images/icon_microsoftexcel.png" />
         <Image Height="29" HorizontalAlignment="Right" Margin="0,576,1157,0" Name="image7" Stretch="Fill" VerticalAlignment="Top" Width="33" Source="/WpfApplication1;component/Images/back.png" />
-        <Button Content="נהל קבוצת פריט" Height="56"  Margin="456,42,609,510" Name="Show_Item_button" Width="125" Click="Show_Item_button_Click" FontWeight="Bold" />
+        <Button Content="נהל קבוצת פריט" Height="56"  Margin="456,42,609,510" Name="Show_Item_button" Width="125" Click="Show_Item_button_Click" FontWeight="Bold" VerticalAlignment="Top" />
         <Image Height="33"  Margin="496,3,653,572" Name="image5" Stretch="Fill"  Width="41" Source="/WpfApplication1;component/Images/window_process.png" />
-        <Button Content="הוסף פריט קיים לעבודה" Height="56"  Name="Add_Existing_button"   Click="Add_Existing_button_Click"    Margin="640,42,387,510" FontWeight="Bold" Foreground="Black" Background="LimeGreen" />
+        <Button Content="הוסף פריט קיים לעבודה" Height="56"  Name="Add_Existing_button"   Click="Add_Existing_button_Click"    Margin="0,41,383,511" FontWeight="Bold" Foreground="Black" Background="LimeGreen" HorizontalAlignment="Right" Width="163" VerticalAlignment="Top"/>
         <Button Content="עדכון קבוצה פריט" Height="56" HorizontalAlignment="Left" Margin="860,41,0,0" Name="Update_button" VerticalAlignment="Top" Width="125" Click="UpdateBtn_Click" FontWeight="Bold" />
         <Image Height="36" HorizontalAlignment="Left" Margin="901,5,0,0" Name="image3" Stretch="Fill" VerticalAlignment="Top" Width="42" Source="/WpfApplication1;component/Images/update.png" />
     </Grid>

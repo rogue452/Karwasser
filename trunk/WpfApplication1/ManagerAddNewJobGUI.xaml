@@ -6,10 +6,10 @@
         <Image Source="/WpfApplication1;component/Images/31.jpg"  Stretch="UniformToFill" FlowDirection="RightToLeft" Margin="-12,0,0,0"  />
         <DataGrid x:Name="dataGrid1" Margin="4,132,882,52" FontSize="15"  AutoGenerateColumns="True" AutoGeneratingColumn="Grid_AutoGeneratingColumn"  ItemsSource="{Binding}" HeadersVisibility="All" MaxColumnWidth="Infinity" CanUserAddRows="false" SelectionMode="Single"  SelectionChanged="dataGrid1_SelectionChanged" FocusableChanged="dataGrid1_Focusable" >
             <DataGrid.Resources>
+<!--
+                <SolidColorBrush x:Key="{x:Static SystemColors.ControlBrushKey}" Color="LightGreen"/>|
 
-                <SolidColorBrush x:Key="{x:Static SystemColors.ControlBrushKey}" Color="LightGreen"/>
-
-                
+               !-->
             </DataGrid.Resources>
         </DataGrid>
         <TextBox HorizontalAlignment="Left" Height="22" Margin="169,67,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="164" FontSize="15" Name="CustumerNameSearchTextBox" TextChanged="CustumerNameSearchTextBox_TextChanged" />
