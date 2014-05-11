@@ -356,11 +356,11 @@ namespace project
         {
              try
             {
-                DataRowView row = (DataRowView)dataGrid1.SelectedItems[0];
-                string selected = row["מספר פריט"].ToString();
-          //    ManagerGeneralItemStagesGui MGISG = new ManagerGeneralItemStagesGui(selected);
-          //    MGISG.Show();
-                this.Close();
+             DataRowView row = (DataRowView)dataGrid1.SelectedItems[0];
+             string selected = row["מספר פריט"].ToString();
+             ManagerGeneralItemStagesGui MGISG = new ManagerGeneralItemStagesGui(selected);
+             MGISG.ShowDialog();
+             //this.Close();
             }
              catch { MessageBox.Show("לא נבחר פריט"); }
         }
