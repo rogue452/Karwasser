@@ -94,6 +94,9 @@
     <Compile Include="Forgot_pass.xaml.cs">
       <DependentUpon>Forgot_pass.xaml</DependentUpon>
     </Compile>
+    <Compile Include="ManagerGeneralItemStagesGui.xaml.cs">
+      <DependentUpon>ManagerGeneralItemStagesGui.xaml</DependentUpon>
+    </Compile>
     <Compile Include="ManagerItemInfoGui.xaml.cs">
       <DependentUpon>ManagerItemInfoGui.xaml</DependentUpon>
     </Compile>
@@ -181,6 +184,10 @@
       <DependentUpon>Login.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="ManagerGeneralItemStagesGui.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="ManagerGui.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
