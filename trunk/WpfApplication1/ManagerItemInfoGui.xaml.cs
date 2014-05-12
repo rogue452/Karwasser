@@ -433,8 +433,8 @@ namespace project
 
 
 
-                    if (status == "בעבודה" || status=="תיקון")
-                    {
+                   // if (status == "בעבודה" || status=="תיקון")
+                   // {
 
                         try
                         {
@@ -505,7 +505,7 @@ namespace project
                         }
 
 
-                    }// end of if בעבודה
+                    //}// end of if בעבודה
                 }
 
            
@@ -573,8 +573,8 @@ namespace project
 
 
 
-                    if (status == "בעבודה" || status == "תיקון")
-                    {
+                   // if (status == "בעבודה" || status == "תיקון")
+                   // {
 
                         try
                         {
@@ -645,7 +645,7 @@ namespace project
                         }
 
 
-                    }// end of if בעבודה
+                  //  }// end of if בעבודה
                 }
 
 
@@ -658,6 +658,33 @@ namespace project
 
 
 
+        }
+
+        private void exit_clicked(object sender, CancelEventArgs e)
+        {
+            MessageBox.Show("סוגר");
+            // logoff user
+            try
+            {
+                string empid1 = Login.empid;
+                MySqlConnection MySqlConn = new MySqlConnection(Login.Connectionstring);
+                MySqlConn.Open();
+                string Query1 = "update users set connected='לא מחובר' where empid='" + empid1 + "' ";
+                MySqlCommand MSQLcrcommand1 = new MySqlCommand(Query1, MySqlConn);
+                MSQLcrcommand1.ExecuteNonQuery();
+                MySqlDataAdapter mysqlDAdp = new MySqlDataAdapter(MSQLcrcommand1);
+                MySqlConn.Close();
+
+
+            }
+            catch (Exception ex) 
+            { 
+                MessageBox.Show(ex.Message);
+                return; 
+            }
+
+            Login li = new Login();
+            li.Show();
         }
       
  
