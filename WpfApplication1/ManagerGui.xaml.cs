@@ -54,6 +54,7 @@ namespace project
         {
             ManagerEMPGui MEG = new ManagerEMPGui();
             MEG.Show();
+            Login.close = 1;
             this.Close();
         }
 
@@ -61,6 +62,7 @@ namespace project
         {
             ManagerCusGui MCG = new ManagerCusGui();
             MCG.Show();
+            Login.close = 1;
             this.Close();
 
         }
@@ -69,6 +71,7 @@ namespace project
         {
             ManagerJobGui MJG = new ManagerJobGui();
             MJG.Show();
+            Login.close = 1;
             this.Close();
 
         }
@@ -292,9 +295,7 @@ namespace project
                         MessageBox.Show(ex.Message);
                         return;
                     }
-                    MessageBox.Show("תודה שהשתמשת במערכת קרוסר/n!להתראות");
-                  //  Login li = new Login();
-                   // li.Show();
+                    MessageBox.Show("               נותקת בהצלחה מהמערכת\n          תודה שהשתמשת במערכת קרוסר\n                          !להתראות");
                 }
             }
             else

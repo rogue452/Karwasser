@@ -224,6 +224,7 @@ namespace project
         {
             ManagerGui MG = new ManagerGui();
             MG.Show();
+            Login.close = 1;
             this.Close();
         }
 
@@ -311,6 +312,7 @@ namespace project
                 string cosADDs = row["כתובת לקוח"].ToString();
                 ManagerContactsGUI MCG = new ManagerContactsGUI(selected, CosName, cosADDs);
                 MCG.Show();
+                Login.close = 1;
                 this.Close();
             }
             catch { MessageBox.Show("לא נבחר לקוח"); }
@@ -318,6 +320,46 @@ namespace project
 
 
 
+        private void exit_clicked(object sender, CancelEventArgs e)
+        {
+            Console.WriteLine("" + Login.close);
+
+            if (Login.close == 0) // then the user want to exit.
+            {
+                if (MessageBox.Show("?האם אתה בטוח שברצונך לצאת מהמערכת ", "וידוא יציאה", MessageBoxButton.YesNo, MessageBoxImage.Warning) == MessageBoxResult.No)
+                {
+                    e.Cancel = true; ; //don't exit.
+                }
+                else // if the user clicked on "Yes" so he wants to Update.
+                {
+                    // logoff user
+                    try
+                    {
+                        string empid1 = Login.empid;
+                        MySqlConnection MySqlConn = new MySqlConnection(Login.Connectionstring);
+                        MySqlConn.Open();
+                        string Query1 = "update users set connected='לא מחובר' where empid='" + empid1 + "' ";
+                        MySqlCommand MSQLcrcommand1 = new MySqlCommand(Query1, MySqlConn);
+                        MSQLcrcommand1.ExecuteNonQuery();
+                        MySqlDataAdapter mysqlDAdp = new MySqlDataAdapter(MSQLcrcommand1);
+                        MySqlConn.Close();
+
+
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show(ex.Message);
+                        return;
+                    }
+                    MessageBox.Show("               נותקת בהצלחה מהמערכת\n          תודה שהשתמשת במערכת קרוסר\n                          !להתראות");
+                }
+            }
+            else
+            {
+
+            }
+            Login.close = 0;
+        }
 
 
     }

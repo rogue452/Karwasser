@@ -218,6 +218,7 @@ namespace project
         {
             ManagerJobInfoGui MJIG = new ManagerJobInfoGui(jobID);
             MJIG.Show();
+            Login.close = 1;
             this.Close();
         }
 
@@ -339,6 +340,7 @@ namespace project
                 string cosADDs = row["כתובת לקוח"].ToString();
                 ManagerContactsGUI MCG = new ManagerContactsGUI(selected, CosName, cosADDs);
                 MCG.Show();
+                Login.close = 1;
                 this.Close();
             }
             catch { MessageBox.Show("לא נבחר לקוח"); }
@@ -371,6 +373,7 @@ namespace project
         {
             ManagerAddExistingItemGui MAEIG = new ManagerAddExistingItemGui(jobID);
             MAEIG.Show();
+            Login.close = 1;
             this.Close();
         }
 

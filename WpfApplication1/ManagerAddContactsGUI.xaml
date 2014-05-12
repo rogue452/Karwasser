@@ -1,7 +1,7 @@
 ﻿<Window x:Class="project.ManagerAddContactsGUI"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-       Title="הוסף איש קשר חדש למערכת" Height="470" Width="563" FlowDirection="RightToLeft" ResizeMode="CanMinimize" Icon="/WpfApplication1;component/Images/Israel.ico" WindowStartupLocation="CenterScreen">
+       Title="הוסף איש קשר חדש למערכת" Height="470" Width="563" FlowDirection="RightToLeft" ResizeMode="CanMinimize" Icon="/WpfApplication1;component/Images/Israel.ico" WindowStartupLocation="CenterScreen" Closing="exit_clicked">
     <Grid>
         <Image Source="/WpfApplication1;component/Images/31.jpg"  Stretch="UniformToFill" FlowDirection="RightToLeft" />
         <Label Content="שם איש הקשר" HorizontalAlignment="Left" Margin="12,52,0,351" Name="contname_label" Width="101" />

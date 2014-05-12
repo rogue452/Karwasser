@@ -1,7 +1,7 @@
 ﻿<Window x:Class="project.ManagerGeneralItemStagesGui"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-          Title="שלבי הכנת פריט" Height="612" Width="498" FlowDirection="RightToLeft" ResizeMode="CanMinimize" Icon="/WpfApplication1;component/Images/Israel.ico" HorizontalAlignment="Right" HorizontalContentAlignment="Right">
+          Title="שלבי הכנת פריט" Height="612" Width="498" FlowDirection="RightToLeft" ResizeMode="CanMinimize" Icon="/WpfApplication1;component/Images/Israel.ico" HorizontalAlignment="Right" HorizontalContentAlignment="Right" Closing="exit_clicked">
     <Grid Height="623" Width="1145">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="1139*" />
