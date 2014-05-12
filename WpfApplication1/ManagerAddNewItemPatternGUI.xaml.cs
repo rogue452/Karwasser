@@ -84,6 +84,38 @@ namespace project
                                 MessageBox.Show(ex.Message);
                                 return;
                             }
+
+                            try // see if a stage for the item with a diffrent status is in the DB.
+                            {
+                                string testStatus ="בעבודה";
+                                if (itemstatus == "בעבודה")
+                                {
+                                    testStatus = "תיקון";
+                                }
+                                MySqlConnection MySqlConn = new MySqlConnection(Login.Connectionstring);
+                                MySqlConn.Open();
+                                string Query1 = ("SELECT itemName, item_discription FROM project.item WHERE itemid='" + itemid + "'AND itemStatus='" + testStatus + "' And itemStageOrder='1' ");
+                                MySqlCommand MSQLcrcommand1 = new MySqlCommand(Query1, MySqlConn);
+                                MSQLcrcommand1.ExecuteNonQuery();
+                                //int times = Convert.ToInt32(MSQLcrcommand1.ExecuteScalar());
+                                MySqlDataReader dr = MSQLcrcommand1.ExecuteReader();
+                                MySqlDataAdapter mysqlDAdp = new MySqlDataAdapter(MSQLcrcommand1);
+                                while (dr.Read())
+                                {
+                                    if (!dr.IsDBNull(0))
+                                    {
+                                        itemname_textBox.Text = dr.GetString(0);
+                                        item_disc_textBox.Text = dr.GetString(1);
+                                    }
+                                }
+                                MySqlConn.Close();
+                                
+                            }
+                            catch (Exception ex)
+                            {
+                                MessageBox.Show(ex.Message);
+                                return;
+                            }
                         }
                         catch
                         {
@@ -151,6 +183,7 @@ namespace project
                     }
                     MySqlConn.Close();
                     count++;
+
 
                     item_stage_num.Content = count;
                     stage_status_label.Content = comboBox1.SelectedItem.ToString();

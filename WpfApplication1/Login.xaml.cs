@@ -25,7 +25,7 @@ namespace project
   
     public partial class Login : Window
     {
-
+        public static int close = 0;
         public static string first_name;
         public static string last_name;
         public static string user_role;
