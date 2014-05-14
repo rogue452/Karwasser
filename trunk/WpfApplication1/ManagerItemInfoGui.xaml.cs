@@ -665,29 +665,43 @@ namespace project
 
         private void exit_clicked(object sender, CancelEventArgs e)
         {
-            MessageBox.Show("סוגר");
-            // logoff user
-            try
+            Console.WriteLine("" + Login.close);
+
+            if (Login.close == 0) // then the user want to exit.
             {
-                string empid1 = Login.empid;
-                MySqlConnection MySqlConn = new MySqlConnection(Login.Connectionstring);
-                MySqlConn.Open();
-                string Query1 = "update users set connected='לא מחובר' where empid='" + empid1 + "' ";
-                MySqlCommand MSQLcrcommand1 = new MySqlCommand(Query1, MySqlConn);
-                MSQLcrcommand1.ExecuteNonQuery();
-                MySqlDataAdapter mysqlDAdp = new MySqlDataAdapter(MSQLcrcommand1);
-                MySqlConn.Close();
+                if (MessageBox.Show("?האם אתה בטוח שברצונך לצאת מהמערכת ", "וידוא יציאה", MessageBoxButton.YesNo, MessageBoxImage.Warning) == MessageBoxResult.No)
+                {
+                    e.Cancel = true; ; //don't exit.
+                }
+                else // if the user clicked on "Yes" so he wants to Update.
+                {
+                    // logoff user
+                    try
+                    {
+                        string empid1 = Login.empid;
+                        MySqlConnection MySqlConn = new MySqlConnection(Login.Connectionstring);
+                        MySqlConn.Open();
+                        string Query1 = "update users set connected='לא מחובר' where empid='" + empid1 + "' ";
+                        MySqlCommand MSQLcrcommand1 = new MySqlCommand(Query1, MySqlConn);
+                        MSQLcrcommand1.ExecuteNonQuery();
+                        MySqlDataAdapter mysqlDAdp = new MySqlDataAdapter(MSQLcrcommand1);
+                        MySqlConn.Close();
 
+
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show(ex.Message);
+                        return;
+                    }
+                    MessageBox.Show("               נותקת בהצלחה מהמערכת\n          תודה שהשתמשת במערכת קרוסר\n                          !להתראות");
+                }
+            }
+            else
+            {
 
             }
-            catch (Exception ex) 
-            { 
-                MessageBox.Show(ex.Message);
-                return; 
-            }
-
-            Login li = new Login();
-            li.Show();
+            Login.close = 0;
         }
       
  
