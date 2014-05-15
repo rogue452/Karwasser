@@ -276,6 +276,7 @@ namespace project
             host_name_label.Visibility = Visibility.Visible;
             Req_Host_label.Visibility = Visibility.Hidden;
             Host_textBox.Visibility = Visibility.Hidden;
+            Name_save_button.Visibility = Visibility.Hidden;
             this_cpu_HostName_label.Visibility = Visibility.Visible;
             host_name_label.Visibility = Visibility.Visible;
            // myip_label.Visibility = Visibility.Visible;
