@@ -1,7 +1,7 @@
 ﻿<Window x:Class="project.Login" 
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        Title="מסך כניסה למערכת" Height="647" Width="1212" DataContext="{Binding}" WindowState="Normal" FlowDirection="RightToLeft" ResizeMode="CanMinimize" WindowStartupLocation="CenterScreen" Icon="/WpfApplication1;component/Images/Israel.ico" BorderBrush="Gray" BorderThickness="3" Background="Beige" Margin="24" Padding="4">
+        Title="מסך כניסה למערכת" Height="647" Width="1212"  WindowState="Normal" FlowDirection="RightToLeft" ResizeMode="CanMinimize" WindowStartupLocation="CenterScreen" Icon="/WpfApplication1;component/Images/Israel.ico" BorderBrush="Gray" BorderThickness="3" Background="Beige" Margin="24" Padding="4">
     <Grid>  
         <Image Source="/WpfApplication1;component/Images/31.jpg" Grid.ColumnSpan="2" Stretch="UniformToFill" FlowDirection="RightToLeft" />
         <Label Content="תעודת זהות:" HorizontalAlignment="Left" Margin="299,241,0,330" Name="label1" Width="131" FontSize="20" />

@@ -441,7 +441,12 @@ namespace project
 
 
 
+        private void Item_Search_textBox_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            String searchkey = this.Item_Search_textBox.Text;
+            dt1.DefaultView.RowFilter = string.Format("`מספר פריט` LIKE '%{0}%'", searchkey);
 
+        }
 
 
 
@@ -586,7 +591,14 @@ namespace project
                                 MessageBox.Show("  לא נבחרו פריטים מהטבלה "); return; 
                             }
 
-                        else { MessageBox.Show("!העבודה נוספה למערכת"); }
+                        else
+                        {
+                            MessageBox.Show("!העבודה נוספה למערכת");
+                            ManagerJobGui MJG = new ManagerJobGui();
+                            MJG.Show();
+                            Login.close = 1;
+                            this.Close();
+                        }
                     }
                     catch
                     {
@@ -667,10 +679,11 @@ namespace project
         // go to previous screen.
         private void Back_Btn_Click(object sender, RoutedEventArgs e)
         {
-            ManagerGui MG = new ManagerGui();
-            MG.Show();
+            ManagerJobGui MJG = new ManagerJobGui();
+            MJG.Show();
             Login.close = 1;
             this.Close();
+            
         }
 
         private void UpdateBtn_Click(object sender, RoutedEventArgs e)
@@ -1160,6 +1173,7 @@ namespace project
                     dataGrid3.ItemsSource = dt2.DefaultView;
                     mysqlDAdp.Update(dt2);
                     MySqlConn.Close();
+                    cont_label.Visibility = Visibility.Hidden;
                 }
                 catch (Exception ex)
                 {
@@ -1211,6 +1225,52 @@ namespace project
                         return;
                     }
                     MessageBox.Show("               נותקת בהצלחה מהמערכת\n          תודה שהשתמשת במערכת קרוסר\n                          !להתראות");
+                }
+            }
+            else
+            {
+
+            }
+            Login.close = 0;
+        }
+
+
+        private void exit_button_Click(object sender, RoutedEventArgs e)
+        {
+            Console.WriteLine("" + Login.close+" כפתור התנתקות");
+
+            if (Login.close == 0) // then the user want to exit.
+            {
+                if (MessageBox.Show("?האם אתה בטוח שברצונך לצאת מהמערכת ", "וידוא יציאה", MessageBoxButton.YesNo, MessageBoxImage.Warning) == MessageBoxResult.No)
+                {
+                   return ; //don't exit.
+                }
+                else // if the user clicked on "Yes" so he wants to Update.
+                {
+                    // logoff user
+                    try
+                    {
+                        string empid1 = Login.empid;
+                        MySqlConnection MySqlConn = new MySqlConnection(Login.Connectionstring);
+                        MySqlConn.Open();
+                        string Query1 = "update users set connected='לא מחובר' where empid='" + empid1 + "' ";
+                        MySqlCommand MSQLcrcommand1 = new MySqlCommand(Query1, MySqlConn);
+                        MSQLcrcommand1.ExecuteNonQuery();
+                        MySqlDataAdapter mysqlDAdp = new MySqlDataAdapter(MSQLcrcommand1);
+                        MySqlConn.Close();
+
+
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show(ex.Message);
+                        return;
+                    }
+                    MessageBox.Show("               נותקת בהצלחה מהמערכת\n          תודה שהשתמשת במערכת קרוסר\n                          !להתראות");
+                    Login LI = new Login();
+                    LI.Show();
+                    Login.close = 1;
+                    this.Close();
                 }
             }
             else

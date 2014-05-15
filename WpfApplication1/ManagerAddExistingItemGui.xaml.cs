@@ -112,27 +112,11 @@ namespace project
 
         private void ItemIDSearch_TextBox_TextChanged(object sender, TextChangedEventArgs e)
         {
-            try
-            {
-
-                MySqlConnection MySqlConn = new MySqlConnection(Login.Connectionstring);
-                MySqlConn.Open();
-                String searchkey = this.ItemIDSearch_TextBox.Text;
-                string Query1 = ("SELECT jobs.itemid as `מספר פריט`,quantity as `כמות` ,jobs.itemStageOrder as `מספר השלב הנוכחי`,stageName  as `שם השלב הנוכחי` ,jobs.itemStatus  as `סטטוס הפריט`,itemToFixStageOrder as `מספר השלב שבו זוהה כתקול (אם זוהה)`  FROM jobs,item WHERE jobs.itemid=item.itemid and jobs.itemStageOrder=item.itemStageOrder and jobs.itemStatus=item.itemStatus and jobs.jobid='" + jobID + "' and jobs.itemid Like '%" + searchkey + "%'");
-                MySqlCommand MSQLcrcommand1 = new MySqlCommand(Query1, MySqlConn);
-                MSQLcrcommand1.ExecuteNonQuery();
-                MySqlDataAdapter mysqlDAdp = new MySqlDataAdapter(MSQLcrcommand1);
-                dt.Clear();
-                mysqlDAdp.Fill(dt);
-                dataGrid1.ItemsSource = dt.DefaultView;
-                mysqlDAdp.Update(dt);
-                MySqlConn.Close();
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message);
-            }
+            String searchkey = this.ItemIDSearch_TextBox.Text;
+            dt.DefaultView.RowFilter = string.Format("`מספר פריט` LIKE '%{0}%'", searchkey);
+         
         }
+
 
         private void StageNameSearchTextBox_TextChanged(object sender, TextChangedEventArgs e)
         {
@@ -604,6 +588,55 @@ namespace project
             }
             Login.close = 0;
         }
+
+
+
+
+        private void exit_button_Click(object sender, RoutedEventArgs e)
+        {
+            Console.WriteLine("" + Login.close + " כפתור התנתקות");
+
+            if (Login.close == 0) // then the user want to exit.
+            {
+                if (MessageBox.Show("?האם אתה בטוח שברצונך לצאת מהמערכת ", "וידוא יציאה", MessageBoxButton.YesNo, MessageBoxImage.Warning) == MessageBoxResult.No)
+                {
+                    return; //don't exit.
+                }
+                else // if the user clicked on "Yes" so he wants to Update.
+                {
+                    // logoff user
+                    try
+                    {
+                        string empid1 = Login.empid;
+                        MySqlConnection MySqlConn = new MySqlConnection(Login.Connectionstring);
+                        MySqlConn.Open();
+                        string Query1 = "update users set connected='לא מחובר' where empid='" + empid1 + "' ";
+                        MySqlCommand MSQLcrcommand1 = new MySqlCommand(Query1, MySqlConn);
+                        MSQLcrcommand1.ExecuteNonQuery();
+                        MySqlDataAdapter mysqlDAdp = new MySqlDataAdapter(MSQLcrcommand1);
+                        MySqlConn.Close();
+
+
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show(ex.Message);
+                        return;
+                    }
+                    MessageBox.Show("               נותקת בהצלחה מהמערכת\n          תודה שהשתמשת במערכת קרוסר\n                          !להתראות");
+                    Login LI = new Login();
+                    LI.Show();
+                    Login.close = 1;
+                    this.Close();
+                }
+            }
+            else
+            {
+
+            }
+            Login.close = 0;
+        }
+
 
 
     }
