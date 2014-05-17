@@ -33,9 +33,20 @@ namespace project
         public ManagerAddNewItemPatternGUI()
         {
             InitializeComponent();
-
-            comboBox1.Items.Add("בעבודה");
-            comboBox1.Items.Add("תיקון");
+            Login.close = 1;
+            stages_comboBox.Items.Add("חריטה");
+            stages_comboBox.Items.Add("ביקורת ביניים - חריטה");
+            stages_comboBox.Items.Add("כרסום");
+            stages_comboBox.Items.Add("ביקורת ביניים - חריטה");
+            stages_comboBox.Items.Add("ריתוך");
+            stages_comboBox.Items.Add("ביקורת ביניים - ריתוך");
+            stages_comboBox.Items.Add("צביעה");
+            stages_comboBox.Items.Add("ביקורת ביניים - צביעה");
+            stages_comboBox.Items.Add("פירוק");
+            stages_comboBox.Items.Add("ביקורת ביניים - פירוק");
+            stages_comboBox.Items.Add("הרכבה");
+            stages_comboBox.Items.Add("ביקורת ביניים - הרכבה");
+            stages_comboBox.Items.Add("ביקורת סופית");
             
         }
 
@@ -50,148 +61,143 @@ namespace project
 
         }
 
+
         private void Add_button_Click(object sender, RoutedEventArgs e)
         {
+            
+            string itemid, stagename="";
+            itemid = item_id_textBox.Text;
             try
-            {   
-                int test = Convert.ToInt32(item_id_textBox.Text);
-                string itemid;
-                itemid = item_id_textBox.Text;
-                if (count == 1)
-                {
-                    if (itemid != "")
-                    {
+            {
+                stagename = stages_comboBox.SelectedValue.ToString();
+            }
+            catch
+            {
+                MessageBox.Show("!לא נבחר שלב");
+                return;
+            }
+            if (count == 1)
+            {
+                if (itemid != "")
+                { 
                         try
                         {
-                            string itemstatus = comboBox1.SelectedValue.ToString(); ;
-                            try
-                            {
-                                MySqlConnection MySqlConn = new MySqlConnection(Login.Connectionstring);
-                                MySqlConn.Open();
-                                string Query1 = ("SELECT COUNT(itemid) FROM project.item WHERE itemid='" + itemid + "'AND itemStatus='" + itemstatus + "' "); //to see if the itemid already in the system.
-                                MySqlCommand MSQLcrcommand1 = new MySqlCommand(Query1, MySqlConn);
-                                MSQLcrcommand1.ExecuteNonQuery();
-                                int times = Convert.ToInt32(MSQLcrcommand1.ExecuteScalar());
-                                MySqlDataReader dr = MSQLcrcommand1.ExecuteReader();
-                                MySqlDataAdapter mysqlDAdp = new MySqlDataAdapter(MSQLcrcommand1);
-                                MySqlConn.Close();
+                            MySqlConnection MySqlConn = new MySqlConnection(Login.Connectionstring);
+                            MySqlConn.Open();
+                            string Query1 = ("SELECT COUNT(itemid) FROM project.item WHERE itemid='" + itemid + "' "); //to see if the itemid already in the system.
+                            MySqlCommand MSQLcrcommand1 = new MySqlCommand(Query1, MySqlConn);
+                            MSQLcrcommand1.ExecuteNonQuery();
+                            int times = Convert.ToInt32(MSQLcrcommand1.ExecuteScalar());
+                            MySqlDataReader dr = MSQLcrcommand1.ExecuteReader();
+                            MySqlDataAdapter mysqlDAdp = new MySqlDataAdapter(MSQLcrcommand1);
+                            MySqlConn.Close();
 
-                                if (times != 0)
-                                {
-                                    MessageBox.Show("כבר קיים מספר פריט  - " + itemid + " בעל סטטוס זה ");
-                                    return;
-                                }
-                            }
-                            catch (Exception ex)
+                            if (times != 0)
                             {
-                                MessageBox.Show(ex.Message);
-                                return;
-                            }
-
-                            try // see if a stage for the item with a diffrent status is in the DB.
-                            {
-                                string testStatus ="בעבודה";
-                                if (itemstatus == "בעבודה")
-                                {
-                                    testStatus = "תיקון";
-                                }
-                                MySqlConnection MySqlConn = new MySqlConnection(Login.Connectionstring);
-                                MySqlConn.Open();
-                                string Query1 = ("SELECT itemName, item_discription FROM project.item WHERE itemid='" + itemid + "'AND itemStatus='" + testStatus + "' And itemStageOrder='1' ");
-                                MySqlCommand MSQLcrcommand1 = new MySqlCommand(Query1, MySqlConn);
-                                MSQLcrcommand1.ExecuteNonQuery();
-                                //int times = Convert.ToInt32(MSQLcrcommand1.ExecuteScalar());
-                                MySqlDataReader dr = MSQLcrcommand1.ExecuteReader();
-                                MySqlDataAdapter mysqlDAdp = new MySqlDataAdapter(MSQLcrcommand1);
-                                while (dr.Read())
-                                {
-                                    if (!dr.IsDBNull(0))
-                                    {
-                                        itemname_textBox.Text = dr.GetString(0);
-                                        item_disc_textBox.Text = dr.GetString(1);
-                                    }
-                                }
-                                MySqlConn.Close();
-                                
-                            }
-                            catch (Exception ex)
-                            {
-                                MessageBox.Show(ex.Message);
+                                MessageBox.Show("כבר קיים מק``ט פריט  - " + itemid);
                                 return;
                             }
                         }
-                        catch
+                        catch (Exception ex)
                         {
-                            MessageBox.Show("לא נבחר סטטוס פריט");
+                            MessageBox.Show(ex.Message);
                             return;
                         }
-                    }
-                    else
-                    {
-                        MessageBox.Show("לא הוכנס מספר פריט");
-                        return;
-                    }
-
-                    if (itemname_textBox.Text == "")
-                    {
-                        MessageBox.Show("לא הוכנס שם פריט");
-                        return;
-                    }
-
-                    if (itemname_textBox.Text == "")
-                    {
-                        MessageBox.Show("לא הוכנס שם פריט");
-                        return;
-                    }
-
-                    //       try
-                    //       {
-                    //           string index = comboBox1.SelectedValue.ToString(); ;
-                    //       }
-                    //       catch
-                    //       {
-                    //            MessageBox.Show("לא נבחר סטטוס פריט");
-                    //            return;
-                    //       }
-                }
-
-
-                if (stage_name_text_box.Text == "")
+                    } // end if (itemid != "")
+                else
                 {
-                    MessageBox.Show("לא הוכנס שם שלב");
+                    MessageBox.Show("לא הוכנס מק``ט פריט");
                     return;
                 }
 
-                try
+
+                if (itemname_textBox.Text == "")
                 {
+                    MessageBox.Show("לא הוכנס שם פריט");
+                    return;
+                }
+            } // end if (count == 1)
+
+            try // if all is OK then create the stage.
+            {
                     MySqlConnection MySqlConn = new MySqlConnection(Login.Connectionstring);
                     MySqlConn.Open();
-                    string Query1 = ("INSERT INTO project.item (itemid, itemStatus,itemStageOrder,itemName,stageName, stage_discription, item_discription ) VALUES ('" + item_id_textBox.Text + "','" + comboBox1.SelectedItem.ToString() + "','" + count + "','" + itemname_textBox.Text + "','" + stage_name_text_box.Text + "','" + stage_desc_textBox.Text + "','" + item_disc_textBox.Text + "') ");
+                    string Query1 = ("INSERT INTO project.item (itemid, itemStatus,itemStageOrder,itemName,stageName, stage_discription, item_discription ) VALUES ('" + item_id_textBox.Text + "', 'בעבודה' ,'" + count + "','" + itemname_textBox.Text + "','" + stages_comboBox.SelectedItem.ToString() + "','" + stage_desc_textBox.Text + "','" + item_disc_textBox.Text + "') ");
                     MySqlCommand MSQLcrcommand1 = new MySqlCommand(Query1, MySqlConn);
                     MSQLcrcommand1.ExecuteNonQuery();
                     MySqlDataAdapter mysqlDAdp = new MySqlDataAdapter(MSQLcrcommand1);
-                   // MySqlConn.Close();
-                    if (count == 1 && comboBox1.SelectedItem == "בעבודה")
+
+                    if (count == 1)
                     {
-                        string one = "1", stageName = "הסתיים", stage_disc = "הפריט מוכן", stageName3 = "נפסל", stage_disc3 = "הפריט נפסל";
-                        string Query2 = ("INSERT INTO project.item (itemid, itemStatus,itemStageOrder,itemName,stageName, stage_discription, item_discription ) VALUES ('" + item_id_textBox.Text + "','הסתיים','" + one + "','" + itemname_textBox.Text + "','" + stageName + "','" + stage_disc + "','" + item_disc_textBox.Text + "') ");
+                        // creating the default stages.
+                        string one = "1", two = "2", itemStatus = "נרשמה", stageName = "שרטוט", stage_disc = "שרטוט הפריט";
+                        
+                        string Query2 = ("INSERT INTO project.item (itemid, itemStatus,itemStageOrder,itemName,stageName, stage_discription, item_discription ) VALUES ('" + item_id_textBox.Text + "','"+itemStatus+"','" + one + "','" + itemname_textBox.Text + "','" + stageName + "','" + stage_disc + "','" + item_disc_textBox.Text + "') ");
                         MySqlCommand MSQLcrcommand2 = new MySqlCommand(Query2, MySqlConn);
                         MSQLcrcommand2.ExecuteNonQuery();
                         MySqlDataAdapter mysqlDAdp2 = new MySqlDataAdapter(MSQLcrcommand2);
 
-                        string Query3 = ("INSERT INTO project.item (itemid, itemStatus,itemStageOrder,itemName,stageName, stage_discription, item_discription ) VALUES ('" + item_id_textBox.Text + "','פסול','" + one + "','" + itemname_textBox.Text + "','" + stageName3 + "','" + stage_disc3 + "','" + item_disc_textBox.Text + "') ");
+                        stageName = "רכישת חומר גלם";
+                        stage_disc = "רכישת חומר הגלם לעבודה";
+                        string Query3 = ("INSERT INTO project.item (itemid, itemStatus,itemStageOrder,itemName,stageName, stage_discription, item_discription ) VALUES ('" + item_id_textBox.Text + "','"+itemStatus+"','" + two + "','" + itemname_textBox.Text + "','" + stageName + "','" + stage_disc + "','" + item_disc_textBox.Text + "') ");
                         MySqlCommand MSQLcrcommand3 = new MySqlCommand(Query3, MySqlConn);
                         MSQLcrcommand3.ExecuteNonQuery();
                         MySqlDataAdapter mysqlDAdp3 = new MySqlDataAdapter(MSQLcrcommand3);
+
+                        itemStatus="תיקון";
+                        stageName = "תיקון הפריט";
+                        stage_disc = "תיקון לפי מהות התקלה והחלטת הבוחן במקום";
+                        string Query4 = ("INSERT INTO project.item (itemid, itemStatus,itemStageOrder,itemName,stageName, stage_discription, item_discription ) VALUES ('" + item_id_textBox.Text + "','"+itemStatus+"','" + one + "','" + itemname_textBox.Text + "','" + stageName + "','" + stage_disc + "','" + item_disc_textBox.Text + "') ");
+                        MySqlCommand MSQLcrcommand4 = new MySqlCommand(Query4, MySqlConn);
+                        MSQLcrcommand4.ExecuteNonQuery();
+                        MySqlDataAdapter mysqlDAdp4 = new MySqlDataAdapter(MSQLcrcommand4);
+
+                        itemStatus="פסול";
+                        stageName = "פסילה";
+                        stage_disc = "נמצא כלא ניתן לתיקון ולכן נפסל";
+                        string Query5 = ("INSERT INTO project.item (itemid, itemStatus,itemStageOrder,itemName,stageName, stage_discription, item_discription ) VALUES ('" + item_id_textBox.Text + "','"+itemStatus+"','" + one + "','" + itemname_textBox.Text + "','" + stageName + "','" + stage_disc + "','" + item_disc_textBox.Text + "') ");
+                        MySqlCommand MSQLcrcommand5 = new MySqlCommand(Query5, MySqlConn);
+                        MSQLcrcommand5.ExecuteNonQuery();
+                        MySqlDataAdapter mysqlDAdp5 = new MySqlDataAdapter(MSQLcrcommand5);
+
+                        itemStatus="גמר ייצור";
+                        stageName = "ביקורת לקוח";
+                        stage_disc = "מבוקר על ידי הלקוח";
+                        string Query6 = ("INSERT INTO project.item (itemid, itemStatus,itemStageOrder,itemName,stageName, stage_discription, item_discription ) VALUES ('" + item_id_textBox.Text + "','"+itemStatus+"','" + one + "','" + itemname_textBox.Text + "','" + stageName + "','" + stage_disc + "','" + item_disc_textBox.Text + "') ");
+                        MySqlCommand MSQLcrcommand6 = new MySqlCommand(Query6, MySqlConn);
+                        MSQLcrcommand6.ExecuteNonQuery();
+                        MySqlDataAdapter mysqlDAdp6 = new MySqlDataAdapter(MSQLcrcommand6);
+
+                        stageName = "אריזה";
+                        stage_disc = "נארז למשלוח";
+                        string Query7 = ("INSERT INTO project.item (itemid, itemStatus,itemStageOrder,itemName,stageName, stage_discription, item_discription ) VALUES ('" + item_id_textBox.Text + "','"+itemStatus+"','" + two + "','" + itemname_textBox.Text + "','" + stageName + "','" + stage_disc + "','" + item_disc_textBox.Text + "') ");
+                        MySqlCommand MSQLcrcommand7 = new MySqlCommand(Query7, MySqlConn);
+                        MSQLcrcommand7.ExecuteNonQuery();
+                        MySqlDataAdapter mysqlDAdp7 = new MySqlDataAdapter(MSQLcrcommand7);
+
+                        itemStatus="הסתיים";
+                        stageName = "המתנה למשלוח";
+                        stage_disc = "ממתין לשילוח";
+                        string Query8 = ("INSERT INTO project.item (itemid, itemStatus,itemStageOrder,itemName,stageName, stage_discription, item_discription ) VALUES ('" + item_id_textBox.Text + "','"+itemStatus+"','" + one + "','" + itemname_textBox.Text + "','" + stageName + "','" + stage_disc + "','" + item_disc_textBox.Text + "') ");
+                        MySqlCommand MSQLcrcommand8 = new MySqlCommand(Query8, MySqlConn);
+                        MSQLcrcommand8.ExecuteNonQuery();
+                        MySqlDataAdapter mysqlDAdp8 = new MySqlDataAdapter(MSQLcrcommand8);
+
+                        stageName = "נשלח";
+                        stage_disc = "נשלח ללקוח";
+                        string Query9 = ("INSERT INTO project.item (itemid, itemStatus,itemStageOrder,itemName,stageName, stage_discription, item_discription ) VALUES ('" + item_id_textBox.Text + "','"+itemStatus+"','" + two + "','" + itemname_textBox.Text + "','" + stageName + "','" + stage_disc + "','" + item_disc_textBox.Text + "') ");
+                        MySqlCommand MSQLcrcommand9 = new MySqlCommand(Query9, MySqlConn);
+                        MSQLcrcommand9.ExecuteNonQuery();
+                        MySqlDataAdapter mysqlDAdp9 = new MySqlDataAdapter(MSQLcrcommand9);
                     }
                     MySqlConn.Close();
                     count++;
 
-
                     item_stage_num.Content = count;
-                    stage_status_label.Content = comboBox1.SelectedItem.ToString();
-                    comboBox1.Visibility = Visibility.Hidden;
-                    stage_status_label.Visibility = Visibility.Visible;
+
+                    l_label.Visibility = Visibility.Visible;
+                    last_stageName_label.Content = stagename;
+                    last_stageName_label.Visibility = Visibility.Visible;
 
                     item_num2_label.Content = item_id_textBox.Text;
                     item_id_textBox.Visibility = Visibility.Hidden;
@@ -205,10 +211,7 @@ namespace project
                     item_disc_textBox.Visibility = Visibility.Hidden;
                     item_disc_label.Visibility = Visibility.Visible;
 
-                    stage_name_text_box.Clear();
                     stage_desc_textBox.Clear();
-
-
 
                     MessageBox.Show("שלב התווסף");
 
@@ -219,17 +222,10 @@ namespace project
                     return;
                 }
 
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show("!מספר פריט חייב להכיל רק מספרים");
-                return;
-            }
-
         }
 
 
-
+    
         private void exit_clicked(object sender, CancelEventArgs e)
         {
             Console.WriteLine("" + Login.close);
@@ -270,6 +266,7 @@ namespace project
             }
             Login.close = 0;
         }
+        
 
 
     }

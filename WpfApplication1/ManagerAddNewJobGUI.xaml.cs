@@ -16,7 +16,7 @@ using System.ComponentModel;
 using Microsoft.Win32;
 using System.Text.RegularExpressions;
 using System.Collections;
-using System.ComponentModel;
+
 
 namespace project
 {
@@ -62,7 +62,7 @@ namespace project
             {
                 MySqlConnection MySqlConn = new MySqlConnection(Login.Connectionstring);
                 MySqlConn.Open();
-                string Query1 = ("select itemid as `מספר פריט`,itemName as `שם פריט`, item_discription as `תאור פריט` from project.item WHERE itemStatus='בעבודה' group by itemid");
+                string Query1 = ("select itemid as `מקט פריט`,itemName as `שם פריט`, item_discription as `תאור פריט` from project.item WHERE itemStatus='בעבודה' group by itemid");
                 MySqlCommand MSQLcrcommand1 = new MySqlCommand(Query1, MySqlConn);
                 MSQLcrcommand1.ExecuteNonQuery();
                 MySqlDataAdapter mysqlDAdp = new MySqlDataAdapter(MSQLcrcommand1);
@@ -152,7 +152,7 @@ namespace project
                                                             // {
                                                             //  Console.WriteLine(q);
                                                 
-                                          Console.WriteLine("הכמות היא  - " + check + "ומספר הפריט הוא -  "+dri["מספר פריט"].ToString()+"");
+                                          Console.WriteLine("הכמות היא  - " + check + "ומספר הפריט הוא -  "+dri["מקט פריט"].ToString()+"");
                                                             // Console.WriteLine(dr[col.ColumnName]);
                                                             //  }
 
@@ -165,13 +165,13 @@ namespace project
                                                              }
                                                              */
                                         }//end if (check > 0)
-                                        else { MessageBox.Show("שדה הכמות מכיל כמות שלילית או 0 בפריט מספר - " + dri["מספר פריט"].ToString() + ""); return; }
+                                        else { MessageBox.Show("שדה הכמות מכיל כמות שלילית או 0 בפריט מספר - " + dri["מקט פריט"].ToString() + ""); return; }
 
                                    }// if (q != "")
 
                                }// end try
                                catch
-                               { MessageBox.Show("שדה הכמות לא כולל רק מספרים בפריט מספר - " + dri["מספר פריט"].ToString() + ""); return; }
+                               { MessageBox.Show("שדה הכמות לא כולל רק מספרים בפריט מספר - " + dri["מקט פריט"].ToString() + ""); return; }
 
                            }// end foreach (DataRow dri in changedRecordsTable.Rows)
   
@@ -244,7 +244,7 @@ namespace project
             {
                 MySqlConnection MySqlConn = new MySqlConnection(Login.Connectionstring);
                 MySqlConn.Open();
-                string Query1 = ("select itemid as `מספר פריט`,itemName as `שם פריט`, discription as `תאור פריט` from project.item group by itemid");
+                string Query1 = ("select itemid as `מקט פריט`,itemName as `שם פריט`, discription as `תאור פריט` from project.item group by itemid");
                 MySqlCommand MSQLcrcommand1 = new MySqlCommand(Query1, MySqlConn);
                 MSQLcrcommand1.ExecuteNonQuery();
                 MySqlDataAdapter mysqlDAdp = new MySqlDataAdapter(MSQLcrcommand1);
@@ -301,6 +301,7 @@ namespace project
             // q.DataType = typeof(string);
             // dt1.Columns.Add(q);
             dt1.Columns.Add(new DataColumn("כמות", typeof(string)));
+            dt1.Columns.Add(new DataColumn("מקט לקוח", typeof(string)));
         }
 
 
@@ -444,7 +445,7 @@ namespace project
         private void Item_Search_textBox_TextChanged(object sender, TextChangedEventArgs e)
         {
             String searchkey = this.Item_Search_textBox.Text;
-            dt1.DefaultView.RowFilter = string.Format("`מספר פריט` LIKE '%{0}%'", searchkey);
+            dt1.DefaultView.RowFilter = string.Format("`מקט פריט` LIKE '%{0}%'", searchkey);
 
         }
 
@@ -452,36 +453,69 @@ namespace project
 
         private void ADD_Btn_Click(object sender, RoutedEventArgs e)
         {
+            string jobid, orderid, jobdes;
             // if dates were intered.
             if (startdatePicker.Text != "" && finishdatePicker.Text != "")
             {
-                string jobid, jobdes;
-                jobid = jobid_textBox.Text;
-                if (jobid != "")
+                
+                orderid = orderID_textBox.Text;
+                if (orderid != "")
                 {
                     try
                     {
                         MySqlConnection MySqlConn = new MySqlConnection(Login.Connectionstring);
                         MySqlConn.Open();
-                        string Query1 = ("SELECT COUNT(jobid) FROM project.jobs WHERE jobid='" + jobid + "'"); //to see if the jobid already in the system.
+                        string Query1 = ("SELECT jobid FROM project.jobs WHERE orderid='" + orderid + "' AND startDate<='2014-05-16' ORDER BY startDate DESC LIMIT 1 "); //to see if the orderid already in the system.
                         MySqlCommand MSQLcrcommand1 = new MySqlCommand(Query1, MySqlConn);
                         MSQLcrcommand1.ExecuteNonQuery();
-                        int times = Convert.ToInt32(MSQLcrcommand1.ExecuteScalar());
+                       // int times = Convert.ToInt32(MSQLcrcommand1.ExecuteScalar());
                         MySqlDataReader dr = MSQLcrcommand1.ExecuteReader();
                         MySqlDataAdapter mysqlDAdp = new MySqlDataAdapter(MSQLcrcommand1);
+
+                        while (dr.Read())
+                          {
+                              if (!dr.IsDBNull(0))
+                              {
+                                  if (MessageBox.Show("מספר הזמנה זהה כבר קיים עבור מספר עבודה "+dr.GetString(0)+"\n?האם ברצונך להוסיף בכל זאת", "מספר הזמנה קיים", MessageBoxButton.YesNo, MessageBoxImage.Warning) == MessageBoxResult.No)
+                                  {
+                                      MySqlConn.Close();
+                                      return; //if user answerd NO
+                                  }
+                              }
+                        }
                         MySqlConn.Close();
 
-                        if (times != 0)
-                        {
-                            MessageBox.Show("כבר קיים מספר עבודה - " + jobid + "");
-                            return;
-                        }
                     }
                     catch (Exception ex)
                     {
                         MessageBox.Show(ex.Message);
                         return; ;
                     }
+
+
+                    // get the latest jobid this year.
+                    string fullyear = DateTime.Now.ToString("yyyy");
+                    string twodigyear = DateTime.Now.ToString("yy");
+                    try
+                    {
+                        MySqlConnection MySqlConn = new MySqlConnection(Login.Connectionstring);
+                        MySqlConn.Open();
+                        string Query1 = ("SELECT MAX(jobid) FROM project.jobs WHERE startDate BETWEEN '" + fullyear + "-01-01' AND '" + fullyear + "-12-31' ");
+                        MySqlCommand MSQLcrcommand1 = new MySqlCommand(Query1, MySqlConn);
+                        MSQLcrcommand1.ExecuteNonQuery();
+                        int jobid1 = Convert.ToInt32(MSQLcrcommand1.ExecuteScalar());
+                        MySqlDataAdapter mysqlDAdp = new MySqlDataAdapter(MSQLcrcommand1);
+                        MySqlConn.Close();
+                        jobid1++;
+                        jobid = jobid1.ToString() + "/" + twodigyear;
+
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show(ex.Message);
+                        return; ;
+                    }
+
 
                     jobdes = jobdes_textbox.Text;
                     String start, end;
@@ -497,7 +531,7 @@ namespace project
                     }
                     else { MessageBox.Show(".תאריך ההתחלה שנבחר הוא לאחר תאריך הסיום"); return; }
                 }
-                else { MessageBox.Show("לא הוכנס מספר עבודה"); return; }
+                else { MessageBox.Show("לא הוכנס מספר הזמנה"); return; }
             }// the if (startdatePicker.Text != "" && finishdatePicker.Text != "") closer.
             else { MessageBox.Show(".לא נבחרו 2 התאריכים"); return; }
 
@@ -524,19 +558,37 @@ namespace project
 
                         sizeofItemsnewtable = changedRecordsItemsTable.Rows.Count; // will give an exp if the size of the new items table is zero.
                         int itemNum = 0;
-                        string itemStatus = "בעבודה", itemStageOrder = "1", job_status = "נרשמה";
-                        string jobid, jobdes, itemsdes = "לא נרשם תיאור עדיין";
-                        jobid = jobid_textBox.Text;
+                        string itemStatus = "רישום", itemStageOrder = "1", job_status = "נרשמה";
+                        
                         jobdes = jobdes_textbox.Text;
                         String start = Convert.ToDateTime(startdatePicker.Text).ToString("yyyy-MM-dd"), end = Convert.ToDateTime(finishdatePicker.Text).ToString("yyyy-MM-dd");
                         // customerid1 = customerid1_label.Content.ToString();
 
                         int count = 0; // will count the number of rows with cell "" in the  changedRecordsItemsTable.
+
+                        // input checks for כמות.
+                        foreach (DataRow quantity_row in changedRecordsItemsTable.Rows)
+                        {
+                            try
+                            {
+                                if(quantity_row["כמות"].ToString()!="")
+                                {
+                                int item_quantity = Convert.ToInt32(quantity_row["כמות"].ToString());
+                                    }
+                            }// end try
+                            catch
+                            { MessageBox.Show(" אחד שדה הכמות לא כולל רק מספרים בפריט מספר - " + quantity_row["מקט פריט"].ToString() + ""); return; }
+                        }
+                        
                         foreach (DataRow dri in changedRecordsItemsTable.Rows)
                         {
                             itemNum = 0;
                             string q = dri["כמות"].ToString();
-
+                            string cosItemID = dri["מקט לקוח"].ToString();
+                            if (cosItemID=="")
+                             {
+                                 cosItemID = "לא הוזן מקט לקוח";
+                             }
                             try
                             {
                               
@@ -550,12 +602,13 @@ namespace project
                                         {
                                             Console.WriteLine("לפני שאילתא");
                                             itemNum++;
-                                            string itemid = dri["מספר פריט"].ToString();
+                                            string itemid = dri["מקט פריט"].ToString();
                                             try
                                             {
                                                 MySqlConnection MySqlConn = new MySqlConnection(Login.Connectionstring);
                                                 MySqlConn.Open();
-                                                string Query1 = ("INSERT INTO project.jobs (jobid, itemid,itemNum,itemStatus,itemStageOrder, expectedItemQuantity,costumerid, itemsDescription, job_status, jobdescription, startDate, expectedFinishDate, contact_id) VALUES ('" + jobid + "','" + itemid + "','" + itemNum + "','" + itemStatus + "','" + itemStageOrder + "','" + item_quantity + "','" + selected + "','" + itemsdes + "','" + job_status + "','" + jobdes + "','" + start + "','" + end + "','" + contactid + "')");
+                                                string Query1 = ("INSERT INTO project.jobs (jobid, itemid,itemNum, expectedItemQuantity,costumerid, jobdescription, startDate, expectedFinishDate, contact_id,orderid,group_costomer_itemid) VALUES ('" + jobid + "','" + itemid + "','" + itemNum + "','" + item_quantity + "','" + selected + "','" + jobdes + "','" + start + "','" + end + "','" + contactid + "','" + orderid + "','" + cosItemID + "')");
+                                                Console.WriteLine("השאילתא הנשלחת  - " + Query1 + "");
                                                 MySqlCommand MSQLcrcommand1 = new MySqlCommand(Query1, MySqlConn);
                                                 MSQLcrcommand1.ExecuteNonQuery();
                                                 MySqlDataAdapter mysqlDAdp = new MySqlDataAdapter(MSQLcrcommand1);
@@ -570,12 +623,13 @@ namespace project
 
 
                                             Console.WriteLine("הלקוח הוא  - " + selected + "");
-                                            Console.WriteLine("הכמות היא  - " + item_quantity + "ומספר הפריט הוא -  " + dri["מספר פריט"].ToString() + "");
+                                            Console.WriteLine("הכמות היא  - " + item_quantity + " ומספר הפריט הוא -  " + dri["מקט פריט"].ToString() + "");
                                             Console.WriteLine("מספר עבודה - " + jobid + "");
+                                            Console.WriteLine("מספר הזמנה - " + orderid + "");
                                             Console.WriteLine("מספר איש קשר - " + contactid + "");
                                         }
                                     }//end if (item_quantity > 0)
-                                    else { MessageBox.Show("שדה הכמות מכיל כמות שלילית או 0 בפריט מספר - " + dri["מספר פריט"].ToString() + ""); return; }
+                                    else { MessageBox.Show("שדה הכמות מכיל כמות שלילית או 0 בפריט מספר - " + dri["מקט פריט"].ToString() + ""); return; }
 
                                 } // if (q != "")
                                 else { count++; }
@@ -583,7 +637,7 @@ namespace project
 
                             }// end try
                             catch
-                            { MessageBox.Show("שדה הכמות לא כולל רק מספרים בפריט מספר - " + dri["מספר פריט"].ToString() + ""); return; }
+                            { MessageBox.Show("שדה הכמות לא כולל רק מספרים בפריט מספר - " + dri["מקט פריט"].ToString() + ""); return; }
 
                         }// end foreach (DataRow dri in changedRecordsTable.Rows)
                         if (count == changedRecordsItemsTable.Rows.Count)
@@ -907,7 +961,7 @@ namespace project
 
 
    //         DataRowView dg2row = (DataRowView)dataGrid2.SelectedItems[0];
-   //                      string itemid = dg2row["מספר פריט"].ToString();
+   //                      string itemid = dg2row["מקט פריט"].ToString();
    //                      string customerid = dg2row["כמות"].ToString();
    //                      MessageBox.Show("" + itemid + "");
                          
@@ -935,13 +989,13 @@ namespace project
 
         private void Grid_AutoGeneratingColumn1(object sender, DataGridAutoGeneratingColumnEventArgs e)
         {
-            if (e.Column.Header.ToString() == "מספר פריט" || e.Column.Header.ToString() == "שם פריט" || e.Column.Header.ToString() == "תאור פריט")
+            if (e.Column.Header.ToString() == "מקט פריט" || e.Column.Header.ToString() == "שם פריט" || e.Column.Header.ToString() == "תאור פריט")
             {
                 // e.Cancel = true;   // For not to include 
                 e.Column.IsReadOnly = true; // Makes the column as read only
             }
 
-
+           
             if (e.Column.Header.ToString() == "בחר/י פריט/ים")
             {
                 // e.Cancel = true;   // For not to include 
@@ -972,6 +1026,7 @@ namespace project
                 e.Column = dg2chbcolumn;
             */
             }
+
           
             
 
