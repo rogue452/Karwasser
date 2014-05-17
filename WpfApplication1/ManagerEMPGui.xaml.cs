@@ -33,7 +33,7 @@ namespace project
             {
                 MySqlConnection MySqlConn = new MySqlConnection(Login.Connectionstring);
                 MySqlConn.Open();
-                string Query1 = ("select empid as `תעודת זהות`,emp_firstname as `שם פרטי` ,emp_lastname as `שם משפחה` ,emp_address as `כתובת` ,emp_phone as `מספר טלפון` from project.employees ");
+                string Query1 = ("SELECT empid as `תעודת זהות`,emp_firstname as `שם פרטי` ,emp_lastname as `שם משפחה` , emp_insidenum as `מספר עובד` ,emp_address as `כתובת` ,emp_phone as `מספר טלפון`, emp_cellphone as `טלפון נייד`, emp_start_date as `תאריך התחלת עבודה` FROM project.employees ");
                 MySqlCommand MSQLcrcommand1 = new MySqlCommand(Query1, MySqlConn);
                 MSQLcrcommand1.ExecuteNonQuery();
                 MySqlDataAdapter mysqlDAdp = new MySqlDataAdapter(MSQLcrcommand1);
@@ -112,7 +112,7 @@ namespace project
                 MySqlConnection MySqlConn = new MySqlConnection(Login.Connectionstring);
                 MySqlConn.Open();
                 String searchkey = this.FirstNameSearchTextBox.Text;
-                string Query1 = "select empid as `תעודת זהות`,emp_firstname as `שם פרטי` ,emp_lastname as `שם משפחה` ,emp_address as `כתובת` ,emp_phone as `מספר טלפון` from  employees where  emp_firstname Like '%" + searchkey + "%' ";
+                string Query1 = "SELECT empid as `תעודת זהות`,emp_firstname as `שם פרטי` ,emp_lastname as `שם משפחה` , emp_insidenum as `מספר עובד` ,emp_address as `כתובת` ,emp_phone as `מספר טלפון`, emp_cellphone as `טלפון נייד`, emp_start_date as `תאריך התחלת עבודה` FROM  employees WHERE  emp_firstname Like '%" + searchkey + "%' ";
                 MySqlCommand MSQLcrcommand1 = new MySqlCommand(Query1, MySqlConn);
                 MSQLcrcommand1.ExecuteNonQuery();
                 MySqlDataAdapter mysqlDAdp = new MySqlDataAdapter(MSQLcrcommand1);
@@ -141,7 +141,7 @@ namespace project
                 MySqlConnection MySqlConn = new MySqlConnection(Login.Connectionstring);
                 MySqlConn.Open();
                 String searchidkey = this.IDSearchTextBox.Text;
-                string Query1 = "select empid as `תעודת זהות`,emp_firstname as `שם פרטי` ,emp_lastname as `שם משפחה` ,emp_address as `כתובת` ,emp_phone as `מספר טלפון` from employees where  empid Like '%" + searchidkey + "%' ";
+                string Query1 = "SELECT empid as `תעודת זהות`,emp_firstname as `שם פרטי` ,emp_lastname as `שם משפחה` , emp_insidenum as `מספר עובד` ,emp_address as `כתובת` ,emp_phone as `מספר טלפון`, emp_cellphone as `טלפון נייד`, emp_start_date as `תאריך התחלת עבודה` FROM employees WHERE  empid Like '%" + searchidkey + "%' ";
                 MySqlCommand MSQLcrcommand1 = new MySqlCommand(Query1, MySqlConn);
                 MSQLcrcommand1.ExecuteNonQuery();
                 MySqlDataAdapter mysqlDAdp = new MySqlDataAdapter(MSQLcrcommand1);
@@ -204,7 +204,7 @@ namespace project
                         {
                             MySqlConnection MySqlConn = new MySqlConnection(Login.Connectionstring);
                             MySqlConn.Open();
-                            string Query1 = ("select empid as `תעודת זהות`,emp_firstname as `שם פרטי` ,emp_lastname as `שם משפחה` ,emp_address as `כתובת` ,emp_phone as `מספר טלפון` from project.employees ");
+                            string Query1 = ("SELECT empid as `תעודת זהות`,emp_firstname as `שם פרטי` ,emp_lastname as `שם משפחה` , emp_insidenum as `מספר עובד` ,emp_address as `כתובת` ,emp_phone as `מספר טלפון`, emp_cellphone as `טלפון נייד`, emp_start_date as `תאריך התחלת עבודה` FROM project.employees ");
                             MySqlCommand MSQLcrcommand1 = new MySqlCommand(Query1, MySqlConn);
                             MSQLcrcommand1.ExecuteNonQuery();
                             MySqlDataAdapter mysqlDAdp = new MySqlDataAdapter(MSQLcrcommand1);
@@ -246,28 +246,55 @@ namespace project
                             string lastname = row["שם משפחה"].ToString();
                             string address = row["כתובת"].ToString();
                             string phone = row["מספר טלפון"].ToString();
+                            string empnum = row["מספר עובד"].ToString();
+                            string cell = row["טלפון נייד"].ToString();
 
+                            if (row["תאריך התחלת עבודה"].ToString().Equals(""))
+                            {
+                                try
+                                {
+
+                                    MySqlConnection MySqlConn = new MySqlConnection(Login.Connectionstring);
+                                    MySqlConn.Open();
+                                    string Query1 = "UPDATE employees SET emp_firstname='" + firstname + "',emp_lastname='" + lastname + "',emp_address='" + address + "',emp_phone='" + phone + "',emp_cellphone='" + cell + "',emp_insidenum='" + empnum + "' WHERE empid='" + selected + "'";
+                                    MySqlCommand MSQLcrcommand1 = new MySqlCommand(Query1, MySqlConn);
+                                    MSQLcrcommand1.ExecuteNonQuery();
+                                    MySqlDataAdapter mysqlDAdp = new MySqlDataAdapter(MSQLcrcommand1);
+                                    MySqlConn.Close();
+                                    MessageBox.Show("!פרטי עובד עודכנו");
+                                }
+                                catch (Exception ex)
+                                {
+                                    MessageBox.Show(ex.Message);
+                                }
+                            }
+                            else
+                            {
+                                string start = Convert.ToDateTime(row["תאריך התחלת עבודה"].ToString()).ToString("yyyy-MM-dd");
+                                try
+                                {
+
+                                    MySqlConnection MySqlConn = new MySqlConnection(Login.Connectionstring);
+                                    MySqlConn.Open();
+                                    string Query1 = "UPDATE employees SET emp_firstname='" + firstname + "',emp_lastname='" + lastname + "',emp_address='" + address + "',emp_phone='" + phone + "',emp_cellphone='" + cell + "',emp_insidenum='" + empnum + "',emp_start_date='" + start + "' WHERE empid='" + selected + "'";
+                                    MySqlCommand MSQLcrcommand1 = new MySqlCommand(Query1, MySqlConn);
+                                    MSQLcrcommand1.ExecuteNonQuery();
+                                    MySqlDataAdapter mysqlDAdp = new MySqlDataAdapter(MSQLcrcommand1);
+                                    MySqlConn.Close();
+                                    MessageBox.Show("!פרטי עובד עודכנו");
+                                }
+                                catch (Exception ex)
+                                {
+                                    MessageBox.Show(ex.Message);
+                                }
+                            }
+
+                        //refresh
                             try
                             {
-
                                 MySqlConnection MySqlConn = new MySqlConnection(Login.Connectionstring);
                                 MySqlConn.Open();
-                                string Query1 = "update employees set empid='" + selected + "',emp_firstname='" + firstname + "',emp_lastname='" + lastname + "',emp_address='" + address + "',emp_phone='" + phone + "'where empid='" + selected + "'";
-                                MySqlCommand MSQLcrcommand1 = new MySqlCommand(Query1, MySqlConn);
-                                MSQLcrcommand1.ExecuteNonQuery();
-                                MySqlDataAdapter mysqlDAdp = new MySqlDataAdapter(MSQLcrcommand1);
-                                MySqlConn.Close();
-                                MessageBox.Show("!פרטי עובד עודכנו");
-                            }
-                            catch (Exception ex)
-                            {
-                                MessageBox.Show(ex.Message);
-                            }
-                            try
-                            {
-                                MySqlConnection MySqlConn = new MySqlConnection(Login.Connectionstring);
-                                MySqlConn.Open();
-                                string Query1 = ("select empid as `תעודת זהות`,emp_firstname as `שם פרטי` ,emp_lastname as `שם משפחה` ,emp_address as `כתובת` ,emp_phone as `מספר טלפון` from project.employees ");
+                                string Query1 = ("SELECT empid as `תעודת זהות`,emp_firstname as `שם פרטי` ,emp_lastname as `שם משפחה` , emp_insidenum as `מספר עובד` ,emp_address as `כתובת` ,emp_phone as `מספר טלפון`, emp_cellphone as `טלפון נייד`, emp_start_date as `תאריך התחלת עבודה` from project.employees ");
                                 MySqlCommand MSQLcrcommand1 = new MySqlCommand(Query1, MySqlConn);
                                 MSQLcrcommand1.ExecuteNonQuery();
                                 MySqlDataAdapter mysqlDAdp = new MySqlDataAdapter(MSQLcrcommand1);
@@ -345,7 +372,33 @@ namespace project
                 e.Column = col1;
             }
 
+            if (e.Column.Header.ToString() == "תאריך התחלת עבודה")
+            {
+                string colname = e.Column.Header.ToString();
+                DataGridTemplateColumn dgct = new DataGridTemplateColumn();
+                dgct.Header = colname;
+                dgct.SortMemberPath = colname;
 
+                Binding b = new Binding(colname);
+                b.StringFormat = "dd/MM/yyyy";
+
+                #region Editing
+                FrameworkElementFactory factory = new FrameworkElementFactory(typeof(DatePicker));
+                factory.SetValue(DatePicker.SelectedDateProperty, b);
+                DataTemplate cellEditingTemplate = new DataTemplate();
+                cellEditingTemplate.VisualTree = factory;
+                dgct.CellEditingTemplate = cellEditingTemplate;
+                #endregion
+
+                #region View
+                FrameworkElementFactory sfactory = new FrameworkElementFactory(typeof(TextBlock));
+                sfactory.SetValue(TextBlock.TextProperty, b);
+                DataTemplate cellTemplate = new DataTemplate();
+                cellTemplate.VisualTree = sfactory;
+                dgct.CellTemplate = cellTemplate;
+                #endregion
+                e.Column = dgct;
+            }
 
 
 
