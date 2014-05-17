@@ -120,7 +120,7 @@ namespace project
                     {
                         string ress = "false";
                         // this func will send an EMail in the form of (all must be Strings): (Email Address to send,EMail Title,Email Body)   /Shuki Porat  
-                        if (ress != SendEmail(this.Email_box.Text, "שיחזור סיסמא למערכת קרוסאר", mail_body)) 
+                        if (ress != SendEmail(this.Email_box.Text, "שיחזור סיסמא למערכת קרוסר", mail_body)) 
                         {
                             MessageBox.Show("!שם המשתמש והסיסמא נשלחו לכתובת האימייל", "!הפעולה הושלמה", MessageBoxButton.OK);
                             Login window = new Login();

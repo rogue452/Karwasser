@@ -21,5 +21,6 @@
         <Label Content="שם המחשב" Height="30" HorizontalAlignment="Right" Margin="0,565,593,0" Name="CPUName_label" VerticalAlignment="Top" Width="261" FontSize="20" FontWeight="Bold" />
         <Button Content="גיבוי MySQL" Height="38" HorizontalAlignment="Left" Margin="12,558,0,0" Name="MySQL_Backup_button" VerticalAlignment="Top" Width="126" Click="MySQL_Backup_button_Click" FontWeight="Bold" FontSize="15" />
         <Label Content="בעיה בשליחת אימייל עבור תאריכי סיום עבודה מתקרבים (אולי אין חיבור לאינטרנט ?)." Margin="232,80,252,494" Name="Email_label"  FontSize="16" FontWeight="Bold" Foreground="Red" />
+        <Label Content="נשלח אימייל תזכורת על סיום מתקרב של עבודות" Height="28" HorizontalAlignment="Left" Margin="382,80,0,0" Name="email_sent_label" VerticalAlignment="Top" FontSize="18" FontWeight="Bold" Foreground="DarkGreen" />
     </Grid>
 </Window>
