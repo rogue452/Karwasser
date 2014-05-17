@@ -37,7 +37,7 @@ namespace project
             stages_comboBox.Items.Add("חריטה");
             stages_comboBox.Items.Add("ביקורת ביניים - חריטה");
             stages_comboBox.Items.Add("כרסום");
-            stages_comboBox.Items.Add("ביקורת ביניים - חריטה");
+            stages_comboBox.Items.Add("ביקורת ביניים - כרסום");
             stages_comboBox.Items.Add("ריתוך");
             stages_comboBox.Items.Add("ביקורת ביניים - ריתוך");
             stages_comboBox.Items.Add("צביעה");

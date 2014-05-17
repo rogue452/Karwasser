@@ -26,11 +26,23 @@ namespace project
         string firstname;
         string lastname;
         string address;
-        string phone;
+        string phone="";
+        string cellphone="";
+        string emp_num;
+        string start="";
 
         public ManagerAddEmployeeGUI()
         {
             InitializeComponent();
+            phone_W_label.Visibility = Visibility.Hidden;
+            id_W_label.Visibility = Visibility.Hidden;
+            first_W_label.Visibility = Visibility.Hidden;
+            address_W_label.Visibility = Visibility.Hidden;
+            last_W_label.Visibility = Visibility.Hidden;
+            cell_W_label.Visibility = Visibility.Hidden;
+            empnum_W_label.Visibility = Visibility.Hidden;
+
+            Login.close = 1;
           
 
         }
@@ -47,23 +59,28 @@ namespace project
         // This func will check and add the new user to the DB if all is ok.
         private void Add_button_Click(object sender, RoutedEventArgs e)
         {
-            bool f1 = false, f2 = false, f3 = false, f4 = false, f5 = false;
-
+            bool f1 = false, f2 = false, f3 = false, f4 = false, f5 = false, f6 = false;
+            phone_W_label.Visibility = Visibility.Hidden;
+            id_W_label.Visibility = Visibility.Hidden;
+            first_W_label.Visibility = Visibility.Hidden;
+            address_W_label.Visibility = Visibility.Hidden;
+            last_W_label.Visibility = Visibility.Hidden;
+            cell_W_label.Visibility = Visibility.Hidden;
+            empnum_W_label.Visibility = Visibility.Hidden;
 
             // if (id_textBox.Text != null)
             if (id_textBox != null && !string.IsNullOrWhiteSpace(id_textBox.Text))
             {
                 empid = id_textBox.Text;
                 f1 = true;
-                //  MessageBox.Show("" + username + "");
             }
             else
             {
-                MessageBox.Show("אנא הכנס תעודת זהות");
+                id_W_label.Visibility = Visibility.Visible;
+                //MessageBox.Show("אנא הכנס תעודת זהות");
 
             }
 
-            //  if (firstname_textBox != null)
             if (firstname_textBox != null && !string.IsNullOrWhiteSpace(firstname_textBox.Text))
             {
                 firstname = firstname_textBox.Text;
@@ -71,32 +88,57 @@ namespace project
             }
             else
             {
-                MessageBox.Show("אנא הכנס שם פרטי ");
+                first_W_label.Visibility = Visibility.Visible;
+               // MessageBox.Show("אנא הכנס שם פרטי ");
             }
 
-            // if (lastname_textBox.Text != null)
+
             if (lastname_textBox != null && !string.IsNullOrWhiteSpace(lastname_textBox.Text))
             {
              
                     lastname = lastname_textBox.Text;
-                    //   MessageBox.Show("" + lastname + "");
                     f3 = true;
             }   
                 else
                 {
-                    MessageBox.Show("אנא הכנס שם משפחה ");
+                    last_W_label.Visibility = Visibility.Visible;
+                    //MessageBox.Show("אנא הכנס שם משפחה ");
                 }
 
 
 
-            if (address_textBox1 != null&& !string.IsNullOrWhiteSpace(address_textBox1.Text))
+            if (emp_num_textBox != null && !string.IsNullOrWhiteSpace(emp_num_textBox.Text))
             {
-                address = address_textBox1.Text;
+                try
+                {   //to see if the emp_insidenum already in the system.
+                    MySqlConnection MySqlConn = new MySqlConnection(Login.Connectionstring);
+                    MySqlConn.Open();
+                    string Query1 = ("SELECT COUNT(emp_insidenum) FROM employees WHERE emp_insidenum='" + emp_num_textBox.Text + "' "); 
+                    MySqlCommand MSQLcrcommand1 = new MySqlCommand(Query1, MySqlConn);
+                    MSQLcrcommand1.ExecuteNonQuery();
+                    int times = Convert.ToInt32(MSQLcrcommand1.ExecuteScalar());
+                    MySqlDataReader dr = MSQLcrcommand1.ExecuteReader();
+                    MySqlDataAdapter mysqlDAdp = new MySqlDataAdapter(MSQLcrcommand1);
+                    MySqlConn.Close();
+
+                    if (times != 0)
+                    {
+                        MessageBox.Show("כבר קיים מספר עובד - " + emp_num_textBox.Text);
+                        return;
+                    }
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message);
+                    return;
+                }
+                emp_num = emp_num_textBox.Text;
                 f4 = true;
             }
             else
             {
-                MessageBox.Show("אנא הכנס כתובת ");
+                empnum_W_label.Visibility = Visibility.Visible;
+               // MessageBox.Show("אנא הכנס מספר עובד");
             }
 
 
@@ -107,26 +149,57 @@ namespace project
                     int phoneCheck = Convert.ToInt32(phone_textBox1.Text);
                 }
                 catch 
-                { 
-                    MessageBox.Show("!מספר הטלפון חייב להכיל מספרים בלבד");
+                {
+                    phone_W_label.Visibility = Visibility.Visible;
+                   // MessageBox.Show("!מספר הטלפון חייב להכיל מספרים בלבד");
                     return;
                 }
                 phone = phone_textBox1.Text;
                 
+            }
+          
+            if (startdatePicker != null && !string.IsNullOrWhiteSpace(startdatePicker.Text))
+            {
+                try
+                {
+                    start = Convert.ToDateTime(startdatePicker.Text).ToString("yyyy-MM-dd");
+                    f6 = true;
+                }
+                catch { MessageBox.Show("תאריך התחלה אינו תקין"); return; }
+            }
+
+            if (cell_textBox != null && !string.IsNullOrWhiteSpace(cell_textBox.Text))
+            {
+                try
+                {
+                    int cellphoneCheck = Convert.ToInt32(cell_textBox.Text);
+                }
+                catch
+                {
+                    cell_W_label.Visibility = Visibility.Visible;
+                   // MessageBox.Show("!מספר הנייד חייב להכיל מספרים בלבד");
+                    return;
+                }
+                cellphone = cell_textBox.Text;
+            }
+
+            if (address_textBox1 != null && !string.IsNullOrWhiteSpace(address_textBox1.Text))
+            {
+                address = address_textBox1.Text;
                 f5 = true;
             }
             else
             {
-                MessageBox.Show("אנא הכנס מספר טלפון  ");
+                address_W_label.Visibility = Visibility.Visible;
+               // MessageBox.Show("אנא הכנס כתובת");
             }
-
-
+                
             // if all is ok then add new user to the DB.
-            if (f1 && f2 && f3 && f4 && f5)
+            if (f1 && f2 && f3 && f4 && f5 && f6)
             {
                 try
                 {
-                    string query = ("insert into project.employees (empid, emp_firstname, emp_lastname, emp_address , emp_phone) values ('" + empid + "','" + firstname + "','" + lastname + "','" + address + "','" + phone + "')");
+                    string query = ("insert into project.employees (empid, emp_firstname, emp_lastname, emp_address , emp_phone,emp_cellphone,emp_start_date,emp_insidenum) values ('" + empid + "','" + firstname + "','" + lastname + "','" + address + "','" + phone + "','" + cellphone + "','" + start + "','" + emp_num + "')");
                     DBConnection DBC = new DBConnection();
                     DBC.InsertDataIntoDB(Login.Connectionstring, query);
                     //MessageBox.Show("העובד התווסף למערכת");
@@ -141,6 +214,35 @@ namespace project
                     ManagerEMPGui.dt.Clear();
                     mysqlDAdp.Fill(ManagerEMPGui.dt);
                    // ManagerEMPGui.dataGrid1.ItemsSource = ManagerEMPGui.dt.DefaultView;
+                    mysqlDAdp.Update(ManagerEMPGui.dt);
+                    MySqlConn.Close();
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message);
+                }
+
+            }
+
+            if (f1 && f2 && f3 && f4 && f5 && !f6)
+            {
+                try
+                {
+                    string query = ("insert into project.employees (empid, emp_firstname, emp_lastname, emp_address , emp_phone,emp_cellphone,emp_insidenum) values ('" + empid + "','" + firstname + "','" + lastname + "','" + address + "','" + phone + "','" + cellphone + "','" + emp_num + "')");
+                    DBConnection DBC = new DBConnection();
+                    DBC.InsertDataIntoDB(Login.Connectionstring, query);
+                    //MessageBox.Show("העובד התווסף למערכת");
+
+                    MySqlConnection MySqlConn = new MySqlConnection(Login.Connectionstring);
+                    MySqlConn.Open();
+                    string Query1 = ("select empid as `תעודת זהות`,emp_firstname as `שם פרטי` ,emp_lastname as `שם משפחה` ,emp_address as `כתובת` ,emp_phone as `מספר טלפון` from project.employees ");
+                    MySqlCommand MSQLcrcommand1 = new MySqlCommand(Query1, MySqlConn);
+                    MSQLcrcommand1.ExecuteNonQuery();
+                    MySqlDataAdapter mysqlDAdp = new MySqlDataAdapter(MSQLcrcommand1);
+                    // DataTable dt = new DataTable("employess");
+                    ManagerEMPGui.dt.Clear();
+                    mysqlDAdp.Fill(ManagerEMPGui.dt);
+                    // ManagerEMPGui.dataGrid1.ItemsSource = ManagerEMPGui.dt.DefaultView;
                     mysqlDAdp.Update(ManagerEMPGui.dt);
                     MySqlConn.Close();
                 }
