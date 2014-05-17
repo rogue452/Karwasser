@@ -39,10 +39,10 @@ namespace project
 
         private void Back_button_Click(object sender, RoutedEventArgs e)
         {
-            ManagerCusGui MCG = new ManagerCusGui();
+           // ManagerCusGui MCG = new ManagerCusGui();
             Login.close = 1;
             this.Close();
-            MCG.Show();
+          //  MCG.Show();
         }
 
 
@@ -52,6 +52,15 @@ namespace project
             bool f1 = false, f2 = false, f3 = false, f4 = false, f5 = false, f6 = false, f7 = false;
             if (id_textBox != null && !string.IsNullOrWhiteSpace(id_textBox.Text))
             {
+                try
+                {
+                    int custideCheck = Convert.ToInt32(id_textBox.Text);
+                }
+                catch
+                {
+                    MessageBox.Show("!מספר הלקוח חייב להכיל מספרים בלבד");
+                    return;
+                }
                 cusid = id_textBox.Text;
                 f1 = true;
             }
@@ -115,6 +124,15 @@ namespace project
 
             if (cont_phone_text != null && !string.IsNullOrWhiteSpace(cont_phone_text.Text))
             {
+                try
+                {
+                    int phoneCheck = Convert.ToInt32(cont_phone_text.Text);
+                }
+                catch
+                {
+                    MessageBox.Show("!מספר הטלפון חייב להכיל מספרים בלבד");
+                    return;
+                }
                 contact_phone = cont_phone_text.Text;
                 f6 = true;
             }
@@ -162,6 +180,25 @@ namespace project
                     DBConnection DBC = new DBConnection();
                     DBC.InsertDataIntoDB(Login.Connectionstring, query);
 
+                    try
+                    {
+                        MySqlConnection MySqlConn1 = new MySqlConnection(Login.Connectionstring);
+                        MySqlConn1.Open();
+                        string Query1 = ("select costumerid as `מספר לקוח`,costumerName as `שם לקוח` ,costumerAddress as `כתובת לקוח`  from project.costumers group by costumerid");
+                        MySqlCommand MSQLcrcommand11 = new MySqlCommand(Query1, MySqlConn1);
+                        MSQLcrcommand11.ExecuteNonQuery();
+                        MySqlDataAdapter mysqlDAdp = new MySqlDataAdapter(MSQLcrcommand11);
+                        // DataTable dt = new DataTable("custumers");
+                        ManagerCusGui.dt.Clear();
+                        mysqlDAdp.Fill(ManagerCusGui.dt);
+                        //dataGrid1.ItemsSource = ManagerCusGui.dt.DefaultView;
+                        mysqlDAdp.Update(ManagerCusGui.dt);
+                        MySqlConn1.Close();
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show(ex.Message);
+                    }    
                 }
                 else
                 {

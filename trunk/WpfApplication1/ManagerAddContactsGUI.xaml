@@ -8,7 +8,7 @@
         <Label Content="מס הלקוח:" Height="28" HorizontalAlignment="Left" Margin="299,12,0,0" Name="cusid_label" VerticalAlignment="Top" />
         <Label Content="שם הלקוח:" HorizontalAlignment="Left" Margin="12,12,0,394" Name="cusname_label" />
         <Button Content="הוסף למערכת" Height="57" HorizontalAlignment="Left" Margin="174,309,0,0" Name="Add_button" VerticalAlignment="Top" Width="183" Click="Add_button_Click" />
-        <Button Content="חזור למסך לקוחות" Height="32" HorizontalAlignment="Left" Margin="12,387,0,0" Name="Back_button" VerticalAlignment="Top" Width="138" Click="Back_button_Click" />
+        <Button Content="חזור למסך אנשי קשר" Height="32" HorizontalAlignment="Left" Margin="12,387,0,0" Name="Back_button" VerticalAlignment="Top" Width="138" Click="Back_button_Click" />
         <TextBox Height="23" HorizontalAlignment="Left" Margin="131,52,0,0" Name="contact_name_textBox" VerticalAlignment="Top" Width="153" />
         <Label Content="אימייל איש הקשר " Height="28" HorizontalAlignment="Left" Margin="12,102,0,0" Name="label1" VerticalAlignment="Top" Width="111" />
         <TextBox Height="23" HorizontalAlignment="Left" Margin="131,102,0,0" Name="email_textBox1" VerticalAlignment="Top" Width="153" />

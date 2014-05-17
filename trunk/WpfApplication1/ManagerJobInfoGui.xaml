@@ -11,7 +11,7 @@
         <Label Content="ניהול פריטים:" HorizontalAlignment="Right" VerticalAlignment="Top" Width="112" Margin="0,5,719,0" FontStyle="Normal" FontWeight="Bold" />
         <Button Content="מחק קבוצת פריט מעבודה" HorizontalAlignment="Right" Margin="0,41,12,0" VerticalAlignment="Top" Width="169" Height="56" Name="DeleteBtn" FontWeight="Bold" Background="#A5FF0000" Click="DeleteBtn_Click" />
         <Button Content="יציאה מהמערכת" HorizontalAlignment="Right" Margin="0,577,12,0" VerticalAlignment="Top" Width="142" Height="28" />
-        <Button Content="חזור למסך ראשי" HorizontalAlignment="Right" Margin="0,577,1017,0" VerticalAlignment="Top" Width="134" Height="28" Click="Back_Btn_Click" Name="Back_Btn" />
+        <Button Content="חזור למסך עבודות" HorizontalAlignment="Right" Margin="0,577,1017,0" VerticalAlignment="Top" Width="134" Height="28" Click="Back_Btn_Click" Name="Back_Btn" />
         <Button Content="ייצא רשימה לקובץ אקסל" Height="28" HorizontalAlignment="Right" Margin="0,578,522,0" Name="TXTBtn" VerticalAlignment="Top" Width="161" Click="TXTBtn_Click" />
         <Image Height="36" HorizontalAlignment="Right" Margin="0,3,446,569" Name="image1" Stretch="Fill"  Width="42" FlowDirection="RightToLeft" Source="/WpfApplication1;component/Images/add_item_list_icon_med_hr.png" />
         <Image Height="36" HorizontalAlignment="Right" Margin="0,0,77,0" Name="image2" Stretch="Fill" VerticalAlignment="Top" Width="42" Source="/WpfApplication1;component/Images/remove.png" />

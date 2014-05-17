@@ -102,7 +102,17 @@ namespace project
 
             if (phone_textBox1 != null && !string.IsNullOrWhiteSpace(phone_textBox1.Text))
             {
+                try
+                {
+                    int phoneCheck = Convert.ToInt32(phone_textBox1.Text);
+                }
+                catch 
+                { 
+                    MessageBox.Show("!מספר הטלפון חייב להכיל מספרים בלבד");
+                    return;
+                }
                 phone = phone_textBox1.Text;
+                
                 f5 = true;
             }
             else
