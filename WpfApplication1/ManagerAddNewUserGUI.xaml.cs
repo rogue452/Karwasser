@@ -38,7 +38,7 @@ namespace project
             {
                 MySqlConnection MySqlConn = new MySqlConnection(Login.Connectionstring);
                 MySqlConn.Open();
-                string Query1 = ("SELECT empid as `תעודת זהות`,emp_firstname as `שם פרטי` ,emp_lastname as `שם משפחה` ,emp_address as `כתובת` ,emp_phone as `מספר טלפון` FROM project.employees WHERE employees.empid not in (SELECT users.empid FROM project.users) ");
+                string Query1 = ("SELECT empid as `תעודת זהות`,emp_firstname as `שם פרטי` ,emp_lastname as `שם משפחה` , emp_insidenum as `מספר עובד` ,emp_address as `כתובת` ,emp_phone as `מספר טלפון`, emp_cellphone as `טלפון נייד`, emp_start_date as `תאריך התחלת עבודה` FROM project.employees WHERE employees.empid not in (SELECT users.empid FROM project.users)");
                 MySqlCommand MSQLcrcommand1 = new MySqlCommand(Query1, MySqlConn);
                 MSQLcrcommand1.ExecuteNonQuery();
                 MySqlDataAdapter mysqlDAdp = new MySqlDataAdapter(MSQLcrcommand1);
@@ -94,7 +94,7 @@ namespace project
                 MySqlConnection MySqlConn = new MySqlConnection(Login.Connectionstring);
                 MySqlConn.Open();
                 String searchkey = this.FirstNameSearchTextBox.Text;
-                string Query1 = "select empid as `תעודת זהות`,emp_firstname as `שם פרטי` ,emp_lastname as `שם משפחה` ,emp_address as `כתובת` ,emp_phone as `מספר טלפון` from  employees WHERE employees.empid not in (SELECT users.empid FROM project.users)  AND emp_firstname Like '%" + searchkey + "%' ";
+                string Query1 = "SELECT empid as `תעודת זהות`,emp_firstname as `שם פרטי` ,emp_lastname as `שם משפחה` , emp_insidenum as `מספר עובד` ,emp_address as `כתובת` ,emp_phone as `מספר טלפון`, emp_cellphone as `טלפון נייד`, emp_start_date as `תאריך התחלת עבודה` FROM  employees WHERE  emp_firstname Like '%" + searchkey + "%' AND employees.empid not in (SELECT users.empid FROM project.users) ";
                 MySqlCommand MSQLcrcommand1 = new MySqlCommand(Query1, MySqlConn);
                 MSQLcrcommand1.ExecuteNonQuery();
                 MySqlDataAdapter mysqlDAdp = new MySqlDataAdapter(MSQLcrcommand1);
@@ -123,10 +123,11 @@ namespace project
                 MySqlConnection MySqlConn = new MySqlConnection(Login.Connectionstring);
                 MySqlConn.Open();
                 String searchidkey = this.IDSearchTextBox.Text;
-                string Query1 = "SELECT empid as `תעודת זהות`,emp_firstname as `שם פרטי` ,emp_lastname as `שם משפחה` ,emp_address as `כתובת` ,emp_phone as `מספר טלפון` from employees WHERE employees.empid not in (SELECT users.empid FROM project.users) AND empid Like '%" + searchidkey + "%' ";
+                string Query1 = "SELECT empid as `תעודת זהות`,emp_firstname as `שם פרטי` ,emp_lastname as `שם משפחה` , emp_insidenum as `מספר עובד` ,emp_address as `כתובת` ,emp_phone as `מספר טלפון`, emp_cellphone as `טלפון נייד`, emp_start_date as `תאריך התחלת עבודה` FROM employees WHERE  empid Like '%" + searchidkey + "%' AND employees.empid not in (SELECT users.empid FROM project.users)";
                 MySqlCommand MSQLcrcommand1 = new MySqlCommand(Query1, MySqlConn);
                 MSQLcrcommand1.ExecuteNonQuery();
                 MySqlDataAdapter mysqlDAdp = new MySqlDataAdapter(MSQLcrcommand1);
+                //DataTable dt = new DataTable("employees");
                 dt.Clear();
                 mysqlDAdp.Fill(dt);
                 dataGrid1.ItemsSource = dt.DefaultView;
@@ -146,8 +147,13 @@ namespace project
         {
             try
             {
+                Console.WriteLine("נכנס לטראי");
+                DataRowView row1 = (DataRowView)dataGrid1.SelectedItems[0];
+            }
+            catch { MessageBox.Show("אנא בחר עובד"); return; }
                 DataRowView row = (DataRowView)dataGrid1.SelectedItems[0];
                 string empid = row["תעודת זהות"].ToString();
+                Console.WriteLine(empid);
                 bool f1 = false, f2 = false, f3 = false;
 
                 //  if (Password_textBox != null)
@@ -205,7 +211,7 @@ namespace project
                     {
                         MySqlConnection MySqlConn = new MySqlConnection(Login.Connectionstring);
                         MySqlConn.Open();
-                        string Query1 = ("SELECT empid as `תעודת זהות`,emp_firstname as `שם פרטי` ,emp_lastname as `שם משפחה` ,emp_address as `כתובת` ,emp_phone as `מספר טלפון` FROM project.employees WHERE employees.empid not in (SELECT users.empid FROM project.users) ");
+                        string Query1 = ("SELECT empid as `תעודת זהות`,emp_firstname as `שם פרטי` ,emp_lastname as `שם משפחה` , emp_insidenum as `מספר עובד` ,emp_address as `כתובת` ,emp_phone as `מספר טלפון`, emp_cellphone as `טלפון נייד`, emp_start_date as `תאריך התחלת עבודה` FROM project.employees WHERE employees.empid not in (SELECT users.empid FROM project.users)");
                         MySqlCommand MSQLcrcommand1 = new MySqlCommand(Query1, MySqlConn);
                         MSQLcrcommand1.ExecuteNonQuery();
                         MySqlDataAdapter mysqlDAdp = new MySqlDataAdapter(MSQLcrcommand1);
@@ -221,8 +227,7 @@ namespace project
                         MessageBox.Show(ex.Message);
                     }
                 }
-            }
-            catch { MessageBox.Show("אנא בחר עובד"); }
+            
         }
 
 
@@ -230,11 +235,34 @@ namespace project
 
         private void Grid_AutoGeneratingColumn(object sender, DataGridAutoGeneratingColumnEventArgs e)
         {
-            if (e.Column.Header.ToString() == "תעודת זהות" || e.Column.Header.ToString() == "שם פרטי" || e.Column.Header.ToString() == "שם משפחה" || e.Column.Header.ToString() == "כתובת"||e.Column.Header.ToString() == "מספר טלפון")
+           if (e.Column.Header.ToString() == "תאריך התחלת עבודה")
             {
-               
-                e.Column.IsReadOnly = true; // Makes the column as read only
+                string colname = e.Column.Header.ToString();
+                DataGridTemplateColumn dgct = new DataGridTemplateColumn();
+                dgct.Header = colname;
+                dgct.SortMemberPath = colname;
+
+                Binding b = new Binding(colname);
+                b.StringFormat = "dd/MM/yyyy";
+
+                #region Editing
+                FrameworkElementFactory factory = new FrameworkElementFactory(typeof(DatePicker));
+                factory.SetValue(DatePicker.SelectedDateProperty, b);
+                DataTemplate cellEditingTemplate = new DataTemplate();
+                cellEditingTemplate.VisualTree = factory;
+                dgct.CellEditingTemplate = cellEditingTemplate;
+                #endregion
+
+                #region View
+                FrameworkElementFactory sfactory = new FrameworkElementFactory(typeof(TextBlock));
+                sfactory.SetValue(TextBlock.TextProperty, b);
+                DataTemplate cellTemplate = new DataTemplate();
+                cellTemplate.VisualTree = sfactory;
+                dgct.CellTemplate = cellTemplate;
+                #endregion
+                e.Column = dgct;
             }
+                e.Column.IsReadOnly = true; // Makes the column as read only
         }
 
 
