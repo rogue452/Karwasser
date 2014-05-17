@@ -4,17 +4,30 @@
        Title="הוסף עובד חדש למערכת" Height="470" Width="563" FlowDirection="RightToLeft" ResizeMode="CanMinimize" Icon="/WpfApplication1;component/Images/Israel.ico" WindowStartupLocation="CenterScreen" Closing="exit_clicked">
     <Grid>
         <Image Source="/WpfApplication1;component/Images/31.jpg"  Stretch="UniformToFill" FlowDirection="RightToLeft" />
-        <Label Content="כתובת" Height="28" HorizontalAlignment="Left" Margin="12,182,0,0" Name="empnum_label" VerticalAlignment="Top" />
-        <Label Content="תעודת זהות" Height="28" HorizontalAlignment="Left" Margin="9,43,0,0" Name="empnum1_label" VerticalAlignment="Top" />
-        <Label Content="שם פרטי" HorizontalAlignment="Left" Margin="9,87,0,319" Name="firstname_label" />
-        <Label Content="שם משפחה" Height="28" HorizontalAlignment="Left" Margin="11,133,0,0" Name="lastname_label" VerticalAlignment="Top" />
-        <Button Content="הוסף למערכת" Height="61" HorizontalAlignment="Left" Margin="173,295,0,0" Name="Add_button" VerticalAlignment="Top" Width="183" Click="Add_button_Click" />
+        <Label Content="כתובת" Height="28" HorizontalAlignment="Left" Margin="12,148,0,0" Name="empaddress_label" VerticalAlignment="Top" />
+        <Label Content="תעודת זהות" Height="28" HorizontalAlignment="Left" Margin="9,20,0,0" Name="empid_label" VerticalAlignment="Top" />
+        <Label Content="שם פרטי" HorizontalAlignment="Left" Margin="9,62,0,344" Name="firstname_label" />
+        <Label Content="שם משפחה" Height="28" HorizontalAlignment="Left" Margin="8,105,0,0" Name="lastname_label" VerticalAlignment="Top" />
+        <Button Content="הוסף למערכת" Height="61" HorizontalAlignment="Left" Margin="310,358,0,0" Name="Add_button" VerticalAlignment="Top" Width="183" Click="Add_button_Click" />
         <Button Content="חזור למסך עובדים" Height="23" HorizontalAlignment="Left" Margin="12,396,0,0" Name="Back_button" VerticalAlignment="Top" Width="138" Click="Back_button_Click" />
-        <TextBox Height="23" HorizontalAlignment="Left" Margin="91,43,0,0" Name="id_textBox" VerticalAlignment="Top" Width="153" />
-        <TextBox Height="23" HorizontalAlignment="Left" Margin="91,87,0,0" Name="firstname_textBox" VerticalAlignment="Top" Width="153" />
-        <TextBox Height="23" HorizontalAlignment="Left" Margin="91,135,0,0" Name="lastname_textBox" VerticalAlignment="Top" Width="153" />
-        <TextBox Height="23" HorizontalAlignment="Left" Margin="91,187,0,0" Name="address_textBox1" VerticalAlignment="Top" Width="153" />
-        <Label Content="טלפון" Height="28" HorizontalAlignment="Left" Margin="12,240,0,0" Name="label1" VerticalAlignment="Top" Width="70" />
-        <TextBox Height="23" HorizontalAlignment="Left" Margin="91,242,0,0" Name="phone_textBox1" VerticalAlignment="Top" Width="153" />
+        <TextBox Height="23" HorizontalAlignment="Left" Margin="139,22,0,0" Name="id_textBox" VerticalAlignment="Top" Width="153" />
+        <TextBox Height="23" HorizontalAlignment="Left" Margin="139,64,0,0" Name="firstname_textBox" VerticalAlignment="Top" Width="153" />
+        <TextBox Height="23" HorizontalAlignment="Left" Margin="139,107,0,0" Name="lastname_textBox" VerticalAlignment="Top" Width="153" />
+        <TextBox Height="23" HorizontalAlignment="Left" Margin="139,153,0,0" Name="address_textBox1" VerticalAlignment="Top" Width="153" />
+        <Label Content="טלפון" Height="28" HorizontalAlignment="Left" Margin="12,192,0,0" Name="phone_label" VerticalAlignment="Top" Width="70" />
+        <TextBox Height="23" HorizontalAlignment="Left" Margin="139,194,0,0" Name="phone_textBox1" VerticalAlignment="Top" Width="153" />
+        <Label Content="טלפון נייד" Height="28" HorizontalAlignment="Left" Margin="12,234,0,0" Name="cell_label" VerticalAlignment="Top" />
+        <TextBox Height="23" HorizontalAlignment="Left" Margin="139,236,0,0" Name="cell_textBox" VerticalAlignment="Top" Width="153" />
+        <Label Content="תאריך תחילת עבודה" Height="28" HorizontalAlignment="Left" Margin="8,313,0,0" Name="date_label" VerticalAlignment="Top" />
+        <DatePicker Height="25" HorizontalAlignment="Left" Margin="139,313,0,0" Name="startdatePicker" VerticalAlignment="Top" Width="153" />
+        <Label Content="מספר עובד" Height="28" HorizontalAlignment="Left" Margin="11,275,0,0" Name="emp_num_label" VerticalAlignment="Top" />
+        <TextBox Height="23" HorizontalAlignment="Left" Margin="139,275,0,0" Name="emp_num_textBox" VerticalAlignment="Top" Width="153" />
+        <Label Content="אנא הכנס תעודת זהות" Height="28" HorizontalAlignment="Left" Margin="310,20,0,0" Name="id_W_label" VerticalAlignment="Top" Foreground="Red" FontWeight="Bold" />
+        <Label Content="אנא הכנס שם פרטי" FontWeight="Bold" Foreground="Red" Height="28" HorizontalAlignment="Left" Margin="310,62,0,0" Name="first_W_label" VerticalAlignment="Top" />
+        <Label Content="אנא הכנס שם משפחה" FontWeight="Bold" Foreground="Red" Height="28" HorizontalAlignment="Left" Margin="310,105,0,0" Name="last_W_label" VerticalAlignment="Top" />
+        <Label Content="אנא הכנס מספר עובד" FontWeight="Bold" Foreground="Red" Height="28" HorizontalAlignment="Left" Margin="310,273,0,0" Name="empnum_W_label" VerticalAlignment="Top" />
+        <Label Content="אנא הכנס כתובת" FontWeight="Bold" Foreground="Red" Height="28" HorizontalAlignment="Left" Margin="310,151,0,0" Name="address_W_label" VerticalAlignment="Top" />
+        <Label Content="טלפון חייב להכיל מספרים בלבד" FontWeight="Bold" Foreground="Red" Height="28" HorizontalAlignment="Left" Margin="310,192,0,0" Name="phone_W_label" VerticalAlignment="Top" />
+        <Label Content="נייד חייב להכיל מספרים בלבד" FontWeight="Bold" Foreground="Red" Height="28" HorizontalAlignment="Left" Margin="310,236,0,0" Name="cell_W_label" VerticalAlignment="Top" />
     </Grid>
 </Window>
