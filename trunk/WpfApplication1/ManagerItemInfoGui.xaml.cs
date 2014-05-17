@@ -324,9 +324,11 @@ namespace project
                 string columnName = e.Column.Header.ToString();
                 Dictionary<string, string> comboKey = new Dictionary<string, string>()
                     {
+                        {"רישום","רישום"},
                         {"בעבודה","בעבודה"},
                         {"תיקון","תיקון"},
                         {"פסול","פסול"},
+                        {"גמר ייצור","גמר ייצור"},
                         {"הסתיים","הסתיים"},
                     };
                 DataGridTemplateColumn col1 = new DataGridTemplateColumn();

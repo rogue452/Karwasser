@@ -34,7 +34,7 @@ namespace project
             {
                 MySqlConnection MySqlConn = new MySqlConnection(Login.Connectionstring);
                 MySqlConn.Open();
-                string Query1 = ("SELECT jobs.itemid as `מספר פריט`,item.itemName as `שם פריט`, expectedItemQuantity as `כמות נדרשת מהפריט`, COUNT(jobs.itemid) as `כמות בפועל מהפריט` ,itemsDescription as `תיאור לגבי הפריטים`  FROM jobs,item  WHERE jobs.jobid='" + jobID + "' AND jobs.itemid=item.itemid AND jobs.itemStageOrder=item.itemStageOrder AND jobs.itemStatus=item.itemStatus group by jobs.itemid ");
+                string Query1 = ("SELECT jobs.itemid as `מקט פריט`,item.itemName as `שם פריט`,group_costomer_itemid as `מקט לקוח`, expectedItemQuantity as `כמות נדרשת מהפריט`, COUNT(jobs.itemid) as `כמות בפועל מהפריט` ,itemsDescription as `תיאור לגבי קבוצת הפריטים`, group_Status as `סטטוס קבוצת הפריט` , group_StageOrder as `מספר השלב הנוכחי של קבוצת הפריט` ,stageName as `שם השלב הנוכחי של קבוצת הפריט`, stage_discription as `תאור השלב הנוכחי של קבוצת הפריט` FROM jobs,item  WHERE jobs.jobid='" + jobID + "' AND jobs.itemid=item.itemid AND jobs.itemStageOrder=item.itemStageOrder AND jobs.itemStatus=item.itemStatus group by jobs.itemid ");
                 MySqlCommand MSQLcrcommand1 = new MySqlCommand(Query1, MySqlConn);
                 MSQLcrcommand1.ExecuteNonQuery();
                 MySqlDataAdapter mysqlDAdp = new MySqlDataAdapter(MSQLcrcommand1);
@@ -106,7 +106,7 @@ namespace project
                 MySqlConnection MySqlConn = new MySqlConnection(Login.Connectionstring);
                 MySqlConn.Open();
                 String searchkey = this.ItemIDSearch_TextBox.Text;
-                string Query1 = ("SELECT jobs.itemid as `מספר פריט`,item.itemName as `שם פריט`, expectedItemQuantity as `כמות נדרשת מהפריט`, COUNT(jobs.itemid) as `כמות בפועל מהפריט` ,itemsDescription as `תיאור לגבי הפריטים`  FROM jobs,item  WHERE jobs.jobid='" + jobID + "' AND jobs.itemid=item.itemid AND jobs.itemStageOrder=item.itemStageOrder AND jobs.itemStatus=item.itemStatus AND jobs.itemid Like '%" + searchkey + "%'  group by jobs.itemid ");
+                string Query1 = ("SELECT jobs.itemid as `מקט פריט`,item.itemName as `שם פריט`,group_costomer_itemid as `מקט לקוח`, expectedItemQuantity as `כמות נדרשת מהפריט`, COUNT(jobs.itemid) as `כמות בפועל מהפריט` ,itemsDescription as `תיאור לגבי קבוצת הפריטים`, group_Status as `סטטוס קבוצת הפריט` , group_StageOrder as `מספר השלב הנוכחי של קבוצת הפריט` ,stageName as `שם השלב הנוכחי של קבוצת הפריט`, stage_discription as `תאור השלב הנוכחי של קבוצת הפריט`  FROM jobs,item  WHERE jobs.jobid='" + jobID + "' AND jobs.itemid=item.itemid AND jobs.itemStageOrder=item.itemStageOrder AND jobs.itemStatus=item.itemStatus AND jobs.itemid Like '%" + searchkey + "%'  group by jobs.itemid ");
                 MySqlCommand MSQLcrcommand1 = new MySqlCommand(Query1, MySqlConn);
                 MSQLcrcommand1.ExecuteNonQuery();
                 MySqlDataAdapter mysqlDAdp = new MySqlDataAdapter(MSQLcrcommand1);
@@ -138,7 +138,7 @@ namespace project
                 }
                 else // if the user clicked on "Yes" so he wants to Delete.
                 {
-                    string selected = row["מספר פריט"].ToString();
+                    string selected = row["מקט פריט"].ToString();
 
                     try
                     {
@@ -149,7 +149,7 @@ namespace project
                         MSQLcrcommand1.ExecuteNonQuery();
                         MySqlDataAdapter mysqlDAdp = new MySqlDataAdapter(MSQLcrcommand1);
                         MySqlConn.Close();
-                        MessageBox.Show("!פריטים נמחקו מהמערכת");
+                        MessageBox.Show("!קבוצת הפריט נמחקה מהמערכת");
                     }
                     catch (Exception ex)
                     {
@@ -159,7 +159,7 @@ namespace project
                     {
                         MySqlConnection MySqlConn = new MySqlConnection(Login.Connectionstring);
                         MySqlConn.Open();
-                        string Query1 = ("SELECT jobs.itemid as `מספר פריט`,item.itemName as `שם פריט`, expectedItemQuantity as `כמות נדרשת מהפריט`, COUNT(jobs.itemid) as `כמות בפועל מהפריט` ,itemsDescription as `תיאור לגבי הפריטים`  FROM jobs,item  WHERE jobs.jobid='" + jobID + "' AND jobs.itemid=item.itemid AND jobs.itemStageOrder=item.itemStageOrder AND jobs.itemStatus=item.itemStatus group by jobs.itemid ");
+                        string Query1 = ("SELECT jobs.itemid as `מקט פריט`,item.itemName as `שם פריט`,group_costomer_itemid as `מקט לקוח`, expectedItemQuantity as `כמות נדרשת מהפריט`, COUNT(jobs.itemid) as `כמות בפועל מהפריט` ,itemsDescription as `תיאור לגבי קבוצת הפריטים`, group_Status as `סטטוס קבוצת הפריט` , group_StageOrder as `מספר השלב הנוכחי של קבוצת הפריט` ,stageName as `שם השלב הנוכחי של קבוצת הפריט`, stage_discription as `תאור השלב הנוכחי של קבוצת הפריט`  FROM jobs,item  WHERE jobs.jobid='" + jobID + "' AND jobs.itemid=item.itemid AND jobs.itemStageOrder=item.itemStageOrder AND jobs.itemStatus=item.itemStatus group by jobs.itemid ");
                         MySqlCommand MSQLcrcommand1 = new MySqlCommand(Query1, MySqlConn);
                         MSQLcrcommand1.ExecuteNonQuery();
                         MySqlDataAdapter mysqlDAdp = new MySqlDataAdapter(MSQLcrcommand1);
@@ -177,7 +177,7 @@ namespace project
                 }//end else
 
             }//end try
-            catch { MessageBox.Show("לא נבחר לקוח למחיקה"); }
+            catch { MessageBox.Show("לא נבחרה קבוצת פריט למחיקה"); }
 
         }//end function
 
@@ -206,8 +206,8 @@ namespace project
 
                 else // if the user clicked on "Yes" so he wants to Update.
                 {
-                    string selected_Item = row["מספר פריט"].ToString();
-                    string itemdesc = row["תיאור לגבי הפריטים"].ToString();
+                    string selected_Item = row["מקט פריט"].ToString();
+                    string itemdesc = row["תיאור לגבי קבוצת הפריטים"].ToString();
                     string exqun = row["כמות נדרשת מהפריט"].ToString();
                     try
                     {
@@ -238,7 +238,7 @@ namespace project
                     {
                         MySqlConnection MySqlConn = new MySqlConnection(Login.Connectionstring);
                         MySqlConn.Open();
-                        string Query1 = ("SELECT jobs.itemid as `מספר פריט`,item.itemName as `שם פריט`, expectedItemQuantity as `כמות נדרשת מהפריט`, COUNT(jobs.itemid) as `כמות בפועל מהפריט` ,itemsDescription as `תיאור לגבי הפריטים`  FROM jobs,item  WHERE jobs.jobid='" + jobID + "' AND jobs.itemid=item.itemid AND jobs.itemStageOrder=item.itemStageOrder AND jobs.itemStatus=item.itemStatus group by jobs.itemid ");
+                        string Query1 = ("SELECT jobs.itemid as `מקט פריט`,item.itemName as `שם פריט`,group_costomer_itemid as `מקט לקוח`, expectedItemQuantity as `כמות נדרשת מהפריט`, COUNT(jobs.itemid) as `כמות בפועל מהפריט` ,itemsDescription as `תיאור לגבי קבוצת הפריטים`, group_Status as `סטטוס קבוצת הפריט` , group_StageOrder as `מספר השלב הנוכחי של קבוצת הפריט` ,stageName as `שם השלב הנוכחי של קבוצת הפריט`, stage_discription as `תאור השלב הנוכחי של קבוצת הפריט`  FROM jobs,item  WHERE jobs.jobid='" + jobID + "' AND jobs.itemid=item.itemid AND jobs.itemStageOrder=item.itemStageOrder AND jobs.itemStatus=item.itemStatus group by jobs.itemid ");
                         MySqlCommand MSQLcrcommand1 = new MySqlCommand(Query1, MySqlConn);
                         MSQLcrcommand1.ExecuteNonQuery();
                         MySqlDataAdapter mysqlDAdp = new MySqlDataAdapter(MSQLcrcommand1);
@@ -266,12 +266,56 @@ namespace project
 
         private void Grid_AutoGeneratingColumn(object sender, DataGridAutoGeneratingColumnEventArgs e)
         {
-            if (e.Column.Header.ToString() == "מספר פריט" || e.Column.Header.ToString() == "שם פריט" || e.Column.Header.ToString() == "כמות בפועל מהפריט")
+            if (e.Column.Header.ToString() == "מקט פריט" || e.Column.Header.ToString() == "שם פריט" || e.Column.Header.ToString() == "כמות בפועל מהפריט" || e.Column.Header.ToString() == "מספר השלב הנוכחי של קבוצת הפריט" || e.Column.Header.ToString() == "שם השלב הנוכחי של קבוצת הפריט" || e.Column.Header.ToString() == "תאור השלב הנוכחי של קבוצת הפריט")
             {
                 // e.Cancel = true;   // For not to include 
                 e.Column.IsReadOnly = true; // Makes the column as read only
             }
 
+            if (e.Column.Header.ToString() == "סטטוס קבוצת הפריט")
+            {
+                string columnName = e.Column.Header.ToString();
+                Dictionary<string, string> comboKey = new Dictionary<string, string>()
+                    {
+                        {"רישום","רישום"},
+                        {"בעבודה","בעבודה"},
+                        {"תיקון","תיקון"},
+                        {"פסול","פסול"},
+                        {"גמר ייצור","גמר ייצור"},
+                        {"הסתיים","הסתיים"},
+                    };
+                DataGridTemplateColumn col1 = new DataGridTemplateColumn();
+                col1.Header = columnName;
+
+                #region Editing
+                FrameworkElementFactory factory1 = new FrameworkElementFactory(typeof(ComboBox));
+                Binding b1 = new Binding(columnName);
+                b1.IsAsync = true;
+                b1.Mode = BindingMode.TwoWay;
+                factory1.SetValue(ComboBox.ItemsSourceProperty, comboKey);
+                factory1.SetValue(ComboBox.SelectedValuePathProperty, "Key");
+                factory1.SetValue(ComboBox.DisplayMemberPathProperty, "Value");
+                factory1.SetValue(ComboBox.SelectedValueProperty, b1);
+                factory1.SetValue(ComboBox.SelectedItemProperty, col1);
+
+                DataTemplate cellTemplate1 = new DataTemplate();
+                cellTemplate1.VisualTree = factory1;
+                col1.CellTemplate = cellTemplate1;
+                col1.CellEditingTemplate = cellTemplate1;
+                col1.IsReadOnly = false;
+                col1.InvalidateProperty(ComboBox.SelectedValueProperty);
+                #endregion
+
+                #region View
+                FrameworkElementFactory sfactory = new FrameworkElementFactory(typeof(TextBlock));
+                sfactory.SetValue(TextBlock.TextProperty, b1);
+                DataTemplate cellTemplate = new DataTemplate();
+                cellTemplate.VisualTree = sfactory;
+                col1.CellTemplate = cellTemplate;
+                #endregion
+
+                e.Column = col1;
+            }
            
 
         }
@@ -286,7 +330,7 @@ namespace project
              try
             {
                 DataRowView row = (DataRowView)dataGrid1.SelectedItems[0];
-                string selected = row["מספר פריט"].ToString();
+                string selected = row["מקט פריט"].ToString();
                 ManagerItemInfoGui MIIG = new ManagerItemInfoGui(selected, jobID);
                 MIIG.Show();
                 Login.close = 1;
