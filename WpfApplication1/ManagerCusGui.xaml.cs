@@ -26,6 +26,7 @@ namespace project
     /// </summary>
     public partial class ManagerCusGui : Window
     {
+        public static DataTable dt = new DataTable("custumers");
         public ManagerCusGui()
         {
             InitializeComponent();
@@ -40,7 +41,8 @@ namespace project
                 MySqlCommand MSQLcrcommand1 = new MySqlCommand(Query1, MySqlConn);
                 MSQLcrcommand1.ExecuteNonQuery();
                 MySqlDataAdapter mysqlDAdp = new MySqlDataAdapter(MSQLcrcommand1);
-                DataTable dt = new DataTable("custumers");
+               // DataTable dt = new DataTable("custumers");
+                dt.Clear();
                 mysqlDAdp.Fill(dt);
                 dataGrid1.ItemsSource = dt.DefaultView;
                 mysqlDAdp.Update(dt);
@@ -75,7 +77,8 @@ namespace project
                 MySqlCommand MSQLcrcommand1 = new MySqlCommand(Query1, MySqlConn);
                 MSQLcrcommand1.ExecuteNonQuery();
                 MySqlDataAdapter mysqlDAdp = new MySqlDataAdapter(MSQLcrcommand1);
-                DataTable dt = new DataTable("custumers");
+               // DataTable dt = new DataTable("custumers");
+                dt.Clear();
                 mysqlDAdp.Fill(dt);
                 mysqlDAdp.Update(dt);
                 MySqlConn.Close();
@@ -116,7 +119,8 @@ namespace project
                 MySqlCommand MSQLcrcommand1 = new MySqlCommand(Query1, MySqlConn);
                 MSQLcrcommand1.ExecuteNonQuery();
                 MySqlDataAdapter mysqlDAdp = new MySqlDataAdapter(MSQLcrcommand1);
-                DataTable dt = new DataTable("custumers");
+               // DataTable dt = new DataTable("custumers");
+                dt.Clear();
                 mysqlDAdp.Fill(dt);
                 dataGrid1.ItemsSource = dt.DefaultView;
                 mysqlDAdp.Update(dt);
@@ -139,7 +143,8 @@ namespace project
                 MySqlCommand MSQLcrcommand1 = new MySqlCommand(Query1, MySqlConn);
                 MSQLcrcommand1.ExecuteNonQuery();
                 MySqlDataAdapter mysqlDAdp = new MySqlDataAdapter(MSQLcrcommand1);
-                DataTable dt = new DataTable("Custumers");
+              //  DataTable dt = new DataTable("Custumers");
+                dt.Clear();
                 mysqlDAdp.Fill(dt);
                 dataGrid1.ItemsSource = dt.DefaultView;
                 mysqlDAdp.Update(dt);
@@ -200,7 +205,8 @@ namespace project
                         MySqlCommand MSQLcrcommand1 = new MySqlCommand(Query1, MySqlConn);
                         MSQLcrcommand1.ExecuteNonQuery();
                         MySqlDataAdapter mysqlDAdp = new MySqlDataAdapter(MSQLcrcommand1);
-                        DataTable dt = new DataTable("custumers");
+                      //  DataTable dt = new DataTable("custumers");
+                        dt.Clear();
                         mysqlDAdp.Fill(dt);
                         dataGrid1.ItemsSource = dt.DefaultView;
                         mysqlDAdp.Update(dt);
@@ -273,7 +279,8 @@ namespace project
                             MySqlCommand MSQLcrcommand1 = new MySqlCommand(Query1, MySqlConn);
                             MSQLcrcommand1.ExecuteNonQuery();
                             MySqlDataAdapter mysqlDAdp = new MySqlDataAdapter(MSQLcrcommand1);
-                            DataTable dt = new DataTable("custumers");
+                          //  DataTable dt = new DataTable("custumers");
+                            dt.Clear();
                             mysqlDAdp.Fill(dt);
                             dataGrid1.ItemsSource = dt.DefaultView;
                             mysqlDAdp.Update(dt);

@@ -9,7 +9,7 @@
         <Label Content="שם פרטי" HorizontalAlignment="Left" Margin="9,87,0,319" Name="firstname_label" />
         <Label Content="שם משפחה" Height="28" HorizontalAlignment="Left" Margin="11,133,0,0" Name="lastname_label" VerticalAlignment="Top" />
         <Button Content="הוסף למערכת" Height="61" HorizontalAlignment="Left" Margin="173,295,0,0" Name="Add_button" VerticalAlignment="Top" Width="183" Click="Add_button_Click" />
-        <Button Content="חזור למסך משתמשים" Height="23" HorizontalAlignment="Left" Margin="12,396,0,0" Name="Back_button" VerticalAlignment="Top" Width="138" Click="Back_button_Click" />
+        <Button Content="חזור למסך עובדים" Height="23" HorizontalAlignment="Left" Margin="12,396,0,0" Name="Back_button" VerticalAlignment="Top" Width="138" Click="Back_button_Click" />
         <TextBox Height="23" HorizontalAlignment="Left" Margin="91,43,0,0" Name="id_textBox" VerticalAlignment="Top" Width="153" />
         <TextBox Height="23" HorizontalAlignment="Left" Margin="91,87,0,0" Name="firstname_textBox" VerticalAlignment="Top" Width="153" />
         <TextBox Height="23" HorizontalAlignment="Left" Margin="91,135,0,0" Name="lastname_textBox" VerticalAlignment="Top" Width="153" />

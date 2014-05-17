@@ -201,7 +201,25 @@ namespace project
                     string query = ("insert into project.users (empid, password, role , email , last_email_sent_date) values ('" + empid + "','" + password + "','" + role + "','" + email + "','" + date + "')");
                     DBConnection DBC = new DBConnection();
                     DBC.InsertDataIntoDB(Login.Connectionstring, query);
+                    try
+                    {
+                        MySqlConnection MySqlConn = new MySqlConnection(Login.Connectionstring);
+                        MySqlConn.Open();
+                        string Query1 = ("SELECT empid as `תעודת זהות`,emp_firstname as `שם פרטי` ,emp_lastname as `שם משפחה` ,emp_address as `כתובת` ,emp_phone as `מספר טלפון` FROM project.employees WHERE employees.empid not in (SELECT users.empid FROM project.users) ");
+                        MySqlCommand MSQLcrcommand1 = new MySqlCommand(Query1, MySqlConn);
+                        MSQLcrcommand1.ExecuteNonQuery();
+                        MySqlDataAdapter mysqlDAdp = new MySqlDataAdapter(MSQLcrcommand1);
+                        dt.Clear();
+                        mysqlDAdp.Fill(dt);
+                        dataGrid1.ItemsSource = dt.DefaultView;
+                        mysqlDAdp.Update(dt);
+                        MySqlConn.Close();
 
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show(ex.Message);
+                    }
                 }
             }
             catch { MessageBox.Show("אנא בחר עובד"); }

@@ -32,7 +32,7 @@ namespace project
 
         private void Enter_button_Click(object sender, RoutedEventArgs e)
         {
-            if (password.Password == "דב452בלום")
+            if (password.Password == "דב777בלום")
             {
                 MySQLImpotrGui MSQLI = new MySQLImpotrGui();
                 MSQLI.Show();

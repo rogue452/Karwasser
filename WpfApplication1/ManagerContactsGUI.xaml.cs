@@ -26,7 +26,7 @@ namespace project
         string costid;
         string cosName;
         string cosADDs;
-
+        public static DataTable dt = new DataTable("contacts");
         public ManagerContactsGUI(string costid, string cosName, string cosADDs)
         {
             InitializeComponent();
@@ -42,7 +42,8 @@ namespace project
                 MySqlCommand MSQLcrcommand1 = new MySqlCommand(Query1, MySqlConn);
                 MSQLcrcommand1.ExecuteNonQuery();
                 MySqlDataAdapter mysqlDAdp = new MySqlDataAdapter(MSQLcrcommand1);
-                DataTable dt = new DataTable("contacts");
+                //DataTable dt = new DataTable("contacts");
+                dt.Clear();
                 mysqlDAdp.Fill(dt);
                 dataGrid1.ItemsSource = dt.DefaultView;
                 mysqlDAdp.Update(dt);
@@ -76,7 +77,8 @@ namespace project
                 MySqlCommand MSQLcrcommand1 = new MySqlCommand(Query1, MySqlConn);
                 MSQLcrcommand1.ExecuteNonQuery();
                 MySqlDataAdapter mysqlDAdp = new MySqlDataAdapter(MSQLcrcommand1);
-                DataTable dt = new DataTable("contacts");
+               // DataTable dt = new DataTable("contacts");
+                dt.Clear();
                 mysqlDAdp.Fill(dt);
                 mysqlDAdp.Update(dt);
                 MySqlConn.Close();
@@ -145,7 +147,8 @@ namespace project
                 MySqlCommand MSQLcrcommand1 = new MySqlCommand(Query1, MySqlConn);
                 MSQLcrcommand1.ExecuteNonQuery();
                 MySqlDataAdapter mysqlDAdp = new MySqlDataAdapter(MSQLcrcommand1);
-                DataTable dt = new DataTable("contacts");
+               // DataTable dt = new DataTable("contacts");
+                dt.Clear();
                 mysqlDAdp.Fill(dt);
                 dataGrid1.ItemsSource = dt.DefaultView;
                 mysqlDAdp.Update(dt);
@@ -170,7 +173,8 @@ namespace project
                 MySqlCommand MSQLcrcommand1 = new MySqlCommand(Query1, MySqlConn);
                 MSQLcrcommand1.ExecuteNonQuery();
                 MySqlDataAdapter mysqlDAdp = new MySqlDataAdapter(MSQLcrcommand1);
-                DataTable dt = new DataTable("contacts");
+               // DataTable dt = new DataTable("contacts");
+                dt.Clear();
                 mysqlDAdp.Fill(dt);
                 dataGrid1.ItemsSource = dt.DefaultView;
                 mysqlDAdp.Update(dt);
@@ -185,9 +189,10 @@ namespace project
         private void ADD_Btn_Click(object sender, RoutedEventArgs e)
         {
             ManagerAddContactsGUI MACG = new ManagerAddContactsGUI(costid, cosName, cosADDs);
-            MACG.Show();
-            Login.close = 1;
-            this.Close();
+            MACG.Owner = this;
+            MACG.ShowDialog();
+            //Login.close = 1;
+           // this.Close();
         }
 
 
@@ -232,7 +237,8 @@ namespace project
                             MySqlCommand MSQLcrcommand1 = new MySqlCommand(Query1, MySqlConn);
                             MSQLcrcommand1.ExecuteNonQuery();
                             MySqlDataAdapter mysqlDAdp = new MySqlDataAdapter(MSQLcrcommand1);
-                            DataTable dt = new DataTable("contacts");
+                         //   DataTable dt = new DataTable("contacts");
+                            dt.Clear();
                             mysqlDAdp.Fill(dt);
                             dataGrid1.ItemsSource = dt.DefaultView;
                             mysqlDAdp.Update(dt);
@@ -314,7 +320,8 @@ namespace project
                                     MySqlCommand MSQLcrcommand1 = new MySqlCommand(Query1, MySqlConn);
                                     MSQLcrcommand1.ExecuteNonQuery();
                                     MySqlDataAdapter mysqlDAdp = new MySqlDataAdapter(MSQLcrcommand1);
-                                    DataTable dt = new DataTable("contacts");
+                                   // DataTable dt = new DataTable("contacts");
+                                    dt.Clear();
                                     mysqlDAdp.Fill(dt);
                                     dataGrid1.ItemsSource = dt.DefaultView;
                                     mysqlDAdp.Update(dt);

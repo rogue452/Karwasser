@@ -42,10 +42,10 @@ namespace project
 
         private void Back_button_Click(object sender, RoutedEventArgs e)
         {
-            ManagerCusGui MCG = new ManagerCusGui();
+            //ManagerCusGui MCG = new ManagerCusGui();
             Login.close = 1;
             this.Close();
-            MCG.Show();
+         //   MCG.Show();
         }
 
 
@@ -86,6 +86,15 @@ namespace project
 
             if (cont_phone_text != null && !string.IsNullOrWhiteSpace(cont_phone_text.Text))
             {
+                try
+                {
+                    int phoneCheck = Convert.ToInt32(cont_phone_text.Text);
+                }
+                catch
+                {
+                    MessageBox.Show("!מספר הטלפון חייב להכיל מספרים בלבד");
+                    return;
+                }
                 contact_phone = cont_phone_text.Text;
                 f3 = true;
             }
@@ -142,6 +151,25 @@ namespace project
                     string query = ("insert into project.costumers (costumerid, contactid, costumerName, contactName , contactEmail,contactPhone,costumerAddress,contactDepartment) values ('" + CostNum_label.Content + "','" + max + "','" + CostName_label.Content + "','" + contact_name + "','" + contact_email + "','" + contact_phone + "','" + cosADDs + "','" + contact_dep + "')");
                     DBConnection DBC = new DBConnection();
                     DBC.InsertDataIntoDB(Login.Connectionstring, query);
+                    try
+                    {
+                        MySqlConnection MySqlConn1 = new MySqlConnection(Login.Connectionstring);
+                        MySqlConn1.Open();
+                        string Query1 = ("select contactid as `מספר איש קשר`,contactName as `שם איש קשר` ,contactEmail as `אימייל איש קשר` ,contactPhone as `טלפון איש קשר` ,contactDepartment as `מחלקת איש קשר` from costumers  where costumerid='" + CostNum_label.Content + "'");
+                        MySqlCommand MSQLcrcommand11 = new MySqlCommand(Query1, MySqlConn1);
+                        MSQLcrcommand11.ExecuteNonQuery();
+                        MySqlDataAdapter mysqlDAdp = new MySqlDataAdapter(MSQLcrcommand11);
+                        // DataTable dt = new DataTable("employess");
+                        ManagerContactsGUI.dt.Clear();
+                        mysqlDAdp.Fill(ManagerContactsGUI.dt);
+                        //ManagerEMPGui.dataGrid1.ItemsSource = ManagerEMPGui.dt.DefaultView;
+                        mysqlDAdp.Update(ManagerContactsGUI.dt);
+                        MySqlConn1.Close();
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show(ex.Message);
+                    }
                 }
                 catch (Exception ex)
                 {
