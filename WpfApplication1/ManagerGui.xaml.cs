@@ -31,6 +31,7 @@ namespace project
             NameLabel.Content = "                    שלום " + Login.first_name + " " + Login.last_name + "!\n               אנא בחר/י מה ברצונך/ה לעשות.";
             CPUName_label.Content = Login.my_host_name;
             Email_label.Visibility = Visibility.Hidden;
+            email_sent_label.Visibility = Visibility.Hidden;
             Check_Jobs_Time();
             
         }
@@ -187,7 +188,7 @@ namespace project
                 MySqlConnection MySqlConn = new MySqlConnection(Login.Connectionstring);
                 MySqlConn.Open();
                 string today = DateTime.Now.ToString("yyyy-MM-dd");
-                string Query1 = ("SELECT jobs.jobid ,jobs.expectedFinishDate FROM project.jobs ,project.users WHERE (DATEDIFF(jobs.expectedFinishDate,'" + today + "')<4) AND (DATEDIFF(jobs.expectedFinishDate,'" + today + "')>=0) AND users.empid='" + Login.empid + "' AND (DATEDIFF(users.last_email_sent_date, '" + today + "')<0) AND jobs.job_status!='הסתיימה' AND jobs.job_status!='מבוטלת'GROUP BY jobid");
+                string Query1 = ("SELECT jobs.jobid ,jobs.expectedFinishDate FROM project.jobs ,project.users WHERE (DATEDIFF(jobs.expectedFinishDate,'" + today + "')<4) AND (DATEDIFF(jobs.expectedFinishDate,'" + today + "')>=0) AND users.empid='" + Login.empid + "' AND (DATEDIFF(users.last_email_sent_date, '" + today + "')<0) AND jobs.job_status!='הסתיימה' AND jobs.job_status!='מבוטלת' GROUP BY jobid");
                 Console.WriteLine(Query1);
                 MySqlCommand MSQLcrcommand1 = new MySqlCommand(Query1, MySqlConn);
                 MSQLcrcommand1.ExecuteNonQuery();
@@ -212,7 +213,7 @@ namespace project
                     //string body = ("תאריך הסיום של העבודות הבאות הוא בעוד עד 3 ימים מהיום:");
 
                     string body = ("תאריך הסיום של העבודות הבאות הוא בעוד פחות מארבע ימים  מהיום - ") + DateTime.Now.ToString("dd/MM/yyyy") + " :\n" + jobids;
-                    string subject = "הודעה אוטומטית ממערכת Karwasser 2003";
+                    string subject = "הודעה אוטומטית ממערכת קרוסר";
                     string toAddress = Login.useremail;
                     string senderID = "karwasser2003@gmail.com";// sender's email id
                     const string senderPassword = "SP271984"; // sender password
@@ -230,6 +231,7 @@ namespace project
                         };
                         MailMessage message = new MailMessage(senderID, toAddress, subject, body);
                         smtp.Send(message);
+                        email_sent_label.Visibility = Visibility.Visible;
                         Console.WriteLine("נשלח האימייל");
                         try
                         {
