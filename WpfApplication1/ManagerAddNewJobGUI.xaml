@@ -6,10 +6,12 @@
         <Image Source="/WpfApplication1;component/Images/31.jpg"  Stretch="UniformToFill" FlowDirection="RightToLeft" Margin="-12,0,0,0"  />
         <DataGrid x:Name="dataGrid1" Margin="4,132,882,52" FontSize="15"  AutoGenerateColumns="True" AutoGeneratingColumn="Grid_AutoGeneratingColumn"  ItemsSource="{Binding}" HeadersVisibility="All" MaxColumnWidth="Infinity" CanUserAddRows="false" SelectionMode="Single"  SelectionChanged="dataGrid1_SelectionChanged" FocusableChanged="dataGrid1_Focusable" >
             <DataGrid.Resources>
-<!--
-                <SolidColorBrush x:Key="{x:Static SystemColors.ControlBrushKey}" Color="LightGreen"/>|
-
-               !-->
+                <Style TargetType="DataGridRow">
+                    <Style.Resources>
+                        <SolidColorBrush x:Key="{x:Static SystemColors.ControlBrushKey}" Color="LightGreen" />
+                        <SolidColorBrush x:Key="{x:Static SystemColors.ControlTextBrushKey}" Color="Black"/>
+                    </Style.Resources>
+                </Style>
             </DataGrid.Resources>
         </DataGrid>
         <TextBox HorizontalAlignment="Left" Height="22" Margin="102,97,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="139" FontSize="15" Name="CustumerNameSearchTextBox" TextChanged="CustumerNameSearchTextBox_TextChanged" />
@@ -25,14 +27,32 @@
         <Image Height="36" HorizontalAlignment="Left" Margin="1060,458,0,0" Name="image1" Stretch="Fill" VerticalAlignment="Top" Width="42" FlowDirection="RightToLeft" Source="/WpfApplication1;component/Images/add_user.png" />
         <Image Height="28" HorizontalAlignment="Left" Margin="1009,573,0,0" Name="image4" Stretch="Fill" VerticalAlignment="Top" Width="25" Source="/WpfApplication1;component/Images/exit.png" />
         <Image Height="29" HorizontalAlignment="Left" Margin="12,573,0,0" Name="image7" Stretch="Fill" VerticalAlignment="Top" Width="33" Source="/WpfApplication1;component/Images/back.png" />
-        <DataGrid AutoGenerateColumns="True"  AutoGeneratingColumn="Grid_AutoGeneratingColumn1"  Margin="647,132,241,52" Name="dataGrid2" CanUserAddRows="false" SelectionMode="Extended"  />
+        <DataGrid AutoGenerateColumns="True"  AutoGeneratingColumn="Grid_AutoGeneratingColumn1"  Margin="647,132,241,52" Name="dataGrid2" CanUserAddRows="false" SelectionMode="Extended">
+            <DataGrid.Resources>
+                <Style TargetType="DataGridRow">
+                    <Style.Resources>
+                        <SolidColorBrush x:Key="{x:Static SystemColors.ControlBrushKey}" Color="LightSeaGreen" />
+                        <SolidColorBrush x:Key="{x:Static SystemColors.ControlTextBrushKey}" Color="Black"/>
+                    </Style.Resources>
+                </Style>
+            </DataGrid.Resources>
+        </DataGrid>
         <Label Content="תאריך התחלה " Height="25" HorizontalAlignment="Left" Margin="966,71,0,0" Name="startDate_label" VerticalAlignment="Top" Width="91"  />
         <Label Content="תאור עבודה " Height="26" HorizontalAlignment="Left" Margin="970,171,0,0" Name="jobdescription_label" VerticalAlignment="Top" Width="90" />
         <TextBox Height="259" HorizontalAlignment="Left" Margin="970,193,0,0" Name="jobdes_textbox" VerticalAlignment="Top" Width="220" />
         <DatePicker Height="30" HorizontalAlignment="Left" Margin="1055,72,0,0" Name="startdatePicker" VerticalAlignment="Top" Width="145" />
         <DatePicker Height="32" HorizontalAlignment="Left" Margin="1055,114,0,0" Name="finishdatePicker" VerticalAlignment="Top" Width="145" />
         <Label Content="תאריך סיום " Height="26" HorizontalAlignment="Left" Margin="967,113,0,0" Name="lexpectedFinishDate_label1" VerticalAlignment="Top" Width="75" />
-        <DataGrid AutoGenerateColumns="True" Margin="328,132,562,52" Name="dataGrid3"  Width="299" SelectionMode="Single" AutoGeneratingColumn="dataGrid3_AutoGeneratingColumn" CanUserAddRows="False"  />
+        <DataGrid AutoGenerateColumns="True" Margin="328,132,562,52" Name="dataGrid3"  Width="299" SelectionMode="Single" AutoGeneratingColumn="dataGrid3_AutoGeneratingColumn" CanUserAddRows="False">
+            <DataGrid.Resources>
+                <Style TargetType="DataGridRow">
+                    <Style.Resources>
+                        <SolidColorBrush x:Key="{x:Static SystemColors.ControlBrushKey}" Color="LightSalmon" />
+                        <SolidColorBrush x:Key="{x:Static SystemColors.ControlTextBrushKey}" Color="Black"/>
+                    </Style.Resources>
+                </Style>
+            </DataGrid.Resources>
+        </DataGrid>
         <Label Content="בחר איש קשר" Height="28"  Margin="0,8,633,0" Name="label1" VerticalAlignment="Top" FontSize="15" FontWeight="Bold" HorizontalAlignment="Right" Width="229" />
         <Label Content="בחר פריטים" Height="28"  Margin="0,8,442,0" Name="label2" VerticalAlignment="Top" FontSize="15" FontWeight="Bold" HorizontalAlignment="Right" Width="119" />
         <TextBox Height="23" HorizontalAlignment="Left" Margin="727,66,0,0" Name="Item_Search_textBox" VerticalAlignment="Top" Width="136" TextChanged="Item_Search_textBox_TextChanged" />
