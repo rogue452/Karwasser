@@ -50,6 +50,31 @@ namespace project
         }
 
 
+        // this function will allow remote host to reach this program DataBase.
+        private void remote_button_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                string Connectionstring = "Server=localhost;Database=project; UId=root;Password=1234 ";
+                MySqlConnection MySqlConn = new MySqlConnection(Connectionstring);
+                MySqlConn.Open();
+                string Query1 = ("GRANT ALL PRIVILEGES ON project.* TO 'root'@'%' IDENTIFIED BY '1234';\nflush PRIVILEGES ;");
+                MySqlCommand MSQLcrcommand1 = new MySqlCommand(Query1, MySqlConn);
+                MSQLcrcommand1.ExecuteNonQuery();
+                MySqlDataAdapter mysqlDAdp = new MySqlDataAdapter(MSQLcrcommand1);
+                MySqlConn.Close();
+                MessageBox.Show("האיפשור עודכן");
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+
+        }
+
+
+
+
         //this function will import from the user chosen file to the MySQL DB. 
         private void Import_button_Click(object sender, RoutedEventArgs e)
         {
@@ -101,5 +126,7 @@ namespace project
             LI.Show();
             this.Close();
         }
+
+
     }
 }

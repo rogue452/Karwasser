@@ -5,12 +5,15 @@
     <Grid>
         <Image Source="/WpfApplication1;component/Images/31.jpg" Grid.ColumnSpan="2" Stretch="UniformToFill" FlowDirection="RightToLeft" />
         <Label Content="ברוך הבא למסך ייבוא ה - MySQL" Height="48" HorizontalAlignment="Left" Margin="240,12,0,0" Name="Welcome_label" VerticalAlignment="Top" FontWeight="Bold" FontSize="28" Width="485" />
-        <Label Content="לחיצה על כפתור זה תאפס את סיסמת משתמש ה- root כך שתתאים למערכת " Height="38" HorizontalAlignment="Left" Margin="30,91,0,0" Name="Reset_label" VerticalAlignment="Top" FontSize="26" FontWeight="Normal" />
-        <Button Content="איפוס סיסמה" Height="53" HorizontalAlignment="Left" Margin="414,219,0,0" Name="Reset_button" VerticalAlignment="Top" Width="198" FontWeight="Bold" FontSize="15" Click="Reset_button_Click" />
+        <Label Content="לחיצה על כפתור זה תאפס את סיסמת משתמש ה- root כך שתתאים למערכת " Height="38" HorizontalAlignment="Left" Margin="30,61,0,0" Name="Reset_label" VerticalAlignment="Top" FontSize="26" FontWeight="Normal" />
+        <Button Content="איפוס סיסמה" Height="53" HorizontalAlignment="Left" Margin="414,145,0,0" Name="Reset_button" VerticalAlignment="Top" Width="198" FontWeight="Bold" FontSize="15" Click="Reset_button_Click" />
         <Label Content="בחר את הקובץ כדי לייבא אותו ל - MySQL ע&quot;י כפתור זה" Height="46" HorizontalAlignment="Left" Margin="151,330,0,0" Name="Import_label" VerticalAlignment="Top" FontSize="26" Width="664" />
         <Button Content="בחר קובץ" Height="53" HorizontalAlignment="Left" Margin="414,382,0,0" Name="Import_button" VerticalAlignment="Top" Width="198" FontSize="16" FontWeight="Bold" Click="Import_button_Click" />
         <Button Content="חזור למסך ההתחברות" Height="29" HorizontalAlignment="Left" Name="Back_button" VerticalAlignment="Bottom" Width="133" Click="Back_button_Click" Margin="12,0,0,12" />
-        <PasswordBox Height="30" HorizontalAlignment="Left" Margin="414,167,0,0" Name="Root_password" VerticalAlignment="Top" Width="198" />
-        <Label Content="רשום את ססמת ה-root הנוכחית" Height="28" HorizontalAlignment="Left" Margin="151,167,0,0" Name="Root_req_label" VerticalAlignment="Top" FontSize="16" />
+        <PasswordBox Height="30" HorizontalAlignment="Left" Margin="414,107,0,0" Name="Root_password" VerticalAlignment="Top" Width="198" />
+        <Label Content="רשום את ססמת ה-root הנוכחית" Height="28" HorizontalAlignment="Left" Margin="151,107,0,0" Name="Root_req_label" VerticalAlignment="Top" FontSize="16" />
+        <Label Content="לחץ לאיפשור התחברות של מחשבים מרוחקים, תואם רק למערכת זאת" Height="47" HorizontalAlignment="Left" Margin="76,216,0,0" Name="remote_label" VerticalAlignment="Top" FontSize="26" />
+        <Button Content="איפשור התחברות" FontSize="15" FontWeight="Bold" Height="53" HorizontalAlignment="Left" Margin="414,259,0,0" Name="remote_button" VerticalAlignment="Top" Width="198" Click="remote_button_Click" />
+        <Label Content="**יש לשים לב שלשם הבטחה כל הפעולות אפקטיביות רק על המחשב שרת**" Height="28" HorizontalAlignment="Left" Margin="195,458,0,0" Name="label1" VerticalAlignment="Top" FontSize="16" FontWeight="Bold" Foreground="Green" />
     </Grid>
 </Window>

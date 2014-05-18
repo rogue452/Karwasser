@@ -164,7 +164,8 @@ namespace project
                             if (user_role.Equals("מנהל"))
                             {
                                 DBConnection conn = new DBConnection();
-                                string query2 = "UPDATE users SET connected='" + user_connected + "',last_log_in_date='" + DateTime.Now.ToString("yyyy-MM-dd-HH-mm-ss") + "' WHERE empid= '" + this.textBox1.Text + "' and password ='" + this.textBox2.Password + "'";
+                                Console.WriteLine(my_host_name);
+                                string query2 = "UPDATE users SET connected='" + user_connected + "',last_log_in_date='" + DateTime.Now.ToString("yyyy-MM-dd-HH-mm-ss") + "'  ,last_location='" + my_host_name + "' WHERE empid= '" + this.textBox1.Text + "' and password ='" + this.textBox2.Password + "' ";
                                 conn.LogIn(query2, Connectionstring);
                                 //conn.LogIn(query2);
                                 ManagerGui MG = new ManagerGui();
@@ -174,7 +175,7 @@ namespace project
                             if (user_role.Equals("מזכירה"))
                             {
                                 DBConnection conn = new DBConnection();
-                                string query2 = "UPDATE users SET connected='" + user_connected + "',last_log_in_date='" + DateTime.Now.ToString("yyyy-MM-dd-HH-mm-ss") + "' WHERE empid= '" + this.textBox1.Text + "' and password ='" + this.textBox2.Password + "'";
+                                string query2 = "UPDATE users SET connected='" + user_connected + "',last_log_in_date='" + DateTime.Now.ToString("yyyy-MM-dd-HH-mm-ss") + "' ,last_location='" + my_host_name + "' WHERE empid= '" + this.textBox1.Text + "' and password ='" + this.textBox2.Password + "'";
                                 //conn.LogIn(query2);
                                 conn.LogIn(query2, Connectionstring);
                                 SecretaryGui SG = new SecretaryGui();
@@ -184,7 +185,7 @@ namespace project
                             if (user_role.Equals("איכות"))
                             {
                                 DBConnection conn = new DBConnection();
-                                string query2 = "UPDATE users SET connected='" + user_connected + "',last_log_in_date='" + DateTime.Now.ToString("yyyy-MM-dd-HH-mm-ss") + "' WHERE empid= '" + this.textBox1.Text + "' and password ='" + this.textBox2.Password + "'";
+                                string query2 = "UPDATE users SET connected='" + user_connected + "',last_log_in_date='" + DateTime.Now.ToString("yyyy-MM-dd-HH-mm-ss") + "' ,last_location='" + my_host_name + "' WHERE empid= '" + this.textBox1.Text + "' and password ='" + this.textBox2.Password + "'";
                                // conn.LogIn(query2);
                                 conn.LogIn(query2, Connectionstring);
                                 QualityGui QG = new QualityGui();
@@ -212,8 +213,8 @@ namespace project
                 if (count < 1)
                 {
                     MessageBox.Show("שם משתמש ו/או סיסמא שגויים! אנא נסה שנית", "!ההתחברות למערכת נכשלה", MessageBoxButton.OK);
-                    textBox1.Clear();
-                    textBox2.Clear();
+                  //  textBox1.Clear();
+                  //  textBox2.Clear();
                 }
                 objc.Close();
             }
@@ -243,7 +244,8 @@ namespace project
         private void button4_Click(object sender, RoutedEventArgs e)
         {
             Forgot_pass fp = new Forgot_pass();
-            fp.Show();
+            fp.Owner = this;
+            fp.ShowDialog();
             this.Close();
         }
 
@@ -377,7 +379,8 @@ namespace project
         private void MySQL_button_Click(object sender, RoutedEventArgs e)
         {
             MySQLPasswordREQuestGui MSQLPRG = new MySQLPasswordREQuestGui();
-            MSQLPRG.Show();
+            MSQLPRG.Owner = this;
+            MSQLPRG.ShowDialog();
             this.Close();
         }
 
