@@ -256,7 +256,7 @@ namespace project
 
                                     MySqlConnection MySqlConn = new MySqlConnection(Login.Connectionstring);
                                     MySqlConn.Open();
-                                    string Query1 = "UPDATE employees SET emp_firstname='" + firstname + "',emp_lastname='" + lastname + "',emp_address='" + address + "',emp_phone='" + phone + "',emp_cellphone='" + cell + "',emp_insidenum='" + empnum + "' WHERE empid='" + selected + "'";
+                                    string Query1 = "UPDATE employees SET emp_firstname='" + firstname + "',emp_lastname='" + lastname + "',emp_address='" + address + "',emp_phone='" + phone + "',emp_cellphone='" + cell + "',emp_insidenum='" + empnum + "' ,emp_start_date=NULL WHERE empid='" + selected + "'";
                                     MySqlCommand MSQLcrcommand1 = new MySqlCommand(Query1, MySqlConn);
                                     MSQLcrcommand1.ExecuteNonQuery();
                                     MySqlDataAdapter mysqlDAdp = new MySqlDataAdapter(MSQLcrcommand1);

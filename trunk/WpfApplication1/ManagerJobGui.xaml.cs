@@ -243,6 +243,16 @@ namespace project
                 {
                     string status = row["סטטוס עבודה"].ToString();
                     string description = row["תאור עבודה"].ToString();
+                    if (row["תאריך התחלה"].ToString().Equals(""))
+                    {
+                        MessageBox.Show("!לא ניתן למחוק את תאריך ההתחלה");
+                        return;
+                    }
+                    if (row["תאריך סיום משוער"].ToString().Equals(""))
+                    {
+                        MessageBox.Show("!לא ניתן למחוק את תאריך סיום משוער");
+                        return;
+                    }
                     string start_date =  Convert.ToDateTime(row["תאריך התחלה"].ToString()).ToString("yyyy-MM-dd");
                     string finish_date = Convert.ToDateTime(row["תאריך סיום משוער"].ToString()).ToString("yyyy-MM-dd");
                     string actual_finish_date;
@@ -252,7 +262,7 @@ namespace project
                         {
                             MySqlConnection MySqlConn = new MySqlConnection(Login.Connectionstring);
                             MySqlConn.Open();
-                            string Query1 = "update jobs set job_status='" + status + "',jobdescription='" + description + "',startDate='" + start_date + "',expectedFinishDate='" + finish_date + "' where jobid='" + jobid + "'";
+                            string Query1 = "update jobs set job_status='" + status + "',jobdescription='" + description + "',startDate='" + start_date + "',expectedFinishDate='" + finish_date + "',actualFinishDate=NULL where jobid='" + jobid + "'";
                             MySqlCommand MSQLcrcommand1 = new MySqlCommand(Query1, MySqlConn);
                             MSQLcrcommand1.ExecuteNonQuery();
                             MySqlDataAdapter mysqlDAdp = new MySqlDataAdapter(MSQLcrcommand1);
