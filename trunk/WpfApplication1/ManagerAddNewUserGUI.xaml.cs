@@ -57,6 +57,7 @@ namespace project
             Role_comboBox.Items.Add("מנהל");
             Role_comboBox.Items.Add("מזכירה");
             Role_comboBox.Items.Add("איכות");
+            Role_comboBox.SelectedIndex = 0;
            // Fill_IDcomboBox();
             
         }

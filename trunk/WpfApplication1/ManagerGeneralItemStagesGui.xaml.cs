@@ -28,9 +28,10 @@ namespace project
 
         public ManagerGeneralItemStagesGui(string itemid)
         {
-            this.itemID = itemid;
+            Login.close = 1;
             InitializeComponent();
             this.WindowStartupLocation = WindowStartupLocation.CenterScreen;
+            this.itemID = itemid;
             try
             {
                 MySqlConnection MySqlConn = new MySqlConnection(Login.Connectionstring);
@@ -56,9 +57,11 @@ namespace project
                 MessageBox.Show(ex.Message);
             }
 
+            type_comboBox.Items.Add("רישום");
             type_comboBox.Items.Add("בעבודה");
             type_comboBox.Items.Add("תיקון");
             type_comboBox.Items.Add("פסול");
+            type_comboBox.Items.Add("גמר ייצור");
             type_comboBox.Items.Add("הסתיים");
             type_comboBox.SelectedIndex = 0;
             itemidlabel.Content = itemID;
@@ -68,7 +71,7 @@ namespace project
             {
                 MySqlConnection MySqlConn = new MySqlConnection(Login.Connectionstring);
                 MySqlConn.Open();
-                string Query1 = ("SELECT itemStageOrder as `מספר שלב`,stageName as `שם שלב` ,stage_discription as `תאור השלב`  FROM item WHERE itemid='" + itemID + "'  and itemStatus='בעבודה' ");
+                string Query1 = ("SELECT itemStageOrder as `מספר שלב`,stageName as `שם שלב` ,stage_discription as `תאור השלב`  FROM item WHERE itemid='" + itemID + "'  and itemStatus='רישום' ");
                 MySqlCommand MSQLcrcommand1 = new MySqlCommand(Query1, MySqlConn);
                 MSQLcrcommand1.ExecuteNonQuery();
                 MySqlDataAdapter mysqlDAdp = new MySqlDataAdapter(MSQLcrcommand1);
@@ -116,6 +119,10 @@ namespace project
         }
 
 
+        private void Grid_AutoGeneratingColumn(object sender, DataGridAutoGeneratingColumnEventArgs e)
+        {
+                e.Column.IsReadOnly = true; // Makes the column as read only
+        }
 
 
 
