@@ -461,22 +461,25 @@ namespace project
                 orderid = orderID_textBox.Text;
                 if (orderid != "")
                 {
+                    string today = DateTime.Now.ToString("yyyy-MM-dd");
                     try
                     {
+                        Console.WriteLine("שורה 466");
                         MySqlConnection MySqlConn = new MySqlConnection(Login.Connectionstring);
                         MySqlConn.Open();
-                        string Query1 = ("SELECT jobid FROM project.jobs WHERE orderid='" + orderid + "' AND startDate<='2014-05-16' ORDER BY startDate DESC LIMIT 1 "); //to see if the orderid already in the system.
+                        string Query1 = ("SELECT jobid FROM project.jobs WHERE orderid='" + orderid + "' AND startDate<='" + today + "' ORDER BY startDate DESC LIMIT 1 "); //to see if the orderid already in the system.
                         MySqlCommand MSQLcrcommand1 = new MySqlCommand(Query1, MySqlConn);
                         MSQLcrcommand1.ExecuteNonQuery();
                        // int times = Convert.ToInt32(MSQLcrcommand1.ExecuteScalar());
                         MySqlDataReader dr = MSQLcrcommand1.ExecuteReader();
                         MySqlDataAdapter mysqlDAdp = new MySqlDataAdapter(MSQLcrcommand1);
-
+                        Console.WriteLine("שורה 475");
                         while (dr.Read())
                           {
                               if (!dr.IsDBNull(0))
                               {
-                                  if (MessageBox.Show("מספר הזמנה זהה כבר קיים עבור מספר עבודה "+dr.GetString(0)+"\n?האם ברצונך להוסיף בכל זאת", "מספר הזמנה קיים", MessageBoxButton.YesNo, MessageBoxImage.Warning) == MessageBoxResult.No)
+                                  Console.WriteLine("שורה 480");
+                                  if (MessageBox.Show("מספר הזמנה זהה כבר קיים האחרון ביותר היה עבור מספר עבודה "+dr.GetString(0)+"\n?האם ברצונך להוסיף בכל זאת", "מספר הזמנה קיים", MessageBoxButton.YesNo, MessageBoxImage.Warning) == MessageBoxResult.No)
                                   {
                                       MySqlConn.Close();
                                       return; //if user answerd NO
@@ -496,19 +499,45 @@ namespace project
                     // get the latest jobid this year.
                     string fullyear = DateTime.Now.ToString("yyyy");
                     string twodigyear = DateTime.Now.ToString("yy");
+                    int jobid1=0;
+                    string[] arry;
+                    string tosplit,first;
                     try
                     {
+                        Console.WriteLine("שורה 504");
                         MySqlConnection MySqlConn = new MySqlConnection(Login.Connectionstring);
                         MySqlConn.Open();
                         string Query1 = ("SELECT MAX(jobid) FROM project.jobs WHERE startDate BETWEEN '" + fullyear + "-01-01' AND '" + fullyear + "-12-31' ");
                         MySqlCommand MSQLcrcommand1 = new MySqlCommand(Query1, MySqlConn);
                         MSQLcrcommand1.ExecuteNonQuery();
-                        int jobid1 = Convert.ToInt32(MSQLcrcommand1.ExecuteScalar());
+                        MySqlDataReader dr = MSQLcrcommand1.ExecuteReader();
+                        Console.WriteLine("שורה 511");
+                        while (dr.Read())
+                        {
+                            if (dr.IsDBNull(0))
+                            {
+                                Console.WriteLine("שורה 518");
+                                jobid1 = 0;
+                            }
+                            else
+                            {
+                                Console.WriteLine("שורה 523");
+                                tosplit = dr.GetString(0);
+                                Console.WriteLine(tosplit);
+                                arry = tosplit.Split('/');
+                                first = arry[0].ToString();
+                                Console.WriteLine(first);
+                                jobid1 = Convert.ToInt32(first);
+                                Console.WriteLine(first);
+                            }
+                        } 
+                        Console.WriteLine("שורה 533");
                         MySqlDataAdapter mysqlDAdp = new MySqlDataAdapter(MSQLcrcommand1);
                         MySqlConn.Close();
                         jobid1++;
                         jobid = jobid1.ToString() + "/" + twodigyear;
-
+                        Console.WriteLine("שורה 538");
+                        Console.WriteLine(jobid);
                     }
                     catch (Exception ex)
                     {

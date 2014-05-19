@@ -28,9 +28,6 @@ namespace project
         {
             InitializeComponent();
             this.WindowStartupLocation = WindowStartupLocation.CenterScreen;
-            
-
-
             try
             {
                 MySqlConnection MySqlConn = new MySqlConnection(Login.Connectionstring);
@@ -609,9 +606,15 @@ namespace project
 
         private void ADD_new_item_pattern_click(object sender, RoutedEventArgs e)
         {
+            ManagerItemsGui MIG = new ManagerItemsGui();
+            MIG.Show();
+            Login.close = 1;
+            this.Close();
+            /*
             ManagerAddNewItemPatternGUI MANIG = new ManagerAddNewItemPatternGUI();
             MANIG.ShowDialog();
            // this.Close();
+            */
 
         }
 
