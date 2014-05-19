@@ -71,6 +71,7 @@ namespace project
         {
             try
             {
+                /*
                 MySqlConnection MySqlConn = new MySqlConnection(Login.Connectionstring);
                 MySqlConn.Open();
                 string Query1 = ("select empid as `תעודת זהות`,emp_firstname as `שם פרטי` ,emp_lastname as `שם משפחה` ,emp_address as `כתובת` ,emp_phone as `מספר טלפון` from project.employees ");
@@ -82,6 +83,7 @@ namespace project
                 mysqlDAdp.Fill(dt);
                 mysqlDAdp.Update(dt);
                 MySqlConn.Close();
+                  */
                 SaveFileDialog dialog = new SaveFileDialog();
                 dialog.FileName = "רשימת עובדים" + "_" + DateTime.Now.Year.ToString() + "_" + DateTime.Now.Month.ToString() + "_" + DateTime.Now.Day.ToString(); ; // Default file name
                 dialog.DefaultExt = ".xlsx"; // Default file extension
@@ -94,8 +96,15 @@ namespace project
                 if (result == true)
                 {
                     string saveto = dialog.FileName;
-                    CreateExcelFile.CreateExcelDocument(dt, saveto);
-                    MessageBox.Show(" נוצר בהצלחה Microsoft Excel -מסמך ה");
+                    bool success = CreateExcelFile.CreateExcelDocument(dt, saveto);
+                    if (success)
+                    {
+                        MessageBox.Show(" נוצר בהצלחה Microsoft Excel -מסמך ה");
+                    }
+                    else
+                    {
+                        MessageBox.Show(" לא נוצר  Microsoft Excel -התרחשה שגיאה ולכן מסמך ה");
+                    }
                 }
             }
             catch (Exception ex)

@@ -39,7 +39,7 @@ namespace project
             {
                 MySqlConnection MySqlConn = new MySqlConnection(Login.Connectionstring);
                 MySqlConn.Open();
-                string Query1 = ("select costumerid as `מספר לקוח`,costumerName as `שם לקוח` ,costumerAddress as `כתובת לקוח`  from project.costumers group by costumerid");
+                string Query1 = ("select costumerid as `חפ לקוח`,costumerName as `שם לקוח` ,costumerAddress as `כתובת לקוח`  from project.costumers group by costumerid");
                 MySqlCommand MSQLcrcommand1 = new MySqlCommand(Query1, MySqlConn);
                 MSQLcrcommand1.ExecuteNonQuery();
                 MySqlDataAdapter mysqlDAdp = new MySqlDataAdapter(MSQLcrcommand1);
@@ -113,7 +113,7 @@ namespace project
                    
                     foreach (DataRow drc in changedRecordsTableCust.Rows)
                         {
-                            string c = drc["מספר לקוח"].ToString();
+                            string c = drc["חפ לקוח"].ToString();
 
                             Console.WriteLine("מספר הלקוח לפני האיף לא ריק - " + c + "");
                                 if (c != "") // in case the user deleted a cell in the cust tableand now it have a string of-  "".
@@ -121,7 +121,7 @@ namespace project
                                   custcheck++; // if it will be more then one then the user chosen more then one cust.
                                   if (custcheck<2)
                                       {
-                                        Console.WriteLine("מספר הלקוח הנבחר הוא - " + drc["מספר לקוח"].ToString() + "");
+                                        Console.WriteLine("מספר הלקוח הנבחר הוא - " + drc["חפ לקוח"].ToString() + "");
                                       }// if (custcheck<2)
                                     else 
                                       { 
@@ -222,7 +222,7 @@ namespace project
                 MySqlConnection MySqlConn = new MySqlConnection(Login.Connectionstring);
                 MySqlConn.Open();
                 String searchidkey = this.IDSearchTextBox.Text;
-                string Query1 = "select costumerid as `מספר לקוח`,costumerName as `שם לקוח` ,costumerAddress as `כתובת לקוח`  from project.costumers group by costumerid";
+                string Query1 = "select costumerid as `חפ לקוח`,costumerName as `שם לקוח` ,costumerAddress as `כתובת לקוח`  from project.costumers group by costumerid";
                 MySqlCommand MSQLcrcommand1 = new MySqlCommand(Query1, MySqlConn);
                 MSQLcrcommand1.ExecuteNonQuery();
                 MySqlDataAdapter mysqlDAdp = new MySqlDataAdapter(MSQLcrcommand1);
@@ -353,7 +353,7 @@ namespace project
             {
                 MySqlConnection MySqlConn = new MySqlConnection(Login.Connectionstring);
                 MySqlConn.Open();
-                string Query1 = ("select costumerid as `מספר לקוח`,costumerName as `שם לקוח` ,costumerAddress as `כתובת לקוח`  from project.costumers group by costumerid");
+                string Query1 = ("select costumerid as `חפ לקוח`,costumerName as `שם לקוח` ,costumerAddress as `כתובת לקוח`  from project.costumers group by costumerid");
                 MySqlCommand MSQLcrcommand1 = new MySqlCommand(Query1, MySqlConn);
                 MSQLcrcommand1.ExecuteNonQuery();
                 MySqlDataAdapter mysqlDAdp = new MySqlDataAdapter(MSQLcrcommand1);
@@ -394,7 +394,7 @@ namespace project
                 MySqlConnection MySqlConn = new MySqlConnection(Login.Connectionstring);
                 MySqlConn.Open();
                 String searchkey = this.CustumerNameSearchTextBox.Text;
-                string Query1 = "select costumerid as `מספר לקוח`,costumerName as `שם לקוח` ,costumerAddress as `כתובת לקוח`  from project.costumers  where  costumerName Like '%" + searchkey + "%' group by costumerid";
+                string Query1 = "select costumerid as `חפ לקוח`,costumerName as `שם לקוח` ,costumerAddress as `כתובת לקוח`  from project.costumers  where  costumerName Like '%" + searchkey + "%' group by costumerid";
                 MySqlCommand MSQLcrcommand1 = new MySqlCommand(Query1, MySqlConn);
                 MSQLcrcommand1.ExecuteNonQuery();
                 MySqlDataAdapter mysqlDAdp = new MySqlDataAdapter(MSQLcrcommand1);
@@ -423,7 +423,7 @@ namespace project
                 MySqlConnection MySqlConn = new MySqlConnection(Login.Connectionstring);
                 MySqlConn.Open();
                 String searchidkey = this.IDSearchTextBox.Text;
-                string Query1 = "select costumerid as `מספר לקוח`,costumerName as `שם לקוח` ,costumerAddress as `כתובת לקוח`  from project.costumers  where  costumerid Like '%" + searchidkey + "%' group by costumerid";
+                string Query1 = "select costumerid as `חפ לקוח`,costumerName as `שם לקוח` ,costumerAddress as `כתובת לקוח`  from project.costumers  where  costumerid Like '%" + searchidkey + "%' group by costumerid";
                 MySqlCommand MSQLcrcommand1 = new MySqlCommand(Query1, MySqlConn);
                 MSQLcrcommand1.ExecuteNonQuery();
                 MySqlDataAdapter mysqlDAdp = new MySqlDataAdapter(MSQLcrcommand1);
@@ -553,7 +553,7 @@ namespace project
                     try
                     {
                         string contactid = row1["מספר איש קשר"].ToString();
-                        string selected = row["מספר לקוח"].ToString();
+                        string selected = row["חפ לקוח"].ToString();
 
 
                         sizeofItemsnewtable = changedRecordsItemsTable.Rows.Count; // will give an exp if the size of the new items table is zero.
@@ -685,7 +685,7 @@ namespace project
                 {
                     // this will give us the first colum of the selected row in the DataGrid.
 
-                    string selected = row["מספר לקוח"].ToString();
+                    string selected = row["חפ לקוח"].ToString();
                     // MessageBox.Show("" + selected + "");
 
                     try
@@ -707,7 +707,7 @@ namespace project
                     {
                         MySqlConnection MySqlConn = new MySqlConnection(Login.Connectionstring);
                         MySqlConn.Open();
-                        string Query1 = ("select costumerid as `מספר לקוח`,costumerName as `שם לקוח` ,costumerAddress as `כתובת לקוח`  from project.costumers group by costumerid");
+                        string Query1 = ("select costumerid as `חפ לקוח`,costumerName as `שם לקוח` ,costumerAddress as `כתובת לקוח`  from project.costumers group by costumerid");
                         MySqlCommand MSQLcrcommand1 = new MySqlCommand(Query1, MySqlConn);
                         MSQLcrcommand1.ExecuteNonQuery();
                         MySqlDataAdapter mysqlDAdp = new MySqlDataAdapter(MSQLcrcommand1);
@@ -747,7 +747,7 @@ namespace project
                 System.Collections.IList rows = dataGrid1.SelectedItems;
 
                 DataRowView row = (DataRowView)dataGrid1.SelectedItems[0];
-                string selected = row["מספר לקוח"].ToString();
+                string selected = row["חפ לקוח"].ToString();
                 // MessageBox.Show(""+selected+ "");
 
 
@@ -781,7 +781,7 @@ namespace project
                         {
                             MySqlConnection MySqlConn = new MySqlConnection(Login.Connectionstring);
                             MySqlConn.Open();
-                            string Query1 = ("select costumerid as `מספר לקוח`,costumerName as `שם לקוח` ,costumerAddress as `כתובת לקוח`  from project.costumers group by costumerid");
+                            string Query1 = ("select costumerid as `חפ לקוח`,costumerName as `שם לקוח` ,costumerAddress as `כתובת לקוח`  from project.costumers group by costumerid");
                             MySqlCommand MSQLcrcommand1 = new MySqlCommand(Query1, MySqlConn);
                             MSQLcrcommand1.ExecuteNonQuery();
                             MySqlDataAdapter mysqlDAdp = new MySqlDataAdapter(MSQLcrcommand1);
@@ -806,7 +806,7 @@ namespace project
         
         private void Grid_AutoGeneratingColumn(object sender, DataGridAutoGeneratingColumnEventArgs e)
         {
-            if (e.Column.Header.ToString() == "מספר לקוח" || e.Column.Header.ToString() == "שם לקוח" || e.Column.Header.ToString() == "כתובת לקוח")
+            if (e.Column.Header.ToString() == "חפ לקוח" || e.Column.Header.ToString() == "שם לקוח" || e.Column.Header.ToString() == "כתובת לקוח")
             {
                 // e.Cancel = true;   // For not to include 
                 e.Column.IsReadOnly = true; // Makes the column as read only
@@ -863,7 +863,7 @@ namespace project
             }
              * /
             /*
-            if (e.Column.Header.ToString() == "מספר לקוח")  
+            if (e.Column.Header.ToString() == "חפ לקוח")  
             {
                 // e.Cancel = true;   // For not to include 
                 e.Column.IsReadOnly = true; // Makes the column as read only
@@ -1109,10 +1109,11 @@ namespace project
             try
             {
                 DataRowView row = (DataRowView)dataGrid1.SelectedItems[0];
-                string selected = row["מספר לקוח"].ToString();
+                string selected = row["חפ לקוח"].ToString();
                 string CosName = row["שם לקוח"].ToString();
                 string cosADDs = row["כתובת לקוח"].ToString();
-                ManagerContactsGUI MCG = new ManagerContactsGUI(selected, CosName, cosADDs);
+                string cos_insideNum = row["מספר לקוח"].ToString();
+                ManagerContactsGUI MCG = new ManagerContactsGUI(selected, cos_insideNum, CosName, cosADDs);
                 MCG.Show();
                 Login.close = 1;
                 this.Close();
@@ -1125,12 +1126,12 @@ namespace project
             try
             {
                 DataRowView row = (DataRowView)dataGrid1.SelectedItems[0];
-                string selected = row["מספר לקוח"].ToString();
+                string selected = row["חפ לקוח"].ToString();
                 try
                 {
                     MySqlConnection MySqlConn = new MySqlConnection(Login.Connectionstring);
                     MySqlConn.Open();
-                    string Query1 = ("select costumerid as `מספר לקוח`,costumerName as `שם לקוח` ,costumerAddress as `כתובת לקוח`  from project.costumers group by costumerid");
+                    string Query1 = ("select costumerid as `חפ לקוח`,costumerName as `שם לקוח` ,costumerAddress as `כתובת לקוח`  from project.costumers group by costumerid");
                     MySqlCommand MSQLcrcommand1 = new MySqlCommand(Query1, MySqlConn);
                     MSQLcrcommand1.ExecuteNonQuery();
                     MySqlDataAdapter mysqlDAdp = new MySqlDataAdapter(MSQLcrcommand1);
@@ -1155,12 +1156,12 @@ namespace project
             try
             {
                 DataRowView row = (DataRowView)dataGrid1.SelectedItems[0];
-                string selected = row["מספר לקוח"].ToString();
+                string selected = row["חפ לקוח"].ToString();
                 try
                 {
                     MySqlConnection MySqlConn = new MySqlConnection(Login.Connectionstring);
                     MySqlConn.Open();
-                    string Query1 = ("select costumerid as `מספר לקוח`,costumerName as `שם לקוח` ,costumerAddress as `כתובת לקוח`  from project.costumers group by costumerid");
+                    string Query1 = ("select costumerid as `חפ לקוח`,costumerName as `שם לקוח` ,costumerAddress as `כתובת לקוח`  from project.costumers group by costumerid");
                     MySqlCommand MSQLcrcommand1 = new MySqlCommand(Query1, MySqlConn);
                     MSQLcrcommand1.ExecuteNonQuery();
                     MySqlDataAdapter mysqlDAdp = new MySqlDataAdapter(MSQLcrcommand1);
@@ -1184,12 +1185,12 @@ namespace project
             try
             {
                 DataRowView row = (DataRowView)dataGrid1.SelectedItems[0];
-                string selected = row["מספר לקוח"].ToString();
+                string selected = row["חפ לקוח"].ToString();
                 try
                 {
                     MySqlConnection MySqlConn = new MySqlConnection(Login.Connectionstring);
                     MySqlConn.Open();
-                    string Query1 = ("select costumerid as `מספר לקוח`,costumerName as `שם לקוח` ,costumerAddress as `כתובת לקוח`  from project.costumers group by costumerid");
+                    string Query1 = ("select costumerid as `חפ לקוח`,costumerName as `שם לקוח` ,costumerAddress as `כתובת לקוח`  from project.costumers group by costumerid");
                     MySqlCommand MSQLcrcommand1 = new MySqlCommand(Query1, MySqlConn);
                     MSQLcrcommand1.ExecuteNonQuery();
                     MySqlDataAdapter mysqlDAdp = new MySqlDataAdapter(MSQLcrcommand1);
@@ -1214,7 +1215,7 @@ namespace project
             try
             {
                 DataRowView row = (DataRowView)dataGrid1.SelectedItems[0];
-                string selected = row["מספר לקוח"].ToString();
+                string selected = row["חפ לקוח"].ToString();
                 try
                 {
                     MySqlConnection MySqlConn = new MySqlConnection(Login.Connectionstring);

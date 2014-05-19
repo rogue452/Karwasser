@@ -4,21 +4,35 @@
        Title="הוסף לקוח חדש למערכת" Height="470" Width="563" FlowDirection="RightToLeft" ResizeMode="CanMinimize" Icon="/WpfApplication1;component/Images/Israel.ico" WindowStartupLocation="CenterScreen" Closing="exit_clicked">
     <Grid>
         <Image Source="/WpfApplication1;component/Images/31.jpg"  Stretch="UniformToFill" FlowDirection="RightToLeft" />
-        <Label Content="שם איש קשר" HorizontalAlignment="Left" Margin="18,152,0,251" Name="contname_label" />
-        <Label Content="מס לקוח" Height="28" HorizontalAlignment="Left" Margin="19,12,0,0" Name="cusid_label" VerticalAlignment="Top" />
-        <Label Content="שם לקוח" HorizontalAlignment="Left" Margin="18,60,0,346" Name="cusname_label" />
-        <Label Content="כתובת לקוח" Height="28" HorizontalAlignment="Left" Margin="18,104,0,0" Name="cusaddress_label" VerticalAlignment="Top" />
+        <Label Content="שם איש קשר" HorizontalAlignment="Left" Margin="14,150,0,253" Name="contname_label" />
+        <Label Content="ח.פ. לקוח" Height="28" HorizontalAlignment="Left" Margin="19,12,0,0" Name="hpcusid_label" VerticalAlignment="Top" />
+        <Label Content="שם לקוח" HorizontalAlignment="Left" Margin="19,82,0,324" Name="cusname_label" />
+        <Label Content="כתובת לקוח" Height="28" HorizontalAlignment="Left" Margin="19,116,0,0" Name="cusaddress_label" VerticalAlignment="Top" />
         <Button Content="הוסף למערכת" Height="57" HorizontalAlignment="Left" Margin="185,362,0,0" Name="Add_button" VerticalAlignment="Top" Width="183" Click="Add_button_Click" />
         <Button Content="חזור למסך לקוחות" Height="32" HorizontalAlignment="Left" Margin="12,387,0,0" Name="Back_button" VerticalAlignment="Top" Width="138" Click="Back_button_Click" />
-        <TextBox Height="23" HorizontalAlignment="Left" Margin="142,12,0,0" Name="id_textBox" VerticalAlignment="Top" Width="153" />
-        <TextBox Height="23" HorizontalAlignment="Left" Margin="142,60,0,0" Name="custname_textBox" VerticalAlignment="Top" Width="153"  />
-        <TextBox Height="23" HorizontalAlignment="Left" Margin="142,106,0,0" Name="address_textBox" VerticalAlignment="Top" Width="153" />
-        <TextBox Height="23" HorizontalAlignment="Left" Margin="142,157,0,0" Name="contact_name_textBox" VerticalAlignment="Top" Width="153" />
-        <Label Content="אימייל איש קשר " Height="28" HorizontalAlignment="Left" Margin="18,208,0,0" Name="label1" VerticalAlignment="Top" Width="103" />
-        <TextBox Height="23" HorizontalAlignment="Left" Margin="142,213,0,0" Name="email_textBox1" VerticalAlignment="Top" Width="153" />
-        <Label Content="טלפון איש קשר " Height="28" HorizontalAlignment="Left" Margin="18,263,0,0" Name="cont_phone_label" VerticalAlignment="Top" Width="95" />
-        <TextBox Height="23" HorizontalAlignment="Left" Margin="142,263,0,0" Name="cont_phone_text" VerticalAlignment="Top" Width="153" />
-        <Label Content="מחלקת איש קשר " Height="28" HorizontalAlignment="Left" Margin="10,313,0,0" Name="label2" VerticalAlignment="Top" Width="111" />
-        <TextBox Height="23" HorizontalAlignment="Left" Margin="142,313,0,0" Name="cont_dep_text" VerticalAlignment="Top" Width="153" />
+        <TextBox Height="23" HorizontalAlignment="Left" Margin="132,12,0,0" Name="hpcusid_textBox" VerticalAlignment="Top" Width="153" />
+        <TextBox Height="23" HorizontalAlignment="Left" Margin="132,84,0,0" Name="custname_textBox" VerticalAlignment="Top" Width="153"  />
+        <TextBox Height="23" HorizontalAlignment="Left" Margin="132,118,0,0" Name="address_textBox" VerticalAlignment="Top" Width="153" />
+        <TextBox Height="23" HorizontalAlignment="Left" Margin="132,155,0,0" Name="contact_name_textBox" VerticalAlignment="Top" Width="153" />
+        <Label Content="אימייל איש קשר " Height="28" HorizontalAlignment="Left" Margin="10,184,0,0" Name="label1" VerticalAlignment="Top" Width="103" />
+        <TextBox Height="23" HorizontalAlignment="Left" Margin="132,189,0,0" Name="email_textBox1" VerticalAlignment="Top" Width="153" />
+        <Label Content="טלפון איש קשר " Height="28" HorizontalAlignment="Left" Margin="14,226,0,0" Name="cont_phone_label" VerticalAlignment="Top" Width="95" />
+        <TextBox Height="23" HorizontalAlignment="Left" Margin="132,223,0,0" Name="cont_phone_text" VerticalAlignment="Top" Width="153" />
+        <Label Content="מחלקת איש קשר " Height="28" HorizontalAlignment="Left" Margin="12,312,0,0" Name="label2" VerticalAlignment="Top" Width="111" />
+        <TextBox Height="23" HorizontalAlignment="Left" Margin="132,314,0,0" Name="cont_dep_text" VerticalAlignment="Top" Width="153" />
+        <Label Content="אנא הכנס מחלקת איש הקשר" FontWeight="Bold" Foreground="Red" Height="28" HorizontalAlignment="Left" Margin="291,314,0,0" Name="dep_W_label" VerticalAlignment="Top" />
+        <Label Content="טלפון נייד" Height="28" HorizontalAlignment="Left" Margin="19,275,0,0" Name="cell_label" VerticalAlignment="Top" />
+        <TextBox Height="23" HorizontalAlignment="Left" Margin="132,280,0,0" Name="cell_textBox" VerticalAlignment="Top" Width="153" />
+        <Label Content="אנא הכנס שם איש קשר" FontWeight="Bold" Foreground="Red" Height="28" HorizontalAlignment="Left" Margin="289,155,0,0" Name="name_W_label" VerticalAlignment="Top" />
+        <Label Content="אנא הכנס אימייל איש קשר" FontWeight="Bold" Foreground="Red" Height="28" HorizontalAlignment="Left" Margin="289,189,0,0" Name="mail_W_label" VerticalAlignment="Top" />
+        <Label Content="אנא הכנס טלפון איש קשר" FontWeight="Bold" Foreground="Red" Height="28" HorizontalAlignment="Left" Margin="291,223,0,0" Name="phone_W_label" VerticalAlignment="Top" />
+        <Label Content="אנא הכנס מספר טלפון ו/או נייד עבור איש הקשר" FontWeight="Bold" Foreground="Red" Height="28" HorizontalAlignment="Left" Margin="133,249,0,0" Name="both_W_label" VerticalAlignment="Top" />
+        <Label Content="אנא הכנס נייד איש קשר" FontWeight="Bold" Foreground="Red" Height="28" HorizontalAlignment="Left" Margin="291,278,0,0" Name="cell_W_label" VerticalAlignment="Top" />
+        <Label Content="אנא הכנס ח.פ. לקוח" FontWeight="Bold" Foreground="Red" Height="28" HorizontalAlignment="Left" Margin="291,12,0,0" Name="hpcusid_W_label" VerticalAlignment="Top" />
+        <Label Content="אנא הכנס שם לקוח" FontWeight="Bold" Foreground="Red" Height="28" HorizontalAlignment="Left" Margin="289,84,0,0" Name="cusname_W_label" VerticalAlignment="Top" />
+        <Label Content="מספר לקוח (פנימי)" HorizontalAlignment="Left" Margin="19,47,0,359" Name="internalcusid_label" />
+        <TextBox Height="23" HorizontalAlignment="Left" Margin="132,49,0,0" Name="internalcusid_textBox" VerticalAlignment="Top" Width="153" />
+        <Label Content="אנא הכנס מספר לקוח" FontWeight="Bold" Foreground="Red" Height="28" HorizontalAlignment="Left" Margin="289,47,0,0" Name="internalcusid_W_label" VerticalAlignment="Top" />
+        <Label Content="אנא הכנס כתובת לקוח" FontWeight="Bold" Foreground="Red" Height="28" HorizontalAlignment="Left" Margin="289,118,0,0" Name="cusaddress_W_label" VerticalAlignment="Top" />
     </Grid>
 </Window>

@@ -106,8 +106,15 @@ namespace project
                 if (result == true)
                 {
                     string saveto = dialog.FileName;
-                    CreateExcelFile.CreateExcelDocument(dt, saveto);
-                    MessageBox.Show(" נוצר בהצלחה Microsoft Excel -מסמך ה");
+                    bool success = CreateExcelFile.CreateExcelDocument(dt, saveto);
+                    if (success)
+                    {
+                        MessageBox.Show(" נוצר בהצלחה Microsoft Excel -מסמך ה");
+                    }
+                    else
+                    {
+                        MessageBox.Show(" לא נוצר  Microsoft Excel -התרחשה שגיאה ולכן מסמך ה");
+                    }
                 }
             }
             catch (Exception ex)
