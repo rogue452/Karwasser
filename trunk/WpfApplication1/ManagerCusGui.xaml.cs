@@ -31,31 +31,33 @@ namespace project
         {
             InitializeComponent();
             this.WindowStartupLocation = WindowStartupLocation.CenterScreen;
-       
+            refreashcus(); 
+        }
 
+        private void refreashcus()
+        {
             try
             {
                 MySqlConnection MySqlConn = new MySqlConnection(Login.Connectionstring);
                 MySqlConn.Open();
-                string Query1 = ("select costumerid as `מספר לקוח`,costumerName as `שם לקוח` ,costumerAddress as `כתובת לקוח`  from project.costumers group by costumerid");
+                string Query1 = ("SELECT costumerid as `חפ לקוח`,costumerName as `שם לקוח` ,costumer_insideNum as `מספר לקוח`,costumerAddress as `כתובת לקוח`,costumerDesc as `הערות בקשר ללקוח` from project.costumers group by costumerid");
                 MySqlCommand MSQLcrcommand1 = new MySqlCommand(Query1, MySqlConn);
                 MSQLcrcommand1.ExecuteNonQuery();
                 MySqlDataAdapter mysqlDAdp = new MySqlDataAdapter(MSQLcrcommand1);
-               // DataTable dt = new DataTable("custumers");
+                //  DataTable dt = new DataTable("custumers");
                 dt.Clear();
                 mysqlDAdp.Fill(dt);
                 dataGrid1.ItemsSource = dt.DefaultView;
                 mysqlDAdp.Update(dt);
                 MySqlConn.Close();
+                IDSearchTextBox.Clear();
+                CustumerNameSearchTextBox.Clear();
             }
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message);
-            }     
+            }
         }
-
-
-
 
         private void ExcelBtn_Click(object sender, RoutedEventArgs e)
         {
@@ -71,9 +73,10 @@ namespace project
         {
             try
             {
+                /*
                 MySqlConnection MySqlConn = new MySqlConnection(Login.Connectionstring);
                 MySqlConn.Open();
-                string Query1 = ("select costumerid as `מספר לקוח`,costumerName as `שם לקוח` ,costumerAddress as `כתובת לקוח`  from project.costumers group by costumerid");
+                string Query1 = ("select costumerid as `חפ לקוח`,costumerName as `שם לקוח` ,costumerAddress as `כתובת לקוח`  from project.costumers group by costumerid");
                 MySqlCommand MSQLcrcommand1 = new MySqlCommand(Query1, MySqlConn);
                 MSQLcrcommand1.ExecuteNonQuery();
                 MySqlDataAdapter mysqlDAdp = new MySqlDataAdapter(MSQLcrcommand1);
@@ -82,6 +85,7 @@ namespace project
                 mysqlDAdp.Fill(dt);
                 mysqlDAdp.Update(dt);
                 MySqlConn.Close();
+                  */
                 SaveFileDialog dialog = new SaveFileDialog();
                 dialog.FileName = "רשימת לקוחות" + "_" + DateTime.Now.Year.ToString() + "_" + DateTime.Now.Month.ToString() + "_" + DateTime.Now.Day.ToString(); ; // Default file name
                 dialog.DefaultExt = ".xlsx"; // Default file extension
@@ -94,8 +98,15 @@ namespace project
                 if (result == true)
                 {
                     string saveto = dialog.FileName;
-                    CreateExcelFile.CreateExcelDocument(dt, saveto);
-                    MessageBox.Show(" נוצר בהצלחה Microsoft Excel -מסמך ה");
+                    bool success = CreateExcelFile.CreateExcelDocument(dt, saveto);
+                    if (success)
+                    {
+                        MessageBox.Show(" נוצר בהצלחה Microsoft Excel -מסמך ה");
+                    }
+                    else
+                    {
+                        MessageBox.Show(" לא נוצר  Microsoft Excel -התרחשה שגיאה ולכן מסמך ה");
+                    }
                 }
             }
             catch (Exception ex)
@@ -115,7 +126,7 @@ namespace project
                 MySqlConnection MySqlConn = new MySqlConnection(Login.Connectionstring);
                 MySqlConn.Open();
                 String searchkey = this.CustumerNameSearchTextBox.Text;
-                string Query1 = "select costumerid as `מספר לקוח`,costumerName as `שם לקוח` ,costumerAddress as `כתובת לקוח`  from project.costumers  where  costumerName Like '%" + searchkey + "%' group by costumerid";
+                string Query1 = "SELECT costumerid as `חפ לקוח`,costumerName as `שם לקוח` ,costumer_insideNum as `מספר לקוח`,costumerAddress as `כתובת לקוח`,costumerDesc as `הערות בקשר ללקוח` from project.costumers  where  costumerName Like '%" + searchkey + "%' group by costumerid";
                 MySqlCommand MSQLcrcommand1 = new MySqlCommand(Query1, MySqlConn);
                 MSQLcrcommand1.ExecuteNonQuery();
                 MySqlDataAdapter mysqlDAdp = new MySqlDataAdapter(MSQLcrcommand1);
@@ -139,7 +150,7 @@ namespace project
                 MySqlConnection MySqlConn = new MySqlConnection(Login.Connectionstring);
                 MySqlConn.Open();
                 String searchidkey = this.IDSearchTextBox.Text;
-                string Query1 = "select costumerid as `מספר לקוח`,costumerName as `שם לקוח` ,costumerAddress as `כתובת לקוח`  from project.costumers  where  costumerid Like '%" + searchidkey + "%' group by costumerid";
+                string Query1 = "SELECT costumerid as `חפ לקוח`,costumerName as `שם לקוח` ,costumer_insideNum as `מספר לקוח`,costumerAddress as `כתובת לקוח`,costumerDesc as `הערות בקשר ללקוח` from project.costumers  where  costumerid Like '%" + searchidkey + "%' group by costumerid";
                 MySqlCommand MSQLcrcommand1 = new MySqlCommand(Query1, MySqlConn);
                 MSQLcrcommand1.ExecuteNonQuery();
                 MySqlDataAdapter mysqlDAdp = new MySqlDataAdapter(MSQLcrcommand1);
@@ -179,7 +190,7 @@ namespace project
                 {
                     // this will give us the first colum of the selected row in the DataGrid.
 
-                    string selected = row["מספר לקוח"].ToString();
+                    string selected = row["חפ לקוח"].ToString();
                     // MessageBox.Show("" + selected + "");
 
                     try
@@ -192,34 +203,21 @@ namespace project
                         MySqlDataAdapter mysqlDAdp = new MySqlDataAdapter(MSQLcrcommand1);
                         MySqlConn.Close();
                         MessageBox.Show("!הלקוח נמחק מהמערכת");
+                        refreashcus();
                     }
                     catch (Exception ex)
                     {
                         MessageBox.Show(ex.Message);
                     }
-                    try
-                    {
-                        MySqlConnection MySqlConn = new MySqlConnection(Login.Connectionstring);
-                        MySqlConn.Open();
-                        string Query1 = ("select costumerid as `מספר לקוח`,costumerName as `שם לקוח` ,costumerAddress as `כתובת לקוח`  from project.costumers group by costumerid");
-                        MySqlCommand MSQLcrcommand1 = new MySqlCommand(Query1, MySqlConn);
-                        MSQLcrcommand1.ExecuteNonQuery();
-                        MySqlDataAdapter mysqlDAdp = new MySqlDataAdapter(MSQLcrcommand1);
-                      //  DataTable dt = new DataTable("custumers");
-                        dt.Clear();
-                        mysqlDAdp.Fill(dt);
-                        dataGrid1.ItemsSource = dt.DefaultView;
-                        mysqlDAdp.Update(dt);
-                        MySqlConn.Close();
-                    }
-                    catch (Exception ex)
-                    {
-                        MessageBox.Show(ex.Message);
-                    }
+                    return;
                 }//end else
 
             }//end try
-            catch { MessageBox.Show("לא נבחר לקוח למחיקה"); }
+            catch
+            {
+                MessageBox.Show("לא נבחר לקוח למחיקה");
+                return;
+            }
 
         }//end function
 
@@ -236,15 +234,23 @@ namespace project
 
         private void UpdateBtn_Click(object sender, RoutedEventArgs e)
         {
+            
             try
             {
-                System.Collections.IList rows = dataGrid1.SelectedItems;
-
                 DataRowView row = (DataRowView)dataGrid1.SelectedItems[0];
-                string selected = row["מספר לקוח"].ToString();
+                string selected = row["חפ לקוח"].ToString();
                 // MessageBox.Show(""+selected+ "");
 
-
+                try
+                {
+                    int phoneCheck = Convert.ToInt32(row["מספר לקוח"].ToString());
+                }
+                catch 
+                {
+                    MessageBox.Show("מספר הלקוח שהוזן לא מכיל רק מספרים");
+                    refreashcus();
+                    return;
+                }
 
                 if (MessageBox.Show("?האם אתה בטוח שברצונך לעדכן לקוח זה", "וידוא עדכון", MessageBoxButton.YesNo, MessageBoxImage.Warning) == MessageBoxResult.No)
                 {
@@ -254,13 +260,14 @@ namespace project
                 {
                         string custumername = row["שם לקוח"].ToString();
                         string custumeraddress = row["כתובת לקוח"].ToString();
-                      
+                        string cos_insideNum = row["מספר לקוח"].ToString();
+                        string cos_desc = row["הערות בקשר ללקוח"].ToString();
                         try
                         {
 
                             MySqlConnection MySqlConn = new MySqlConnection(Login.Connectionstring);
                             MySqlConn.Open();
-                            string Query1 = "update costumers set costumerName='" + custumername + "',costumerAddress='" + custumeraddress + "' where costumerid='" + selected + "'";
+                            string Query1 = "update costumers set costumerName='" + custumername + "',costumerAddress='" + custumeraddress + "',costumerDesc='" + cos_desc + "',costumer_insideNum='" + cos_insideNum + "' where costumerid='" + selected + "'";
                             MySqlCommand MSQLcrcommand1 = new MySqlCommand(Query1, MySqlConn);
                             MSQLcrcommand1.ExecuteNonQuery();
                             MySqlDataAdapter mysqlDAdp = new MySqlDataAdapter(MSQLcrcommand1);
@@ -271,25 +278,7 @@ namespace project
                         {
                             MessageBox.Show(ex.Message);
                         }
-                        try
-                        {
-                            MySqlConnection MySqlConn = new MySqlConnection(Login.Connectionstring);
-                            MySqlConn.Open();
-                            string Query1 = ("select costumerid as `מספר לקוח`,costumerName as `שם לקוח` ,costumerAddress as `כתובת לקוח`  from project.costumers group by costumerid");
-                            MySqlCommand MSQLcrcommand1 = new MySqlCommand(Query1, MySqlConn);
-                            MSQLcrcommand1.ExecuteNonQuery();
-                            MySqlDataAdapter mysqlDAdp = new MySqlDataAdapter(MSQLcrcommand1);
-                          //  DataTable dt = new DataTable("custumers");
-                            dt.Clear();
-                            mysqlDAdp.Fill(dt);
-                            dataGrid1.ItemsSource = dt.DefaultView;
-                            mysqlDAdp.Update(dt);
-                            MySqlConn.Close();
-                        }
-                        catch (Exception ex)
-                        {
-                            MessageBox.Show(ex.Message);
-                        }
+                        refreashcus();
                     
                 }
 
@@ -301,7 +290,7 @@ namespace project
 
         private void Grid_AutoGeneratingColumn(object sender, DataGridAutoGeneratingColumnEventArgs e)
         {
-            if (e.Column.Header.ToString() == "מספר לקוח")  
+            if (e.Column.Header.ToString() == "חפ לקוח")  
             {
                 // e.Cancel = true;   // For not to include 
                 e.Column.IsReadOnly = true; // Makes the column as read only
@@ -314,15 +303,16 @@ namespace project
             try
             {
                 DataRowView row = (DataRowView)dataGrid1.SelectedItems[0];
-                string selected = row["מספר לקוח"].ToString();
+                string selected = row["חפ לקוח"].ToString();
                 string CosName = row["שם לקוח"].ToString();
                 string cosADDs = row["כתובת לקוח"].ToString();
-                ManagerContactsGUI MCG = new ManagerContactsGUI(selected, CosName, cosADDs);
+                string cos_insideNum = row["מספר לקוח"].ToString();
+                ManagerContactsGUI MCG = new ManagerContactsGUI(selected, cos_insideNum, CosName, cosADDs);
                 MCG.Show();
                 Login.close = 1;
                 this.Close();
             }
-            catch { MessageBox.Show("לא נבחר לקוח"); }
+            catch { MessageBox.Show("לא נבחר לקוח");  }
         }
 
 

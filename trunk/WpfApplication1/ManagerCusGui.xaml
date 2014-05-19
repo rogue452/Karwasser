@@ -5,9 +5,9 @@
     <Grid>
         <Image Source="/WpfApplication1;component/Images/31.jpg"  Stretch="UniformToFill" FlowDirection="RightToLeft" />
         <DataGrid x:Name="dataGrid1" HorizontalAlignment="Left" Margin="12,99,0,0" VerticalAlignment="Top" Height="468" Width="1166" FontSize="15"  AutoGenerateColumns="True" AutoGeneratingColumn="Grid_AutoGeneratingColumn"  ItemsSource="{Binding}" HeadersVisibility="All" MaxColumnWidth="Infinity" CanUserAddRows="false" />
-        <TextBox HorizontalAlignment="Left" Height="22" Margin="169,67,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="164" FontSize="15" Name="CustumerNameSearchTextBox" TextChanged="CustumerNameSearchTextBox_TextChanged" />
-        <TextBox HorizontalAlignment="Left" Height="23" Margin="169,34,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="164" Name="IDSearchTextBox" TextChanged="IDSearchTextBox_TextChanged" />
-        <Label Content="מספר לקוח (ללא 0 ראשוני)" HorizontalAlignment="Left" Margin="4,34,0,0" VerticalAlignment="Top"/>
+        <TextBox HorizontalAlignment="Left" Height="22" Margin="103,67,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="207" FontSize="15" Name="CustumerNameSearchTextBox" TextChanged="CustumerNameSearchTextBox_TextChanged" />
+        <TextBox HorizontalAlignment="Left" Height="23" Margin="103,34,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="207" Name="IDSearchTextBox" TextChanged="IDSearchTextBox_TextChanged" />
+        <Label Content="חפ לקוח" HorizontalAlignment="Left" Margin="12,34,0,0" VerticalAlignment="Top"/>
         <Label Content="שם לקוח " HorizontalAlignment="Left" Margin="6,65,0,0" VerticalAlignment="Top" Width="71"/>
         <Label Content="החל להקליד כדי לחפש לפי:" HorizontalAlignment="Left" Margin="12,0,0,0" VerticalAlignment="Top" FontWeight="Bold" />
         <Button Content="הוסף לקוח" HorizontalAlignment="Left" Margin="711,41,0,0" VerticalAlignment="Top" Width="145" Height="56" Name="ADD_Btn" Background="#8400A500" FontWeight="Bold" Click="ADD_Btn_Click" />
@@ -21,9 +21,8 @@
         <Image Height="36" HorizontalAlignment="Right" Margin="0,3,86,0" Name="image2" Stretch="Fill" VerticalAlignment="Top" Width="31" Source="/WpfApplication1;component/Images/delete_user.png" />
         <Image Height="36" HorizontalAlignment="Right" Margin="0,3,236,0" Name="image3" Stretch="Fill" VerticalAlignment="Top" Width="42" Source="/WpfApplication1;component/Images/update.png" />
         <Image Height="28" HorizontalAlignment="Left" Margin="1009,573,0,0" Name="image4" Stretch="Fill" VerticalAlignment="Top" Width="25" Source="/WpfApplication1;component/Images/exit.png" />
-        <Image Height="35" HorizontalAlignment="Left" Margin="468,566,0,0" Name="image6" Stretch="Fill" VerticalAlignment="Top" Width="33" Source="/WpfApplication1;component/Images/save_to.png"  />
+        <Image Height="35" HorizontalAlignment="Left" Margin="468,568,0,0" Name="image6" Stretch="Fill" VerticalAlignment="Top" Width="33" Source="/WpfApplication1;component/Images/icon_microsoftexcel.png"  />
         <Image Height="29" HorizontalAlignment="Left" Margin="12,573,0,0" Name="image7" Stretch="Fill" VerticalAlignment="Top" Width="33" Source="/WpfApplication1;component/Images/back.png" />
-        <Button Content="ניהול אנשי קשר" Height="56" HorizontalAlignment="Left" Margin="523,41,0,0" Name="Contacts_button" VerticalAlignment="Top" Width="145" Background="#B9FF6AB2" FontWeight="Bold" Click="Contacts_button_Click" />
-        <Button Content="צפה בהזמנות הלקוח" Height="56" HorizontalAlignment="Left" Margin="372,41,0,0" Name="ViewJobsbutton" VerticalAlignment="Top" Width="145" />
+        <Button Content="ניהול אנשי קשר" Height="56" HorizontalAlignment="Left" Margin="413,41,0,0" Name="Contacts_button" VerticalAlignment="Top" Width="145" Background="#B9FF6AB2" FontWeight="Bold" Click="Contacts_button_Click" />
     </Grid>
 </Window>

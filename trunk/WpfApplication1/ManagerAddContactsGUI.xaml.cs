@@ -25,16 +25,25 @@ namespace project
 
         string contact_name;
         string contact_email;
-        string contact_phone;
         string contact_dep;
         string cosADDs;
+        string contact_phone;
+        string contact_cellphone;
 
-        public ManagerAddContactsGUI(string selected, string cosName,string cosADDs)
+        public ManagerAddContactsGUI(string selected,string cos_insideNum , string cosName,string cosADDs)
         {
             InitializeComponent();
+            Login.close = 1;
             CostName_label.Content = cosName;
             CostNum_label.Content = selected;
+            cos_num_label.Content = cos_insideNum;
             this.cosADDs=cosADDs;
+            name_W_label.Visibility = Visibility.Hidden;
+            mail_W_label.Visibility = Visibility.Hidden;
+            phone_W_label.Visibility = Visibility.Hidden;
+            both_W_label.Visibility = Visibility.Hidden;
+            cell_W_label.Visibility = Visibility.Hidden;
+            dep_W_label.Visibility = Visibility.Hidden;   
         }
 
 
@@ -52,65 +61,119 @@ namespace project
 
         private void Add_button_Click(object sender, RoutedEventArgs e)
         {
-            bool f1 = false, f2 = false, f3 = false, f4 = false;
+            name_W_label.Visibility = Visibility.Hidden;
+            mail_W_label.Visibility = Visibility.Hidden;
+            phone_W_label.Visibility = Visibility.Hidden;
+            both_W_label.Visibility = Visibility.Hidden;
+            cell_W_label.Visibility = Visibility.Hidden;
+            dep_W_label.Visibility = Visibility.Hidden;
+            bool f1 = false, f2 = false, f3 = false, f4 = false, f5 = false, f6 = false, f7 = false, f8 = false;
 
             // if (email_textBox1.Text != null)
-            if (email_textBox1 != null && !string.IsNullOrWhiteSpace(email_textBox1.Text))
+            if (!string.IsNullOrWhiteSpace(email_textBox1.Text))
             {
                 if ((Regex.IsMatch(this.email_textBox1.Text, @"^[a-zA-Z][\w\.-]*[a-zA-Z0-9]@[a-zA-Z0-9][\w\.-]*[a-zA-Z0-9]\.[a-zA-Z][a-zA-Z\.]*[a-zA-Z]$")))
                 {
                     contact_email = email_textBox1.Text;
-                    //   MessageBox.Show("" + email + "");
-
                     f1 = true;
                 }
                 else
                 {
-                    MessageBox.Show("אנא בדוק תקינות כתובת האימייל");
+                    mail_W_label.Content = "אנא בדוק תקינות כתובת האימייל";
+                    mail_W_label.Visibility = Visibility.Visible;
+                    //MessageBox.Show("אנא בדוק תקינות כתובת האימייל");
+                    
                 }
             }
             else
             {
-                MessageBox.Show("אנא הכנס כתובת אימייל");
+                mail_W_label.Content = "אנא הכנס כתובת אימייל";
+                mail_W_label.Visibility = Visibility.Visible;
+                //MessageBox.Show("אנא הכנס כתובת אימייל");
+                
             }
 
-            if (contact_name_textBox != null && !string.IsNullOrWhiteSpace(contact_name_textBox.Text))
+            if (!string.IsNullOrWhiteSpace(contact_name_textBox.Text))
             {
                 contact_name = contact_name_textBox.Text;
                 f2 = true;
             }
             else
             {
-                MessageBox.Show("אנא הכנס שם איש קשר ");
+                name_W_label.Content = "אנא הכנס שם איש קשר";
+                name_W_label.Visibility = Visibility.Visible;
+                //MessageBox.Show("אנא הכנס שם איש קשר ");
+                
             }
 
-            if (cont_phone_text != null && !string.IsNullOrWhiteSpace(cont_phone_text.Text))
+            if (!string.IsNullOrWhiteSpace(cont_phone_text.Text))
             {
                 try
                 {
                     int phoneCheck = Convert.ToInt32(cont_phone_text.Text);
+                    contact_phone = cont_phone_text.Text;
+                    f5 = true;
                 }
                 catch
                 {
-                    MessageBox.Show("!מספר הטלפון חייב להכיל מספרים בלבד");
-                    return;
+                    f7 = true;
+                    phone_W_label.Content = "מספר הטלפון חייב להכיל מספרים בלבד!";
+                    phone_W_label.Visibility = Visibility.Visible;
+                    //MessageBox.Show("!מספר הטלפון חייב להכיל מספרים בלבד");
+                    
                 }
-                contact_phone = cont_phone_text.Text;
-                f3 = true;
-            }
-            else
-            {
-                MessageBox.Show("אנא הכנס טלפון איש קשר ");
+                
             }
 
-            if (cont_dep_text != null && !string.IsNullOrWhiteSpace(cont_dep_text.Text))
+            if (!string.IsNullOrWhiteSpace(cell_textBox.Text))
+            {
+                try
+                {
+                    int cellphoneCheck = Convert.ToInt32(cell_textBox.Text);
+                    contact_cellphone = cell_textBox.Text;
+                    f6 = true;
+                }
+                catch
+                {
+                    f8 = true;
+                    cell_W_label.Content = "מספר הטלפון נייד חייב להכיל מספרים בלבד!";
+                    cell_W_label.Visibility = Visibility.Visible;
+                    //MessageBox.Show("!מספר הטלפון נייד חייב להכיל מספרים בלבד");
+                    
+                }
+                
+            }
+
+
+            if (f5 || f6) //user enterd phone and/or cellphone correctly.
+            {
+                if (!f7 && !f8) // if non was wrong.
+                {
+                    f3 = true;
+                }
+            }
+
+            //user did not enterd cellphone and/or phone.
+            if (string.IsNullOrWhiteSpace(cont_phone_text.Text) && string.IsNullOrWhiteSpace(cell_textBox.Text))
+            {
+                both_W_label.Content = "אנא הכנס מספר טלפון ו/או נייד עבור איש הקשר";
+                both_W_label.Visibility = Visibility.Visible;
+                //MessageBox.Show("אנא הכנס מספר טלפון ו/או נייד עבור איש הקשר ");
+            }
+
+
+
+            if (!string.IsNullOrWhiteSpace(cont_dep_text.Text))
             {
                 contact_dep = cont_dep_text.Text;
                 f4 = true;
             }
             else
             {
-                MessageBox.Show("אנא הכנס מחלקת איש קשר ");
+                dep_W_label.Content = "אנא הכנס מחלקת איש קשר";
+                dep_W_label.Visibility = Visibility.Visible;
+                //MessageBox.Show("אנא הכנס מחלקת איש קשר ");
+                
             }
 
 
@@ -119,7 +182,8 @@ namespace project
             // if all is ok then add new user to the DB.
             if (f1 && f2 && f3 && f4)
             {
-          
+                
+
                 // string query = ("insert into project.costumers (costumerid, costumerName, contactName , contactEmail,contactPhone,costumerAddress,contactDepartment) values ('" + cusid + "','" + custname + "','" + contact_name + "','" + contact_email + "','" + contact_phone + "','" + cusaddress + "','" + contact_dep + "')");
                 try
                 {
@@ -148,7 +212,19 @@ namespace project
                     //MessageBox.Show("" + max + "");
                     //MessageBox.Show("" + count + "");
 
-                    string query = ("insert into project.costumers (costumerid, contactid, costumerName, contactName , contactEmail,contactPhone,costumerAddress,contactDepartment) values ('" + CostNum_label.Content + "','" + max + "','" + CostName_label.Content + "','" + contact_name + "','" + contact_email + "','" + contact_phone + "','" + cosADDs + "','" + contact_dep + "')");
+
+                     // if only phone
+                     string query = ("insert into project.costumers (costumerid, contactid, costumerName, contactName , contactEmail,contactPhone,costumerAddress,contactDepartment) values ('" + CostNum_label.Content + "','" + max + "','" + CostName_label.Content + "','" + contact_name + "','" + contact_email + "','" + contact_phone + "','" + cosADDs + "','" + contact_dep + "')");
+
+                     if (!f5 && f6) // if only cell
+                     {
+                         query = ("insert into project.costumers (costumerid, contactid, costumerName, contactName , contactEmail,contactCellPhone,costumerAddress,contactDepartment) values ('" + CostNum_label.Content + "','" + max + "','" + CostName_label.Content + "','" + contact_name + "','" + contact_email + "','" + contact_cellphone + "','" + cosADDs + "','" + contact_dep + "')");
+                     }
+                     if (f5 && f6) // if both
+                     {
+                         query = ("insert into project.costumers (costumerid, contactid, costumerName, contactName , contactEmail,contactPhone,contactCellPhone,costumerAddress,contactDepartment) values ('" + CostNum_label.Content + "','" + max + "','" + CostName_label.Content + "','" + contact_name + "','" + contact_email + "','" + contact_phone + "','" + contact_cellphone + "','" + cosADDs + "','" + contact_dep + "')");
+                     }
+                    //string query = ("insert into project.costumers (costumerid, contactid, costumerName, contactName , contactEmail,contactPhone,costumerAddress,contactDepartment) values ('" + CostNum_label.Content + "','" + max + "','" + CostName_label.Content + "','" + contact_name + "','" + contact_email + "','" + contact_phone + "','" + cosADDs + "','" + contact_dep + "')");
                     DBConnection DBC = new DBConnection();
                     DBC.InsertDataIntoDB(Login.Connectionstring, query);
                     try
