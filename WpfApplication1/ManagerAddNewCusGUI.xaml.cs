@@ -314,26 +314,34 @@ namespace project
                 if (hp == 0 && count == 0)
                 {
                     // if only phone
-                    string query = ("insert into project.costumers (costumerid, contactid, costumerName, contactName , contactEmail,contactPhone,costumerAddress,contactDepartment,costumer_insideNum) values ('" + hpcusid + "','  1 ','" + custname + "','" + contact_name + "','" + contact_email + "','" + contact_phone + "','" + cusaddress + "','" + contact_dep + "','" + internalcusid + "')");
+                    string query = ("insert into project.costumers (costumerid, contactid, costumerName, contactName , contactEmail,contactPhone,costumerAddress,contactDepartment,costumer_insideNum) values ('" + hpcusid + "','1','" + custname + "','" + contact_name + "','" + contact_email + "','" + contact_phone + "','" + cusaddress + "','" + contact_dep + "','" + internalcusid + "')");
 
                     if (!f10 && f9) // if only cell
                     {
-                        query = ("insert into project.costumers (costumerid, contactid, costumerName, contactName , contactEmail,contactCellPhone,costumerAddress,contactDepartment,costumer_insideNum) values ('" + hpcusid + "','  1 ','" + custname + "','" + contact_name + "','" + contact_email + "','" + contact_cellphone + "','" + cusaddress + "','" + contact_dep + "','" + internalcusid + "')");
+                        query = ("insert into project.costumers (costumerid, contactid, costumerName, contactName , contactEmail,contactCellPhone,costumerAddress,contactDepartment,costumer_insideNum) values ('" + hpcusid + "','1','" + custname + "','" + contact_name + "','" + contact_email + "','" + contact_cellphone + "','" + cusaddress + "','" + contact_dep + "','" + internalcusid + "')");
                     }
                     if (f9 && f10) // if both
                     {
-                        query = ("insert into project.costumers (costumerid, contactid, costumerName, contactName , contactEmail,contactPhone,contactCellPhone,costumerAddress,contactDepartment,costumer_insideNum) values ('" + hpcusid + "','  1 ','" + custname + "','" + contact_name + "','" + contact_email + "','" + contact_phone + "','" + contact_cellphone + "','" + cusaddress + "','" + contact_dep + "','" + internalcusid + "')");
+                        query = ("insert into project.costumers (costumerid, contactid, costumerName, contactName , contactEmail,contactPhone,contactCellPhone,costumerAddress,contactDepartment,costumer_insideNum) values ('" + hpcusid + "','1','" + custname + "','" + contact_name + "','" + contact_email + "','" + contact_phone + "','" + contact_cellphone + "','" + cusaddress + "','" + contact_dep + "','" + internalcusid + "')");
                     }
 
                     //string query = ("insert into project.costumers (costumerid, contactid, costumerName, contactName , contactEmail,contactPhone,costumerAddress,contactDepartment) values ('" + hpcusid + "','  1 ','" + custname + "','" + contact_name + "','" + contact_email + "','" + contact_phone + "','" + cusaddress + "','" + contact_dep + "')");
                     DBConnection DBC = new DBConnection();
                     DBC.InsertDataIntoDB(Login.Connectionstring, query);
-
+                    hpcusid_textBox.Clear();
+                    internalcusid_textBox.Clear();
+                    custname_textBox.Clear();
+                    address_textBox.Clear();
+                    contact_name_textBox.Clear();
+                    email_textBox1.Clear();
+                    cont_phone_text.Clear();
+                    cell_textBox.Clear();
+                    cont_dep_text.Clear();
                     try
                     {
                         MySqlConnection MySqlConn1 = new MySqlConnection(Login.Connectionstring);
                         MySqlConn1.Open();
-                        string Query1 = ("select costumerid as `מספר לקוח`,costumerName as `שם לקוח` ,costumerAddress as `כתובת לקוח`  from project.costumers group by costumerid");
+                        string Query1 = ("SELECT costumerid as `חפ לקוח`,costumerName as `שם לקוח` ,costumer_insideNum as `מספר לקוח`,costumerAddress as `כתובת לקוח`,costumerDesc as `הערות בקשר ללקוח` from project.costumers group by costumerid");
                         MySqlCommand MSQLcrcommand11 = new MySqlCommand(Query1, MySqlConn1);
                         MSQLcrcommand11.ExecuteNonQuery();
                         MySqlDataAdapter mysqlDAdp = new MySqlDataAdapter(MSQLcrcommand11);

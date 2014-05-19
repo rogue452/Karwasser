@@ -190,7 +190,7 @@ namespace project
                     MySqlConnection MySqlConn = new MySqlConnection(Login.Connectionstring);
                     MySqlConn.Open();
                     
-                    MessageBox.Show("" + CostNum_label.Content + "");
+                    //MessageBox.Show("" + CostNum_label.Content + "");
                     string query1 = ("select MAX(contactid) from costumers where costumerid='" + CostNum_label.Content + "'");
                     MySqlCommand MSQLcrcommand1 = new MySqlCommand(query1, MySqlConn);
                     MSQLcrcommand1.ExecuteNonQuery();
@@ -208,30 +208,35 @@ namespace project
 
                   //  }
                     //max = (int) dr.GetValue(0);
-                     MessageBox.Show("" + max + "");
+                     //MessageBox.Show("" + max + "");
                     //MessageBox.Show("" + max + "");
                     //MessageBox.Show("" + count + "");
 
 
                      // if only phone
-                     string query = ("insert into project.costumers (costumerid, contactid, costumerName, contactName , contactEmail,contactPhone,costumerAddress,contactDepartment) values ('" + CostNum_label.Content + "','" + max + "','" + CostName_label.Content + "','" + contact_name + "','" + contact_email + "','" + contact_phone + "','" + cosADDs + "','" + contact_dep + "')");
+                     string query = ("insert into project.costumers (costumerid, contactid, costumerName, contactName , contactEmail,contactPhone,costumerAddress,contactDepartment,costumer_insideNum) values ('" + CostNum_label.Content + "','" + max + "','" + CostName_label.Content + "','" + contact_name + "','" + contact_email + "','" + contact_phone + "','" + cosADDs + "','" + contact_dep + "','" + cos_num_label.Content + "')");
 
                      if (!f5 && f6) // if only cell
                      {
-                         query = ("insert into project.costumers (costumerid, contactid, costumerName, contactName , contactEmail,contactCellPhone,costumerAddress,contactDepartment) values ('" + CostNum_label.Content + "','" + max + "','" + CostName_label.Content + "','" + contact_name + "','" + contact_email + "','" + contact_cellphone + "','" + cosADDs + "','" + contact_dep + "')");
+                         query = ("insert into project.costumers (costumerid, contactid, costumerName, contactName , contactEmail,contactCellPhone,costumerAddress,contactDepartment,costumer_insideNum) values ('" + CostNum_label.Content + "','" + max + "','" + CostName_label.Content + "','" + contact_name + "','" + contact_email + "','" + contact_cellphone + "','" + cosADDs + "','" + contact_dep + "','" + cos_num_label.Content + "')");
                      }
                      if (f5 && f6) // if both
                      {
-                         query = ("insert into project.costumers (costumerid, contactid, costumerName, contactName , contactEmail,contactPhone,contactCellPhone,costumerAddress,contactDepartment) values ('" + CostNum_label.Content + "','" + max + "','" + CostName_label.Content + "','" + contact_name + "','" + contact_email + "','" + contact_phone + "','" + contact_cellphone + "','" + cosADDs + "','" + contact_dep + "')");
+                         query = ("insert into project.costumers (costumerid, contactid, costumerName, contactName , contactEmail,contactPhone,contactCellPhone,costumerAddress,contactDepartment,costumer_insideNum) values ('" + CostNum_label.Content + "','" + max + "','" + CostName_label.Content + "','" + contact_name + "','" + contact_email + "','" + contact_phone + "','" + contact_cellphone + "','" + cosADDs + "','" + contact_dep + "','" + cos_num_label.Content + "')");
                      }
                     //string query = ("insert into project.costumers (costumerid, contactid, costumerName, contactName , contactEmail,contactPhone,costumerAddress,contactDepartment) values ('" + CostNum_label.Content + "','" + max + "','" + CostName_label.Content + "','" + contact_name + "','" + contact_email + "','" + contact_phone + "','" + cosADDs + "','" + contact_dep + "')");
                     DBConnection DBC = new DBConnection();
                     DBC.InsertDataIntoDB(Login.Connectionstring, query);
+                    contact_name_textBox.Clear();
+                    email_textBox1.Clear();
+                    cont_phone_text.Clear();
+                    cell_textBox.Clear();
+                    cont_dep_text.Clear();
                     try
                     {
                         MySqlConnection MySqlConn1 = new MySqlConnection(Login.Connectionstring);
                         MySqlConn1.Open();
-                        string Query1 = ("select contactid as `מספר איש קשר`,contactName as `שם איש קשר` ,contactEmail as `אימייל איש קשר` ,contactPhone as `טלפון איש קשר` ,contactDepartment as `מחלקת איש קשר` from costumers  where costumerid='" + CostNum_label.Content + "'");
+                        string Query1 = ("select contactid as `מספר איש קשר`,contactName as `שם איש קשר` ,contactEmail as `אימייל איש קשר` ,contactPhone as `טלפון איש קשר`,contactCellPhone as `טלפון נייד של איש הקשר` ,contactDepartment as `מחלקת איש קשר`, contactDesc as `הערות לגבי איש הקשר` from costumers  where costumerid='" + CostNum_label.Content + "'");
                         MySqlCommand MSQLcrcommand11 = new MySqlCommand(Query1, MySqlConn1);
                         MSQLcrcommand11.ExecuteNonQuery();
                         MySqlDataAdapter mysqlDAdp = new MySqlDataAdapter(MSQLcrcommand11);

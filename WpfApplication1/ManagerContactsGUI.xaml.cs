@@ -61,6 +61,32 @@ namespace project
         }
 
 
+        private void refreashandclear()
+                {
+                try
+                    {
+                        MySqlConnection MySqlConn = new MySqlConnection(Login.Connectionstring);
+                        MySqlConn.Open();
+                        string Query1 = ("select contactid as `מספר איש קשר`,contactName as `שם איש קשר` ,contactEmail as `אימייל איש קשר` ,contactPhone as `טלפון איש קשר`,contactCellPhone as `טלפון נייד של איש הקשר` ,contactDepartment as `מחלקת איש קשר`, contactDesc as `הערות לגבי איש הקשר` from costumers  where costumerid='" + hpcostid + "'");
+                        MySqlCommand MSQLcrcommand1 = new MySqlCommand(Query1, MySqlConn);
+                        MSQLcrcommand1.ExecuteNonQuery();
+                        MySqlDataAdapter mysqlDAdp = new MySqlDataAdapter(MSQLcrcommand1);
+                        //DataTable dt = new DataTable("contacts");
+                        dt.Clear();
+                        mysqlDAdp.Fill(dt);
+                        dataGrid1.ItemsSource = dt.DefaultView;
+                        mysqlDAdp.Update(dt);
+                        MySqlConn.Close();
+                        IDSearchTextBox.Clear();
+                        FirstNameSearchTextBox.Clear();
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show(ex.Message);
+                    }
+                }
+
+
 
         private void ExcelBtn_Click(object sender, RoutedEventArgs e)
         {
@@ -243,25 +269,7 @@ namespace project
                         {
                             MessageBox.Show(ex.Message);
                         }
-                        try
-                        {
-                            MySqlConnection MySqlConn = new MySqlConnection(Login.Connectionstring);
-                            MySqlConn.Open();
-                            string Query1 = ("select contactid as `מספר איש קשר`,contactName as `שם איש קשר` ,contactEmail as `אימייל איש קשר` ,contactPhone as `טלפון איש קשר` ,contactDepartment as `מחלקת איש קשר` from costumers  where costumerid='" + hpcostid + "'");
-                            MySqlCommand MSQLcrcommand1 = new MySqlCommand(Query1, MySqlConn);
-                            MSQLcrcommand1.ExecuteNonQuery();
-                            MySqlDataAdapter mysqlDAdp = new MySqlDataAdapter(MSQLcrcommand1);
-                         //   DataTable dt = new DataTable("contacts");
-                            dt.Clear();
-                            mysqlDAdp.Fill(dt);
-                            dataGrid1.ItemsSource = dt.DefaultView;
-                            mysqlDAdp.Update(dt);
-                            MySqlConn.Close();
-                        }
-                        catch (Exception ex)
-                        {
-                            MessageBox.Show(ex.Message);
-                        }
+                        refreashandclear();
                     }//end else
                 
             }//end try
@@ -293,66 +301,84 @@ namespace project
         {
             try
             {
-                    DataRowView row = (DataRowView)dataGrid1.SelectedItems[0];
-                    string selected = row["מספר איש קשר"].ToString();
-                    // MessageBox.Show(""+selected+ "");
-                        if (MessageBox.Show("?האם אתה בטוח שברצונך לעדכן איש קשר זה", "וידוא עדכון", MessageBoxButton.YesNo, MessageBoxImage.Warning) == MessageBoxResult.No)
+                DataRowView row = (DataRowView)dataGrid1.SelectedItems[0];
+                string selected = row["מספר איש קשר"].ToString();
+                // MessageBox.Show(""+selected+ "");
+                    if (MessageBox.Show("?האם אתה בטוח שברצונך לעדכן איש קשר זה", "וידוא עדכון", MessageBoxButton.YesNo, MessageBoxImage.Warning) == MessageBoxResult.No)
+                    {
+                        return; //dont do stuff
+                    }
+                    else // if the user clicked on "Yes" so he wants to Update.
+                    {
+                        //checking if the email intered correctlly.
+                        if ((Regex.IsMatch(row["אימייל איש קשר"].ToString(), @"^[a-zA-Z][\w\.-]*[a-zA-Z0-9]@[a-zA-Z0-9][\w\.-]*[a-zA-Z0-9]\.[a-zA-Z][a-zA-Z\.]*[a-zA-Z]$")))
                         {
-                            //dont do stuff
-                        }
-                        else // if the user clicked on "Yes" so he wants to Update.
-                        {
-                            //checking if the email intered correctlly.
-                            if ((Regex.IsMatch(row["אימייל איש קשר"].ToString(), @"^[a-zA-Z][\w\.-]*[a-zA-Z0-9]@[a-zA-Z0-9][\w\.-]*[a-zA-Z0-9]\.[a-zA-Z][a-zA-Z\.]*[a-zA-Z]$")))
+
+                            if (string.IsNullOrWhiteSpace(row["טלפון נייד של איש הקשר"].ToString()) && string.IsNullOrWhiteSpace(row["טלפון איש קשר"].ToString()))
                             {
-                                string contactName = row["שם איש קשר"].ToString();
-                                string contactEmail = row["אימייל איש קשר"].ToString();
-                                string contactPhone = row["טלפון איש קשר"].ToString();
-                                string contactDepartment = row["מחלקת איש קשר"].ToString();
+                                MessageBox.Show("לפחות אחד מ- טלפון או טלפון נייד חייב להיות מוזן");
+                                refreashandclear();
+                                return;
+                            }
 
+                            if (!string.IsNullOrWhiteSpace(row["טלפון נייד של איש הקשר"].ToString()))
+                            {
                                 try
                                 {
-
-                                    MySqlConnection MySqlConn = new MySqlConnection(Login.Connectionstring);
-                                    MySqlConn.Open();
-                                    string Query1 = "update costumers set contactName='" + contactName + "',contactEmail='" + contactEmail + "',contactPhone='" + contactPhone + "',contactDepartment='" + contactDepartment + "' where costumerid='" + hpcostid + "' and contactid='" + selected + "'";
-                                    MySqlCommand MSQLcrcommand1 = new MySqlCommand(Query1, MySqlConn);
-                                    MSQLcrcommand1.ExecuteNonQuery();
-                                    MySqlDataAdapter mysqlDAdp = new MySqlDataAdapter(MSQLcrcommand1);
-                                    MySqlConn.Close();
-                                    MessageBox.Show("!פרטי איש הקשר עודכנו");
+                                    int cellphoneCheck = Convert.ToInt32(row["טלפון נייד של איש הקשר"].ToString());
                                 }
-                                catch (Exception ex)
-                                {
-                                    MessageBox.Show(ex.Message);
-                                }
-                                try
-                                {
-                                    MySqlConnection MySqlConn = new MySqlConnection(Login.Connectionstring);
-                                    MySqlConn.Open();
-                                    string Query1 = ("select contactid as `מספר איש קשר`,contactName as `שם איש קשר` ,contactEmail as `אימייל איש קשר` ,contactPhone as `טלפון איש קשר` ,contactDepartment as `מחלקת איש קשר` from costumers  where costumerid='" + hpcostid + "'");
-                                    MySqlCommand MSQLcrcommand1 = new MySqlCommand(Query1, MySqlConn);
-                                    MSQLcrcommand1.ExecuteNonQuery();
-                                    MySqlDataAdapter mysqlDAdp = new MySqlDataAdapter(MSQLcrcommand1);
-                                   // DataTable dt = new DataTable("contacts");
-                                    dt.Clear();
-                                    mysqlDAdp.Fill(dt);
-                                    dataGrid1.ItemsSource = dt.DefaultView;
-                                    mysqlDAdp.Update(dt);
-                                    MySqlConn.Close();
-                                }
-                                catch (Exception ex)
-                                {
-                                    MessageBox.Show(ex.Message);
+                                catch 
+                                { 
+                                    MessageBox.Show("טלפון נייד חייב לכלול מספרים בלבד"); 
+                                    refreashandclear(); 
+                                    return; 
                                 }
                             }
-                            else MessageBox.Show("כתובת האימייל שהזנת לא תקינה");
 
+                            if (!string.IsNullOrWhiteSpace(row["טלפון איש קשר"].ToString()))
+                            {
+                                try
+                                {
+                                    int cellphoneCheck = Convert.ToInt32(row["טלפון איש קשר"].ToString());
+                                }
+                                catch
+                                {
+                                    MessageBox.Show("מספר טלפון חייב לכלול מספרים בלבד");
+                                    refreashandclear();
+                                    return;
+                                }
+                            }
+                            string contactcell = row["טלפון נייד של איש הקשר"].ToString();
+                            string contactPhone = row["טלפון איש קשר"].ToString();
+                            string contactName = row["שם איש קשר"].ToString();
+                            string contactEmail = row["אימייל איש קשר"].ToString();          
+                            string contactDepartment = row["מחלקת איש קשר"].ToString();
+                            string contactdesc = row["הערות לגבי איש הקשר"].ToString();
+                            try
+                            {
+                                MySqlConnection MySqlConn = new MySqlConnection(Login.Connectionstring);
+                                MySqlConn.Open();
+                                string Query1 = "UPDATE costumers SET contactName='" + contactName + "',contactEmail='" + contactEmail + "',contactPhone='" + contactPhone + "',contactDepartment='" + contactDepartment + "',contactCellPhone='" + contactcell + "',contactDesc='" + contactdesc + "' WHERE costumerid='" + hpcostid + "' and contactid='" + selected + "'";
+                                MySqlCommand MSQLcrcommand1 = new MySqlCommand(Query1, MySqlConn);
+                                MSQLcrcommand1.ExecuteNonQuery();
+                                MySqlDataAdapter mysqlDAdp = new MySqlDataAdapter(MSQLcrcommand1);
+                                MySqlConn.Close();
+                                MessageBox.Show("!פרטי איש הקשר עודכנו");
+                            }
+                            catch (Exception ex)
+                            {
+                                MessageBox.Show(ex.Message);
+                            }
+                            refreashandclear();
+                        }
+                        else 
+                        { 
+                            MessageBox.Show("כתובת האימייל שהזנת לא תקינה");
+                            refreashandclear();
                         }
 
-
-                    
-                
+                    }
+   
             }
             catch { MessageBox.Show("לא נבחר איש קשר לעדכון "); }
         }
