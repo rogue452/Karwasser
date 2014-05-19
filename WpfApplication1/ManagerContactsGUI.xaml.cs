@@ -250,9 +250,39 @@ namespace project
                     }
                     else // if the user clicked on "Yes" so he wants to Delete.
                     {
+                        int con=0;
+                        try
+                        {
+                            MySqlConnection MySqlConn = new MySqlConnection(Login.Connectionstring);
+                            MySqlConn.Open();
+                            string query1 = ("select COUNT(contactid) from costumers where costumerid='" + hpcostid + "'");
+                            MySqlCommand MSQLcrcommand1 = new MySqlCommand(query1, MySqlConn);
+                            MSQLcrcommand1.ExecuteNonQuery();
+                            MySqlDataReader dr = MSQLcrcommand1.ExecuteReader();
+                            while (dr.Read())
+                            {
+
+                                con = dr.GetInt32(0);
+
+                            }
+                            MySqlConn.Close();
+                        }
+                        catch (Exception ex)
+                        {
+                            MessageBox.Show(ex.Message);
+                            return;
+                        }
+                        if (con==1)
+                        {
+                            if (MessageBox.Show(".זהו איש הקשר היחיד עבור לקוח זה\n  .מחיקה שלו תמחק את גם הלקוח\n  ?האם אתה רוצה למחוק בכל זאת", "וידוא מחיקת איש קשר יחיד", MessageBoxButton.YesNo, MessageBoxImage.Warning) == MessageBoxResult.No)
+                            {
+                                return;
+                            }
+                        }
+                           
                         // this will give us the first colum of the selected row in the DataGrid.
-                        
                         string selected = row["מספר איש קשר"].ToString();
+
                         // MessageBox.Show("" + selected + "");
                         try
                         {
@@ -264,12 +294,20 @@ namespace project
                             MySqlDataAdapter mysqlDAdp = new MySqlDataAdapter(MSQLcrcommand1);
                             MySqlConn.Close();
                             MessageBox.Show("!איש הקשר נמחק מהמערכת");
+                            if (con == 1)
+                            {
+                                ManagerCusGui MCG = new ManagerCusGui();
+                                MCG.Show();
+                                Login.close = 1;
+                                this.Close();
+                            }
                         }
                         catch (Exception ex)
                         {
                             MessageBox.Show(ex.Message);
                         }
                         refreashandclear();
+                        
                     }//end else
                 
             }//end try
