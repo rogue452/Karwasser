@@ -23,7 +23,7 @@ namespace project
     /// </summary>
     public partial class ManagerItemsGui : Window
     {
-        DataTable dt = new DataTable("items");
+        public static DataTable dt = new DataTable("items");
         public ManagerItemsGui()
         {
             InitializeComponent();
