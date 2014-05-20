@@ -459,12 +459,12 @@ namespace project
             {
                 
                 orderid = orderID_textBox.Text;
-                if (orderid != "")
+                if (!string.IsNullOrWhiteSpace(orderID_textBox.Text))
                 {
                     string today = DateTime.Now.ToString("yyyy-MM-dd");
                     try
                     {
-                        Console.WriteLine("שורה 466");
+                        Console.WriteLine("שורה 467");
                         MySqlConnection MySqlConn = new MySqlConnection(Login.Connectionstring);
                         MySqlConn.Open();
                         string Query1 = ("SELECT jobid FROM project.jobs WHERE orderid='" + orderid + "' AND startDate<='" + today + "' ORDER BY startDate DESC LIMIT 1 "); //to see if the orderid already in the system.
@@ -473,7 +473,7 @@ namespace project
                        // int times = Convert.ToInt32(MSQLcrcommand1.ExecuteScalar());
                         MySqlDataReader dr = MSQLcrcommand1.ExecuteReader();
                         MySqlDataAdapter mysqlDAdp = new MySqlDataAdapter(MSQLcrcommand1);
-                        Console.WriteLine("שורה 475");
+                        Console.WriteLine("שורה 476");
                         while (dr.Read())
                           {
                               if (!dr.IsDBNull(0))
@@ -485,7 +485,8 @@ namespace project
                                       return; //if user answerd NO
                                   }
                               }
-                        }
+                          }
+
                         MySqlConn.Close();
 
                     }
@@ -504,24 +505,24 @@ namespace project
                     string tosplit,first;
                     try
                     {
-                        Console.WriteLine("שורה 504");
+                        Console.WriteLine("שורה 508");
                         MySqlConnection MySqlConn = new MySqlConnection(Login.Connectionstring);
                         MySqlConn.Open();
                         string Query1 = ("SELECT MAX(jobid) FROM project.jobs WHERE startDate BETWEEN '" + fullyear + "-01-01' AND '" + fullyear + "-12-31' ");
                         MySqlCommand MSQLcrcommand1 = new MySqlCommand(Query1, MySqlConn);
                         MSQLcrcommand1.ExecuteNonQuery();
                         MySqlDataReader dr = MSQLcrcommand1.ExecuteReader();
-                        Console.WriteLine("שורה 511");
+                        Console.WriteLine("שורה 515");
                         while (dr.Read())
                         {
                             if (dr.IsDBNull(0))
                             {
-                                Console.WriteLine("שורה 518");
+                                Console.WriteLine("שורה 520");
                                 jobid1 = 0;
                             }
                             else
                             {
-                                Console.WriteLine("שורה 523");
+                                Console.WriteLine("שורה 525");
                                 tosplit = dr.GetString(0);
                                 Console.WriteLine(tosplit);
                                 arry = tosplit.Split('/');
@@ -531,12 +532,12 @@ namespace project
                                 Console.WriteLine(first);
                             }
                         } 
-                        Console.WriteLine("שורה 533");
+                        Console.WriteLine("שורה 535");
                         MySqlDataAdapter mysqlDAdp = new MySqlDataAdapter(MSQLcrcommand1);
                         MySqlConn.Close();
                         jobid1++;
                         jobid = jobid1.ToString() + "/" + twodigyear;
-                        Console.WriteLine("שורה 538");
+                        Console.WriteLine("שורה 540");
                         Console.WriteLine(jobid);
                     }
                     catch (Exception ex)
@@ -560,7 +561,7 @@ namespace project
                     }
                     else { MessageBox.Show(".תאריך ההתחלה שנבחר הוא לאחר תאריך הסיום"); return; }
                 }
-                else { MessageBox.Show("לא הוכנס מספר הזמנה"); return; }
+                else { MessageBox.Show("לא הוכנסה מספר הזמנה"); return; }
             }// the if (startdatePicker.Text != "" && finishdatePicker.Text != "") closer.
             else { MessageBox.Show(".לא נבחרו 2 התאריכים"); return; }
 

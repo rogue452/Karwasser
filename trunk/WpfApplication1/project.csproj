@@ -86,6 +86,9 @@
     <Compile Include="ManagerAddNewUserGUI.xaml.cs">
       <DependentUpon>ManagerAddNewUserGUI.xaml</DependentUpon>
     </Compile>
+    <Compile Include="ManagerChangeJobGui.xaml.cs">
+      <DependentUpon>ManagerChangeJobGui.xaml</DependentUpon>
+    </Compile>
     <Compile Include="ManagerContactsGUI.xaml.cs">
       <DependentUpon>ManagerContactsGUI.xaml</DependentUpon>
     </Compile>
@@ -161,6 +164,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="ManagerAddNewUserGUI.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="ManagerChangeJobGui.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -389,6 +396,18 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Images\info.gif" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\change_icon.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\1897328_stock-photo-handshake-glossy-black-icon.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\500769.gif" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\plus_k03-20111007231452-00017.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
