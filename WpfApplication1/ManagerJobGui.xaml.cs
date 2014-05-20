@@ -28,11 +28,12 @@ namespace project
         {
             InitializeComponent();
             this.WindowStartupLocation = WindowStartupLocation.CenterScreen;
-            try
+            refreashandclear();
+           /* try
             {
                 MySqlConnection MySqlConn = new MySqlConnection(Login.Connectionstring);
                 MySqlConn.Open();
-                string Query1 = ("select jobid as `מספר עבודה`,costumerid as `חפ לקוח` ,job_status as `סטטוס עבודה`,jobdescription  as `תאור עבודה` ,startDate  as `תאריך התחלה`,expectedFinishDate as `תאריך סיום משוער` ,actualFinishDate as `תאריך סיום בפועל`  from jobs group by jobid");
+                string Query1 = ("SELECT jobid as `מספר עבודה`,jobs.costumerid as `חפ לקוח` ,costumers.costumerName as `שם לקוח` ,contact_id as `מספר איש קשר` , costumers.contactName as `שם איש קשר` ,job_status as `סטטוס עבודה`,jobdescription  as `תאור עבודה` ,startDate  as `תאריך התחלה`,expectedFinishDate as `תאריך סיום משוער` ,actualFinishDate as `תאריך סיום בפועל`  FROM project.jobs,project.costumers WHERE jobs.costumerid=costumers.costumerid AND jobs.contact_id=costumers.contactid GROUP BY jobid");
                 MySqlCommand MSQLcrcommand1 = new MySqlCommand(Query1, MySqlConn);
                 MSQLcrcommand1.ExecuteNonQuery();
                 MySqlDataAdapter mysqlDAdp = new MySqlDataAdapter(MSQLcrcommand1);
@@ -46,7 +47,7 @@ namespace project
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message);
-            }
+            }*/
         }
 
 
@@ -95,6 +96,31 @@ namespace project
             }
         }
 
+        private void refreashandclear()
+        {
+            try
+            {
+                MySqlConnection MySqlConn = new MySqlConnection(Login.Connectionstring);
+                MySqlConn.Open();
+                string Query1 = ("SELECT jobid as `מספר עבודה`,jobs.costumerid as `חפ לקוח` ,costumers.costumerName as `שם לקוח` ,contact_id as `מספר איש קשר` , costumers.contactName as `שם איש קשר` ,job_status as `סטטוס עבודה`,jobdescription  as `תאור עבודה` ,startDate  as `תאריך התחלה`,expectedFinishDate as `תאריך סיום משוער` ,actualFinishDate as `תאריך סיום בפועל`  FROM project.jobs,project.costumers WHERE jobs.costumerid=costumers.costumerid AND jobs.contact_id=costumers.contactid GROUP BY jobid");
+                MySqlCommand MSQLcrcommand1 = new MySqlCommand(Query1, MySqlConn);
+                MSQLcrcommand1.ExecuteNonQuery();
+                MySqlDataAdapter mysqlDAdp = new MySqlDataAdapter(MSQLcrcommand1);
+                dt.Clear();
+                mysqlDAdp.Fill(dt);
+                dataGrid1.ItemsSource = dt.DefaultView;
+                mysqlDAdp.Update(dt);
+                MySqlConn.Close();
+                Name_Search_TextBox.Clear();
+                JobIDSearchTextBox.Clear();
+                Start_datePicker.SelectedDate = null;
+                End_datePicker.SelectedDate = null;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+        }
 
 
         private void JobIDSearchTextBox_TextChanged(object sender, TextChangedEventArgs e)
@@ -128,7 +154,7 @@ namespace project
             {
                 MySqlConnection MySqlConn = new MySqlConnection(Login.Connectionstring);
                 MySqlConn.Open();
-                String searchidkey = this.IDSearchTextBox.Text;
+                String searchidkey = this.Name_Search_TextBox.Text;
                 string Query1 = ("select jobid as `מספר עבודה`,costumerid as `חפ לקוח` ,job_status as `סטטוס עבודה`,jobdescription  as `תאור עבודה` ,startDate  as `תאריך התחלה`,expectedFinishDate as `תאריך סיום משוער` ,actualFinishDate as `תאריך סיום בפועל`  from project.jobs  where  costumerid Like '%" + searchidkey + "%' group by jobid");
                 MySqlCommand MSQLcrcommand1 = new MySqlCommand(Query1, MySqlConn);
                 MSQLcrcommand1.ExecuteNonQuery();
@@ -156,8 +182,25 @@ namespace project
 
 
 
-        private void DeleteBtn_Click(object sender, RoutedEventArgs e)
+        private void ChangeBtn_Click(object sender, RoutedEventArgs e)
         {
+            try
+            {
+                DataRowView row1 = (DataRowView)dataGrid1.SelectedItems[0];
+            }
+            catch 
+            {
+                MessageBox.Show("!לא נבחרה עבודה לעדכון", "שים לב", MessageBoxButton.OK, MessageBoxImage.Warning);
+                return;
+            }
+            DataRowView row = (DataRowView)dataGrid1.SelectedItems[0];
+            string selected = row["מספר עבודה"].ToString();
+            ManagerChangeJobGui MCJG = new ManagerChangeJobGui(selected);
+            MCJG.Show();
+            Login.close = 1;
+            this.Close();
+
+           /*
             try
             {
                 DataRowView row = (DataRowView)dataGrid1.SelectedItems[0];
@@ -210,6 +253,7 @@ namespace project
 
             }//end try
             catch { MessageBox.Show("לא נבחרה עבודה למחיקה"); }
+            */
 
         }//end function
 
@@ -232,7 +276,7 @@ namespace project
                 string jobid = row["מספר עבודה"].ToString();
                 // MessageBox.Show("" + jobid + "");
 
-                if (MessageBox.Show("?האם אתה בטוח שברצונך לעדכן עבודה זו", "וידוא עדכון", MessageBoxButton.YesNo, MessageBoxImage.Warning) == MessageBoxResult.No)
+                    if (MessageBox.Show("?האם אתה בטוח שברצונך לעדכן עבודה זו", "וידוא עדכון", MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.No)
                 {
                     //dont do stuff
                 }
@@ -242,14 +286,31 @@ namespace project
                     string description = row["תאור עבודה"].ToString();
                     if (row["תאריך התחלה"].ToString().Equals(""))
                     {
-                        MessageBox.Show("!לא ניתן למחוק את תאריך ההתחלה");
+                        MessageBox.Show("!לא ניתן למחוק את תאריך ההתחלה" , "שים לב", MessageBoxButton.OK, MessageBoxImage.Error);
+                        refreashandclear();
                         return;
                     }
                     if (row["תאריך סיום משוער"].ToString().Equals(""))
                     {
-                        MessageBox.Show("!לא ניתן למחוק את תאריך סיום משוער");
+                        MessageBox.Show("!לא ניתן למחוק את תאריך סיום משוער", "שים לב", MessageBoxButton.OK, MessageBoxImage.Error);
+                        refreashandclear();
                         return;
                     }
+
+
+                    DateTime s = (DateTime)Convert.ToDateTime(row["תאריך התחלה"].ToString());
+                    DateTime f = (DateTime)Convert.ToDateTime(row["תאריך סיום משוער"].ToString());
+                    TimeSpan ts = f - s;
+
+                    // if the days are not ok.
+                    if (ts.Days < 0)
+                    {
+                        MessageBox.Show(".תאריך ההתחלה שנבחר הוא לאחר תאריך סיום משוער", "שים לב", MessageBoxButton.OK, MessageBoxImage.Error);
+                        refreashandclear();
+                        return;
+                    }
+                    
+
                     string start_date =  Convert.ToDateTime(row["תאריך התחלה"].ToString()).ToString("yyyy-MM-dd");
                     string finish_date = Convert.ToDateTime(row["תאריך סיום משוער"].ToString()).ToString("yyyy-MM-dd");
                     string actual_finish_date;
@@ -264,7 +325,7 @@ namespace project
                             MSQLcrcommand1.ExecuteNonQuery();
                             MySqlDataAdapter mysqlDAdp = new MySqlDataAdapter(MSQLcrcommand1);
                             MySqlConn.Close();
-                            MessageBox.Show("!פרטי העבודה עודכנו");
+                            MessageBox.Show("!פרטי העבודה עודכנו" , "הצלחה", MessageBoxButton.OK, MessageBoxImage.Information);
                         }
                         catch (Exception ex)
                         {
@@ -273,6 +334,16 @@ namespace project
                     }
                     else
                     {
+                        DateTime a = (DateTime)Convert.ToDateTime(row["תאריך סיום בפועל"].ToString());
+                        ts = a - s;
+
+                        // if the days are not ok.
+                        if (ts.Days < 0)
+                        {
+                            MessageBox.Show(".תאריך ההתחלה שנבחר הוא לאחר תאריך הסיום בפועל", "שים לב", MessageBoxButton.OK, MessageBoxImage.Error);
+                            return;
+                        }
+
                         actual_finish_date = Convert.ToDateTime(row["תאריך סיום בפועל"].ToString()).ToString("yyyy-MM-dd");
                         try
                         {
@@ -284,36 +355,19 @@ namespace project
                             MSQLcrcommand1.ExecuteNonQuery();
                             MySqlDataAdapter mysqlDAdp = new MySqlDataAdapter(MSQLcrcommand1);
                             MySqlConn.Close();
-                            MessageBox.Show("!פרטי העבודה עודכנו");
+                            MessageBox.Show("!פרטי העבודה עודכנו", "הצלחה", MessageBoxButton.OK, MessageBoxImage.Information);
                         }
                         catch (Exception ex)
                         {
                             MessageBox.Show(ex.Message);
                         }
                     }
-                    try
-                    {
-                        MySqlConnection MySqlConn = new MySqlConnection(Login.Connectionstring);
-                        MySqlConn.Open();
-                        string Query1 = ("select jobid as `מספר עבודה`,costumerid as `חפ לקוח` ,job_status as `סטטוס עבודה`,jobdescription  as `תאור עבודה` ,startDate  as `תאריך התחלה`,expectedFinishDate as `תאריך סיום משוער` ,actualFinishDate as `תאריך סיום בפועל`  from jobs group by jobid");
-                        MySqlCommand MSQLcrcommand1 = new MySqlCommand(Query1, MySqlConn);
-                        MSQLcrcommand1.ExecuteNonQuery();
-                        MySqlDataAdapter mysqlDAdp = new MySqlDataAdapter(MSQLcrcommand1);
-                        //DataTable dt = new DataTable("jobs");
-                        dt.Clear();
-                        mysqlDAdp.Fill(dt);
-                        dataGrid1.ItemsSource = dt.DefaultView;
-                        mysqlDAdp.Update(dt);
-                        MySqlConn.Close();
-                    }
-                    catch (Exception ex)
-                    {
-                        MessageBox.Show(ex.Message);
-                    }
+
+                    refreashandclear();
                 }
 
             }
-            catch { MessageBox.Show("לא נבחרה עבודה לעדכון "); }
+            catch { MessageBox.Show(".לא נבחרה עבודה לעדכון", "שים לב", MessageBoxButton.OK, MessageBoxImage.Error); }
         }
 
 
@@ -437,6 +491,7 @@ namespace project
                     };
                 DataGridTemplateColumn col11 = new DataGridTemplateColumn();
                 col11.Header = columnName1;
+                col11.SortMemberPath = columnName1;
 
                 #region Editing
                 FrameworkElementFactory factory11 = new FrameworkElementFactory(typeof(ComboBox));
