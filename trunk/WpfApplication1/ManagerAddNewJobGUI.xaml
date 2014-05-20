@@ -39,7 +39,7 @@
         </DataGrid>
         <Label Content="תאריך התחלה " Height="25" HorizontalAlignment="Left" Margin="966,71,0,0" Name="startDate_label" VerticalAlignment="Top" Width="91"  />
         <Label Content="תאור עבודה " Height="26" HorizontalAlignment="Left" Margin="970,171,0,0" Name="jobdescription_label" VerticalAlignment="Top" Width="90" />
-        <TextBox Height="259" HorizontalAlignment="Left" Margin="970,193,0,0" Name="jobdes_textbox" VerticalAlignment="Top" Width="220" />
+        <TextBox Height="259" HorizontalAlignment="Left" Margin="970,193,0,0" Name="jobdes_textbox" VerticalAlignment="Top" Width="220" TextWrapping="Wrap" />
         <DatePicker Height="30" HorizontalAlignment="Left" Margin="1055,72,0,0" Name="startdatePicker" VerticalAlignment="Top" Width="145" />
         <DatePicker Height="32" HorizontalAlignment="Left" Margin="1055,114,0,0" Name="finishdatePicker" VerticalAlignment="Top" Width="145" />
         <Label Content="תאריך סיום " Height="26" HorizontalAlignment="Left" Margin="967,113,0,0" Name="lexpectedFinishDate_label1" VerticalAlignment="Top" Width="75" />

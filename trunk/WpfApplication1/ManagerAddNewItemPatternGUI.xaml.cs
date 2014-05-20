@@ -16,7 +16,6 @@ using System.ComponentModel;
 using Microsoft.Win32;
 using System.Text.RegularExpressions;
 using System.Collections;
-using System.ComponentModel;
 
 namespace project
 {
@@ -27,13 +26,14 @@ namespace project
 
     public partial class ManagerAddNewItemPatternGUI : Window
     {
-
+        DataTable dt = new DataTable("newpattern");
         int count = 1;
 
         public ManagerAddNewItemPatternGUI()
         {
             InitializeComponent();
-            Login.close = 1;
+            //Login.close = 1;
+            dataGrid1.Visibility = Visibility.Hidden;
             stages_comboBox.Items.Add("חריטה");
             stages_comboBox.Items.Add("ביקורת ביניים - חריטה");
             stages_comboBox.Items.Add("כרסום");
@@ -65,64 +65,79 @@ namespace project
         private void Add_button_Click(object sender, RoutedEventArgs e)
         {
             
-            string itemid, stagename="";
-            itemid = item_id_textBox.Text;
+            string stagename = "";
             try
             {
                 stagename = stages_comboBox.SelectedValue.ToString();
             }
             catch
             {
-                MessageBox.Show("!לא נבחר שלב");
+                MessageBox.Show("!לא נבחר שלב", "שים לב", MessageBoxButton.OK, MessageBoxImage.Error);
                 return;
             }
-            if (count == 1)
+            if (count == 1) // if this is the first stage.
             {
-                if (itemid != "")
-                { 
-                        try
-                        {
-                            MySqlConnection MySqlConn = new MySqlConnection(Login.Connectionstring);
-                            MySqlConn.Open();
-                            string Query1 = ("SELECT COUNT(itemid) FROM project.item WHERE itemid='" + itemid + "' "); //to see if the itemid already in the system.
-                            MySqlCommand MSQLcrcommand1 = new MySqlCommand(Query1, MySqlConn);
-                            MSQLcrcommand1.ExecuteNonQuery();
-                            int times = Convert.ToInt32(MSQLcrcommand1.ExecuteScalar());
-                            MySqlDataReader dr = MSQLcrcommand1.ExecuteReader();
-                            MySqlDataAdapter mysqlDAdp = new MySqlDataAdapter(MSQLcrcommand1);
-                            MySqlConn.Close();
+                try
+                {
+                    if (!string.IsNullOrWhiteSpace(item_id_textBox.Text))
+                    {
+                        int testid = Convert.ToInt32(item_id_textBox.Text);
+                    }
+                    else
+                    {
+                        MessageBox.Show("!לא הוכנס מקט פריט", "שים לב", MessageBoxButton.OK, MessageBoxImage.Error);
+                        // MessageBox.Show("לא הוכנס מק``ט פריט");
+                        return;
+                    }
+                }
+                catch
+                {
+                    MessageBox.Show("!מקט פריט חייב להכיל מספרים בלבד", "שים לב", MessageBoxButton.OK, MessageBoxImage.Error);
+                    return;
+                }
+                string itemid;
+                itemid = item_id_textBox.Text;
 
-                            if (times != 0)
-                            {
-                                MessageBox.Show("כבר קיים מק``ט פריט  - " + itemid);
-                                return;
-                            }
-                        }
-                        catch (Exception ex)
+                if (string.IsNullOrWhiteSpace(itemname_textBox.Text))
+                {
+                    MessageBox.Show("!לא הוכנס שם פריט", "שים לב", MessageBoxButton.OK, MessageBoxImage.Error);
+                    //MessageBox.Show("לא הוכנס שם פריט");
+                    return;
+                }
+                try
+                    {
+                        MySqlConnection MySqlConn = new MySqlConnection(Login.Connectionstring);
+                        MySqlConn.Open();
+                        string Query1 = ("SELECT COUNT(itemid) FROM project.item WHERE itemid='" + itemid + "' "); //to see if the itemid already in the system.
+                        MySqlCommand MSQLcrcommand1 = new MySqlCommand(Query1, MySqlConn);
+                        MSQLcrcommand1.ExecuteNonQuery();
+                        int times = Convert.ToInt32(MSQLcrcommand1.ExecuteScalar());
+                        MySqlDataReader dr = MSQLcrcommand1.ExecuteReader();
+                        MySqlDataAdapter mysqlDAdp = new MySqlDataAdapter(MSQLcrcommand1);
+                        MySqlConn.Close();
+
+                        if (times != 0)
                         {
-                            MessageBox.Show(ex.Message);
+                            MessageBox.Show("כבר קיים פריט בעל מקט - " + itemid, "שים לב", MessageBoxButton.OK, MessageBoxImage.Warning);
                             return;
                         }
-                    } // end if (itemid != "")
-                else
+                    }
+                catch (Exception ex)
                 {
-                    MessageBox.Show("לא הוכנס מק``ט פריט");
+                    MessageBox.Show(ex.Message);
                     return;
                 }
 
-
-                if (itemname_textBox.Text == "")
-                {
-                    MessageBox.Show("לא הוכנס שם פריט");
-                    return;
-                }
+              
             } // end if (count == 1)
+
 
             try // if all is OK then create the stage.
             {
                     MySqlConnection MySqlConn = new MySqlConnection(Login.Connectionstring);
                     MySqlConn.Open();
                     string Query1 = ("INSERT INTO project.item (itemid, itemStatus,itemStageOrder,itemName,stageName, stage_discription, item_discription ) VALUES ('" + item_id_textBox.Text + "', 'בעבודה' ,'" + count + "','" + itemname_textBox.Text + "','" + stages_comboBox.SelectedItem.ToString() + "','" + stage_desc_textBox.Text + "','" + item_disc_textBox.Text + "') ");
+                    Console.WriteLine(Query1);
                     MySqlCommand MSQLcrcommand1 = new MySqlCommand(Query1, MySqlConn);
                     MSQLcrcommand1.ExecuteNonQuery();
                     MySqlDataAdapter mysqlDAdp = new MySqlDataAdapter(MSQLcrcommand1);
@@ -195,10 +210,6 @@ namespace project
 
                     item_stage_num.Content = count;
 
-                    l_label.Visibility = Visibility.Visible;
-                    last_stageName_label.Content = stagename;
-                    last_stageName_label.Visibility = Visibility.Visible;
-
                     item_num2_label.Content = item_id_textBox.Text;
                     item_id_textBox.Visibility = Visibility.Hidden;
                     item_num2_label.Visibility = Visibility.Visible;
@@ -207,24 +218,79 @@ namespace project
                     itemname_textBox.Visibility = Visibility.Hidden;
                     item_name2_label.Visibility = Visibility.Visible;
 
-                    item_disc_label.Content = item_disc_textBox.Text;
+                    item_disc_textBlock.Text = item_disc_textBox.Text;
+                    item_disc_textBlock.Visibility = Visibility.Visible;
                     item_disc_textBox.Visibility = Visibility.Hidden;
-                    item_disc_label.Visibility = Visibility.Visible;
 
                     stage_desc_textBox.Clear();
 
-                    MessageBox.Show("שלב התווסף");
-
+                    dataGrid1.Visibility = Visibility.Visible;
+                    updategrid();
+                    MessageBox.Show("השלב התווסף", "!הצלחה", MessageBoxButton.OK, MessageBoxImage.Information);
+                    //MessageBox.Show("שלב התווסף");
+                    updateparentgrid();
+                    
                 }
                 catch (Exception ex)
                 {
                     MessageBox.Show(ex.Message);
                     return;
                 }
-
+            
         }
 
 
+
+        public void updategrid()
+        {
+            try
+            {
+                MySqlConnection MySqlConn = new MySqlConnection(Login.Connectionstring);
+                MySqlConn.Open();
+                string Query1 = ("SELECT itemStageOrder as `מספר שלב`,stageName as `שם השלב`, stage_discription as `תאור השלב`  FROM item WHERE itemid='" + item_id_textBox.Text + "' AND itemStatus='בעבודה'");
+                MySqlCommand MSQLcrcommand1 = new MySqlCommand(Query1, MySqlConn);
+                MSQLcrcommand1.ExecuteNonQuery();
+                MySqlDataAdapter mysqlDAdp = new MySqlDataAdapter(MSQLcrcommand1);
+                dt.Clear();
+                mysqlDAdp.Fill(dt);
+                dataGrid1.ItemsSource = dt.DefaultView;
+                mysqlDAdp.Update(dt);
+                MySqlConn.Close();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+ 
+        }
+
+        public void updateparentgrid()
+        {
+            try
+            {
+                MySqlConnection MySqlConn = new MySqlConnection(Login.Connectionstring);
+                MySqlConn.Open();
+                string Query1 = ("SELECT itemid as `מקט פריט`, itemName as `שם פריט`,item_discription as `תיאור פריט` FROM item GROUP BY itemid");
+                MySqlCommand MSQLcrcommand1 = new MySqlCommand(Query1, MySqlConn);
+                MSQLcrcommand1.ExecuteNonQuery();
+                MySqlDataAdapter mysqlDAdp = new MySqlDataAdapter(MSQLcrcommand1);
+                ManagerItemsGui.dt.Clear();
+                mysqlDAdp.Fill(ManagerItemsGui.dt);
+                //dataGrid1.ItemsSource = dt.DefaultView;
+                mysqlDAdp.Update(ManagerItemsGui.dt);
+                MySqlConn.Close();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+
+        }
+
+        private void Grid_AutoGeneratingColumn(object sender, DataGridAutoGeneratingColumnEventArgs e)
+        {
+            e.Column.IsReadOnly = true; // Makes the column as read only
+        }
     
         private void exit_clicked(object sender, CancelEventArgs e)
         {
@@ -232,38 +298,12 @@ namespace project
 
             if (Login.close == 0) // then the user want to exit.
             {
-                if (MessageBox.Show("?האם אתה בטוח שברצונך לצאת מהמערכת ", "וידוא יציאה", MessageBoxButton.YesNo, MessageBoxImage.Warning) == MessageBoxResult.No)
+                if (MessageBox.Show("?האם אתה בטוח שברצונך לסגור את החלון ", "וידוא יציאה מהוספת פריט חדש", MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.No)
                 {
                     e.Cancel = true; ; //don't exit.
                 }
-                else // if the user clicked on "Yes" so he wants to Update.
-                {
-                    // logoff user
-                    try
-                    {
-                        string empid1 = Login.empid;
-                        MySqlConnection MySqlConn = new MySqlConnection(Login.Connectionstring);
-                        MySqlConn.Open();
-                        string Query1 = "update users set connected='לא מחובר' where empid='" + empid1 + "' ";
-                        MySqlCommand MSQLcrcommand1 = new MySqlCommand(Query1, MySqlConn);
-                        MSQLcrcommand1.ExecuteNonQuery();
-                        MySqlDataAdapter mysqlDAdp = new MySqlDataAdapter(MSQLcrcommand1);
-                        MySqlConn.Close();
-
-
-                    }
-                    catch (Exception ex)
-                    {
-                        MessageBox.Show(ex.Message);
-                        return;
-                    }
-                    MessageBox.Show("               נותקת בהצלחה מהמערכת\n          תודה שהשתמשת במערכת קרוסר\n                          !להתראות");
-                }
             }
-            else
-            {
-
-            }
+                
             Login.close = 0;
         }
         
