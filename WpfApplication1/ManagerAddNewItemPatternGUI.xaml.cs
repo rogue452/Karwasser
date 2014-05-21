@@ -145,7 +145,7 @@ namespace project
                     if (count == 1)
                     {
                         // creating the default stages.
-                        string one = "1", two = "2", itemStatus = "רישום", stageName = "שרטוט", stage_disc = "שרטוט הפריט";
+                        string zero="0" , one = "1", two = "2", itemStatus = "רישום", stageName = "שרטוט", stage_disc = "שרטוט הפריט";
                         
                         string Query2 = ("INSERT INTO project.item (itemid, itemStatus,itemStageOrder,itemName,stageName, stage_discription, item_discription ) VALUES ('" + item_id_textBox.Text + "','"+itemStatus+"','" + one + "','" + itemname_textBox.Text + "','" + stageName + "','" + stage_disc + "','" + item_disc_textBox.Text + "') ");
                         MySqlCommand MSQLcrcommand2 = new MySqlCommand(Query2, MySqlConn);
@@ -178,14 +178,14 @@ namespace project
                         itemStatus="גמר ייצור";
                         stageName = "ביקורת לקוח";
                         stage_disc = "מבוקר על ידי הלקוח";
-                        string Query6 = ("INSERT INTO project.item (itemid, itemStatus,itemStageOrder,itemName,stageName, stage_discription, item_discription ) VALUES ('" + item_id_textBox.Text + "','"+itemStatus+"','" + one + "','" + itemname_textBox.Text + "','" + stageName + "','" + stage_disc + "','" + item_disc_textBox.Text + "') ");
+                        string Query6 = ("INSERT INTO project.item (itemid, itemStatus,itemStageOrder,itemName,stageName, stage_discription, item_discription ) VALUES ('" + item_id_textBox.Text + "','" + itemStatus + "','" + zero + "','" + itemname_textBox.Text + "','" + stageName + "','" + stage_disc + "','" + item_disc_textBox.Text + "') ");
                         MySqlCommand MSQLcrcommand6 = new MySqlCommand(Query6, MySqlConn);
                         MSQLcrcommand6.ExecuteNonQuery();
                         MySqlDataAdapter mysqlDAdp6 = new MySqlDataAdapter(MSQLcrcommand6);
 
                         stageName = "אריזה";
                         stage_disc = "נארז למשלוח";
-                        string Query7 = ("INSERT INTO project.item (itemid, itemStatus,itemStageOrder,itemName,stageName, stage_discription, item_discription ) VALUES ('" + item_id_textBox.Text + "','"+itemStatus+"','" + two + "','" + itemname_textBox.Text + "','" + stageName + "','" + stage_disc + "','" + item_disc_textBox.Text + "') ");
+                        string Query7 = ("INSERT INTO project.item (itemid, itemStatus,itemStageOrder,itemName,stageName, stage_discription, item_discription ) VALUES ('" + item_id_textBox.Text + "','"+itemStatus+"','" + one + "','" + itemname_textBox.Text + "','" + stageName + "','" + stage_disc + "','" + item_disc_textBox.Text + "') ");
                         MySqlCommand MSQLcrcommand7 = new MySqlCommand(Query7, MySqlConn);
                         MSQLcrcommand7.ExecuteNonQuery();
                         MySqlDataAdapter mysqlDAdp7 = new MySqlDataAdapter(MSQLcrcommand7);
