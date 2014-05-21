@@ -323,7 +323,7 @@ namespace project
                         } 
 
                         
-                        bool fromFixToWork = false, fromWorkToFix = false , fromFixToFinish=false , fromFinishToFix=false ;
+                        bool fromFixToWork = false, fromWorkToFix = false , fromFixToFinish=false , fromFinishToFix=false , fromFixToBad=false , badToReg=false , badToWork=false ,badToFix=false ,badToFinish=false ,badToDone=false ;
 
                         if (oldstatus == "תיקון" && status == "גמר ייצור")
                         {
@@ -339,8 +339,47 @@ namespace project
                         } Console.WriteLine("fromFinishToFix= " + fromFinishToFix);
 
 
-                        //      oldStageOrder = currStageOrder;
-                       
+                        if (oldstatus != "תיקון" && status == "פסול")
+                        {
+                            MessageBox.Show("!מעבר אל סטטוס פסול אפשרי רק משלב תיקון - עדכון לא אושר", "!שים לב", MessageBoxButton.OK, MessageBoxImage.Error);
+                            refreashandClear();
+                            return;
+                        }
+
+                        if (oldstatus == "תיקון" && status == "פסול")
+                        {
+                            fromFixToBad = true;
+                        }
+
+
+                        if (oldstatus == "פסול" && status == "רישום")
+                        {
+                            badToReg = true;
+                        }
+
+
+                        if (oldstatus == "פסול" && status == "בעבודה")
+                        {
+                            badToWork = true;
+                        }
+
+                        if (oldstatus == "פסול" && status == "תיקון")
+                        {
+                            badToFix = true;
+                        }
+
+                        if (oldstatus == "פסול" && status == "גמר ייצור")
+                        {
+                            badToFinish = true;
+                        }
+
+                        if (oldstatus == "פסול" && status == "הסתיים")
+                        {
+                            badToDone = true;
+                        }
+
+
+
                         // if the new status is work and the old is fix then we need to return to origanel itemStageOrder = itemToFixStageOrder and group_StageOrder = itemStageOrder.
                         if (oldstatus == "תיקון" && status=="בעבודה")
                         {   
