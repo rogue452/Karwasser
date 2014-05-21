@@ -102,7 +102,7 @@ namespace project
             {
                 MySqlConnection MySqlConn = new MySqlConnection(Login.Connectionstring);
                 MySqlConn.Open();
-                string Query1 = ("SELECT jobid as `מספר עבודה`,jobs.costumerid as `חפ לקוח` ,costumers.costumerName as `שם לקוח` ,contact_id as `מספר איש קשר` , costumers.contactName as `שם איש קשר` ,job_status as `סטטוס עבודה`,jobdescription  as `תאור עבודה` ,startDate  as `תאריך התחלה`,expectedFinishDate as `תאריך סיום משוער` ,actualFinishDate as `תאריך סיום בפועל`  FROM project.jobs,project.costumers WHERE jobs.costumerid=costumers.costumerid AND jobs.contact_id=costumers.contactid GROUP BY jobid");
+                string Query1 = ("SELECT jobid as `מספר עבודה`,orderid as`מספר הזמנה` ,jobs.costumerid as `חפ לקוח` ,costumers.costumerName as `שם לקוח` ,contact_id as `מספר איש קשר` , costumers.contactName as `שם איש קשר` ,job_status as `סטטוס עבודה`,jobdescription  as `תאור עבודה` ,startDate  as `תאריך התחלה`,expectedFinishDate as `תאריך סיום משוער` ,actualFinishDate as `תאריך סיום בפועל`  FROM project.jobs,project.costumers WHERE jobs.costumerid=costumers.costumerid AND jobs.contact_id=costumers.contactid GROUP BY jobid");
                 MySqlCommand MSQLcrcommand1 = new MySqlCommand(Query1, MySqlConn);
                 MSQLcrcommand1.ExecuteNonQuery();
                 MySqlDataAdapter mysqlDAdp = new MySqlDataAdapter(MSQLcrcommand1);
@@ -131,7 +131,7 @@ namespace project
                 MySqlConnection MySqlConn = new MySqlConnection(Login.Connectionstring);
                 MySqlConn.Open();
                 String searchkey = this.JobIDSearchTextBox.Text;
-                string Query1 = ("select jobid as `מספר עבודה`,costumerid as `חפ לקוח` ,job_status as `סטטוס עבודה`,jobdescription  as `תאור עבודה` ,startDate  as `תאריך התחלה`,expectedFinishDate as `תאריך סיום משוער` ,actualFinishDate as `תאריך סיום בפועל` from project.jobs  where  jobid Like '%" + searchkey + "%' group by jobid");
+                string Query1 = ("select jobid as `מספר עבודה`,orderid as`מספר הזמנה`,costumerid as `חפ לקוח` ,job_status as `סטטוס עבודה`,jobdescription  as `תאור עבודה` ,startDate  as `תאריך התחלה`,expectedFinishDate as `תאריך סיום משוער` ,actualFinishDate as `תאריך סיום בפועל` from project.jobs  where  jobid Like '%" + searchkey + "%' group by jobid");
                 MySqlCommand MSQLcrcommand1 = new MySqlCommand(Query1, MySqlConn);
                 MSQLcrcommand1.ExecuteNonQuery();
                 MySqlDataAdapter mysqlDAdp = new MySqlDataAdapter(MSQLcrcommand1);
@@ -155,7 +155,7 @@ namespace project
                 MySqlConnection MySqlConn = new MySqlConnection(Login.Connectionstring);
                 MySqlConn.Open();
                 String searchidkey = this.Name_Search_TextBox.Text;
-                string Query1 = ("select jobid as `מספר עבודה`,costumerid as `חפ לקוח` ,job_status as `סטטוס עבודה`,jobdescription  as `תאור עבודה` ,startDate  as `תאריך התחלה`,expectedFinishDate as `תאריך סיום משוער` ,actualFinishDate as `תאריך סיום בפועל`  from project.jobs  where  costumerid Like '%" + searchidkey + "%' group by jobid");
+                string Query1 = ("select jobid as `מספר עבודה`,orderid as`מספר הזמנה`,costumerid as `חפ לקוח` ,job_status as `סטטוס עבודה`,jobdescription  as `תאור עבודה` ,startDate  as `תאריך התחלה`,expectedFinishDate as `תאריך סיום משוער` ,actualFinishDate as `תאריך סיום בפועל`  from project.jobs  where  costumerid Like '%" + searchidkey + "%' group by jobid");
                 MySqlCommand MSQLcrcommand1 = new MySqlCommand(Query1, MySqlConn);
                 MSQLcrcommand1.ExecuteNonQuery();
                 MySqlDataAdapter mysqlDAdp = new MySqlDataAdapter(MSQLcrcommand1);
@@ -278,7 +278,7 @@ namespace project
 
                     if (MessageBox.Show("?האם אתה בטוח שברצונך לעדכן עבודה זו", "וידוא עדכון", MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.No)
                 {
-                    //dont do stuff
+                    return; //dont do stuff
                 }
                 else // if the user clicked on "Yes" so he wants to Update.
                 {
@@ -309,7 +309,14 @@ namespace project
                         refreashandclear();
                         return;
                     }
-                    
+
+                    string orderid = row["מספר הזמנה"].ToString();
+                    if (orderid == "")
+                    {
+                        MessageBox.Show("!לא ניתן לעדכן עם מספר הזמנה ריק", "שים לב", MessageBoxButton.OK, MessageBoxImage.Error);
+                        refreashandclear();
+                        return;
+                    }
 
                     string start_date =  Convert.ToDateTime(row["תאריך התחלה"].ToString()).ToString("yyyy-MM-dd");
                     string finish_date = Convert.ToDateTime(row["תאריך סיום משוער"].ToString()).ToString("yyyy-MM-dd");
@@ -320,7 +327,7 @@ namespace project
                         {
                             MySqlConnection MySqlConn = new MySqlConnection(Login.Connectionstring);
                             MySqlConn.Open();
-                            string Query1 = "update jobs set job_status='" + status + "',jobdescription='" + description + "',startDate='" + start_date + "',expectedFinishDate='" + finish_date + "',actualFinishDate=NULL where jobid='" + jobid + "'";
+                            string Query1 = "UPDATE jobs SET job_status='" + status + "',jobdescription='" + description + "',startDate='" + start_date + "',expectedFinishDate='" + finish_date + "',actualFinishDate=NULL ,orderid='" + orderid + "' WHERE jobid='" + jobid + "'";
                             MySqlCommand MSQLcrcommand1 = new MySqlCommand(Query1, MySqlConn);
                             MSQLcrcommand1.ExecuteNonQuery();
                             MySqlDataAdapter mysqlDAdp = new MySqlDataAdapter(MSQLcrcommand1);
@@ -340,7 +347,8 @@ namespace project
                         // if the days are not ok.
                         if (ts.Days < 0)
                         {
-                            MessageBox.Show(".תאריך ההתחלה שנבחר הוא לאחר תאריך הסיום בפועל", "שים לב", MessageBoxButton.OK, MessageBoxImage.Error);
+                            MessageBox.Show(".תאריך ההתחלה הוא לאחר תאריך הסיום בפועל", "שים לב", MessageBoxButton.OK, MessageBoxImage.Error);
+                            refreashandclear();
                             return;
                         }
 
@@ -350,7 +358,7 @@ namespace project
 
                             MySqlConnection MySqlConn = new MySqlConnection(Login.Connectionstring);
                             MySqlConn.Open();
-                            string Query1 = "update jobs set job_status='" + status + "',jobdescription='" + description + "',startDate='" + start_date + "',expectedFinishDate='" + finish_date + "',actualFinishDate='" + actual_finish_date + "' where jobid='" + jobid + "'";
+                            string Query1 = "UPDATE jobs SET job_status='" + status + "',jobdescription='" + description + "',startDate='" + start_date + "',expectedFinishDate='" + finish_date + "',actualFinishDate='" + actual_finish_date + "' ,orderid='" + orderid + "' WHERE jobid='" + jobid + "'";
                             MySqlCommand MSQLcrcommand1 = new MySqlCommand(Query1, MySqlConn);
                             MSQLcrcommand1.ExecuteNonQuery();
                             MySqlDataAdapter mysqlDAdp = new MySqlDataAdapter(MSQLcrcommand1);
@@ -374,7 +382,7 @@ namespace project
 
         private void Grid_AutoGeneratingColumn(object sender, DataGridAutoGeneratingColumnEventArgs e)
         {
-            if (e.Column.Header.ToString() == "חפ לקוח" || e.Column.Header.ToString() == "מספר עבודה")
+            if (e.Column.Header.ToString() == "חפ לקוח" || e.Column.Header.ToString() == "מספר עבודה" || e.Column.Header.ToString() == "מספר איש קשר" || e.Column.Header.ToString() == "שם איש קשר" || e.Column.Header.ToString() == "שם לקוח")
             {
                 // e.Cancel = true;   // For not to include 
                 e.Column.IsReadOnly = true; // Makes the column as read onl
@@ -547,26 +555,9 @@ namespace project
         //This function will set the 2 DatePickers to today and will reaload to the default datagrid.
         private void Refresh_button_Click(object sender, RoutedEventArgs e)
         {
-            Start_datePicker.SelectedDate = DateTime.Today;
-            End_datePicker.SelectedDate = DateTime.Today;
-            try
-            {
-                MySqlConnection MySqlConn = new MySqlConnection(Login.Connectionstring);
-                MySqlConn.Open();
-                string Query1 = ("select jobid as `מספר עבודה`,costumerid as `חפ לקוח` ,job_status as `סטטוס עבודה`,jobdescription  as `תאור עבודה` ,startDate  as `תאריך התחלה`,expectedFinishDate as `תאריך סיום משוער` ,actualFinishDate as `תאריך סיום בפועל`  from jobs group by jobid");
-                MySqlCommand MSQLcrcommand1 = new MySqlCommand(Query1, MySqlConn);
-                MSQLcrcommand1.ExecuteNonQuery();
-                MySqlDataAdapter mysqlDAdp = new MySqlDataAdapter(MSQLcrcommand1);
-                dt.Clear();
-                mysqlDAdp.Fill(dt);
-                dataGrid1.ItemsSource = dt.DefaultView;
-                mysqlDAdp.Update(dt);
-                MySqlConn.Close();
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message);
-            }
+            Start_datePicker.SelectedDate = null;
+            End_datePicker.SelectedDate = null;
+            refreashandclear();
         }
 
 
@@ -604,7 +595,7 @@ namespace project
                     {
                         MySqlConnection MySqlConn = new MySqlConnection(Login.Connectionstring);
                         MySqlConn.Open();
-                        string Query1 = ("SELECT jobid as `מספר עבודה`,costumerid as `חפ לקוח` ,job_status as `סטטוס עבודה`,jobdescription  as `תאור עבודה` ,startDate  as `תאריך התחלה`,expectedFinishDate as `תאריך סיום משוער` ,actualFinishDate as `תאריך סיום בפועל`  FROM jobs WHERE " + radio + " BETWEEN '" + start + "' AND '" + end + "'  group by jobid ");
+                        string Query1 = ("SELECT jobid as `מספר עבודה`,orderid as`מספר הזמנה`,costumerid as `חפ לקוח` ,job_status as `סטטוס עבודה`,jobdescription  as `תאור עבודה` ,startDate  as `תאריך התחלה`,expectedFinishDate as `תאריך סיום משוער` ,actualFinishDate as `תאריך סיום בפועל`  FROM jobs WHERE " + radio + " BETWEEN '" + start + "' AND '" + end + "'  group by jobid ");
                         //MessageBox.Show("" + Query1 + "");
                         MySqlCommand MSQLcrcommand1 = new MySqlCommand(Query1, MySqlConn);
                         MSQLcrcommand1.ExecuteNonQuery();
