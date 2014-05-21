@@ -39,10 +39,10 @@
         </DataGrid>
         <Label Content="תאריך התחלה " Height="25" HorizontalAlignment="Left" Margin="966,71,0,0" Name="startDate_label" VerticalAlignment="Top" Width="91"  />
         <Label Content="תאור עבודה " Height="26" HorizontalAlignment="Left" Margin="970,141,0,0" Name="jobdescription_label" VerticalAlignment="Top" Width="90" />
-        <TextBox Height="259" HorizontalAlignment="Left" Margin="970,163,0,0" Name="jobdes_textbox" VerticalAlignment="Top" Width="220" TextWrapping="Wrap" />
+        <TextBox HorizontalAlignment="Left" Margin="970,163,0,186" Name="jobdes_textbox" Width="220" TextWrapping="Wrap" />
         <DatePicker Height="30" HorizontalAlignment="Left" Margin="1055,72,0,0" Name="startdatePicker" VerticalAlignment="Top" Width="145" />
         <DatePicker Height="32" HorizontalAlignment="Left" Margin="1055,114,0,0" Name="finishdatePicker" VerticalAlignment="Top" Width="145" />
-        <Label Content="תאריך סיום " Height="26" HorizontalAlignment="Left" Margin="967,113,0,0" Name="lexpectedFinishDate_label1" VerticalAlignment="Top" Width="75" />
+        <Label Content="תאריך סיום " Height="26" HorizontalAlignment="Left" Margin="967,113,0,0" Name="expectedFinishDate_label1" VerticalAlignment="Top" Width="75" />
         <DataGrid AutoGenerateColumns="True" Margin="328,132,562,52" Name="dataGrid3"  Width="299" SelectionMode="Single" AutoGeneratingColumn="dataGrid3_AutoGeneratingColumn" CanUserAddRows="False">
             <DataGrid.Resources>
                 <Style TargetType="DataGridRow">
@@ -59,10 +59,11 @@
         <Label Content="מספר פריט" Height="28" HorizontalAlignment="Left" Margin="647,64,0,0" Name="label3" VerticalAlignment="Top" />
         <Label Content="פרטי העבודה" Height="28" HorizontalAlignment="Left" Margin="968,8,0,0" Name="label4" VerticalAlignment="Top" FontWeight="Bold" FontSize="15" />
         <Label Content="החל להקליד כדי לחפש לפי:" Height="28" HorizontalAlignment="Left" Margin="647,36,0,0" Name="label5" VerticalAlignment="Top" FontSize="13" />
-        <Label Content="אנשי הקשר יוצגו ברגע שיבחר לקוח" Height="28" HorizontalAlignment="Left" Margin="373,96,0,0" Name="cont_label" VerticalAlignment="Top" FontWeight="Bold" />
+        <Label Content="אנשי הקשר יוצגו ברגע שיבחר לקוח" Height="28" HorizontalAlignment="Left" Margin="373,62,0,0" Name="cont_label" VerticalAlignment="Top" FontWeight="Bold" />
         <Label Content="הכנס בטבלה את הכמות המבוקשת מכל פריט" Height="28" HorizontalAlignment="Left" Margin="647,96,0,0" Name="label6" VerticalAlignment="Top" />
         <Label Content="מספר הזמנה" Height="28" HorizontalAlignment="Left" Margin="966,38,0,0" Name="orderid_label" VerticalAlignment="Top" />
         <TextBox Height="23" HorizontalAlignment="Left" Margin="1053,38,0,0" Name="orderID_textBox" VerticalAlignment="Top" Width="145" />
         <CheckBox Content="השאר פריטים קיימים" Height="16" HorizontalAlignment="Left" Margin="1009,431,0,0" Name="keep_checkBox" VerticalAlignment="Top" Checked="keep_checkBox_Checked" Unchecked="keep_checkBox_UnChecked"/>
+        <CheckBox Content="שנה לקוח ו/או איש קשר בלבד" Height="16" HorizontalAlignment="Left" Margin="373,103,0,0" Name="costAndcontactOnly_checkBox" VerticalAlignment="Top" Checked="only_checkBox_Checked" Unchecked="only_checkBox_UnChecked"/>
     </Grid>
 </Window>

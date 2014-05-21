@@ -25,6 +25,7 @@ namespace project
     public partial class ManagerChangeJobGui : Window
     {
         bool keep=false;
+        bool only = false;
         DataTable dt = new DataTable("custumers");
         DataTable dt1 = new DataTable("items");
         DataTable dt2 = new DataTable("Contacts");
@@ -104,6 +105,53 @@ namespace project
             keep = false;
         }
 
+
+
+        private void only_checkBox_Checked(object sender, RoutedEventArgs e)
+        {
+            only = true;
+            label2.Visibility = Visibility.Hidden;
+            label5.Visibility = Visibility.Hidden;
+            label3.Visibility = Visibility.Hidden;
+            Item_Search_textBox.Visibility = Visibility.Hidden;
+            label6.Visibility = Visibility.Hidden;
+            dataGrid2.Visibility = Visibility.Hidden;
+            label4.Visibility = Visibility.Hidden;
+            orderid_label.Visibility = Visibility.Hidden;
+            orderID_textBox.Visibility = Visibility.Hidden;
+            startDate_label.Visibility = Visibility.Hidden;
+            startdatePicker.Visibility = Visibility.Hidden;
+            expectedFinishDate_label1.Visibility = Visibility.Hidden;
+            finishdatePicker.Visibility = Visibility.Hidden;
+            jobdescription_label.Visibility = Visibility.Hidden;
+            jobdes_textbox.Visibility = Visibility.Hidden;
+            keep_checkBox.Visibility = Visibility.Hidden;
+
+        }
+
+
+
+        private void only_checkBox_UnChecked(object sender, RoutedEventArgs e)
+        {
+            only = false;
+            label2.Visibility = Visibility.Visible;
+            label5.Visibility = Visibility.Visible;
+            label3.Visibility = Visibility.Visible;
+            Item_Search_textBox.Visibility = Visibility.Visible;
+            label6.Visibility = Visibility.Visible;
+            dataGrid2.Visibility = Visibility.Visible;
+            label4.Visibility = Visibility.Visible;
+            orderid_label.Visibility = Visibility.Visible;
+            orderID_textBox.Visibility = Visibility.Visible;
+            startDate_label.Visibility = Visibility.Visible;
+            startdatePicker.Visibility = Visibility.Visible;
+            expectedFinishDate_label1.Visibility = Visibility.Visible;
+            finishdatePicker.Visibility = Visibility.Visible;
+            jobdescription_label.Visibility = Visibility.Visible;
+            jobdes_textbox.Visibility = Visibility.Visible;
+            keep_checkBox.Visibility = Visibility.Visible;
+        }
+
         private void CustumerNameSearchTextBox_TextChanged(object sender, TextChangedEventArgs e)
         {
             try
@@ -156,224 +204,281 @@ namespace project
 
         private void ADD_Btn_Click(object sender, RoutedEventArgs e)
         {
-            string orderid, jobdes;
-            int del = 0;
-            // if dates were intered.
-            if (startdatePicker.Text != "" && finishdatePicker.Text != "")
+            if (only == false)
             {
-
-                orderid = orderID_textBox.Text;
-                if (!string.IsNullOrWhiteSpace(orderID_textBox.Text))
+                string orderid, jobdes;
+                int del = 0;
+                // if dates were intered.
+                if (startdatePicker.Text != "" && finishdatePicker.Text != "")
                 {
-                    string today = DateTime.Now.ToString("yyyy-MM-dd");
-                    try
+
+                    orderid = orderID_textBox.Text;
+                    if (!string.IsNullOrWhiteSpace(orderID_textBox.Text))
                     {
-                        Console.WriteLine("שורה 467");
-                        MySqlConnection MySqlConn = new MySqlConnection(Login.Connectionstring);
-                        MySqlConn.Open();
-                        string Query1 = ("SELECT jobid FROM project.jobs WHERE orderid='" + orderid + "' AND startDate<='" + today + "' AND jobid != '" + jobid + "'ORDER BY startDate DESC LIMIT 1 "); //to see if the orderid already in the system.
-                        MySqlCommand MSQLcrcommand1 = new MySqlCommand(Query1, MySqlConn);
-                        MSQLcrcommand1.ExecuteNonQuery();
-                        MySqlDataReader dr = MSQLcrcommand1.ExecuteReader();
-                        MySqlDataAdapter mysqlDAdp = new MySqlDataAdapter(MSQLcrcommand1);
-                        Console.WriteLine("שורה 476");
-                        while (dr.Read())
+                        string today = DateTime.Now.ToString("yyyy-MM-dd");
+                        try
                         {
-                            if (!dr.IsDBNull(0))
+                            Console.WriteLine("שורה 467");
+                            MySqlConnection MySqlConn = new MySqlConnection(Login.Connectionstring);
+                            MySqlConn.Open();
+                            string Query1 = ("SELECT jobid FROM project.jobs WHERE orderid='" + orderid + "' AND startDate<='" + today + "' AND jobid != '" + jobid + "'ORDER BY startDate DESC LIMIT 1 "); //to see if the orderid already in the system.
+                            MySqlCommand MSQLcrcommand1 = new MySqlCommand(Query1, MySqlConn);
+                            MSQLcrcommand1.ExecuteNonQuery();
+                            MySqlDataReader dr = MSQLcrcommand1.ExecuteReader();
+                            MySqlDataAdapter mysqlDAdp = new MySqlDataAdapter(MSQLcrcommand1);
+                            Console.WriteLine("שורה 476");
+                            while (dr.Read())
                             {
-                                Console.WriteLine("שורה 480");
-                                if (MessageBox.Show("מספר הזמנה זהה כבר קיים האחרון ביותר היה עבור מספר עבודה " + dr.GetString(0) + "\n?האם ברצונך להוסיף בכל זאת", "מספר הזמנה קיים", MessageBoxButton.YesNo, MessageBoxImage.Warning) == MessageBoxResult.No)
+                                if (!dr.IsDBNull(0))
                                 {
-                                    MySqlConn.Close();
-                                    return; //if user answerd NO
+                                    Console.WriteLine("שורה 480");
+                                    if (MessageBox.Show("מספר הזמנה זהה כבר קיים האחרון ביותר היה עבור מספר עבודה " + dr.GetString(0) + "\n?האם ברצונך להוסיף בכל זאת", "מספר הזמנה קיים", MessageBoxButton.YesNo, MessageBoxImage.Warning) == MessageBoxResult.No)
+                                    {
+                                        MySqlConn.Close();
+                                        return; //if user answerd NO
+                                    }
                                 }
                             }
+
+                            MySqlConn.Close();
+
                         }
-
-                        MySqlConn.Close();
-
-                    }
-                    catch (Exception ex)
-                    {
-                        MessageBox.Show(ex.Message);
-                        return; ;
-                    }
-
-
-                    // get the latest jobid this year.
-                //    string fullyear = DateTime.Now.ToString("yyyy");
-                 //   string twodigyear = DateTime.Now.ToString("yy");
-                 //   int jobid1 = 0;
-                 //   string[] arry;
-                 //   string tosplit, first;
-                    /*
-                    try
-                    {
-                        Console.WriteLine("שורה 508");
-                        MySqlConnection MySqlConn = new MySqlConnection(Login.Connectionstring);
-                        MySqlConn.Open();
-                        string Query1 = ("SELECT MAX(jobid) FROM project.jobs WHERE startDate BETWEEN '" + fullyear + "-01-01' AND '" + fullyear + "-12-31' ");
-                        MySqlCommand MSQLcrcommand1 = new MySqlCommand(Query1, MySqlConn);
-                        MSQLcrcommand1.ExecuteNonQuery();
-                        MySqlDataReader dr = MSQLcrcommand1.ExecuteReader();
-                        Console.WriteLine("שורה 515");
-                        while (dr.Read())
+                        catch (Exception ex)
                         {
-                            if (dr.IsDBNull(0))
-                            {
-                                Console.WriteLine("שורה 520");
-                                jobid1 = 0;
-                            }
-                            else
-                            {
-                                Console.WriteLine("שורה 525");
-                                tosplit = dr.GetString(0);
-                                Console.WriteLine(tosplit);
-                                arry = tosplit.Split('/');
-                                first = arry[0].ToString();
-                                Console.WriteLine(first);
-                                jobid1 = Convert.ToInt32(first);
-                                Console.WriteLine(first);
-                            }
+                            MessageBox.Show(ex.Message);
+                            return; ;
                         }
-                        Console.WriteLine("שורה 535");
-                        MySqlDataAdapter mysqlDAdp = new MySqlDataAdapter(MSQLcrcommand1);
-                        MySqlConn.Close();
-                        jobid1++;
-                        jobid = jobid1.ToString() + "/" + twodigyear;
+
+
+                        // get the latest jobid this year.
+                        //    string fullyear = DateTime.Now.ToString("yyyy");
+                        //   string twodigyear = DateTime.Now.ToString("yy");
+                        //   int jobid1 = 0;
+                        //   string[] arry;
+                        //   string tosplit, first;
+                        /*
+                        try
+                        {
+                            Console.WriteLine("שורה 508");
+                            MySqlConnection MySqlConn = new MySqlConnection(Login.Connectionstring);
+                            MySqlConn.Open();
+                            string Query1 = ("SELECT MAX(jobid) FROM project.jobs WHERE startDate BETWEEN '" + fullyear + "-01-01' AND '" + fullyear + "-12-31' ");
+                            MySqlCommand MSQLcrcommand1 = new MySqlCommand(Query1, MySqlConn);
+                            MSQLcrcommand1.ExecuteNonQuery();
+                            MySqlDataReader dr = MSQLcrcommand1.ExecuteReader();
+                            Console.WriteLine("שורה 515");
+                            while (dr.Read())
+                            {
+                                if (dr.IsDBNull(0))
+                                {
+                                    Console.WriteLine("שורה 520");
+                                    jobid1 = 0;
+                                }
+                                else
+                                {
+                                    Console.WriteLine("שורה 525");
+                                    tosplit = dr.GetString(0);
+                                    Console.WriteLine(tosplit);
+                                    arry = tosplit.Split('/');
+                                    first = arry[0].ToString();
+                                    Console.WriteLine(first);
+                                    jobid1 = Convert.ToInt32(first);
+                                    Console.WriteLine(first);
+                                }
+                            }
+                            Console.WriteLine("שורה 535");
+                            MySqlDataAdapter mysqlDAdp = new MySqlDataAdapter(MSQLcrcommand1);
+                            MySqlConn.Close();
+                            jobid1++;
+                            jobid = jobid1.ToString() + "/" + twodigyear;
                   
-                        Console.WriteLine("שורה 540");
-                        Console.WriteLine(jobid);
-                    }
-                    catch (Exception ex)
-                    {
-                        MessageBox.Show(ex.Message);
-                        return; ;
-                    }
-                    */
-
-                    jobdes = jobdes_textbox.Text;
-                    String start, end;
-                    DateTime s = (DateTime)Convert.ToDateTime(startdatePicker.Text);
-                    DateTime f = (DateTime)Convert.ToDateTime(finishdatePicker.Text);
-                    TimeSpan ts = f - s;
-
-                    // if the days are ok.
-                    if (ts.Days >= 0)
-                    {
-                        start = Convert.ToDateTime(startdatePicker.Text).ToString("yyyy-MM-dd");
-                        end = Convert.ToDateTime(finishdatePicker.Text).ToString("yyyy-MM-dd");
-                    }
-                    else { MessageBox.Show(".תאריך ההתחלה שנבחר הוא לאחר תאריך הסיום"); return; }
-                }
-                else { MessageBox.Show("לא הוכנסה מספר הזמנה"); return; }
-            }// the if (startdatePicker.Text != "" && finishdatePicker.Text != "") closer.
-            else { MessageBox.Show(".לא נבחרו 2 התאריכים"); return; }
-
-            DataTable changedRecordsItemsTable = dt1.GetChanges();
-            //DataTable changedRecordsTableCust = dt.GetChanges();
-            int sizeofItemsnewtable;
-            //sizeofCustnewtable, custcheck=0;
-            //string customerid1;
-            try
-            {
-                // sizeofCustnewtable = changedRecordsTableCust.Rows.Count; // will give an exp if the size of the new cust table is zero.
-                DataRowView row = (DataRowView)dataGrid1.SelectedItems[0];
-
-                try
-                {
-                    DataRowView row1 = (DataRowView)dataGrid3.SelectedItems[0];
-
-
-                    try
-                    {
-                        string contactid = row1["מספר איש קשר"].ToString();
-                        string selected = row["חפ לקוח"].ToString();
-
-
-                        sizeofItemsnewtable = changedRecordsItemsTable.Rows.Count; // will give an exp if the size of the new items table is zero.
-                        int itemNum = 0;
+                            Console.WriteLine("שורה 540");
+                            Console.WriteLine(jobid);
+                        }
+                        catch (Exception ex)
+                        {
+                            MessageBox.Show(ex.Message);
+                            return; ;
+                        }
+                        */
 
                         jobdes = jobdes_textbox.Text;
-                        String start = Convert.ToDateTime(startdatePicker.Text).ToString("yyyy-MM-dd"), end = Convert.ToDateTime(finishdatePicker.Text).ToString("yyyy-MM-dd");
-                        // customerid1 = customerid1_label.Content.ToString();
+                        String start, end;
+                        DateTime s = (DateTime)Convert.ToDateTime(startdatePicker.Text);
+                        DateTime f = (DateTime)Convert.ToDateTime(finishdatePicker.Text);
+                        TimeSpan ts = f - s;
 
-                        int count = 0; // will count the number of rows with cell "" in the  changedRecordsItemsTable.
-
-                        // input checks for כמות.
-                        foreach (DataRow quantity_row in changedRecordsItemsTable.Rows)
+                        // if the days are ok.
+                        if (ts.Days >= 0)
                         {
-                            try
-                            {
-                                if (quantity_row["כמות"].ToString() != "")
-                                {
-                                    int item_quantity = Convert.ToInt32(quantity_row["כמות"].ToString());
-                                }
-                            }// end try
-                            catch
-                            { MessageBox.Show(" אחד שדה הכמות לא כולל רק מספרים בפריט מספר - " + quantity_row["מקט פריט"].ToString() + ""); return; }
+                            start = Convert.ToDateTime(startdatePicker.Text).ToString("yyyy-MM-dd");
+                            end = Convert.ToDateTime(finishdatePicker.Text).ToString("yyyy-MM-dd");
                         }
+                        else { MessageBox.Show(".תאריך ההתחלה שנבחר הוא לאחר תאריך הסיום"); return; }
+                    }
+                    else { MessageBox.Show("לא הוכנסה מספר הזמנה"); return; }
+                }// the if (startdatePicker.Text != "" && finishdatePicker.Text != "") closer.
+                else { MessageBox.Show(".לא נבחרו 2 התאריכים"); return; }
 
-                        foreach (DataRow dri in changedRecordsItemsTable.Rows)
+                DataTable changedRecordsItemsTable = dt1.GetChanges();
+                //DataTable changedRecordsTableCust = dt.GetChanges();
+                int sizeofItemsnewtable;
+                //sizeofCustnewtable, custcheck=0;
+                //string customerid1;
+                try
+                {
+                    // sizeofCustnewtable = changedRecordsTableCust.Rows.Count; // will give an exp if the size of the new cust table is zero.
+                    DataRowView row = (DataRowView)dataGrid1.SelectedItems[0];
+
+                    try
+                    {
+                        DataRowView row1 = (DataRowView)dataGrid3.SelectedItems[0];
+
+
+                        try
                         {
-                            itemNum = 0;
-                            // if the user wants to keep the current items for this job then we need to get the itemNum.
-                            if (keep == true)
+                            string contactid = row1["מספר איש קשר"].ToString();
+                            string selected = row["חפ לקוח"].ToString();
+
+
+                            sizeofItemsnewtable = changedRecordsItemsTable.Rows.Count; // will give an exp if the size of the new items table is zero.
+                            int itemNum = 0;
+
+                            jobdes = jobdes_textbox.Text;
+                            String start = Convert.ToDateTime(startdatePicker.Text).ToString("yyyy-MM-dd"), end = Convert.ToDateTime(finishdatePicker.Text).ToString("yyyy-MM-dd");
+                            // customerid1 = customerid1_label.Content.ToString();
+
+                            int count = 0; // will count the number of rows with cell "" in the  changedRecordsItemsTable.
+
+                            // input checks for כמות.
+                            foreach (DataRow quantity_row in changedRecordsItemsTable.Rows)
                             {
                                 try
                                 {
-                                    Console.WriteLine("שורה 325");
-                                    MySqlConnection MySqlConn = new MySqlConnection(Login.Connectionstring);
-                                    MySqlConn.Open();
-                                    string Query1 = ("SELECT MAX(itemNum) FROM project.jobs WHERE jobid='" + jobid + "' AND itemid='" + dri["מקט פריט"].ToString() + "' ");
-                                    MySqlCommand MSQLcrcommand1 = new MySqlCommand(Query1, MySqlConn);
-                                    MSQLcrcommand1.ExecuteNonQuery();
-                                    MySqlDataReader dr = MSQLcrcommand1.ExecuteReader();
-                                    MySqlDataAdapter mysqlDAdp = new MySqlDataAdapter(MSQLcrcommand1);
-                                    Console.WriteLine("שורה 333");
-                                    while (dr.Read())
+                                    if (quantity_row["כמות"].ToString() != "")
                                     {
-                                        if (!dr.IsDBNull(0))
+                                        int item_quantity = Convert.ToInt32(quantity_row["כמות"].ToString());
+                                    }
+                                }// end try
+                                catch
+                                { MessageBox.Show(" אחד שדה הכמות לא כולל רק מספרים בפריט מספר - " + quantity_row["מקט פריט"].ToString() + ""); return; }
+                            }
+
+                            foreach (DataRow dri in changedRecordsItemsTable.Rows)
+                            {
+                                itemNum = 0;
+                                // if the user wants to keep the current items for this job then we need to get the itemNum.
+                                if (keep == true)
+                                {
+                                    try
+                                    {
+                                        Console.WriteLine("שורה 325");
+                                        MySqlConnection MySqlConn = new MySqlConnection(Login.Connectionstring);
+                                        MySqlConn.Open();
+                                        string Query1 = ("SELECT MAX(itemNum) FROM project.jobs WHERE jobid='" + jobid + "' AND itemid='" + dri["מקט פריט"].ToString() + "' ");
+                                        MySqlCommand MSQLcrcommand1 = new MySqlCommand(Query1, MySqlConn);
+                                        MSQLcrcommand1.ExecuteNonQuery();
+                                        MySqlDataReader dr = MSQLcrcommand1.ExecuteReader();
+                                        MySqlDataAdapter mysqlDAdp = new MySqlDataAdapter(MSQLcrcommand1);
+                                        Console.WriteLine("שורה 333");
+                                        while (dr.Read())
                                         {
-                                            itemNum = dr.GetInt32(0);
+                                            if (!dr.IsDBNull(0))
+                                            {
+                                                itemNum = dr.GetInt32(0);
+                                            }
                                         }
+
+                                        MySqlConn.Close();
+
+                                    }
+                                    catch (Exception ex)
+                                    {
+                                        MessageBox.Show(ex.Message);
+                                        return; ;
                                     }
 
-                                    MySqlConn.Close();
-
                                 }
-                                catch (Exception ex)
+                                string q = dri["כמות"].ToString();
+                                string cosItemID = dri["מקט לקוח"].ToString();
+                                if (cosItemID == "")
                                 {
-                                    MessageBox.Show(ex.Message);
-                                    return; ;
+                                    cosItemID = "לא הוזן מקט לקוח";
                                 }
-
-                            }
-                            string q = dri["כמות"].ToString();
-                            string cosItemID = dri["מקט לקוח"].ToString();
-                            if (cosItemID == "")
-                            {
-                                cosItemID = "לא הוזן מקט לקוח";
-                            }
-                            try
-                            {
-
-                                if (q != "") // in case the user deleted a cell in the item and now it have a string of-  "" .
+                                try
                                 {
-                                    int item_quantity = Convert.ToInt32(q);
 
-                                    if (item_quantity > 0)
+                                    if (q != "") // in case the user deleted a cell in the item and now it have a string of-  "" .
                                     {
-                                        // if the user wanted to delete the current items then we need to do it just one time BEFOUR we add the new items but after we know that all the inputs are OK. 
-                                        if (keep == false)
+                                        int item_quantity = Convert.ToInt32(q);
+
+                                        if (item_quantity > 0)
                                         {
-                                            if (del == 0)
+                                            // if the user wanted to delete the current items then we need to do it just one time BEFOUR we add the new items but after we know that all the inputs are OK. 
+                                            if (keep == false)
+                                            {
+                                                if (del == 0)
+                                                {
+                                                    try
+                                                    {
+                                                        MySqlConnection MySqlConn = new MySqlConnection(Login.Connectionstring);
+                                                        MySqlConn.Open();
+                                                        string Query1 = "DELETE FROM jobs WHERE jobid ='" + jobid + "'";
+                                                        MySqlCommand MSQLcrcommand1 = new MySqlCommand(Query1, MySqlConn);
+                                                        MSQLcrcommand1.ExecuteNonQuery();
+                                                        MySqlDataAdapter mysqlDAdp = new MySqlDataAdapter(MSQLcrcommand1);
+                                                        MySqlConn.Close();
+                                                    }
+                                                    catch (Exception ex)
+                                                    {
+                                                        MessageBox.Show(ex.Message);
+                                                    }
+                                                    del++;
+
+                                                }// end if (del == 0)
+                                            } //end if (keep == false)
+
+                                            int expected = itemNum + item_quantity;
+                                            string itemid1 = dri["מקט פריט"].ToString();
+                                            for (int i = 1; i <= item_quantity; i++)
+                                            {
+                                                Console.WriteLine("לפני שאילתא");
+                                                itemNum++;
+                                                string itemid = dri["מקט פריט"].ToString();
+                                                try
+                                                {
+                                                    MySqlConnection MySqlConn = new MySqlConnection(Login.Connectionstring);
+                                                    MySqlConn.Open();
+                                                    string Query1 = ("INSERT INTO project.jobs (jobid, itemid,itemNum, expectedItemQuantity,costumerid, jobdescription, startDate, expectedFinishDate, contact_id,orderid,group_costomer_itemid) VALUES ('" + jobid + "','" + itemid + "','" + itemNum + "','" + expected + "','" + selected + "','" + jobdes + "','" + start + "','" + end + "','" + contactid + "','" + orderid + "','" + cosItemID + "')");
+                                                    Console.WriteLine("השאילתא הנשלחת  - " + Query1 + "");
+                                                    MySqlCommand MSQLcrcommand1 = new MySqlCommand(Query1, MySqlConn);
+                                                    MSQLcrcommand1.ExecuteNonQuery();
+                                                    MySqlDataAdapter mysqlDAdp = new MySqlDataAdapter(MSQLcrcommand1);
+                                                    MySqlConn.Close();
+
+                                                }
+                                                catch (Exception ex)
+                                                {
+                                                    MessageBox.Show(ex.Message);
+                                                    return;
+                                                }
+
+
+                                                Console.WriteLine("הלקוח הוא  - " + selected + "");
+                                                Console.WriteLine("הכמות היא  - " + item_quantity + " ומספר הפריט הוא -  " + dri["מקט פריט"].ToString() + "");
+                                                Console.WriteLine("מספר עבודה - " + jobid + "");
+                                                Console.WriteLine("מספר הזמנה - " + orderid + "");
+                                                Console.WriteLine("מספר איש קשר - " + contactid + "");
+                                            }
+
+                                            //now we need to uptade all of the old items with our new description of the job.
+                                            if (keep == true)
                                             {
                                                 try
                                                 {
                                                     MySqlConnection MySqlConn = new MySqlConnection(Login.Connectionstring);
                                                     MySqlConn.Open();
-                                                    string Query1 = "DELETE FROM jobs WHERE jobid ='" + jobid + "'";
+                                                    string Query1 = "UPDATE jobs SET expectedItemQuantity='" + expected + "',itemsDescription='לא נרשם תיאור',group_Status='רישום' ,group_costomer_itemid='" + cosItemID + "' where jobid='" + jobid + "' AND itemid='" + itemid1 + "'";
                                                     MySqlCommand MSQLcrcommand1 = new MySqlCommand(Query1, MySqlConn);
                                                     MSQLcrcommand1.ExecuteNonQuery();
                                                     MySqlDataAdapter mysqlDAdp = new MySqlDataAdapter(MSQLcrcommand1);
@@ -383,120 +488,114 @@ namespace project
                                                 {
                                                     MessageBox.Show(ex.Message);
                                                 }
-                                                del++;
-
-                                            }// end if (del == 0)
-                                        } //end if (keep == false)
-
-                                        int expected = itemNum + item_quantity;
-                                        string itemid1 = dri["מקט פריט"].ToString();
-                                        for (int i = 1; i <= item_quantity; i++)
-                                        {
-                                            Console.WriteLine("לפני שאילתא");
-                                            itemNum++;
-                                            string itemid = dri["מקט פריט"].ToString();
-                                            try
-                                            {
-                                                MySqlConnection MySqlConn = new MySqlConnection(Login.Connectionstring);
-                                                MySqlConn.Open();
-                                                string Query1 = ("INSERT INTO project.jobs (jobid, itemid,itemNum, expectedItemQuantity,costumerid, jobdescription, startDate, expectedFinishDate, contact_id,orderid,group_costomer_itemid) VALUES ('" + jobid + "','" + itemid + "','" + itemNum + "','" + expected + "','" + selected + "','" + jobdes + "','" + start + "','" + end + "','" + contactid + "','" + orderid + "','" + cosItemID + "')");
-                                                Console.WriteLine("השאילתא הנשלחת  - " + Query1 + "");
-                                                MySqlCommand MSQLcrcommand1 = new MySqlCommand(Query1, MySqlConn);
-                                                MSQLcrcommand1.ExecuteNonQuery();
-                                                MySqlDataAdapter mysqlDAdp = new MySqlDataAdapter(MSQLcrcommand1);
-                                                MySqlConn.Close();
-
-                                            }
-                                            catch (Exception ex)
-                                            {
-                                                MessageBox.Show(ex.Message);
-                                                return;
                                             }
 
+                                        }//end if (item_quantity > 0)
+                                        else { MessageBox.Show("שדה הכמות מכיל כמות שלילית או 0 בפריט מספר - " + dri["מקט פריט"].ToString() + ""); return; }
 
-                                            Console.WriteLine("הלקוח הוא  - " + selected + "");
-                                            Console.WriteLine("הכמות היא  - " + item_quantity + " ומספר הפריט הוא -  " + dri["מקט פריט"].ToString() + "");
-                                            Console.WriteLine("מספר עבודה - " + jobid + "");
-                                            Console.WriteLine("מספר הזמנה - " + orderid + "");
-                                            Console.WriteLine("מספר איש קשר - " + contactid + "");
-                                        }
-
-                                        //now we need to uptade all of the old items with our new description of the job.
-                                        if(keep == true)
-                                        {
-                                            try
-                                            {
-                                                MySqlConnection MySqlConn = new MySqlConnection(Login.Connectionstring);
-                                                MySqlConn.Open();
-                                                string Query1 = "UPDATE jobs SET expectedItemQuantity='" + expected + "',itemsDescription='לא נרשם תיאור',group_Status='רישום' ,group_costomer_itemid='" + cosItemID + "' where jobid='" + jobid + "' AND itemid='" + itemid1 + "'";
-                                                MySqlCommand MSQLcrcommand1 = new MySqlCommand(Query1, MySqlConn);
-                                                MSQLcrcommand1.ExecuteNonQuery();
-                                                MySqlDataAdapter mysqlDAdp = new MySqlDataAdapter(MSQLcrcommand1);
-                                                MySqlConn.Close();
-                                            }
-                                            catch (Exception ex)
-                                            {
-                                                MessageBox.Show(ex.Message);
-                                            }
-                                        }
-
-                                    }//end if (item_quantity > 0)
-                                    else { MessageBox.Show("שדה הכמות מכיל כמות שלילית או 0 בפריט מספר - " + dri["מקט פריט"].ToString() + ""); return; }
-
-                                } // if (q != "")
-                                else { count++; }
+                                    } // if (q != "")
+                                    else { count++; }
 
 
-                            }// end try
-                            catch
-                            { MessageBox.Show("שדה הכמות לא כולל רק מספרים בפריט מספר - " + dri["מקט פריט"].ToString() + ""); return; }
+                                }// end try
+                                catch
+                                { MessageBox.Show("שדה הכמות לא כולל רק מספרים בפריט מספר - " + dri["מקט פריט"].ToString() + ""); return; }
 
-                        }// end foreach (DataRow dri in changedRecordsTable.Rows)
-                        if (count == changedRecordsItemsTable.Rows.Count)
-                        {
-                            MessageBox.Show("  לא נבחרו פריטים מהטבלה "); return;
-                        }
-
-                        else
-                        {
-                            //now we need to uptade all of the old items whith itemid that we did not add to our new description of the job.
-                            if (keep == true)
+                            }// end foreach (DataRow dri in changedRecordsTable.Rows)
+                            if (count == changedRecordsItemsTable.Rows.Count)
                             {
-                                try
-                                {
-                                    MySqlConnection MySqlConn = new MySqlConnection(Login.Connectionstring);
-                                    MySqlConn.Open();
-                                    string Query1 = "UPDATE jobs SET job_status='נרשמה',jobdescription='" + jobdes + "',startDate='" + start + "',expectedFinishDate='" + end + "',actualFinishDate=NULL ,costumerid='" + selected + "',contact_id='" + contactid + "',orderid='" + orderid + "',deliveryid='לא עודכן',invoiceNumber='לא עודכן',costumerid='" + selected + "' WHERE jobid='"+jobid+"'";
-                                    MySqlCommand MSQLcrcommand1 = new MySqlCommand(Query1, MySqlConn);
-                                    MSQLcrcommand1.ExecuteNonQuery();
-                                    MySqlDataAdapter mysqlDAdp = new MySqlDataAdapter(MSQLcrcommand1);
-                                    MySqlConn.Close();   
-                                }
-                                catch (Exception ex)
-                                {
-                                    MessageBox.Show(ex.Message);
-                                }
+                                MessageBox.Show("  לא נבחרו פריטים מהטבלה "); return;
                             }
-                            MessageBox.Show("!שינוי העבודה הצליח", "הצלחה", MessageBoxButton.OK, MessageBoxImage.Information);
-                            ManagerJobGui MJG = new ManagerJobGui();
-                            MJG.Show();
-                            Login.close = 1;
-                            this.Close();
+
+                            else
+                            {
+                                //now we need to uptade all of the old items whith itemid that we did not add to our new description of the job.
+                                if (keep == true)
+                                {
+                                    try
+                                    {
+                                        MySqlConnection MySqlConn = new MySqlConnection(Login.Connectionstring);
+                                        MySqlConn.Open();
+                                        string Query1 = "UPDATE jobs SET job_status='נרשמה',jobdescription='" + jobdes + "',startDate='" + start + "',expectedFinishDate='" + end + "',actualFinishDate=NULL ,costumerid='" + selected + "',contact_id='" + contactid + "',orderid='" + orderid + "',deliveryid='לא עודכן',invoiceNumber='לא עודכן',costumerid='" + selected + "' WHERE jobid='" + jobid + "'";
+                                        MySqlCommand MSQLcrcommand1 = new MySqlCommand(Query1, MySqlConn);
+                                        MSQLcrcommand1.ExecuteNonQuery();
+                                        MySqlDataAdapter mysqlDAdp = new MySqlDataAdapter(MSQLcrcommand1);
+                                        MySqlConn.Close();
+                                    }
+                                    catch (Exception ex)
+                                    {
+                                        MessageBox.Show(ex.Message);
+                                        MessageBox.Show("!שינוי העבודה נכשל בגלל בעיה בחיבור\n  .אנא בדוק את תקינות העבודה ופרטיה", "שגיאה", MessageBoxButton.OK, MessageBoxImage.Error);
+                                        return;
+                                    }
+                                }
+                                MessageBox.Show("!שינוי העבודה הצליח", "הצלחה", MessageBoxButton.OK, MessageBoxImage.Information);
+                                ManagerJobGui MJG = new ManagerJobGui();
+                                MJG.Show();
+                                Login.close = 1;
+                                this.Close();
+                            }
                         }
+                        catch
+                        {
+                            MessageBox.Show("לא נבחרו פריטים");
+
+
+                            return;
+                        }
+                    }
+                    catch { MessageBox.Show("לא נבחר איש קשר"); Console.WriteLine("לא נבחר איש קשר"); return; }
+
+                }
+                catch { MessageBox.Show("לא נבחר לקוח"); Console.WriteLine("לא נבחר לקוח"); return; }
+            } //end if(only==false)
+
+            else // the user only wants to update the costumer and\or contact.
+            {
+                try
+                {
+                    // if not cost was selected.
+                    DataRowView row = (DataRowView)dataGrid1.SelectedItems[0];
+
+                    try
+                    {   // if no contact to the cost was selected.
+                        DataRowView row1 = (DataRowView)dataGrid3.SelectedItems[0];
                     }
                     catch
                     {
-                        MessageBox.Show("לא נבחרו פריטים");
-
-
+                        MessageBox.Show("!לא נבחר איש קשר", "שיםב לב", MessageBoxButton.OK, MessageBoxImage.Warning);
+                        //MessageBox.Show("לא נבחר איש קשר"); Console.WriteLine("לא נבחר איש קשר");
                         return;
                     }
                 }
-                catch { MessageBox.Show("לא נבחר איש קשר"); Console.WriteLine("לא נבחר איש קשר"); return; }
-
+                catch
+                {
+                    MessageBox.Show("!לא נבחר לקוח", "שים לב", MessageBoxButton.OK, MessageBoxImage.Warning);
+                    //MessageBox.Show("לא נבחר לקוח"); Console.WriteLine("לא נבחר לקוח"); 
+                    return; 
+                }
+                DataRowView rowcost = (DataRowView)dataGrid1.SelectedItems[0];
+                string costid = rowcost["חפ לקוח"].ToString();
+                DataRowView rowcontact = (DataRowView)dataGrid3.SelectedItems[0];
+                string contactid = rowcontact["מספר איש קשר"].ToString();
+                // now we need to update the cost and contact for this jobid
+                try
+                {
+                    MySqlConnection MySqlConn = new MySqlConnection(Login.Connectionstring);
+                    MySqlConn.Open();
+                    string Query1 = "UPDATE jobs SET costumerid='" + costid + "',contact_id='" + contactid + "' WHERE jobid='" + jobid + "'";
+                    MySqlCommand MSQLcrcommand1 = new MySqlCommand(Query1, MySqlConn);
+                    MSQLcrcommand1.ExecuteNonQuery();
+                    MySqlDataAdapter mysqlDAdp = new MySqlDataAdapter(MSQLcrcommand1);
+                    MySqlConn.Close();
+                    MessageBox.Show("!עדכון הלקוח ו/או איש הקשר הצליח", "הצלחה", MessageBoxButton.OK, MessageBoxImage.Information);
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message);
+                    MessageBox.Show("!עדכון הלקוח ו/או איש הקשר נכשל בגלל בעיה בחיבור\n  .אנא נסה שוב", "שגיאה", MessageBoxButton.OK, MessageBoxImage.Error);
+                }
             }
-            catch { MessageBox.Show("לא נבחר לקוח"); Console.WriteLine("לא נבחר לקוח"); return; }
-
         }
 
 
