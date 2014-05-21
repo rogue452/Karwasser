@@ -371,16 +371,9 @@ namespace project
 
         private void Item_Stages_button_Click(object sender, RoutedEventArgs e)
         {
-            try
-            {
-                DataRowView row = (DataRowView)dataGrid1.SelectedItems[0];
-                string itemnum = row["מספר פריט בקבוצה"].ToString();
-
-                ManagerItemStagesGui MISG = new ManagerItemStagesGui(itemnum,jobID,itemID);
-                MISG.ShowDialog();
-                //this.Close();
-            }
-            catch { MessageBox.Show("לא נבחר פריט"); }
+                ManagerGeneralItemStagesGui MGIG = new ManagerGeneralItemStagesGui(itemID);
+                MGIG.Owner = this;
+                MGIG.ShowDialog();
         }
 
 
