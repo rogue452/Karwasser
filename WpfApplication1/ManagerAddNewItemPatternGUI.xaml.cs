@@ -221,7 +221,7 @@ namespace project
                     item_disc_textBlock.Text = item_disc_textBox.Text;
                     item_disc_textBlock.Visibility = Visibility.Visible;
                     item_disc_textBox.Visibility = Visibility.Hidden;
-
+                    label1.Visibility = Visibility.Hidden;
                     stage_desc_textBox.Clear();
 
                     dataGrid1.Visibility = Visibility.Visible;

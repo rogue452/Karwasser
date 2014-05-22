@@ -27,16 +27,7 @@
         <Image Height="36" HorizontalAlignment="Left" Margin="1060,458,0,0" Name="image1" Stretch="Fill" VerticalAlignment="Top" Width="42" FlowDirection="RightToLeft" Source="/WpfApplication1;component/Images/add_user.png" />
         <Image Height="28" HorizontalAlignment="Left" Margin="1009,573,0,0" Name="image4" Stretch="Fill" VerticalAlignment="Top" Width="25" Source="/WpfApplication1;component/Images/exit.png" />
         <Image Height="29" HorizontalAlignment="Left" Margin="12,573,0,0" Name="image7" Stretch="Fill" VerticalAlignment="Top" Width="33" Source="/WpfApplication1;component/Images/back.png" />
-        <DataGrid AutoGenerateColumns="True"  AutoGeneratingColumn="Grid_AutoGeneratingColumn1"  Margin="647,132,241,52" Name="dataGrid2" CanUserAddRows="false" SelectionMode="Extended">
-            <DataGrid.Resources>
-                <Style TargetType="DataGridRow">
-                    <Style.Resources>
-                        <SolidColorBrush x:Key="{x:Static SystemColors.ControlBrushKey}" Color="LightSeaGreen" />
-                        <SolidColorBrush x:Key="{x:Static SystemColors.ControlTextBrushKey}" Color="Black"/>
-                    </Style.Resources>
-                </Style>
-            </DataGrid.Resources>
-        </DataGrid>
+        <DataGrid AutoGenerateColumns="True"  AutoGeneratingColumn="Grid_AutoGeneratingColumn1"  Margin="647,132,241,52" Name="dataGrid2" CanUserAddRows="false" SelectionMode="Extended" />
         <Label Content="תאריך התחלה " Height="25" HorizontalAlignment="Left" Margin="966,71,0,0" Name="startDate_label" VerticalAlignment="Top" Width="91"  />
         <Label Content="תאור עבודה " Height="26" HorizontalAlignment="Left" Margin="970,171,0,0" Name="jobdescription_label" VerticalAlignment="Top" Width="90" />
         <TextBox Height="259" HorizontalAlignment="Left" Margin="970,193,0,0" Name="jobdes_textbox" VerticalAlignment="Top" Width="220" TextWrapping="Wrap" />
