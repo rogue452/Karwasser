@@ -338,7 +338,7 @@ namespace project
 
         private void Grid_AutoGeneratingColumn(object sender, DataGridAutoGeneratingColumnEventArgs e)
         {
-            if (e.Column.Header.ToString() == "תעודת זהות" || e.Column.Header.ToString() == "שם פרטי" || e.Column.Header.ToString() == "שם משפחה")
+            if (e.Column.Header.ToString() == "תעודת זהות" || e.Column.Header.ToString() == "שם פרטי" || e.Column.Header.ToString() == "שם משפחה" || e.Column.Header.ToString() == "התחברות אחרונה ממחשב")
             {
                 // e.Cancel = true;   // For not to include 
                  e.Column.IsReadOnly = true; // Makes the column as read only

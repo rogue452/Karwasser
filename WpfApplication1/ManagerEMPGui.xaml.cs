@@ -114,6 +114,32 @@ namespace project
 
         }
 
+
+        private void reafreashandclear()
+        {
+            try
+            {
+                MySqlConnection MySqlConn = new MySqlConnection(Login.Connectionstring);
+                MySqlConn.Open();
+                string Query1 = ("SELECT empid as `תעודת זהות`,emp_firstname as `שם פרטי` ,emp_lastname as `שם משפחה` , emp_insidenum as `מספר עובד` ,emp_address as `כתובת` ,emp_phone as `מספר טלפון`, emp_cellphone as `טלפון נייד`, emp_start_date as `תאריך התחלת עבודה` from project.employees ");
+                MySqlCommand MSQLcrcommand1 = new MySqlCommand(Query1, MySqlConn);
+                MSQLcrcommand1.ExecuteNonQuery();
+                MySqlDataAdapter mysqlDAdp = new MySqlDataAdapter(MSQLcrcommand1);
+                // DataTable dt = new DataTable("employess");
+                dt.Clear();
+                mysqlDAdp.Fill(dt);
+                dataGrid1.ItemsSource = dt.DefaultView;
+                mysqlDAdp.Update(dt);
+                MySqlConn.Close();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+            IDSearchTextBox.Clear();
+            FirstNameSearchTextBox.Clear();
+        }
+
         private void FirstNameSearchTextBox_TextChanged(object sender, TextChangedEventArgs e)
         {
             try
@@ -209,26 +235,7 @@ namespace project
                         {
                             MessageBox.Show(ex.Message);
                         }
-                        try
-                        {
-                            MySqlConnection MySqlConn = new MySqlConnection(Login.Connectionstring);
-                            MySqlConn.Open();
-                            string Query1 = ("SELECT empid as `תעודת זהות`,emp_firstname as `שם פרטי` ,emp_lastname as `שם משפחה` , emp_insidenum as `מספר עובד` ,emp_address as `כתובת` ,emp_phone as `מספר טלפון`, emp_cellphone as `טלפון נייד`, emp_start_date as `תאריך התחלת עבודה` FROM project.employees ");
-                            MySqlCommand MSQLcrcommand1 = new MySqlCommand(Query1, MySqlConn);
-                            MSQLcrcommand1.ExecuteNonQuery();
-                            MySqlDataAdapter mysqlDAdp = new MySqlDataAdapter(MSQLcrcommand1);
-                            //DataTable dt = new DataTable("employess");
-                            dt.Clear();
-                            mysqlDAdp.Fill(dt);
-                            dataGrid1.ItemsSource = dt.DefaultView;
-                            mysqlDAdp.Update(dt);
-                            MySqlConn.Close();
-
-                        }
-                        catch (Exception ex)
-                        {
-                            MessageBox.Show(ex.Message);
-                        }
+                        reafreashandclear();
                    }//end else
 
                 
@@ -250,6 +257,37 @@ namespace project
                     }
                     else // if the user clicked on "Yes" so he wants to Update.
                         {
+                            try
+                            {
+                                int phoneCheck = Convert.ToInt32(row["מספר טלפון"].ToString());
+                            }
+                            catch
+                            {
+                                MessageBox.Show("שדה מספר טלפון לא מכיל רק מספרים", "שים לב", MessageBoxButton.OK, MessageBoxImage.Error);
+                                reafreashandclear();
+                                return;
+                            }
+                        try
+                            {
+                                int empCheck = Convert.ToInt32(row["מספר עובד"].ToString());
+                            }
+                            catch
+                            {
+                                MessageBox.Show("שדה מספר עובד לא מכיל רק מספרים", "שים לב", MessageBoxButton.OK, MessageBoxImage.Error);
+                                reafreashandclear();
+                                return;
+                            }
+                        try
+                            {
+                                int cellphoneCheck = Convert.ToInt32(row["טלפון נייד"].ToString());
+                            }
+                            catch
+                            {
+                                MessageBox.Show("שדה טלפון נייד לא מכיל רק מספרים", "שים לב", MessageBoxButton.OK, MessageBoxImage.Error);
+                                reafreashandclear();
+                                return;
+                            }
+
                             string selected = row["תעודת זהות"].ToString();
                             string firstname = row["שם פרטי"].ToString();
                             string lastname = row["שם משפחה"].ToString();
@@ -257,7 +295,12 @@ namespace project
                             string phone = row["מספר טלפון"].ToString();
                             string empnum = row["מספר עובד"].ToString();
                             string cell = row["טלפון נייד"].ToString();
-
+                            if ((firstname.Length > 45) || (lastname.Length > 45) || (address.Length > 45) || (phone.Length > 45) || (empnum.Length > 45) || (cell.Length > 45))
+                            {
+                                MessageBox.Show("אסור ששדה יכיל יותר מ - 45 תוים", "שים לב", MessageBoxButton.OK, MessageBoxImage.Error);
+                                reafreashandclear();
+                                return;
+                            }
                             if (row["תאריך התחלת עבודה"].ToString().Equals(""))
                             {
                                 try
@@ -298,26 +341,7 @@ namespace project
                                 }
                             }
 
-                        //refresh
-                            try
-                            {
-                                MySqlConnection MySqlConn = new MySqlConnection(Login.Connectionstring);
-                                MySqlConn.Open();
-                                string Query1 = ("SELECT empid as `תעודת זהות`,emp_firstname as `שם פרטי` ,emp_lastname as `שם משפחה` , emp_insidenum as `מספר עובד` ,emp_address as `כתובת` ,emp_phone as `מספר טלפון`, emp_cellphone as `טלפון נייד`, emp_start_date as `תאריך התחלת עבודה` from project.employees ");
-                                MySqlCommand MSQLcrcommand1 = new MySqlCommand(Query1, MySqlConn);
-                                MSQLcrcommand1.ExecuteNonQuery();
-                                MySqlDataAdapter mysqlDAdp = new MySqlDataAdapter(MSQLcrcommand1);
-                               // DataTable dt = new DataTable("employess");
-                                dt.Clear();
-                                mysqlDAdp.Fill(dt);
-                                dataGrid1.ItemsSource = dt.DefaultView;
-                                mysqlDAdp.Update(dt);
-                                MySqlConn.Close();
-                            }
-                            catch (Exception ex)
-                            {
-                                MessageBox.Show(ex.Message);
-                            }
+                            reafreashandclear();
                         }//end else
                         
   
