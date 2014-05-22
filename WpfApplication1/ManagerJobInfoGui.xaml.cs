@@ -520,8 +520,58 @@ namespace project
                             {
                                 Query1 = "UPDATE jobs SET itemStatus='" + status + "' , itemStageOrder='0' , itemToFixStageOrder='חזר מפסילה בסטטוס גמר ייצור בשלב 0'  WHERE jobid='" + jobID + "' AND itemid='" + selected_Item + "' AND itemStatus='" + oldstatus + "' AND itemStageOrder='" + oldStageOrder + "' ";
                             }
-                            
 
+                             // now before we update our group of items, if status is "תיקון" or "פסול" (and we did not came from פסול - need to ask about that) then we need to update the "fix" table in the DB with: jobid - itemid - itemnum - itemStageOrder - stageName - fromFixOrBad - itemToFixStageOrder - dateAddedToFixTable.
+                             if ((status == "תיקון" || status == "פסול") && oldstatus != "פסול")
+                            {
+                                try
+                                {
+                                    Console.WriteLine("שורה 550");
+                                    MySqlConnection MySqlConn22 = new MySqlConnection(Login.Connectionstring);
+                                    MySqlConn22.Open();
+                                    string Query22 = ("SELECT itemNum FROM project.jobs WHERE jobid='" + jobID + "' AND itemid='" + selected_Item + "' AND itemStatus='" + oldstatus + "' AND itemStageOrder='" + oldStageOrder + "'  ");
+                                    MySqlCommand MSQLcrcommand22 = new MySqlCommand(Query22, MySqlConn22);
+                                    MSQLcrcommand22.ExecuteNonQuery();
+                                    //MySqlDataReader dr22 = MSQLcrcommand22.ExecuteReader();
+                                    MySqlDataAdapter mysqlDAdp22 = new MySqlDataAdapter(MSQLcrcommand22);
+                                    Console.WriteLine("שורה 558");
+                                    string itemNumToDB="";
+                                    DataSet itemNumsToDB = new DataSet();
+                                    mysqlDAdp22.Fill(itemNumsToDB);
+                                    Console.WriteLine("שורה 541");
+                                    Console.WriteLine(itemNumsToDB);
+                                    MySqlConn22.Close();
+                                    foreach (DataRow itemnumrow in itemNumsToDB.Tables[0].Rows)
+                                    { Console.WriteLine("שורה 545");
+                                        try
+                                        {
+                                            MySqlConnection MySqlConn33 = new MySqlConnection(Login.Connectionstring);
+                                            MySqlConn33.Open();
+                                            itemNumToDB = itemnumrow["itemNum"].ToString();
+                                            Console.WriteLine(itemNumToDB);
+                                            string Query33 = ("INSERT INTO project.fix (jobid, itemid,itemNum, itemStageOrder,stageStatusName, fromFixOrBad , itemToFixStageOrder , dateAddedToFixTable) VALUES ('" + jobID + "','" + selected_Item + "','" + itemNumToDB + "','" + oldStageOrder + "','" + oldstatus + "','" + status + "','" + itemToFixStageOrder + "', '" + DateTime.Now.ToString("yyyy-MM-dd-HH-mm-ss") + "')");
+                                            Console.WriteLine("השאילתא הנשלחת לפיקס  - " + Query33 + "");
+                                            MySqlCommand MSQLcrcommand33 = new MySqlCommand(Query33, MySqlConn33);
+                                            MSQLcrcommand33.ExecuteNonQuery();
+                                            MySqlDataAdapter mysqlDAdp33 = new MySqlDataAdapter(MSQLcrcommand33);
+                                            MySqlConn33.Close();
+                                        }
+                                        catch (Exception ex)
+                                        {
+                                            MessageBox.Show(ex.Message);
+                                            refreashandClear();
+                                            return;
+                                        }
+                                    } // end of foreach (DataRow itemnumrow in itemNumsToDB.Tables[0].Rows)
+                                   
+                                } // end of try
+                                catch (Exception ex)
+                                {
+                                    MessageBox.Show(ex.Message);
+                                    return; ;
+                                }
+
+                            }// end of if (status == "תיקון" || status == "פסול")
 
                             Console.WriteLine("שורה 526");
                             Console.WriteLine(Query1);
@@ -531,7 +581,7 @@ namespace project
                             MSQLcrcommand1.ExecuteNonQuery();
                             MySqlDataAdapter mysqlDAdp = new MySqlDataAdapter(MSQLcrcommand1);
                             MySqlConn1.Close();
-                            //MessageBox.Show("! סט הפריט עודכן");
+                            // we updated only the group.
                         }
                         catch (Exception ex)
                         {
@@ -540,8 +590,6 @@ namespace project
                             return;
 
                         }
-
-
 
                         Console.WriteLine("שורה 546");
                         // now do the normal update with the new status.
