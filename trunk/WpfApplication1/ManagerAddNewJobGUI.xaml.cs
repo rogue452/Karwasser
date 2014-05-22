@@ -1026,7 +1026,7 @@ namespace project
             }
 
            
-            if (e.Column.Header.ToString() == "בחר/י פריט/ים")
+           /* if (e.Column.Header.ToString() == "בחר/י פריט/ים")
             {
                 // e.Cancel = true;   // For not to include 
              //   e.Column.IsReadOnly = true; // Makes the column as read only
@@ -1047,7 +1047,7 @@ namespace project
                 col1.IsReadOnly = false;
                 e.Column = col1;
 
-
+            */
 
            /*     DataGridCheckBoxColumn dg2chbcolumn = new DataGridCheckBoxColumn();
                 dg2chbcolumn.Header = "בחר פריט/ים";
@@ -1055,7 +1055,7 @@ namespace project
              //   dataGrid2.Columns.Add(dg2chbcolumn);
                 e.Column = dg2chbcolumn;
             */
-            }
+          //  }
 
           
             
