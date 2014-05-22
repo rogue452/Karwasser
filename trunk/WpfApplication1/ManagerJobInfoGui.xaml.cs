@@ -30,6 +30,7 @@ namespace project
             this.jobID = jobID1;
             InitializeComponent();
             this.WindowStartupLocation = WindowStartupLocation.CenterScreen;
+            label1.Content = jobID;
             refreashandClear();
         }
 
@@ -791,6 +792,16 @@ namespace project
                 MessageBox.Show("לא נבחר פריט");
                 return;
             }
+        }
+
+        private void NextStage_button_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void PrevStage_button_Click(object sender, RoutedEventArgs e)
+        {
+
         }
 
 

@@ -8,7 +8,7 @@
         <Label Content="שם פריט" HorizontalAlignment="Left" Margin="5,75,0,331" Name="firstname_label" />
         <Label Content="תאור שלב" HorizontalAlignment="Left" Margin="240,194,0,209" Name="item_des_label" />
         <Button Content="הוסף שלב" Height="47" HorizontalAlignment="Left" Margin="306,372,0,0" Name="Add_button" VerticalAlignment="Top" Width="125" Click="Add_button_Click" />
-        <Button Content="חזור לניהול תבניות פריטים" Height="23" HorizontalAlignment="Left" Margin="12,396,0,0" Name="Back_button" VerticalAlignment="Top" Width="150" Click="Back_button_Click" />
+        <Button Content="סיום" Height="23" HorizontalAlignment="Left" Margin="12,396,0,0" Name="Back_button" VerticalAlignment="Top" Width="114" Click="Back_button_Click" />
         <TextBox Height="23" HorizontalAlignment="Left" Margin="84,43,0,0" Name="item_id_textBox" VerticalAlignment="Top" Width="136" />
         <TextBox Height="23" HorizontalAlignment="Left" Margin="84,77,0,0" Name="itemname_textBox" VerticalAlignment="Top" Width="136" />
         <TextBox Height="149" HorizontalAlignment="Left" Margin="240,217,0,0" Name="stage_desc_textBox" VerticalAlignment="Top" Width="254" TextWrapping="Wrap" />
@@ -22,5 +22,6 @@
         <TextBox Height="147" HorizontalAlignment="Left" Margin="240,41,0,0" Name="item_disc_textBox" VerticalAlignment="Top" Width="254" TextWrapping="Wrap" />
         <DataGrid  AutoGenerateColumns="True" AutoGeneratingColumn="Grid_AutoGeneratingColumn"  Height="376" HorizontalAlignment="Left" Margin="500,43,0,0" Name="dataGrid1" VerticalAlignment="Top" Width="378" CanUserAddRows="False" CanUserDeleteRows="False" />
         <TextBlock Height="145" HorizontalAlignment="Left" Margin="240,43,0,0" Name="item_disc_textBlock" Text="TextBlock" VerticalAlignment="Top" Width="254" TextWrapping="Wrap" Visibility="Hidden"/>
+        <Label Content="טבלת השלבים תוצג החל מהוספת השלב הראשון" Height="28" HorizontalAlignment="Left" Margin="537,9,0,0" Name="label1" VerticalAlignment="Top" FontWeight="Bold" />
     </Grid>
 </Window>
