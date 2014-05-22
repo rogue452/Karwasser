@@ -15,8 +15,8 @@
             </DataGrid.Resources>
         </DataGrid>
         <TextBox HorizontalAlignment="Left" Height="22" Margin="103,67,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="207" FontSize="15" Name="itemNameSearchTextBox" TextChanged="itemNameSearchTextBox_TextChanged" />
-        <TextBox HorizontalAlignment="Left" Height="23" Margin="103,34,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="207" Name="ItemIDSearch_TextBox" TextChanged="ItemIDSearch_TextBox_TextChanged" />
-        <Label Content="מקט פריט" HorizontalAlignment="Left" Margin="12,34,0,0" VerticalAlignment="Top"/>
+        <TextBox HorizontalAlignment="Left" Height="23" Margin="103,30,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="207" Name="ItemIDSearch_TextBox" TextChanged="ItemIDSearch_TextBox_TextChanged" />
+        <Label Content="מקט פריט" HorizontalAlignment="Left" Margin="12,30,0,0" VerticalAlignment="Top"/>
         <Label Content="שם פריט" HorizontalAlignment="Left" Margin="6,65,0,0" VerticalAlignment="Top" Width="71"/>
         <Label Content="החל להקליד כדי לחפש לפי:" HorizontalAlignment="Left" Margin="12,0,0,0" VerticalAlignment="Top" FontWeight="Bold" />
         <Label Content="ניהול לקוחות:" HorizontalAlignment="Left" VerticalAlignment="Top" Width="112" Margin="673,0,0,0" FontStyle="Normal" FontWeight="Bold" />
@@ -34,5 +34,6 @@
         <Button Content="שלבי תבנית הפריט" Height="56" HorizontalAlignment="Left" Margin="413,41,0,0" Name="item_stages_button" VerticalAlignment="Top" Width="145" Background="#B9FF6AB2" FontWeight="Bold" Click="item_stages_button_Click" />
         <Button Background="#8400A500" Content="צור תבנית פריט חדש" FontWeight="Bold" Height="56" Margin="715,41,341,0" Name="ADD_new_item_pattern" VerticalAlignment="Top" Width="134" Click="ADD_new_item_pattern_Click" />
         <Image Height="33" HorizontalAlignment="Right" Margin="0,6,689,0" Name="image10" Source="/WpfApplication1;component/Images/stages.png" Stretch="Fill" VerticalAlignment="Top" Width="41" />
+        <Label Content="או" Height="28" HorizontalAlignment="Left" Margin="26,48,0,0" Name="label5" VerticalAlignment="Top" />
     </Grid>
 </Window>

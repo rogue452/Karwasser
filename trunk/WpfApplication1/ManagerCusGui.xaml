@@ -6,8 +6,8 @@
         <Image Source="/WpfApplication1;component/Images/31.jpg"  Stretch="UniformToFill" FlowDirection="RightToLeft" />
         <DataGrid x:Name="dataGrid1" HorizontalAlignment="Left" Margin="12,99,0,0" VerticalAlignment="Top" Height="468" Width="1166" FontSize="15"  AutoGenerateColumns="True" AutoGeneratingColumn="Grid_AutoGeneratingColumn"  ItemsSource="{Binding}" HeadersVisibility="All" MaxColumnWidth="Infinity" CanUserAddRows="false" />
         <TextBox HorizontalAlignment="Left" Height="22" Margin="103,67,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="207" FontSize="15" Name="CustumerNameSearchTextBox" TextChanged="CustumerNameSearchTextBox_TextChanged" />
-        <TextBox HorizontalAlignment="Left" Height="23" Margin="103,34,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="207" Name="IDSearchTextBox" TextChanged="IDSearchTextBox_TextChanged" />
-        <Label Content="חפ לקוח" HorizontalAlignment="Left" Margin="12,34,0,0" VerticalAlignment="Top"/>
+        <TextBox HorizontalAlignment="Left" Height="23" Margin="103,28,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="207" Name="IDSearchTextBox" TextChanged="IDSearchTextBox_TextChanged" />
+        <Label Content="חפ לקוח" HorizontalAlignment="Left" Margin="12,28,0,0" VerticalAlignment="Top"/>
         <Label Content="שם לקוח " HorizontalAlignment="Left" Margin="6,65,0,0" VerticalAlignment="Top" Width="71"/>
         <Label Content="החל להקליד כדי לחפש לפי:" HorizontalAlignment="Left" Margin="12,0,0,0" VerticalAlignment="Top" FontWeight="Bold" />
         <Button Content="הוסף לקוח" HorizontalAlignment="Left" Margin="711,41,0,0" VerticalAlignment="Top" Width="145" Height="56" Name="ADD_Btn" Background="#8400A500" FontWeight="Bold" Click="ADD_Btn_Click" />
@@ -24,5 +24,6 @@
         <Image Height="35" HorizontalAlignment="Left" Margin="468,568,0,0" Name="image6" Stretch="Fill" VerticalAlignment="Top" Width="33" Source="/WpfApplication1;component/Images/icon_microsoftexcel.png"  />
         <Image Height="29" HorizontalAlignment="Left" Margin="12,573,0,0" Name="image7" Stretch="Fill" VerticalAlignment="Top" Width="33" Source="/WpfApplication1;component/Images/back.png" />
         <Button Content="ניהול אנשי קשר" Height="56" HorizontalAlignment="Left" Margin="413,41,0,0" Name="Contacts_button" VerticalAlignment="Top" Width="145" Background="#B9FF6AB2" FontWeight="Bold" Click="Contacts_button_Click" />
+        <Label Content="או" Height="28" HorizontalAlignment="Left" Margin="26,44,0,0" Name="label5" VerticalAlignment="Top" />
     </Grid>
 </Window>

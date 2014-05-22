@@ -65,5 +65,6 @@
         <TextBox Height="23" HorizontalAlignment="Left" Margin="1053,38,0,0" Name="orderID_textBox" VerticalAlignment="Top" Width="145" />
         <CheckBox Content="השאר פריטים קיימים" Height="16" HorizontalAlignment="Left" Margin="1009,431,0,0" Name="keep_checkBox" VerticalAlignment="Top" Checked="keep_checkBox_Checked" Unchecked="keep_checkBox_UnChecked"/>
         <CheckBox Content="שנה לקוח ו/או איש קשר בלבד" Height="16" HorizontalAlignment="Left" Margin="373,103,0,0" Name="costAndcontactOnly_checkBox" VerticalAlignment="Top" Checked="only_checkBox_Checked" Unchecked="only_checkBox_UnChecked"/>
+        <Label Content="או" Height="28" HorizontalAlignment="Left" Margin="22,76,0,0" Name="label7" VerticalAlignment="Top" />
     </Grid>
 </Window>

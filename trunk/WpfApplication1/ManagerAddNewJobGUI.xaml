@@ -54,6 +54,7 @@
         <Label Content="הכנס בטבלה את הכמות המבוקשת מכל פריט" Height="28" HorizontalAlignment="Left" Margin="647,96,0,0" Name="label6" VerticalAlignment="Top" />
         <Label Content="מספר הזמנה" Height="28" HorizontalAlignment="Left" Margin="966,38,0,0" Name="orderid_label" VerticalAlignment="Top" />
         <TextBox Height="23" HorizontalAlignment="Left" Margin="1053,38,0,0" Name="orderID_textBox" VerticalAlignment="Top" Width="145" />
+        <Label Content="או" Height="28" HorizontalAlignment="Left" Margin="22,78,0,0" Name="label7" VerticalAlignment="Top" />
     </Grid>
 </Window>
 
