@@ -8,19 +8,20 @@
         <Button Content="ניהול עובדי החברה" HorizontalAlignment="Left" Margin="772,308,0,0" VerticalAlignment="Top" Width="301" Height="88" Click="Employees_Button_Click" FontWeight="Bold" FontSize="18" />
         <Button Content="ניהול העבודות" HorizontalAlignment="Left" Margin="125,116,0,0" VerticalAlignment="Top" Width="301" Height="88" FontWeight="Bold" FontSize="18" Click="job_btn_Click" Name="job_btn" />
         <Button Content="ניהול לקוחות" HorizontalAlignment="Left" Margin="125,308,0,0" VerticalAlignment="Top" Width="301" Height="88" FontSize="18" FontWeight="Bold" Click="Custumer_Button_Click" Name="Custumer_Button" />
-        <Button Content="סטטיסטיקה" HorizontalAlignment="Left" Margin="448,398,0,0" VerticalAlignment="Top" Width="301" RenderTransformOrigin="0.613,0.5" Height="88" FontSize="18" FontWeight="Bold" />
+        <Button Content="סטטיסטיקה" HorizontalAlignment="Left" Margin="448,392,0,0" VerticalAlignment="Top" Width="301" RenderTransformOrigin="0.613,0.5" Height="88" FontSize="18" FontWeight="Bold" />
         <Button Content="יציאה מהמערכת" HorizontalAlignment="Right" Margin="0,550,105,0" VerticalAlignment="Top" Width="186" RenderTransformOrigin="0.463,0.8" Height="46" FontSize="15" FontWeight="Bold" />
         <Label Content="שם המשתמש וברכה" HorizontalAlignment="Left" Margin="232,6,0,504" RenderTransformOrigin="-0.343,0.125" Name="NameLabel" FontWeight="Bold" FontSize="28" Width="754" />
         <Image Height="88" HorizontalAlignment="Left" Margin="12,116,0,0" Name="image1" Stretch="Fill" VerticalAlignment="Top" Width="107" Source="/WpfApplication1;component/Images/orders.png" />
         <Image Height="88" HorizontalAlignment="Left" Margin="1079,116,0,0" Name="image2" Stretch="Fill" VerticalAlignment="Top" Width="99" Source="/WpfApplication1;component/Images/user_group.png" />
         <Image Height="88" HorizontalAlignment="Left" Margin="1079,308,0,0" Name="image3" Stretch="Fill" VerticalAlignment="Top" Width="99" Source="/WpfApplication1;component/Images/emp.jpg" />
         <Image Height="88" HorizontalAlignment="Left" Margin="12,308,0,0" Name="image4" Stretch="Fill" VerticalAlignment="Top" Width="107" Source="/WpfApplication1;component/Images/customer.jpg" />
-        <Image Height="88" HorizontalAlignment="Left" Margin="542,492,0,0" Name="image5" Stretch="Fill" VerticalAlignment="Top" Width="107" Source="/WpfApplication1;component/Images/stats.png" />
+        <Image Height="88" HorizontalAlignment="Left" Margin="542,486,0,0" Name="image5" Stretch="Fill" VerticalAlignment="Top" Width="107" Source="/WpfApplication1;component/Images/stats.png" />
         <Image Height="45" HorizontalAlignment="Left" Margin="1113,550,0,0" Name="image6" Stretch="Fill" VerticalAlignment="Top" Width="65" Source="/WpfApplication1;component/Images/exit.png" />
-        <Label Content="שם מחשב זה הוא:" Height="30" HorizontalAlignment="Left" Margin="144,565,0,0" Name="Thisname_label" VerticalAlignment="Top" FontWeight="Bold" FontSize="20" Width="201" />
-        <Label Content="שם המחשב" Height="30" HorizontalAlignment="Right" Margin="0,565,593,0" Name="CPUName_label" VerticalAlignment="Top" Width="261" FontSize="20" FontWeight="Bold" />
+        <Label Content="שם מחשב זה הוא:" Height="30" HorizontalAlignment="Left" Margin="162,565,0,0" Name="Thisname_label" VerticalAlignment="Top" FontWeight="Bold" FontSize="20" Width="201" />
+        <Label Content="שם המחשב" Height="30" HorizontalAlignment="Right" Margin="0,565,587,0" Name="CPUName_label" VerticalAlignment="Top" Width="261" FontSize="20" FontWeight="Bold" />
         <Button Content="גיבוי MySQL" Height="38" HorizontalAlignment="Left" Margin="12,558,0,0" Name="MySQL_Backup_button" VerticalAlignment="Top" Width="126" Click="MySQL_Backup_button_Click" FontWeight="Bold" FontSize="15" />
         <Label Content="בעיה בשליחת אימייל עבור תאריכי סיום עבודה מתקרבים (אולי אין חיבור לאינטרנט ?)." Margin="232,80,252,494" Name="Email_label"  FontSize="16" FontWeight="Bold" Foreground="Red" />
         <Label Content="נשלח אימייל תזכורת על סיום מתקרב של עבודות" Height="28" HorizontalAlignment="Left" Margin="382,80,0,0" Name="email_sent_label" VerticalAlignment="Top" FontSize="18" FontWeight="Bold" Foreground="DarkGreen" />
+        <Image Height="53" HorizontalAlignment="Left" Margin="25,503,0,0" Name="image7" Stretch="Fill" VerticalAlignment="Top" Width="94" Source="/WpfApplication1;component/Images/220px-Mysql.jpg" />
     </Grid>
 </Window>
