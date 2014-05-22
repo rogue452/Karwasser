@@ -363,7 +363,7 @@ namespace project
                     };
                 DataGridTemplateColumn col1 = new DataGridTemplateColumn();
                 col1.Header = columnName;
-
+                col1.SortMemberPath = columnName;
                 #region Editing
                 FrameworkElementFactory factory1 = new FrameworkElementFactory(typeof(ComboBox));
                 Binding b1 = new Binding(columnName);
@@ -405,7 +405,7 @@ namespace project
                     };
                 DataGridTemplateColumn col11 = new DataGridTemplateColumn();
                 col11.Header = columnName1;
-
+                col11.SortMemberPath = columnName1;
                 #region Editing
                 FrameworkElementFactory factory11 = new FrameworkElementFactory(typeof(ComboBox));
                 Binding b11 = new Binding(columnName1);

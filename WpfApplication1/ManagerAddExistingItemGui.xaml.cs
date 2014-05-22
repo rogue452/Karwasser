@@ -303,7 +303,7 @@ namespace project
                     };
                 DataGridTemplateColumn col1 = new DataGridTemplateColumn();
                 col1.Header = columnName;
-
+                col1.SortMemberPath = columnName;
                 #region Editing
                 FrameworkElementFactory factory1 = new FrameworkElementFactory(typeof(ComboBox));
                 Binding b1 = new Binding(columnName);
