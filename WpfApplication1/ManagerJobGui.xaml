@@ -37,5 +37,6 @@
         <Button Content="ניהול פריטים" Name="ADD_new_item_pattern" Background="Orange"  Click="ADD_new_item_pattern_click"   FontWeight="Bold" Margin="543,41,533,0" Height="56" VerticalAlignment="Top"  Width="114"/>
         <Image Height="36" HorizontalAlignment="Left" Margin="586,3,0,0" Name="image8" Stretch="Fill" VerticalAlignment="Top" Width="42" Source="/WpfApplication1;component/Images/window_process1.png" />
         <Image Height="36" HorizontalAlignment="Left" Margin="742,4,0,0" Name="image5" Source="/WpfApplication1;component/Images/info.gif" Stretch="Fill" VerticalAlignment="Top" Width="42" />
+        <Label Content="או" Height="28" HorizontalAlignment="Left" Margin="19,47,0,0" Name="label5" VerticalAlignment="Top" />
     </Grid>
 </Window>

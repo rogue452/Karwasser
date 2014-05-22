@@ -5,9 +5,9 @@
     <Grid>
         <Image Source="/WpfApplication1;component/Images/31.jpg"  Stretch="UniformToFill" FlowDirection="RightToLeft" />
         <DataGrid x:Name="dataGrid1" HorizontalAlignment="Left" Margin="12,99,0,0" VerticalAlignment="Top" Height="468" Width="1166" FontSize="15"  AutoGenerateColumns="True" AutoGeneratingColumn="Grid_AutoGeneratingColumn"  ItemsSource="{Binding}" HeadersVisibility="All" MaxColumnWidth="Infinity" CanUserAddRows="false" />
-        <TextBox HorizontalAlignment="Left" Height="22" Margin="177,67,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="197" FontSize="15" Name="FirstNameSearchTextBox" TextChanged="FirstNameSearchTextBox_TextChanged" />
-        <TextBox HorizontalAlignment="Left" Height="23" Margin="177,34,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="197" Name="IDSearchTextBox" TextChanged="IDSearchTextBox_TextChanged" />
-        <Label Content="תעודת זהות (ללא 0 ראשוני)" HorizontalAlignment="Left" Margin="12,34,0,0" VerticalAlignment="Top"/>
+        <TextBox HorizontalAlignment="Left" Height="22" Margin="101,67,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="197" FontSize="15" Name="FirstNameSearchTextBox" TextChanged="FirstNameSearchTextBox_TextChanged" />
+        <TextBox HorizontalAlignment="Left" Height="23" Margin="101,32,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="197" Name="IDSearchTextBox" TextChanged="IDSearchTextBox_TextChanged" />
+        <Label Content="תעודת זהות" HorizontalAlignment="Left" Margin="12,32,0,0" VerticalAlignment="Top"/>
         <Label Content="שם פרטי" HorizontalAlignment="Left" Margin="12,65,0,0" VerticalAlignment="Top" Width="71"/>
         <Label Content="החל להקליד כדי לחפש לפי:" HorizontalAlignment="Left" Margin="12,0,0,0" VerticalAlignment="Top" FontWeight="Bold" />
         <Button Content="הוסף משתמש" HorizontalAlignment="Left" Margin="586,41,0,0" VerticalAlignment="Top" Width="180" Height="56" Name="ADD_Btn" Background="#8400A500" FontWeight="Bold" Click="ADD_Btn_Click" />
@@ -23,5 +23,6 @@
         <Image Height="28" HorizontalAlignment="Left" Margin="1009,573,0,0" Name="image4" Stretch="Fill" VerticalAlignment="Top" Width="25" Source="/WpfApplication1;component/Images/exit.png" />
         <Image Height="35" HorizontalAlignment="Left" Margin="468,566,0,0" Name="image6" Stretch="Fill" VerticalAlignment="Top" Width="33" Source="/WpfApplication1;component/Images/save_to.png"  />
         <Image Height="29" HorizontalAlignment="Left" Margin="12,573,0,0" Name="image7" Stretch="Fill" VerticalAlignment="Top" Width="33" Source="/WpfApplication1;component/Images/back.png" />
+        <Label Content="או" Height="28" HorizontalAlignment="Left" Margin="30,48,0,0" Name="label5" VerticalAlignment="Top" />
     </Grid>
 </Window>

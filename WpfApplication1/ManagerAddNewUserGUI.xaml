@@ -13,12 +13,13 @@
         <PasswordBox Height="23" HorizontalAlignment="Left" Margin="508,27,0,0" Name="Password_textBox" VerticalAlignment="Top" Width="153" />
         <TextBox Height="23" HorizontalAlignment="Left" Margin="508,56,0,0" Name="Email_textBox" VerticalAlignment="Top" Width="153" />
         <Image Height="40" HorizontalAlignment="Left" Margin="1012,0,0,0" Name="image1" Stretch="Fill" VerticalAlignment="Top" Width="55" FlowDirection="RightToLeft" Source="/WpfApplication1;component/Images/add_user.png" />
-        <TextBox HorizontalAlignment="Left" Height="23" Margin="183,56,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="197" FontSize="15" Name="FirstNameSearchTextBox" TextChanged="FirstNameSearchTextBox_TextChanged" />
-        <TextBox HorizontalAlignment="Left" Height="23" Margin="183,27,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="197" Name="IDSearchTextBox" TextChanged="IDSearchTextBox_TextChanged" />
-        <Label Content="תעודת זהות (ללא 0 ראשוני)" HorizontalAlignment="Left" Margin="12,28,0,556" />
-        <Label Content="שם פרטי" HorizontalAlignment="Left" Margin="12,56,0,0" VerticalAlignment="Top" Width="71"/>
+        <TextBox HorizontalAlignment="Left" Height="23" Margin="99,56,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="197" FontSize="15" Name="FirstNameSearchTextBox" TextChanged="FirstNameSearchTextBox_TextChanged" />
+        <TextBox HorizontalAlignment="Left" Height="23" Margin="99,27,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="197" Name="IDSearchTextBox" TextChanged="IDSearchTextBox_TextChanged" />
+        <Label Content="תעודת זהות" HorizontalAlignment="Left" Margin="12,24,0,560" />
+        <Label Content="שם פרטי" HorizontalAlignment="Left" Margin="12,54,0,0" VerticalAlignment="Top" Width="71"/>
         <DataGrid AutoGenerateColumns="True" Height="463" HorizontalAlignment="Left" Margin="0,104,0,0" Name="dataGrid1" VerticalAlignment="Top" Width="1190" CanUserAddRows="false" SelectionMode="Single" FontSize="15" AutoGeneratingColumn="Grid_AutoGeneratingColumn"/>
         <Label Content="החל להקליד כדי לחפש לפי:" Height="28" HorizontalAlignment="Left" Margin="12,0,0,0" Name="Search_label" VerticalAlignment="Top" />
         <Label Content="בחר עובד והכנס פירטי המשתמש החדש:" Height="28" HorizontalAlignment="Left" Margin="428,0,0,0" Name="label1" VerticalAlignment="Top" />
+        <Label Content="או" Height="28" HorizontalAlignment="Left" Margin="26,38,0,0" Name="label5" VerticalAlignment="Top" />
     </Grid>
 </Window>
