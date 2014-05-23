@@ -23,8 +23,8 @@
         <Image Height="29" HorizontalAlignment="Right" Margin="0,576,1157,0" Name="image7" Stretch="Fill" VerticalAlignment="Top" Width="33" Source="/WpfApplication1;component/Images/back.png" />
         <Button Content="שלבי הכנת פריט" Height="56" HorizontalAlignment="Right" Margin="0,55,649,0" Name="Item_Stages_button" VerticalAlignment="Top" Width="125" Click="Item_Stages_button_Click" FontWeight="Bold" Background="#B9FF6AB2" />
         <Image Height="33" HorizontalAlignment="Right" Margin="0,8,682,0" Name="image5" Stretch="Fill" VerticalAlignment="Top" Width="41" Source="/WpfApplication1;component/Images/stages.png" />
-        <Button Content="קדם פריט לשלב הבא" Height="56"  Margin="721,49,330,503" Name="NextStage_button" FontWeight="Bold" Click="NextStage_button_Click" />
-        <Button Content="החזר פריט לשלב הקודם" Height="56"  Margin="886,49,153,503" Name="PrevStage_button" FontWeight="Bold" Click="PrevStage_button_Click" />
+        <Button Content="קדם פריט" Height="56"  Margin="721,49,330,503" Name="NextStage_button" FontWeight="Bold" Click="NextStage_button_Click" />
+        <Button Content="החזר פריט" Height="56"  Margin="886,49,153,503" Name="PrevStage_button" FontWeight="Bold" Click="PrevStage_button_Click" />
         <Image Margin="771,6,377,564" Name="image9" Stretch="Fill"  Width="42" Source="/WpfApplication1;component/Images/Next.gif" />
         <Image  Margin="949,6,199,569" Name="image10" Stretch="Fill" Width="42" Source="/WpfApplication1;component/Images/Prev.gif" />
         <Label Content="Label" Height="28" HorizontalAlignment="Left" Margin="90,95,0,0" Name="label1" VerticalAlignment="Top" Width="86" />
