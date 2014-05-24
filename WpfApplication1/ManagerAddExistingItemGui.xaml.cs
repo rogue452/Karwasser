@@ -372,7 +372,7 @@ namespace project
                             int new_item_quantity = Convert.ToInt32(q) , maxItemNum=0;
                             if (new_item_quantity > 0)
                             {
-                                string  itemStatus = "בעבודה", itemStageOrder = "1";
+                                string  itemStatus = "רישום", itemStageOrder = "1";
                                 try
                                 {
                                     MySqlConnection MySqlConn = new MySqlConnection(Login.Connectionstring);
@@ -390,7 +390,7 @@ namespace project
                                         {
                                             count1++;
                                             Console.WriteLine(+count1);
-                                            maxItemNum = dr1.GetInt32(16);
+                                            maxItemNum = dr1.GetInt32(22); // get the added MAX(itemNum) column
                                             expectedItemQuantity = dr1.GetInt32(5);
                                             costumerid = dr1.GetString(6);
                                             itemsDescription = dr1.GetString(8);

@@ -190,7 +190,7 @@ namespace project
 
                 DataRowView row = (DataRowView)dataGrid1.SelectedItems[0];
 
-                if (MessageBox.Show("?האם אתה בטוח שברצונך לעדכן סט פריט זה", "וידוא עדכון", MessageBoxButton.YesNo, MessageBoxImage.Warning) == MessageBoxResult.No)
+                if (MessageBox.Show("?האם אתה בטוח שברצונך לעדכן סט פריט זה", "וידוא עדכון", MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.No)
                 {
                     return;  //dont do stuff
                 }
@@ -203,6 +203,7 @@ namespace project
                     string status = row["סטטוס קבוצה"].ToString();
                     string cosMAKAT = row["מקט לקוח"].ToString();
                     string currStageOrder = row["מספר שלב הקבוצה"].ToString();
+                    int notzero = 0;
                     try
                     {
                         int expectedq = Convert.ToInt32(exqun);
@@ -332,12 +333,78 @@ namespace project
                         if (oldstatus == "תיקון" && status == "גמר ייצור")
                         {
                             fromFixToFinish = true;
+                            try
+                            { // check if there are items in the group
+                                MySqlConnection MySqlConn = new MySqlConnection(Login.Connectionstring);
+                                MySqlConn.Open();
+                                Console.WriteLine("שורה 345");
+                                string Query12 = ("SELECT itemStatus FROM project.jobs WHERE jobid='" + jobID + "' AND itemid='" + selected_Item + "' AND itemStatus='" + oldstatus + "' AND itemStageOrder='" + oldStageOrder + "' LIMIT 1  ");
+                                MySqlCommand MSQLcrcommand11 = new MySqlCommand(Query12, MySqlConn);
+                                MSQLcrcommand11.ExecuteNonQuery();
+                                MySqlDataReader dr = MSQLcrcommand11.ExecuteReader();
+                                MySqlDataAdapter mysqlDAdp1 = new MySqlDataAdapter(MSQLcrcommand11);
+                                Console.WriteLine("שורה 351");
+                                while (dr.Read())
+                                {
+                                    notzero++;
+                                }
+                                if (notzero == 0)
+                                {
+                                    Console.WriteLine("לא היו פריטים בקבוצה 356");
+                                    MessageBox.Show("לא קיימים פריטים בקבוצה \n     !עידכון לא אושר", "!שים לב", MessageBoxButton.OK, MessageBoxImage.Error);
+                                    refreashandClear();
+                                    MySqlConn.Close();
+                                    return; ;
+                                }
+                                MySqlConn.Close();
+                            }
+                            catch (Exception ex)
+                            {
+                                MessageBox.Show(ex.Message);
+                                refreashandClear();
+                                return; ;
+                            }
+
                         } Console.WriteLine("fromFixToFinish= " + fromFixToFinish);
+
+
+
 
                         if (oldstatus == "גמר ייצור" && status == "תיקון")
                         {
                             if (oldStageOrder == "0")
                             {
+                                try
+                                { // check if there are items in the group
+                                    MySqlConnection MySqlConn = new MySqlConnection(Login.Connectionstring);
+                                    MySqlConn.Open();
+                                    Console.WriteLine("שורה 345");
+                                    string Query12 = ("SELECT itemStatus FROM project.jobs WHERE jobid='" + jobID + "' AND itemid='" + selected_Item + "' AND itemStatus='" + oldstatus + "' AND itemStageOrder='" + oldStageOrder + "' LIMIT 1  ");
+                                    MySqlCommand MSQLcrcommand11 = new MySqlCommand(Query12, MySqlConn);
+                                    MSQLcrcommand11.ExecuteNonQuery();
+                                    MySqlDataReader dr = MSQLcrcommand11.ExecuteReader();
+                                    MySqlDataAdapter mysqlDAdp1 = new MySqlDataAdapter(MSQLcrcommand11);
+                                    Console.WriteLine("שורה 351");
+                                    while (dr.Read())
+                                    {
+                                        notzero++;
+                                    }
+                                    if (notzero == 0)
+                                    {
+                                        Console.WriteLine("לא היו פריטים בקבוצה 356");
+                                        MessageBox.Show("לא קיימים פריטים בקבוצה \n     !עידכון לא אושר", "!שים לב", MessageBoxButton.OK, MessageBoxImage.Error);
+                                        refreashandClear();
+                                        MySqlConn.Close();
+                                        return; ;
+                                    }
+                                    MySqlConn.Close();
+                                }
+                                catch (Exception ex)
+                                {
+                                    MessageBox.Show(ex.Message);
+                                    refreashandClear();
+                                    return; ;
+                                }
                                 fromFinishToFix = true;
                             }
                         } Console.WriteLine("fromFinishToFix= " + fromFinishToFix);
@@ -354,13 +421,76 @@ namespace project
                         // if the new status is work and the old is fix then we need to return to origanel itemStageOrder = itemToFixStageOrder and group_StageOrder = itemStageOrder.
                         if (oldstatus == "תיקון" && status=="בעבודה")
                         {   
-                            fromFixToWork = true;   
+                            fromFixToWork = true;
+                            try
+                            { // check if there are items in the group
+                                MySqlConnection MySqlConn = new MySqlConnection(Login.Connectionstring);
+                                MySqlConn.Open();
+                                Console.WriteLine("שורה 479");
+                                string Query12 = ("SELECT itemStatus FROM project.jobs WHERE jobid='" + jobID + "' AND itemid='" + selected_Item + "' AND itemStatus='" + oldstatus + "' AND itemStageOrder='" + oldStageOrder + "' LIMIT 1  ");
+                                MySqlCommand MSQLcrcommand11 = new MySqlCommand(Query12, MySqlConn);
+                                MSQLcrcommand11.ExecuteNonQuery();
+                                MySqlDataReader dr = MSQLcrcommand11.ExecuteReader();
+                                MySqlDataAdapter mysqlDAdp1 = new MySqlDataAdapter(MSQLcrcommand11);
+                                Console.WriteLine("שורה 485");
+                                while (dr.Read())
+                                {
+                                    notzero++;
+                                }
+                                if (notzero == 0)
+                                {
+                                    Console.WriteLine("לא היו פריטים בקבוצה 356");
+                                    MessageBox.Show("לא קיימים פריטים בקבוצה \n    סטטוס הקבוצה ישונה לבעבודה שלב 1\n     !עידכון לא אושר", "!שים לב", MessageBoxButton.OK, MessageBoxImage.Error);
+                                    status = "בעבודה";
+                                    oldstatus = "רישום";
+                                    fromFixToWork = false;
+                                    badToWork = false;
+                                }
+                                MySqlConn.Close();
+                            }
+                            catch (Exception ex)
+                            {
+                                MessageBox.Show(ex.Message);
+                                refreashandClear();
+                                return; ;
+                            }
                         }
                         Console.WriteLine("fromFixToWork= " + fromFixToWork);
 
                         // if the new status is fix and the old is work  then we need to set the itemToFixStageOrder = group_StageOrder itemStageOrder='1'.
                         if (oldstatus == "בעבודה" && status == "תיקון")
                         {
+                            try
+                            { // check if there are items in the group
+                                MySqlConnection MySqlConn = new MySqlConnection(Login.Connectionstring);
+                                MySqlConn.Open();
+                                Console.WriteLine("שורה 397");
+                                string Query12 = ("SELECT itemStatus FROM project.jobs WHERE jobid='" + jobID + "' AND itemid='" + selected_Item + "' AND itemStatus='" + oldstatus + "' AND itemStageOrder='" + oldStageOrder + "' LIMIT 1  ");
+                                MySqlCommand MSQLcrcommand11 = new MySqlCommand(Query12, MySqlConn);
+                                MSQLcrcommand11.ExecuteNonQuery();
+                                MySqlDataReader dr = MSQLcrcommand11.ExecuteReader();
+                                MySqlDataAdapter mysqlDAdp1 = new MySqlDataAdapter(MSQLcrcommand11);
+                                Console.WriteLine("שורה 403");
+                                while (dr.Read())
+                                {
+                                    notzero++;
+                                }
+                                if (notzero == 0)
+                                {
+                                    Console.WriteLine("לא היו פריטים בקבוצה 356");
+                                    MessageBox.Show("לא קיימים פריטים בקבוצה \n     !עידכון לא אושר", "!שים לב", MessageBoxButton.OK, MessageBoxImage.Error);
+                                    refreashandClear();
+                                    MySqlConn.Close();
+                                    return; ;
+                                }
+                                MySqlConn.Close();
+                            }
+                            catch (Exception ex)
+                            {
+                                MessageBox.Show(ex.Message);
+                                refreashandClear();
+                                return; ;
+                            }
                             fromWorkToFix = true;
                         }
                         Console.WriteLine("fromWorkToFix= " + fromWorkToFix);
@@ -431,9 +561,39 @@ namespace project
 
 
 
-                        // from status fix to status bad
+                        // from status fix to status bad we also need to check if there are items in the group
                         if (oldstatus == "תיקון" && status == "פסול")
                         {
+                            try
+                            { // check if there are items in the group
+                                MySqlConnection MySqlConn = new MySqlConnection(Login.Connectionstring);
+                                MySqlConn.Open();
+                                Console.WriteLine("שורה 479");
+                                string Query12 = ("SELECT itemStatus FROM project.jobs WHERE jobid='" + jobID + "' AND itemid='" + selected_Item + "' AND itemStatus='" + oldstatus + "' AND itemStageOrder='" + oldStageOrder + "' LIMIT 1  ");
+                                MySqlCommand MSQLcrcommand11 = new MySqlCommand(Query12, MySqlConn);
+                                MSQLcrcommand11.ExecuteNonQuery();
+                                MySqlDataReader dr = MSQLcrcommand11.ExecuteReader();
+                                MySqlDataAdapter mysqlDAdp1 = new MySqlDataAdapter(MSQLcrcommand11);
+                                Console.WriteLine("שורה 485");
+                                while (dr.Read())
+                                {
+                                    notzero++;
+                                }
+                                if (notzero == 0)
+                                {
+                                    Console.WriteLine("לא היו פריטים בקבוצה 356");
+                                    MessageBox.Show("לא קיימים פריטים בקבוצה \n     !עידכון לא אושר", "!שים לב", MessageBoxButton.OK, MessageBoxImage.Error);
+                                    refreashandClear();
+                                    return; ;
+                                }
+                                MySqlConn.Close();
+                            }
+                            catch (Exception ex)
+                            {
+                                MessageBox.Show(ex.Message);
+                                refreashandClear();
+                                return; ;
+                            }
                             fromFixToBad = true;
                         } Console.WriteLine("fromFixToBad= " + fromFixToBad);
 
@@ -444,154 +604,189 @@ namespace project
                         if (oldstatus == "פסול" && status == "תיקון")
                         {
                             badToFix = true;
+                            try
+                            { // check if there are items in the group
+                                MySqlConnection MySqlConn = new MySqlConnection(Login.Connectionstring);
+                                MySqlConn.Open();
+                                Console.WriteLine("שורה 479");
+                                string Query12 = ("SELECT itemStatus FROM project.jobs WHERE jobid='" + jobID + "' AND itemid='" + selected_Item + "' AND itemStatus='" + oldstatus + "' AND itemStageOrder='" + oldStageOrder + "' LIMIT 1  ");
+                                MySqlCommand MSQLcrcommand11 = new MySqlCommand(Query12, MySqlConn);
+                                MSQLcrcommand11.ExecuteNonQuery();
+                                MySqlDataReader dr = MSQLcrcommand11.ExecuteReader();
+                                MySqlDataAdapter mysqlDAdp1 = new MySqlDataAdapter(MSQLcrcommand11);
+                                Console.WriteLine("שורה 485");
+                                while (dr.Read())
+                                {
+                                    notzero++;
+                                }
+                                if (notzero == 0)
+                                {
+                                    Console.WriteLine("לא היו פריטים בקבוצה 356");
+                                    MessageBox.Show("לא קיימים פריטים בקבוצה \n    סטטוס הקבוצה ישונה לבעבודה שלב 1\n     !עידכון לא אושר", "!שים לב", MessageBoxButton.OK, MessageBoxImage.Error);
+                                    status = "בעבודה";
+                                    oldstatus = "רישום";
+                                    fromFixToWork = false;
+                                    badToWork = false;
+                                }
+                                MySqlConn.Close();
+                            }
+                            catch (Exception ex)
+                            {
+                                MessageBox.Show(ex.Message);
+                                refreashandClear();
+                                return; ;
+                            }
+                            
                         } Console.WriteLine("badToFix= " + badToFix);
 
 
-
-                        // now we need to update only the group to the the user's selected status.
-                        try
+                        if (notzero != 0)
                         {
-                            string Query1 = "UPDATE jobs SET itemStatus='" + status + "' , itemStageOrder='1' WHERE jobid='" + jobID + "' AND itemid='" + selected_Item + "' AND itemStatus='" + oldstatus + "' AND itemStageOrder='" + oldStageOrder + "' ";
-                            Console.WriteLine("השאילתא הכללית: שורה 454");
-                            Console.WriteLine(Query1);
-                            
-
-                            
-                            if (fromFixToWork == true)
+                            // now we need to update only the group to the the user's selected status.
+                            try
                             {
-                               
-                                if (itemToFixStageOrder == "0")
+                                string Query1 = "UPDATE jobs SET itemStatus='" + status + "' , itemStageOrder='1' WHERE jobid='" + jobID + "' AND itemid='" + selected_Item + "' AND itemStatus='" + oldstatus + "' AND itemStageOrder='" + oldStageOrder + "' ";
+                                Console.WriteLine("השאילתא הכללית: שורה 454");
+                                Console.WriteLine(Query1);
+
+
+
+                                if (fromFixToWork == true)
                                 {
-                                    MessageBox.Show("לפני שלב התיקון היית בשלב גמר ייצור ולא בעבודה \n     !עידכון לא אושר", "!שים לב", MessageBoxButton.OK, MessageBoxImage.Error);
-                                    refreashandClear();
-                                    return;
+
+                                    if (itemToFixStageOrder == "0")
+                                    {
+                                        MessageBox.Show("לפני שלב התיקון היית בשלב גמר ייצור ולא בעבודה \n     !עידכון לא אושר", "!שים לב", MessageBoxButton.OK, MessageBoxImage.Error);
+                                        refreashandClear();
+                                        return;
+                                    }
+                                    // now we need to update the group.
+                                    Query1 = "UPDATE jobs SET itemStatus='" + status + "' , itemStageOrder='" + itemToFixStageOrder + "', itemToFixStageOrder='תוקן בעבר מבעבודה'  WHERE jobid='" + jobID + "' AND itemid='" + selected_Item + "' AND itemStatus='" + oldstatus + "' AND itemStageOrder='" + oldStageOrder + "' ";
                                 }
-                                // now we need to update the group.
-                                Query1 = "UPDATE jobs SET itemStatus='" + status + "' , itemStageOrder='" + itemToFixStageOrder + "', itemToFixStageOrder='תוקן בעבר מבעבודה'  WHERE jobid='" + jobID + "' AND itemid='" + selected_Item + "' AND itemStatus='" + oldstatus + "' AND itemStageOrder='" + oldStageOrder + "' ";
-                            }
 
 
-                            if (fromFixToFinish == true)
-                            {
-                               if (itemToFixStageOrder != "0")
+                                if (fromFixToFinish == true)
                                 {
-                                    MessageBox.Show("לפני שלב התיקון היית בשלב העבודה ולא גמר ייצור\n     !עידכון לא אושר", "!שים לב", MessageBoxButton.OK, MessageBoxImage.Error);
-                                    refreashandClear();
-                                    return;
+                                    if (itemToFixStageOrder != "0")
+                                    {
+                                        MessageBox.Show("לפני שלב התיקון היית בשלב העבודה ולא גמר ייצור\n     !עידכון לא אושר", "!שים לב", MessageBoxButton.OK, MessageBoxImage.Error);
+                                        refreashandClear();
+                                        return;
+                                    }
+                                    Query1 = "UPDATE jobs SET itemStatus='" + status + "' , itemStageOrder='" + itemToFixStageOrder + "', itemToFixStageOrder='תוקן בעבר מגמר ייצור'   WHERE jobid='" + jobID + "' AND itemid='" + selected_Item + "' AND itemStatus='" + oldstatus + "' AND itemStageOrder='" + oldStageOrder + "' ";
                                 }
-                               Query1 = "UPDATE jobs SET itemStatus='" + status + "' , itemStageOrder='" + itemToFixStageOrder + "', itemToFixStageOrder='תוקן בעבר מגמר ייצור'   WHERE jobid='" + jobID + "' AND itemid='" + selected_Item + "' AND itemStatus='" + oldstatus + "' AND itemStageOrder='" + oldStageOrder + "' ";
-                            }
 
 
-                            if (fromFinishToFix == true)
-                            {
-                                Console.WriteLine("שורה 487 מייצור לתיקון - שלב נוכחי שיכנס למספר שלב לתיקון:");
-                                Query1 = "UPDATE jobs SET itemStatus='" + status + "' , itemStageOrder='1' , itemToFixStageOrder='0' , group_StageOrder='1'  WHERE jobid='" + jobID + "' AND itemid='" + selected_Item + "' AND itemStatus='" + oldstatus + "' AND itemStageOrder='" + oldStageOrder + "' ";
-                                Console.WriteLine("currStageOrder= " + currStageOrder);
-                            }
-                            if (fromWorkToFix == true)
-                            {
-                                Console.WriteLine("שורה 493 מעבודה לתיקון - שלב נוכחי שיכנס למספר שלב לתיקון:");
-                                Query1 = "UPDATE jobs SET itemStatus='" + status + "' , itemStageOrder='1' , itemToFixStageOrder='" + oldStageOrder + "'  WHERE jobid='" + jobID + "' AND itemid='" + selected_Item + "' AND itemStatus='" + oldstatus + "' AND itemStageOrder='" + oldStageOrder + "' ";
-                                Console.WriteLine("oldStageOrder= " + oldStageOrder);
-                            }
-
-                            if (fromFixToFinish == false && status=="גמר ייצור")
-                            {
-                                Query1 = "UPDATE jobs SET itemStatus='" + status + "' , itemStageOrder='0' ,  group_StageOrder='0' , itemToFixStageOrder='" + itemToFixStageOrder + "' WHERE jobid='" + jobID + "' AND itemid='" + selected_Item + "' AND itemStatus='" + oldstatus + "' AND itemStageOrder='" + oldStageOrder + "' ";
-                            }
-
-
-                             if (fromFixToBad == true)
-                            {
-                                Query1 = "UPDATE jobs SET itemStatus='" + status + "' , itemStageOrder='1' , itemToFixStageOrder='" + itemToFixStageOrder + "' WHERE jobid='" + jobID + "' AND itemid='" + selected_Item + "' AND itemStatus='" + oldstatus + "' AND itemStageOrder='" + oldStageOrder + "' ";
-                            }
-
-                             if (badToWork == true)
-                            {
-                                Query1 = "UPDATE jobs SET itemStatus='" + status + "' , itemStageOrder='" + itemToFixStageOrder + "' , itemToFixStageOrder='חזר מפסילה בשלב מספר - " + itemToFixStageOrder + "' WHERE jobid='" + jobID + "' AND itemid='" + selected_Item + "' AND itemStatus='" + oldstatus + "' AND itemStageOrder='" + oldStageOrder + "' ";
-                            }
-
-                             if (badToFix == true)
-                            {
-                                Query1 = "UPDATE jobs SET itemStatus='" + status + "' , itemStageOrder='1' , itemToFixStageOrder='" + itemToFixStageOrder + "' WHERE jobid='" + jobID + "' AND itemid='" + selected_Item + "' AND itemStatus='" + oldstatus + "' AND itemStageOrder='" + oldStageOrder + "' ";
-                            }
-
-                             if (badToFinish == true)
-                            {
-                                Query1 = "UPDATE jobs SET itemStatus='" + status + "' , itemStageOrder='0' , itemToFixStageOrder='חזר מפסילה בסטטוס גמר ייצור בשלב 0'  WHERE jobid='" + jobID + "' AND itemid='" + selected_Item + "' AND itemStatus='" + oldstatus + "' AND itemStageOrder='" + oldStageOrder + "' ";
-                            }
-
-                             // now before we update our group of items, if status is "תיקון" or "פסול" (and we did not came from פסול - need to ask about that) then we need to update the "fix" table in the DB with: jobid - itemid - itemnum - itemStageOrder - stageName - fromFixOrBad - itemToFixStageOrder - dateAddedToFixTable.
-                             if ((status == "תיקון" || status == "פסול") && oldstatus != "פסול")
-                            {
-                                try
+                                if (fromFinishToFix == true)
                                 {
-                                    Console.WriteLine("שורה 550");
-                                    MySqlConnection MySqlConn22 = new MySqlConnection(Login.Connectionstring);
-                                    MySqlConn22.Open();
-                                    string Query22 = ("SELECT itemNum FROM project.jobs WHERE jobid='" + jobID + "' AND itemid='" + selected_Item + "' AND itemStatus='" + oldstatus + "' AND itemStageOrder='" + oldStageOrder + "'  ");
-                                    MySqlCommand MSQLcrcommand22 = new MySqlCommand(Query22, MySqlConn22);
-                                    MSQLcrcommand22.ExecuteNonQuery();
-                                    //MySqlDataReader dr22 = MSQLcrcommand22.ExecuteReader();
-                                    MySqlDataAdapter mysqlDAdp22 = new MySqlDataAdapter(MSQLcrcommand22);
-                                    Console.WriteLine("שורה 558");
-                                    string itemNumToDB="";
-                                    DataSet itemNumsToDB = new DataSet();
-                                    mysqlDAdp22.Fill(itemNumsToDB);
-                                    Console.WriteLine("שורה 541");
-                                    Console.WriteLine(itemNumsToDB);
-                                    MySqlConn22.Close();
-                                    foreach (DataRow itemnumrow in itemNumsToDB.Tables[0].Rows)
-                                    { Console.WriteLine("שורה 545");
-                                        try
+                                    Console.WriteLine("שורה 487 מייצור לתיקון - שלב נוכחי שיכנס למספר שלב לתיקון:");
+                                    Query1 = "UPDATE jobs SET itemStatus='" + status + "' , itemStageOrder='1' , itemToFixStageOrder='0' , group_StageOrder='1'  WHERE jobid='" + jobID + "' AND itemid='" + selected_Item + "' AND itemStatus='" + oldstatus + "' AND itemStageOrder='" + oldStageOrder + "' ";
+                                    Console.WriteLine("currStageOrder= " + currStageOrder);
+                                }
+                                if (fromWorkToFix == true)
+                                {
+                                    Console.WriteLine("שורה 493 מעבודה לתיקון - שלב נוכחי שיכנס למספר שלב לתיקון:");
+                                    Query1 = "UPDATE jobs SET itemStatus='" + status + "' , itemStageOrder='1' , itemToFixStageOrder='" + oldStageOrder + "'  WHERE jobid='" + jobID + "' AND itemid='" + selected_Item + "' AND itemStatus='" + oldstatus + "' AND itemStageOrder='" + oldStageOrder + "' ";
+                                    Console.WriteLine("oldStageOrder= " + oldStageOrder);
+                                }
+
+                                if (fromFixToFinish == false && status == "גמר ייצור")
+                                {
+                                    Query1 = "UPDATE jobs SET itemStatus='" + status + "' , itemStageOrder='0' ,  group_StageOrder='0' , itemToFixStageOrder='" + itemToFixStageOrder + "' WHERE jobid='" + jobID + "' AND itemid='" + selected_Item + "' AND itemStatus='" + oldstatus + "' AND itemStageOrder='" + oldStageOrder + "' ";
+                                }
+
+
+                                if (fromFixToBad == true)
+                                {
+                                    Query1 = "UPDATE jobs SET itemStatus='" + status + "' , itemStageOrder='1' , itemToFixStageOrder='" + itemToFixStageOrder + "' WHERE jobid='" + jobID + "' AND itemid='" + selected_Item + "' AND itemStatus='" + oldstatus + "' AND itemStageOrder='" + oldStageOrder + "' ";
+                                }
+
+                                if (badToWork == true)
+                                {
+                                    Query1 = "UPDATE jobs SET itemStatus='" + status + "' , itemStageOrder='" + itemToFixStageOrder + "' , itemToFixStageOrder='חזר מפסילה בשלב מספר - " + itemToFixStageOrder + "' WHERE jobid='" + jobID + "' AND itemid='" + selected_Item + "' AND itemStatus='" + oldstatus + "' AND itemStageOrder='" + oldStageOrder + "' ";
+                                }
+
+                                if (badToFix == true)
+                                {
+                                    Query1 = "UPDATE jobs SET itemStatus='" + status + "' , itemStageOrder='1' , itemToFixStageOrder='" + itemToFixStageOrder + "' WHERE jobid='" + jobID + "' AND itemid='" + selected_Item + "' AND itemStatus='" + oldstatus + "' AND itemStageOrder='" + oldStageOrder + "' ";
+                                }
+
+                                if (badToFinish == true)
+                                {
+                                    Query1 = "UPDATE jobs SET itemStatus='" + status + "' , itemStageOrder='0' , itemToFixStageOrder='חזר מפסילה בסטטוס גמר ייצור בשלב 0'  WHERE jobid='" + jobID + "' AND itemid='" + selected_Item + "' AND itemStatus='" + oldstatus + "' AND itemStageOrder='" + oldStageOrder + "' ";
+                                }
+
+                                // now before we update our group of items, if status is "תיקון" or "פסול" (and we did not came from פסול - need to ask about that) then we need to update the "fix" table in the DB with: jobid - itemid - itemnum - itemStageOrder - stageName - fromFixOrBad - itemToFixStageOrder - dateAddedToFixTable.
+                                if ((status == "תיקון" || status == "פסול") && oldstatus != "פסול")
+                                {
+                                    try
+                                    {
+                                        Console.WriteLine("שורה 550");
+                                        MySqlConnection MySqlConn22 = new MySqlConnection(Login.Connectionstring);
+                                        MySqlConn22.Open();
+                                        string Query22 = ("SELECT itemNum FROM project.jobs WHERE jobid='" + jobID + "' AND itemid='" + selected_Item + "' AND itemStatus='" + oldstatus + "' AND itemStageOrder='" + oldStageOrder + "'  ");
+                                        MySqlCommand MSQLcrcommand22 = new MySqlCommand(Query22, MySqlConn22);
+                                        MSQLcrcommand22.ExecuteNonQuery();
+                                        //MySqlDataReader dr22 = MSQLcrcommand22.ExecuteReader();
+                                        MySqlDataAdapter mysqlDAdp22 = new MySqlDataAdapter(MSQLcrcommand22);
+                                        Console.WriteLine("שורה 558");
+                                        string itemNumToDB = "";
+                                        DataSet itemNumsToDB = new DataSet();
+                                        mysqlDAdp22.Fill(itemNumsToDB);
+                                        Console.WriteLine("שורה 541");
+                                        Console.WriteLine(itemNumsToDB);
+                                        MySqlConn22.Close();
+                                        foreach (DataRow itemnumrow in itemNumsToDB.Tables[0].Rows)
                                         {
-                                            MySqlConnection MySqlConn33 = new MySqlConnection(Login.Connectionstring);
-                                            MySqlConn33.Open();
-                                            itemNumToDB = itemnumrow["itemNum"].ToString();
-                                            Console.WriteLine(itemNumToDB);
-                                            string Query33 = ("INSERT INTO project.fix (jobid, itemid,itemNum, itemStageOrder,stageStatusName, fromFixOrBad , itemToFixStageOrder , dateAddedToFixTable) VALUES ('" + jobID + "','" + selected_Item + "','" + itemNumToDB + "','" + oldStageOrder + "','" + oldstatus + "','" + status + "','" + itemToFixStageOrder + "', '" + DateTime.Now.ToString("yyyy-MM-dd-HH-mm-ss") + "')");
-                                            Console.WriteLine("השאילתא הנשלחת לפיקס  - " + Query33 + "");
-                                            MySqlCommand MSQLcrcommand33 = new MySqlCommand(Query33, MySqlConn33);
-                                            MSQLcrcommand33.ExecuteNonQuery();
-                                            MySqlDataAdapter mysqlDAdp33 = new MySqlDataAdapter(MSQLcrcommand33);
-                                            MySqlConn33.Close();
-                                        }
-                                        catch (Exception ex)
-                                        {
-                                            MessageBox.Show(ex.Message);
-                                            refreashandClear();
-                                            return;
-                                        }
-                                    } // end of foreach (DataRow itemnumrow in itemNumsToDB.Tables[0].Rows)
-                                   
-                                } // end of try
-                                catch (Exception ex)
-                                {
-                                    MessageBox.Show(ex.Message);
-                                    return; ;
-                                }
+                                            Console.WriteLine("שורה 545");
+                                            try
+                                            {
+                                                MySqlConnection MySqlConn33 = new MySqlConnection(Login.Connectionstring);
+                                                MySqlConn33.Open();
+                                                itemNumToDB = itemnumrow["itemNum"].ToString();
+                                                Console.WriteLine(itemNumToDB);
+                                                string Query33 = ("INSERT INTO project.fix (jobid, itemid,itemNum, itemStageOrder,stageStatusName, fromFixOrBad , itemToFixStageOrder , dateAddedToFixTable) VALUES ('" + jobID + "','" + selected_Item + "','" + itemNumToDB + "','" + oldStageOrder + "','" + oldstatus + "','" + status + "','" + itemToFixStageOrder + "', '" + DateTime.Now.ToString("yyyy-MM-dd-HH-mm-ss") + "')");
+                                                Console.WriteLine("השאילתא הנשלחת לפיקס  - " + Query33 + "");
+                                                MySqlCommand MSQLcrcommand33 = new MySqlCommand(Query33, MySqlConn33);
+                                                MSQLcrcommand33.ExecuteNonQuery();
+                                                MySqlDataAdapter mysqlDAdp33 = new MySqlDataAdapter(MSQLcrcommand33);
+                                                MySqlConn33.Close();
+                                            }
+                                            catch (Exception ex)
+                                            {
+                                                MessageBox.Show(ex.Message);
+                                                refreashandClear();
+                                                return;
+                                            }
+                                        } // end of foreach (DataRow itemnumrow in itemNumsToDB.Tables[0].Rows)
 
-                            }// end of if (status == "תיקון" || status == "פסול")
+                                    } // end of try
+                                    catch (Exception ex)
+                                    {
+                                        MessageBox.Show(ex.Message);
+                                        return; ;
+                                    }
 
-                            Console.WriteLine("שורה 526");
-                            Console.WriteLine(Query1);
-                            MySqlConnection MySqlConn1 = new MySqlConnection(Login.Connectionstring);
-                            MySqlConn1.Open();
-                            MySqlCommand MSQLcrcommand1 = new MySqlCommand(Query1, MySqlConn1);
-                            MSQLcrcommand1.ExecuteNonQuery();
-                            MySqlDataAdapter mysqlDAdp = new MySqlDataAdapter(MSQLcrcommand1);
-                            MySqlConn1.Close();
-                            // we updated only the group.
+                                }// end of if (status == "תיקון" || status == "פסול")
+
+                                Console.WriteLine("שורה 526");
+                                Console.WriteLine(Query1);
+                                MySqlConnection MySqlConn1 = new MySqlConnection(Login.Connectionstring);
+                                MySqlConn1.Open();
+                                MySqlCommand MSQLcrcommand1 = new MySqlCommand(Query1, MySqlConn1);
+                                MSQLcrcommand1.ExecuteNonQuery();
+                                MySqlDataAdapter mysqlDAdp = new MySqlDataAdapter(MSQLcrcommand1);
+                                MySqlConn1.Close();
+                                // we updated only the group.
+                            }
+                            catch (Exception ex)
+                            {
+                                MessageBox.Show(ex.Message);
+                                refreashandClear();
+                                return;
+
+                            }
                         }
-                        catch (Exception ex)
-                        {
-                            MessageBox.Show(ex.Message);
-                            refreashandClear();
-                            return;
-
-                        }
-
                         Console.WriteLine("שורה 546");
                         // now do the normal update with the new status.
                         try
@@ -600,6 +795,7 @@ namespace project
                             MySqlConn.Open();
                             string Query1 = "UPDATE jobs SET itemsDescription='" + itemdesc + "',expectedItemQuantity='" + exqun + "' ,group_costomer_itemid='" + cosMAKAT + "',group_Status='" + status + "' , group_StageOrder='1'   WHERE jobid='" + jobID + "' AND itemid='" + selected_Item + "'";
                             //if (fromFixToFinish == false && status == "גמר ייצור")
+
                             if (status == "גמר ייצור")
                             {Console.WriteLine("שורה 555");
                                    Query1 = "UPDATE jobs SET itemsDescription='" + itemdesc + "',expectedItemQuantity='" + exqun + "' ,group_costomer_itemid='" + cosMAKAT + "',group_Status='" + status + "' , group_StageOrder='0'   WHERE jobid='" + jobID + "' AND itemid='" + selected_Item + "'";
