@@ -382,13 +382,13 @@ namespace project
                                     crcommand1.ExecuteNonQuery();
                                     MySqlDataReader dr1 = crcommand1.ExecuteReader();
                                     int count1 = 0, expectedItemQuantity=0;
-                                    string costumerid = "", itemsDescription = "", job_status = "", jobdescription = "", startDate = "", expectedFinishDate = "", contact_id = "";
+                                    string costumerid = "", itemsDescription = "", job_status = "", jobdescription = "", startDate = "", expectedFinishDate = "", contact_id = "", orderid = "", group_Status = "", group_StageOrder = "", deliveryid = "", invoiceNumber = "", group_costomer_itemid="" ;
                                     
                                     while (dr1.Read())
                                     {
-                                        if (!dr1.IsDBNull(0))
+                                        if (!dr1.IsDBNull(0))  
                                         {
-                                            count1++;
+                                            count1++; // inc count only if there are already items with this itemid for this jobid.
                                             Console.WriteLine(+count1);
                                             maxItemNum = dr1.GetInt32(22); // get the added MAX(itemNum) column
                                             expectedItemQuantity = dr1.GetInt32(5);
@@ -401,6 +401,12 @@ namespace project
                                             expectedFinishDate = dr1.GetString(13);
                                             expectedFinishDate = Convert.ToDateTime(expectedFinishDate).ToString("yyyy-MM-dd");
                                             contact_id = dr1.GetString(15);
+                                            orderid = dr1.GetString(16);
+                                            group_Status = dr1.GetString(17);
+                                            group_StageOrder = dr1.GetString(18);
+                                            deliveryid = dr1.GetString(19);
+                                            invoiceNumber = dr1.GetString(20);
+                                            group_costomer_itemid = dr1.GetString(21);
                                         }
                                     }
                                     MySqlConn.Close();
@@ -417,7 +423,7 @@ namespace project
                                             {
                                                 MySqlConnection MySqlConn1 = new MySqlConnection(Login.Connectionstring);
                                                 MySqlConn1.Open();
-                                                string Query2 = ("INSERT INTO project.jobs (jobid, itemid,itemNum,itemStatus,itemStageOrder, expectedItemQuantity,costumerid, itemsDescription, job_status, jobdescription, startDate, expectedFinishDate, contact_id) VALUES ('" + jobID + "','" + itemid + "','" + maxItemNum + "','" + itemStatus + "','" + itemStageOrder + "','" + expectedItemQuantity + "','" + costumerid + "','" + itemsDescription + "','" + job_status + "','" + jobdescription + "','" + startDate + "','" + expectedFinishDate + "','" + contact_id + "')");
+                                                string Query2 = ("INSERT INTO project.jobs (jobid, itemid,itemNum,itemStatus,itemStageOrder, expectedItemQuantity,costumerid, itemsDescription, job_status, jobdescription, startDate, expectedFinishDate, contact_id , orderid , group_Status , group_StageOrder , deliveryid , invoiceNumber , group_costomer_itemid ) VALUES ('" + jobID + "','" + itemid + "','" + maxItemNum + "','" + itemStatus + "','" + itemStageOrder + "','" + expectedItemQuantity + "','" + costumerid + "','" + itemsDescription + "','" + job_status + "','" + jobdescription + "','" + startDate + "','" + expectedFinishDate + "','" + contact_id + "','" + orderid + "','" + group_Status + "','" + group_StageOrder + "','" + deliveryid + "','" + invoiceNumber + "','" + group_costomer_itemid + "')");
                                                 MySqlCommand MSQLcrcommand2 = new MySqlCommand(Query2, MySqlConn1);
                                                 MSQLcrcommand2.ExecuteNonQuery();
                                                 MySqlDataAdapter mysqlDAdp1 = new MySqlDataAdapter(MSQLcrcommand2);
