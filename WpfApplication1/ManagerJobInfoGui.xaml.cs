@@ -321,7 +321,11 @@ namespace project
                         
                         int groupsize;
                         groupsize = group.Tables[0].Rows.Count;
-                        group_itemToFixStageOrder = group.Tables[0].Rows[0]["group_itemToFixStageOrder"].ToString();
+                        if (groupsize !=0 )
+                        {
+                            group_itemToFixStageOrder = group.Tables[0].Rows[0]["group_itemToFixStageOrder"].ToString();
+                        }
+                       
 
 
                         if ( (oldstatus == "פסול") && (groupsize!=0) && (status != "תיקון"))
@@ -821,6 +825,12 @@ namespace project
                         {
                             MessageBox.Show("!סט הפריט עודכן\nאך היו " + no_advence + " פריטים שלא תאמו לשינוי הסטטוס ולא השתנו", "!הצלחה", MessageBoxButton.OK, MessageBoxImage.Information); 
                         }
+
+                        if ( (groupsize == 0) && (gruopStatusChanged == true) )
+                        {
+                            MessageBox.Show("!סט הפריט עודכן\nאך לא היו פריטים בקבוצה ", "!הצלחה", MessageBoxButton.OK, MessageBoxImage.Information);
+                        }
+
                         else
                         {
                             MessageBox.Show("!סט הפריט עודכן", "!הצלחה", MessageBoxButton.OK, MessageBoxImage.Information);
