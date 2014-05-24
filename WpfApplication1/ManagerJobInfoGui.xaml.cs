@@ -783,6 +783,10 @@ namespace project
                             {
                                 Console.WriteLine("שורה 561");
                                    Query1 = "UPDATE jobs SET itemsDescription='" + itemdesc + "',expectedItemQuantity='" + exqun + "' ,group_costomer_itemid='" + cosMAKAT + "',group_Status='" + status + "' , group_StageOrder='" + group_itemToFixStageOrder + "'  , group_itemToFixStageOrder='הקבוצה תוקנה בעבר מבעבודה'  WHERE jobid='" + jobID + "' AND itemid='" + selected_Item + "'";
+                                   if (group_itemToFixStageOrder == "0")
+                                   {
+                                       Query1 = "UPDATE jobs SET itemsDescription='" + itemdesc + "',expectedItemQuantity='" + exqun + "' ,group_costomer_itemid='" + cosMAKAT + "',group_Status='" + status + "' , group_StageOrder='1'  , group_itemToFixStageOrder='הקבוצה תוקנה בעבר מבעבודה'  WHERE jobid='" + jobID + "' AND itemid='" + selected_Item + "'";
+                                   }
                             }
                             if (fromFixToFinish == true && status == "גמר ייצור")
                             {
