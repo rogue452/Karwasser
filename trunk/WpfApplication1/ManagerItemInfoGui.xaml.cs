@@ -425,7 +425,7 @@ namespace project
             try
             {
                 DataRowView row = (DataRowView)dataGrid1.SelectedItems[0];
-                if (MessageBox.Show("?האם אתה בטוח שברצונך לקדם פריט זה", "וידוא קידום", MessageBoxButton.YesNo, MessageBoxImage.Warning) == MessageBoxResult.No)
+                if (MessageBox.Show("?האם אתה בטוח שברצונך לקדם פריט זה", "וידוא קידום", MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.No)
                 {
                     refreashandclear();
                     return; //do no stuff
@@ -606,7 +606,7 @@ namespace project
             try
             {
                 DataRowView row = (DataRowView)dataGrid1.SelectedItems[0];
-                if (MessageBox.Show("?האם אתה בטוח שברצונך להחזיר פריט זה", "וידוא קידום", MessageBoxButton.YesNo, MessageBoxImage.Warning) == MessageBoxResult.No)
+                if (MessageBox.Show("?האם אתה בטוח שברצונך להחזיר פריט זה", "וידוא קידום", MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.No)
                 {
                     refreashandclear();
                     return; //do no stuff
