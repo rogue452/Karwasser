@@ -4,14 +4,14 @@
        Title="הוסף משתמש חדש למערכת"  Height="647" Width="1212" FlowDirection="RightToLeft" ResizeMode="CanMinimize" Icon="/WpfApplication1;component/Images/Israel.ico" WindowStartupLocation="CenterScreen" Closing="exit_clicked">
     <Grid>
         <Image Source="/WpfApplication1;component/Images/31.jpg"  Stretch="UniformToFill" FlowDirection="RightToLeft" />
-        <Label Content="תפקיד" Height="28" HorizontalAlignment="Left" Margin="708,22,0,0" Name="Role_label" VerticalAlignment="Top" />
-        <Label Content="סיסמא" HorizontalAlignment="Left" Margin="428,24,0,556" Name="Password_label" />
-        <Label Content="אימייל" Height="28" HorizontalAlignment="Left" Margin="428,56,0,0" Name="Email_label" VerticalAlignment="Top" />
-        <ComboBox Height="23" HorizontalAlignment="Left" Margin="784,27,0,0" Name="Role_comboBox" VerticalAlignment="Top" Width="153"  />
+        <Label Content="תפקיד" Height="28" HorizontalAlignment="Left" Margin="744,22,0,0" Name="Role_label" VerticalAlignment="Top" />
+        <Label Content="סיסמא" HorizontalAlignment="Left" Margin="312,24,0,556" Name="Password_label" />
+        <Label Content="אימייל" Height="28" HorizontalAlignment="Left" Margin="312,56,0,0" Name="Email_label" VerticalAlignment="Top" />
+        <ComboBox Height="23" HorizontalAlignment="Left" Margin="798,27,0,0" Name="Role_comboBox" VerticalAlignment="Top" Width="153"  />
         <Button Content="הוסף" HorizontalAlignment="Left" Margin="964,42,0,0" VerticalAlignment="Top" Width="145" Height="56" Name="ADD_Btn" Background="#8400A500" FontWeight="Bold" Click="Add_button_Click" />
         <Button Content="חזור למסך משתמשים" Height="23" HorizontalAlignment="Left" Margin="12,573,0,0" Name="Back_button" VerticalAlignment="Top" Width="138" Click="Back_button_Click" />
-        <PasswordBox Height="23" HorizontalAlignment="Left" Margin="508,27,0,0" Name="Password_textBox" VerticalAlignment="Top" Width="153" />
-        <TextBox Height="23" HorizontalAlignment="Left" Margin="508,56,0,0" Name="Email_textBox" VerticalAlignment="Top" Width="153" />
+        <PasswordBox Height="23" HorizontalAlignment="Left" Margin="366,27,0,0" Name="Password_textBox" VerticalAlignment="Top" Width="153" />
+        <TextBox Height="23" HorizontalAlignment="Left" Margin="366,56,0,0" Name="Email_textBox" VerticalAlignment="Top" Width="153" />
         <Image Height="40" HorizontalAlignment="Left" Margin="1012,0,0,0" Name="image1" Stretch="Fill" VerticalAlignment="Top" Width="55" FlowDirection="RightToLeft" Source="/WpfApplication1;component/Images/add_user.png" />
         <TextBox HorizontalAlignment="Left" Height="23" Margin="99,56,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="197" FontSize="15" Name="FirstNameSearchTextBox" TextChanged="FirstNameSearchTextBox_TextChanged" />
         <TextBox HorizontalAlignment="Left" Height="23" Margin="99,27,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="197" Name="IDSearchTextBox" TextChanged="IDSearchTextBox_TextChanged" />
@@ -19,7 +19,9 @@
         <Label Content="שם פרטי" HorizontalAlignment="Left" Margin="12,54,0,0" VerticalAlignment="Top" Width="71"/>
         <DataGrid AutoGenerateColumns="True" Height="463" HorizontalAlignment="Left" Margin="0,104,0,0" Name="dataGrid1" VerticalAlignment="Top" Width="1190" CanUserAddRows="false" SelectionMode="Single" FontSize="15" AutoGeneratingColumn="Grid_AutoGeneratingColumn"/>
         <Label Content="החל להקליד כדי לחפש לפי:" Height="28" HorizontalAlignment="Left" Margin="12,0,0,0" Name="Search_label" VerticalAlignment="Top" />
-        <Label Content="בחר עובד והכנס פירטי המשתמש החדש:" Height="28" HorizontalAlignment="Left" Margin="428,0,0,0" Name="label1" VerticalAlignment="Top" />
+        <Label Content="בחר עובד והכנס פירטי המשתמש החדש:" Height="28" HorizontalAlignment="Left" Margin="312,0,0,0" Name="label1" VerticalAlignment="Top" />
         <Label Content="או" Height="28" HorizontalAlignment="Left" Margin="26,38,0,0" Name="label5" VerticalAlignment="Top" />
+        <Label Content="בית הספר היסודי בו למדת" Height="28" HorizontalAlignment="Left" Margin="545,24,0,0" Name="school_label" VerticalAlignment="Top" />
+        <TextBox Height="23" HorizontalAlignment="Left" Margin="545,56,0,0" Name="school_textBox" VerticalAlignment="Top" Width="153" />
     </Grid>
 </Window>
