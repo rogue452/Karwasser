@@ -15,7 +15,7 @@ using System.Data;
 using System.ComponentModel;
 using Microsoft.Win32;
 using System.Text.RegularExpressions;
-using System.ComponentModel;
+
 
 namespace project
 {
@@ -38,7 +38,7 @@ namespace project
             {
                 MySqlConnection MySqlConn = new MySqlConnection(Login.Connectionstring);
                 MySqlConn.Open();
-                string Query1 = ("select itemid as `מספר פריט`,itemName as `שם פריט`, item_discription as `תאור פריט` from project.item WHERE itemStatus='בעבודה' group by itemid");
+                string Query1 = ("select itemid as `מקט פריט`,itemName as `שם פריט`, item_discription as `תאור פריט` from project.item WHERE itemStatus='בעבודה' group by itemid");
                 MySqlCommand MSQLcrcommand1 = new MySqlCommand(Query1, MySqlConn);
                 MSQLcrcommand1.ExecuteNonQuery();
                 MySqlDataAdapter mysqlDAdp = new MySqlDataAdapter(MSQLcrcommand1);
@@ -61,6 +61,7 @@ namespace project
         private void Create_DataTable1_Columns_End()
         {
             dt.Columns.Add(new DataColumn("כמות", typeof(string)));
+           // dt.Columns.Add(new DataColumn("מקט לקוח", typeof(string)));
         }
 
 
@@ -113,7 +114,7 @@ namespace project
         private void ItemIDSearch_TextBox_TextChanged(object sender, TextChangedEventArgs e)
         {
             String searchkey = this.ItemIDSearch_TextBox.Text;
-            dt.DefaultView.RowFilter = string.Format("`מספר פריט` LIKE '%{0}%'", searchkey);
+            dt.DefaultView.RowFilter = string.Format("`מקט פריט` LIKE '%{0}%'", searchkey);
          
         }
 
@@ -125,7 +126,7 @@ namespace project
                 MySqlConnection MySqlConn = new MySqlConnection(Login.Connectionstring);
                 MySqlConn.Open();
                 String searchNamekey = this.StageNameSearchTextBox.Text;
-                string Query1 = ("SELECT jobs.itemid as `מספר פריט`,quantity as `כמות` ,jobs.itemStageOrder as `מספר השלב הנוכחי`,stageName  as `שם השלב הנוכחי` ,jobs.itemStatus  as `סטטוס הפריט`,itemToFixStageOrder as `מספר השלב שבו זוהה כתקול (אם זוהה)`  FROM jobs,item WHERE jobs.itemid=item.itemid and jobs.itemStageOrder=item.itemStageOrder and jobs.itemStatus=item.itemStatus and jobs.jobid='" + jobID + "' and item.stageName Like '%" + searchNamekey + "%'");
+                string Query1 = ("select itemid as `מקט פריט`,itemName as `שם פריט`, item_discription as `תאור פריט`   FROM jobs,item WHERE jobs.itemid=item.itemid and jobs.itemStageOrder=item.itemStageOrder and jobs.itemStatus=item.itemStatus and jobs.jobid='" + jobID + "' and item.stageName Like '%" + searchNamekey + "%'");
                 MySqlCommand MSQLcrcommand1 = new MySqlCommand(Query1, MySqlConn);
                 MSQLcrcommand1.ExecuteNonQuery();
                 MySqlDataAdapter mysqlDAdp = new MySqlDataAdapter(MSQLcrcommand1);
@@ -150,65 +151,6 @@ namespace project
 
 
 
-        private void DeleteBtn_Click(object sender, RoutedEventArgs e)
-        {
-            try
-            {
-                System.Collections.IList rows = dataGrid1.SelectedItems;
-                DataRowView row = (DataRowView)dataGrid1.SelectedItems[0];
-                if (MessageBox.Show("?האם אתה בטוח שברצונך למחוק לקוח זה", "וידוא מחיקה", MessageBoxButton.YesNo, MessageBoxImage.Warning) == MessageBoxResult.No)
-                {
-                    //do no stuff
-                }
-                else // if the user clicked on "Yes" so he wants to Delete.
-                {
-                    // this will give us the first colum of the selected row in the DataGrid.
-
-                    string selected = row["מספר לקוח"].ToString();
-                    // MessageBox.Show("" + selected + "");
-
-                    try
-                    {
-                        MySqlConnection MySqlConn = new MySqlConnection(Login.Connectionstring);
-                        MySqlConn.Open();
-                        string Query1 = "delete from costumers where costumerid='" + selected + "'";
-                        MySqlCommand MSQLcrcommand1 = new MySqlCommand(Query1, MySqlConn);
-                        MSQLcrcommand1.ExecuteNonQuery();
-                        MySqlDataAdapter mysqlDAdp = new MySqlDataAdapter(MSQLcrcommand1);
-                        MySqlConn.Close();
-                        MessageBox.Show("!הלקוח נמחק מהמערכת");
-                    }
-                    catch (Exception ex)
-                    {
-                        MessageBox.Show(ex.Message);
-                    }
-                    try
-                    {
-                        MySqlConnection MySqlConn = new MySqlConnection(Login.Connectionstring);
-                        MySqlConn.Open();
-                        string Query1 = ("select costumerid as `מספר לקוח`,costumerName as `שם לקוח` ,costumerAddress as `כתובת לקוח`  from project.costumers group by costumerid");
-                        MySqlCommand MSQLcrcommand1 = new MySqlCommand(Query1, MySqlConn);
-                        MSQLcrcommand1.ExecuteNonQuery();
-                        MySqlDataAdapter mysqlDAdp = new MySqlDataAdapter(MSQLcrcommand1);
-                        dt.Clear();
-                        mysqlDAdp.Fill(dt);
-                        dataGrid1.ItemsSource = dt.DefaultView;
-                        mysqlDAdp.Update(dt);
-                        MySqlConn.Close();
-                    }
-                    catch (Exception ex)
-                    {
-                        MessageBox.Show(ex.Message);
-                    }
-                }//end else
-
-            }//end try
-            catch { MessageBox.Show("לא נבחר לקוח למחיקה"); }
-
-        }//end function
-
-
-
         // go to previous screen.
         private void Back_Btn_Click(object sender, RoutedEventArgs e)
         {
@@ -218,80 +160,20 @@ namespace project
             this.Close();
         }
 
-        private void UpdateBtn_Click(object sender, RoutedEventArgs e)
-        {
-            try
-            {
-                System.Collections.IList rows = dataGrid1.SelectedItems;
-
-                DataRowView row = (DataRowView)dataGrid1.SelectedItems[0];
-                string selected = row["מספר לקוח"].ToString();
-                // MessageBox.Show(""+selected+ "");
-
-
-
-                if (MessageBox.Show("?האם אתה בטוח שברצונך לעדכן לקוח זה", "וידוא עדכון", MessageBoxButton.YesNo, MessageBoxImage.Warning) == MessageBoxResult.No)
-                {
-                    //dont do stuff
-                }
-                else // if the user clicked on "Yes" so he wants to Update.
-                {
-                    string custumername = row["שם לקוח"].ToString();
-                    string custumeraddress = row["כתובת לקוח"].ToString();
-
-                    try
-                    {
-
-                        MySqlConnection MySqlConn = new MySqlConnection(Login.Connectionstring);
-                        MySqlConn.Open();
-                        string Query1 = "update costumers set costumerName='" + custumername + "',costumerAddress='" + custumeraddress + "' where costumerid='" + selected + "'";
-                        MySqlCommand MSQLcrcommand1 = new MySqlCommand(Query1, MySqlConn);
-                        MSQLcrcommand1.ExecuteNonQuery();
-                        MySqlDataAdapter mysqlDAdp = new MySqlDataAdapter(MSQLcrcommand1);
-                        MySqlConn.Close();
-                        MessageBox.Show("!פרטי הלקוח עודכנו");
-                    }
-                    catch (Exception ex)
-                    {
-                        MessageBox.Show(ex.Message);
-                    }
-                    try
-                    {
-                        MySqlConnection MySqlConn = new MySqlConnection(Login.Connectionstring);
-                        MySqlConn.Open();
-                        string Query1 = ("select costumerid as `מספר לקוח`,costumerName as `שם לקוח` ,costumerAddress as `כתובת לקוח`  from project.costumers group by costumerid");
-                        MySqlCommand MSQLcrcommand1 = new MySqlCommand(Query1, MySqlConn);
-                        MSQLcrcommand1.ExecuteNonQuery();
-                        MySqlDataAdapter mysqlDAdp = new MySqlDataAdapter(MSQLcrcommand1);
-                        dt.Clear();
-                        mysqlDAdp.Fill(dt);
-                        dataGrid1.ItemsSource = dt.DefaultView;
-                        mysqlDAdp.Update(dt);
-                        MySqlConn.Close();
-                    }
-                    catch (Exception ex)
-                    {
-                        MessageBox.Show(ex.Message);
-                    }
-
-                }
-
-            }
-            catch { MessageBox.Show("לא נבחר לקוח לעדכון "); }
-        }
+        
 
 
 
         private void Grid_AutoGeneratingColumn(object sender, DataGridAutoGeneratingColumnEventArgs e)
         {
-            if (e.Column.Header.ToString() == "שם השלב הנוכחי" || e.Column.Header.ToString() == "מספר השלב הנוכחי" || e.Column.Header.ToString() == "מספר פריט")
+            if (e.Column.Header.ToString() == "מקט פריט" || e.Column.Header.ToString() == "שם פריט" || e.Column.Header.ToString() == "תאור פריט")
             {
                 // e.Cancel = true;   // For not to include 
                 e.Column.IsReadOnly = true; // Makes the column as read only
             }
 
 
-            if (e.Column.Header.ToString() == "סטטוס הפריט")
+          /*  if (e.Column.Header.ToString() == "סטטוס הפריט")
             {
                 string columnName = e.Column.Header.ToString();
                 Dictionary<string, string> comboKey = new Dictionary<string, string>()
@@ -332,7 +214,7 @@ namespace project
                 #endregion
 
                 e.Column = col1;
-            }
+            }*/
         }
 
         
@@ -343,7 +225,7 @@ namespace project
              try
             {
              DataRowView row = (DataRowView)dataGrid1.SelectedItems[0];
-             string selected = row["מספר פריט"].ToString();
+             string selected = row["מקט פריט"].ToString();
              ManagerGeneralItemStagesGui MGISG = new ManagerGeneralItemStagesGui(selected);
              MGISG.ShowDialog();
              //this.Close();
@@ -360,10 +242,14 @@ namespace project
                 DataTable changedRecordsItemsTable = dt.GetChanges();
                 int sizeofItemsnewtable = changedRecordsItemsTable.Rows.Count;
                 int count = 0; // will count the number of rows with cell "" in the  changedRecordsItemsTable.
+                Console.WriteLine("sizeofItemsnewtable = " + sizeofItemsnewtable);
                 foreach (DataRow dri in changedRecordsItemsTable.Rows)// for every row in the updateds table.
                 {
                     string q = dri["כמות"].ToString();
-                    string itemid = dri["מספר פריט"].ToString();
+                    Console.WriteLine("q = " + q);
+                    string itemid = dri["מקט פריט"].ToString();
+                    Console.WriteLine("itemid = " + itemid);
+                    //string cost_itemid = dri["מקט לקוח"].ToString();
                     try
                     {
 
@@ -382,7 +268,7 @@ namespace project
                                     crcommand1.ExecuteNonQuery();
                                     MySqlDataReader dr1 = crcommand1.ExecuteReader();
                                     int count1 = 0, expectedItemQuantity=0;
-                                    string costumerid = "", itemsDescription = "", job_status = "", jobdescription = "", startDate = "", expectedFinishDate = "", contact_id = "", orderid = "", group_Status = "", group_StageOrder = "", deliveryid = "", invoiceNumber = "", group_costomer_itemid="" ;
+                                    string costumerid = "", itemsDescription = "", job_status = "", jobdescription = "", startDate = "", expectedFinishDate = "", contact_id = "", orderid = "", group_Status = "", group_StageOrder = "", deliveryid = "", invoiceNumber = "", group_costomer_itemid = "", group_itemToFixStageOrder = "", reg_date="";
                                     
                                     while (dr1.Read())
                                     {
@@ -407,6 +293,9 @@ namespace project
                                             deliveryid = dr1.GetString(19);
                                             invoiceNumber = dr1.GetString(20);
                                             group_costomer_itemid = dr1.GetString(21);
+                                            group_itemToFixStageOrder= dr1.GetString(22);
+                                            reg_date = dr1.GetString(24);
+                                            reg_date = Convert.ToDateTime(reg_date).ToString("yyyy-MM-dd");
                                         }
                                     }
                                     MySqlConn.Close();
@@ -418,12 +307,12 @@ namespace project
                                         {
                                             Console.WriteLine("לפני שאילתא");
                                             maxItemNum++; 
-                                          //  string itemid = dri["מספר פריט"].ToString();
+                                          //  string itemid = dri["מקט פריט"].ToString();
                                             try
                                             {
                                                 MySqlConnection MySqlConn1 = new MySqlConnection(Login.Connectionstring);
                                                 MySqlConn1.Open();
-                                                string Query2 = ("INSERT INTO project.jobs (jobid, itemid,itemNum,itemStatus,itemStageOrder, expectedItemQuantity,costumerid, itemsDescription, job_status, jobdescription, startDate, expectedFinishDate, contact_id , orderid , group_Status , group_StageOrder , deliveryid , invoiceNumber , group_costomer_itemid ) VALUES ('" + jobID + "','" + itemid + "','" + maxItemNum + "','" + itemStatus + "','" + itemStageOrder + "','" + expectedItemQuantity + "','" + costumerid + "','" + itemsDescription + "','" + job_status + "','" + jobdescription + "','" + startDate + "','" + expectedFinishDate + "','" + contact_id + "','" + orderid + "','" + group_Status + "','" + group_StageOrder + "','" + deliveryid + "','" + invoiceNumber + "','" + group_costomer_itemid + "')");
+                                                string Query2 = ("INSERT INTO project.jobs (jobid, itemid,itemNum,itemStatus,itemStageOrder, expectedItemQuantity,costumerid, itemsDescription, job_status, jobdescription, startDate, expectedFinishDate, contact_id , orderid , group_Status , group_StageOrder , deliveryid , invoiceNumber , group_costomer_itemid, group_itemToFixStageOrder, reg_date ) VALUES ('" + jobID + "','" + itemid + "','" + maxItemNum + "','" + itemStatus + "','" + itemStageOrder + "','" + expectedItemQuantity + "','" + costumerid + "','" + itemsDescription + "','" + job_status + "','" + jobdescription + "','" + startDate + "','" + expectedFinishDate + "','" + contact_id + "','" + orderid + "','" + group_Status + "','" + group_StageOrder + "','" + deliveryid + "','" + invoiceNumber + "','" + group_costomer_itemid + "','" + group_itemToFixStageOrder + "','" + reg_date + "')");
                                                 MySqlCommand MSQLcrcommand2 = new MySqlCommand(Query2, MySqlConn1);
                                                 MSQLcrcommand2.ExecuteNonQuery();
                                                 MySqlDataAdapter mysqlDAdp1 = new MySqlDataAdapter(MSQLcrcommand2);
@@ -480,6 +369,12 @@ namespace project
                                                 expectedFinishDate = dr5.GetString(13);
                                                 expectedFinishDate = Convert.ToDateTime(expectedFinishDate).ToString("yyyy-MM-dd");
                                                 contact_id = dr5.GetString(15);
+
+                                                orderid = dr1.GetString(16);
+                                                deliveryid = dr1.GetString(19);
+                                                invoiceNumber = dr1.GetString(20);
+                                                reg_date = dr1.GetString(24);
+                                                reg_date = Convert.ToDateTime(reg_date).ToString("yyyy-MM-dd");
                                             }
                                             MySqlConn5.Close();
                                         }
@@ -499,7 +394,7 @@ namespace project
                                             {
                                                 MySqlConnection MySqlConn4 = new MySqlConnection(Login.Connectionstring);
                                                 MySqlConn4.Open();
-                                                string Query4 = ("INSERT INTO project.jobs (jobid, itemid,itemNum,itemStatus,itemStageOrder, expectedItemQuantity,costumerid, itemsDescription, job_status, jobdescription, startDate, expectedFinishDate, contact_id) VALUES ('" + jobID + "','" + itemid + "','" + itemNum + "','" + itemStatus + "','" + itemStageOrder + "','" + new_item_quantity + "','" + costumerid + "','" + itemsDescription + "','" + job_status + "','" + jobdescription + "','" + startDate + "','" + expectedFinishDate + "','" + contact_id + "')");
+                                                string Query4 = ("INSERT INTO project.jobs (jobid, itemid,itemNum,itemStatus,itemStageOrder, expectedItemQuantity,costumerid, itemsDescription, job_status, jobdescription, startDate, expectedFinishDate, contact_id , orderid  , deliveryid , invoiceNumber , reg_date) VALUES ('" + jobID + "','" + itemid + "','" + itemNum + "','" + itemStatus + "','" + itemStageOrder + "','" + new_item_quantity + "','" + costumerid + "','" + itemsDescription + "','" + job_status + "','" + jobdescription + "','" + startDate + "','" + expectedFinishDate + "','" + contact_id + "','" + orderid + "','" + deliveryid + "','" + invoiceNumber + "','" + reg_date + "')");
                                                 MySqlCommand MSQLcrcommand4 = new MySqlCommand(Query4, MySqlConn4);
                                                 MSQLcrcommand4.ExecuteNonQuery();
                                                 MySqlDataAdapter mysqlDAdp4 = new MySqlDataAdapter(MSQLcrcommand4);
@@ -526,7 +421,7 @@ namespace project
 
                                
                             }//end if (item_quantity > 0)
-                            else { MessageBox.Show("שדה הכמות מכיל כמות שלילית או 0 בפריט מספר - " + dri["מספר פריט"].ToString() + ""); return; }
+                            else { MessageBox.Show("שדה הכמות מכיל כמות שלילית או 0 בפריט מספר - " + dri["מקט פריט"].ToString() + ""); return; }
 
                         } // if (q != "")
                         else { count++; }
@@ -534,7 +429,7 @@ namespace project
 
                     }// end try
                     catch
-                    { MessageBox.Show("שדה הכמות לא כולל רק מספרים בפריט מספר - " + dri["מספר פריט"].ToString() + ""); return; }
+                    { MessageBox.Show("שדה הכמות לא כולל רק מספרים בפריט מספר - " + dri["מקט פריט"].ToString() + ""); return; }
 
                 }// end foreach (DataRow dri in changedRecordsTable.Rows)}
 

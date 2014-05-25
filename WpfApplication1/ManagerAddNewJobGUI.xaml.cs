@@ -637,7 +637,7 @@ namespace project
                                             {
                                                 MySqlConnection MySqlConn = new MySqlConnection(Login.Connectionstring);
                                                 MySqlConn.Open();
-                                                string Query1 = ("INSERT INTO project.jobs (jobid, itemid,itemNum, expectedItemQuantity,costumerid, jobdescription, startDate, expectedFinishDate, contact_id,orderid,group_costomer_itemid) VALUES ('" + jobid + "','" + itemid + "','" + itemNum + "','" + item_quantity + "','" + selected + "','" + jobdes + "','" + start + "','" + end + "','" + contactid + "','" + orderid + "','" + cosItemID + "')");
+                                                string Query1 = ("INSERT INTO project.jobs (jobid, itemid,itemNum, expectedItemQuantity,costumerid, jobdescription, startDate, expectedFinishDate, contact_id,orderid,group_costomer_itemid ,reg_date) VALUES ('" + jobid + "','" + itemid + "','" + itemNum + "','" + item_quantity + "','" + selected + "','" + jobdes + "','" + start + "','" + end + "','" + contactid + "','" + orderid + "','" + cosItemID + "','" + DateTime.Now.ToString("yyyy-MM-dd") + "')");
                                                 Console.WriteLine("השאילתא הנשלחת  - " + Query1 + "");
                                                 MySqlCommand MSQLcrcommand1 = new MySqlCommand(Query1, MySqlConn);
                                                 MSQLcrcommand1.ExecuteNonQuery();
