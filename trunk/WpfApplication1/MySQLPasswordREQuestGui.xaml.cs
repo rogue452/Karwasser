@@ -10,6 +10,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using System.ComponentModel;
 
 namespace project
 {
@@ -21,6 +22,8 @@ namespace project
         public MySQLPasswordREQuestGui()
         {
             InitializeComponent();
+            this.WindowStartupLocation = WindowStartupLocation.CenterScreen;
+            Login.close = 1;
         }
 
         private void Back_button_Click(object sender, RoutedEventArgs e)
@@ -36,11 +39,35 @@ namespace project
             {
                 MySQLImpotrGui MSQLI = new MySQLImpotrGui();
                 MSQLI.Show();
+                Login.close = 0;
                 this.Close();
             }
             else {
-                MessageBox.Show("הסיסמה שהזנת לא נכונה"); 
+                     MessageBox.Show("הסיסמה שהזנת לא נכונה");
+                     password.Clear();
                  }
         }
+
+
+
+
+        private void exit_clicked(object sender, CancelEventArgs e)
+        {
+            Console.WriteLine("" + Login.close);
+
+            if (Login.close == 0) // then the user want to exit.
+            {
+            }
+            else
+            {
+                Login window = new Login();
+                window.Show();
+            }
+            Login.close = 0;
+        }
+
+
+
+
     }
 }

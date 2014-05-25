@@ -13,6 +13,7 @@ using System.Windows.Shapes;
 using MySql.Data.MySqlClient;
 using Microsoft.Win32;
 using System.IO;
+using System.ComponentModel;
 
 namespace project
 {
@@ -24,6 +25,8 @@ namespace project
         public MySQLImpotrGui()
         {
             InitializeComponent();
+            this.WindowStartupLocation = WindowStartupLocation.CenterScreen;
+          //  Login.close = 1;
         }
 
 
@@ -122,10 +125,31 @@ namespace project
         // this will close the current scren and will open the Log In scren. 
         private void Back_button_Click(object sender, RoutedEventArgs e)
         {
-            Login LI = new Login();
-            LI.Show();
+         //   Login LI = new Login();
+          //  LI.Show();
             this.Close();
         }
+
+
+
+
+
+        private void exit_clicked(object sender, CancelEventArgs e)
+        {
+           /* Console.WriteLine("" + Login.close);
+
+            if (Login.close == 0) // then the user want to exit.
+            {
+            }
+            else
+            {*/
+                Login window = new Login();
+                window.Show();
+           // }
+            //Login.close = 0;
+        }
+
+
 
 
     }

@@ -16,6 +16,7 @@ using System.Data;
 using System.Data.SqlClient;
 using System.Text.RegularExpressions;
 using MySql.Data.MySqlClient;
+using System.ComponentModel;
 
 /////////////////////////////// need to fix Connectionstring for remote computers.
 namespace project
@@ -42,6 +43,7 @@ namespace project
         {
             InitializeComponent();
             this.WindowStartupLocation = WindowStartupLocation.CenterScreen;
+            Login.close = 1;
         }
 
 
@@ -91,6 +93,26 @@ namespace project
             {
                 //   MessageBox.Show("!לאחר בדיקת מייל", "b4 try", MessageBoxButton.OK);
                 //   MessageBox.Show(this.to_txt.Text,"the mail");
+                if (!string.IsNullOrWhiteSpace(ID_box.Text))
+                {
+                    try
+                    {
+                        int testid = Convert.ToInt32(ID_box.Text);
+                    }
+                    catch { MessageBox.Show("תעודת הזהות לא כוללת רק מספרים"); return; }
+                }
+                else
+                {
+                    MessageBox.Show("אנא הכנס תעודת זהות");
+                    return;
+                }
+
+                if (string.IsNullOrWhiteSpace(school_textBox.Text))
+                {
+                    MessageBox.Show("אנא הכנס שם בית ספר יסודי");
+                    return;
+                }
+                
                 try
                 {
                     //     MessageBox.Show("!ניסיון התחברות למסד", "נתונים", MessageBoxButton.OK);
@@ -98,7 +120,7 @@ namespace project
                     MySqlConnection objc = new MySqlConnection(Connectionstring);
                     objc.Open();
                     //      MessageBox.Show("!לאחר התחברות למסד", "נתונים", MessageBoxButton.OK);
-                    string Query = "select * from users where email='" + this.Email_box.Text + "'and empid='" + this.ID_box.Text + "'";
+                    string Query = "select * from users where email='" + this.Email_box.Text + "'and empid='" + this.ID_box.Text + "' and rec_answer='" + this.school_textBox.Text + "' ";
                     MySqlCommand crcommand = new MySqlCommand(Query, objc);
                     //      MessageBox.Show("!לפני ביצוע שאילתה ", "נתונים", MessageBoxButton.OK);
                     crcommand.ExecuteNonQuery();
@@ -111,7 +133,7 @@ namespace project
                         count++;
                         username = dr.GetString(0);
                         userpass = dr.GetString(1);
-                        mail_body = "סיסמתך היא: " + userpass + " \nשם המשתמש שלך הוא:  " + username + "";
+                        mail_body = "סיסמתך היא: " + userpass + " \nעבור תעודת הזהות:  " + username + "";
 
                     }
                     //     MessageBox.Show(this.to_txt.Text, " "+userpass);
@@ -134,7 +156,7 @@ namespace project
                     }
                     else
                     {
-                        MessageBox.Show("!כתובת האימייל ו/או תעודת הזהות שהוזנו לא נמצאים במאגר \n\n                      .פנה בבקשה למנהל המערכת", "!הפעולה נכשלה", MessageBoxButton.OK);
+                        MessageBox.Show("               כתובת האימייל ו/או תעודת הזהות\n !ו/או התשובה לשאלה שהוזנו לא נמצאים במאגר \n\n                   .פנה בבקשה למנהל המערכת", "!הפעולה נכשלה", MessageBoxButton.OK);
                     }
                 }
                 catch (Exception ex)
@@ -161,6 +183,7 @@ namespace project
         {
             Email_box.Clear();
             ID_box.Clear();
+            school_textBox.Clear();
         }
 
 
@@ -178,5 +201,26 @@ namespace project
             window.Show();
             this.Close();
         }
+
+        private void exit_clicked(object sender, CancelEventArgs e)
+        {
+            Console.WriteLine("" + Login.close);
+
+            if (Login.close == 0) // then the user want to exit.
+            {
+            }
+            else
+            {
+                Login window = new Login();
+                window.Show();
+            }
+            Login.close = 0;
+        }
+
+
+
+
+
+
     }
 }

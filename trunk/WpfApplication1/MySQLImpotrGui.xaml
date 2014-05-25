@@ -1,10 +1,10 @@
 ﻿<Window x:Class="project.MySQLImpotrGui"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-         Title="מסך ניהול משתמשים" Height="538" Width="1040" FlowDirection="RightToLeft" ResizeMode="CanMinimize" Icon="/WpfApplication1;component/Images/Israel.ico">
+         Title="מסך ניהול משתמשים" Height="538" Width="1040" FlowDirection="RightToLeft" ResizeMode="CanMinimize" Icon="/WpfApplication1;component/Images/Israel.ico" Closing="exit_clicked">
     <Grid>
         <Image Source="/WpfApplication1;component/Images/31.jpg" Grid.ColumnSpan="2" Stretch="UniformToFill" FlowDirection="RightToLeft" />
-        <Label Content="ברוך הבא למסך ייבוא ה - MySQL" Height="48" HorizontalAlignment="Left" Margin="240,12,0,0" Name="Welcome_label" VerticalAlignment="Top" FontWeight="Bold" FontSize="28" Width="485" />
+        <Label Content="ברוך הבא למסך כלי הניהול" Height="48" HorizontalAlignment="Left" Margin="308,12,0,0" Name="Welcome_label" VerticalAlignment="Top" FontWeight="Bold" FontSize="28" Width="402" />
         <Label Content="לחיצה על כפתור זה תאפס את סיסמת משתמש ה- root כך שתתאים למערכת " Height="38" HorizontalAlignment="Left" Margin="30,61,0,0" Name="Reset_label" VerticalAlignment="Top" FontSize="26" FontWeight="Normal" />
         <Button Content="איפוס סיסמה" Height="53" HorizontalAlignment="Left" Margin="414,145,0,0" Name="Reset_button" VerticalAlignment="Top" Width="198" FontWeight="Bold" FontSize="15" Click="Reset_button_Click" />
         <Label Content="בחר את הקובץ כדי לייבא אותו ל - MySQL ע&quot;י כפתור זה" Height="46" HorizontalAlignment="Left" Margin="151,330,0,0" Name="Import_label" VerticalAlignment="Top" FontSize="26" Width="664" />

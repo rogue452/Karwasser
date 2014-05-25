@@ -28,6 +28,7 @@ namespace project
         string password;
         string email;
         string role;
+        string school;
         public static DataTable dt = new DataTable("employess");
         public ManagerAddNewUserGUI()
         {
@@ -155,7 +156,7 @@ namespace project
                 DataRowView row = (DataRowView)dataGrid1.SelectedItems[0];
                 string empid = row["תעודת זהות"].ToString();
                 Console.WriteLine(empid);
-                bool f1 = false, f2 = false, f3 = false;
+                bool f1 = false, f2 = false, f3 = false, f4 = false;
 
                 //  if (Password_textBox != null)
                 if (Password_textBox != null && !string.IsNullOrWhiteSpace(Password_textBox.Password))
@@ -188,6 +189,17 @@ namespace project
                     MessageBox.Show("אנא הכנס כתובת אימייל");
                 }
 
+                if (!string.IsNullOrWhiteSpace(school_textBox.Text))
+                {
+                    school = school_textBox.Text;
+                    f4 = true;
+                }
+                else
+                {
+                    MessageBox.Show("אנא הכנס שם בית ספר יסודי");
+                }
+
+
                 if (Role_comboBox.SelectedValue != null)
                 {
                     role = Role_comboBox.SelectedValue.ToString();
@@ -198,14 +210,17 @@ namespace project
                     MessageBox.Show("אנא בחר תפקיד");
                 }
 
+               
+            
+
                 // if all is ok then add new user to the DB.
-                if (f1 && f2 && f3)
+                if (f1 && f2 && f3 & f4)
                 {
                     DateTime yesterday = DateTime.Today.AddDays(-1);
                     string date = Convert.ToDateTime(yesterday).ToString("yyyy-MM-dd");
                     Console.WriteLine(date);
                     //string not = "לא מחובר";
-                    string query = ("insert into project.users (empid, password, role , email , last_email_sent_date) values ('" + empid + "','" + password + "','" + role + "','" + email + "','" + date + "')");
+                    string query = ("insert into project.users (empid, password, role , email , last_email_sent_date , rec_answer) values ('" + empid + "','" + password + "','" + role + "','" + email + "','" + date + "','" + school + "')");
                     DBConnection DBC = new DBConnection();
                     DBC.InsertDataIntoDB(Login.Connectionstring, query);
                     try
