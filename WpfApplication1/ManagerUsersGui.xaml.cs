@@ -26,6 +26,7 @@ namespace project
     /// </summary>
     public partial class ManagerUsersGui : Window
     {
+        public static DataTable dt = new DataTable("users");
                 public ManagerUsersGui()
                 {
                     InitializeComponent();
@@ -33,35 +34,8 @@ namespace project
                  //   ListCollectionView CollectionViewList;
                   //  DataTable DataTableFiltered;
                  //   DataSet ds = new DataSet();
-
-                    try
-                    {   
-                        MySqlConnection MySqlConn = new MySqlConnection(Login.Connectionstring);
-                        MySqlConn.Open();
-                        string Query1 = ("SELECT users.empid as `תעודת זהות`,employees.emp_firstname as `שם פרטי` ,employees.emp_lastname as `שם משפחה` ,password as סיסמה ,role as תפקיד ,connected as מחובר ,email as `כתובת אימייל`, users.last_log_in_date as `התחברות אחרונה` ,last_location as `התחברות אחרונה ממחשב` , users.user_description as `הערות לגבי המשתמש` FROM project.users , project.employees WHERE users.empid=employees.empid");
-                        MySqlCommand MSQLcrcommand1 = new MySqlCommand(Query1, MySqlConn);
-                        MSQLcrcommand1.ExecuteNonQuery();
-                        MySqlDataAdapter mysqlDAdp = new MySqlDataAdapter(MSQLcrcommand1);
-                        DataTable dt = new DataTable("users");
-                        mysqlDAdp.Fill(dt);
-                        dataGrid1.ItemsSource = dt.DefaultView; 
-                        mysqlDAdp.Update(dt);
-                        MySqlConn.Close();
-                    }
-                    catch (Exception ex)
-                    {
-                        MessageBox.Show(ex.Message);
-                    }
-
-
-
-                /*
-                    DBConnection conn = new DBConnection();
-                    string query = ("select userid as מספר__משתמש ,first_name as שם__פרטי ,last_name as שם__משפחה ,user_name as שם__משתמש ,password as סיסמה ,role as תפקיד ,connected as מחובר ,email as כתובת__אימייל from users");
-                    dataGrid1.ItemsSource = conn.GetDataTableFromDB(query).Tables[0].DefaultView;
-                    DataTable dt = new DataTable();
-            
-                */
+                    reafreshandclear();
+                   
                 }
 
 
@@ -125,8 +99,30 @@ namespace project
         }
 
 
-    
 
+        public void reafreshandclear()
+        {
+            try
+            {
+                MySqlConnection MySqlConn = new MySqlConnection(Login.Connectionstring);
+                MySqlConn.Open();
+                string Query1 = ("SELECT users.empid as `תעודת זהות`,employees.emp_firstname as `שם פרטי` ,employees.emp_lastname as `שם משפחה` ,password as סיסמה ,role as תפקיד ,connected as מחובר ,email as `כתובת אימייל`, rec_answer as `בית ספר יסודי`,users.last_log_in_date as `התחברות אחרונה` ,last_location as `התחברות אחרונה ממחשב` , users.user_description as `הערות לגבי המשתמש` FROM project.users , project.employees WHERE users.empid=employees.empid");
+                MySqlCommand MSQLcrcommand1 = new MySqlCommand(Query1, MySqlConn);
+                MSQLcrcommand1.ExecuteNonQuery();
+                MySqlDataAdapter mysqlDAdp = new MySqlDataAdapter(MSQLcrcommand1);
+                dt.Clear();
+                mysqlDAdp.Fill(dt);
+                dataGrid1.ItemsSource = dt.DefaultView;
+                mysqlDAdp.Update(dt);
+                MySqlConn.Close();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+            IDSearchTextBox.Clear();
+            FirstNameSearchTextBox.Clear();
+        }
 
 
         private void FirstNameSearchTextBox_TextChanged(object sender, TextChangedEventArgs e)
@@ -138,11 +134,12 @@ namespace project
                 MySqlConnection MySqlConn = new MySqlConnection(Login.Connectionstring);
                 MySqlConn.Open();
                 String searchkey = this.FirstNameSearchTextBox.Text;
-                string Query1 = ("SELECT users.empid as `תעודת זהות`,employees.emp_firstname as `שם פרטי` ,employees.emp_lastname as `שם משפחה` ,password as סיסמה ,role as תפקיד ,connected as מחובר ,email as `כתובת אימייל`, users.last_log_in_date as `התחברות אחרונה` ,last_location as `התחברות אחרונה ממחשב` , users.user_description as `הערות לגבי המשתמש` from project.users , project.employees where users.empid=employees.empid and employees.emp_firstname Like '%" + searchkey + "%' ");
+                string Query1 = ("SELECT users.empid as `תעודת זהות`,employees.emp_firstname as `שם פרטי` ,employees.emp_lastname as `שם משפחה` ,password as סיסמה ,role as תפקיד ,connected as מחובר ,email as `כתובת אימייל`, rec_answer as `בית ספר יסודי`,users.last_log_in_date as `התחברות אחרונה` ,last_location as `התחברות אחרונה ממחשב` , users.user_description as `הערות לגבי המשתמש` from project.users , project.employees where users.empid=employees.empid and employees.emp_firstname Like '%" + searchkey + "%' ");
                 MySqlCommand MSQLcrcommand1 = new MySqlCommand(Query1, MySqlConn);
                 MSQLcrcommand1.ExecuteNonQuery();
                 MySqlDataAdapter mysqlDAdp = new MySqlDataAdapter(MSQLcrcommand1);
-                DataTable dt = new DataTable("users");
+                //DataTable dt = new DataTable("users");
+                dt.Clear();
                 mysqlDAdp.Fill(dt);
                 dataGrid1.ItemsSource = dt.DefaultView;
                 mysqlDAdp.Update(dt);
@@ -151,6 +148,7 @@ namespace project
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message);
+                reafreshandclear();
             }
         }
 
@@ -164,11 +162,12 @@ namespace project
                 MySqlConn.Open();
                 String searchidkey = this.IDSearchTextBox.Text;
              //   string Query1 = "select users.empid as `תעודת זהות` ,employees.emp_firstname as `שם פרטי` ,employees.emp_lastname as `שם משפחה` ,users.user_name as `שם משתמש` ,password as סיסמה ,role as תפקיד ,connected as מחובר ,email as `כתובת אימייל` from project.users , project.employees where users.empid=employees.empid and users.empid Like '%" + searchidkey + "%' ";
-                string Query1 = ("SELECT users.empid as `תעודת זהות`,employees.emp_firstname as `שם פרטי` ,employees.emp_lastname as `שם משפחה` ,password as סיסמה ,role as תפקיד ,connected as מחובר ,email as `כתובת אימייל`, users.last_log_in_date as `התחברות אחרונה` ,last_location as `התחברות אחרונה ממחשב` , users.user_description as `הערות לגבי המשתמש` from project.users , project.employees where users.empid=employees.empid and users.empid Like '%" + searchidkey + "%' ");
+                string Query1 = ("SELECT users.empid as `תעודת זהות`,employees.emp_firstname as `שם פרטי` ,employees.emp_lastname as `שם משפחה` ,password as סיסמה ,role as תפקיד ,connected as מחובר ,email as `כתובת אימייל`, rec_answer as `בית ספר יסודי`,users.last_log_in_date as `התחברות אחרונה` ,last_location as `התחברות אחרונה ממחשב` , users.user_description as `הערות לגבי המשתמש` from project.users , project.employees where users.empid=employees.empid and users.empid Like '%" + searchidkey + "%' ");
                 MySqlCommand MSQLcrcommand1 = new MySqlCommand(Query1, MySqlConn);
                 MSQLcrcommand1.ExecuteNonQuery();
                 MySqlDataAdapter mysqlDAdp = new MySqlDataAdapter(MSQLcrcommand1);
-                DataTable dt = new DataTable("users");
+               // DataTable dt = new DataTable("users");
+                dt.Clear();
                 mysqlDAdp.Fill(dt);
                 dataGrid1.ItemsSource = dt.DefaultView;
                 mysqlDAdp.Update(dt);
@@ -177,6 +176,7 @@ namespace project
            catch (Exception ex)
             {
                 MessageBox.Show(ex.Message);
+                reafreshandclear();
             }    
         }
 
@@ -224,24 +224,7 @@ namespace project
                         {
                             MessageBox.Show(ex.Message);
                         }
-                        try
-                        {
-                            MySqlConnection MySqlConn = new MySqlConnection(Login.Connectionstring);
-                            MySqlConn.Open();
-                            string Query1 = ("SELECT users.empid as `תעודת זהות`,employees.emp_firstname as `שם פרטי` ,employees.emp_lastname as `שם משפחה` ,password as סיסמה ,role as תפקיד ,connected as מחובר ,email as `כתובת אימייל`, users.last_log_in_date as `התחברות אחרונה` ,last_location as `התחברות אחרונה ממחשב` , users.user_description as `הערות לגבי המשתמש` FROM project.users , project.employees WHERE users.empid=employees.empid");
-                            MySqlCommand MSQLcrcommand1 = new MySqlCommand(Query1, MySqlConn);
-                            MSQLcrcommand1.ExecuteNonQuery();
-                            MySqlDataAdapter mysqlDAdp = new MySqlDataAdapter(MSQLcrcommand1);
-                            DataTable dt = new DataTable("users");
-                            mysqlDAdp.Fill(dt);
-                            dataGrid1.ItemsSource = dt.DefaultView;
-                            mysqlDAdp.Update(dt);
-                            MySqlConn.Close();
-                        }
-                        catch (Exception ex)
-                        {
-                            MessageBox.Show(ex.Message);
-                        }
+                        reafreshandclear();
                     }//end else
                 
             }//end try
@@ -283,17 +266,29 @@ namespace project
                             {
                                 string firstname = row["שם פרטי"].ToString();
                                 string lastname = row["שם משפחה"].ToString();
+                                if (string.IsNullOrWhiteSpace(row["סיסמה"].ToString()))
+                                {
+                                    MessageBox.Show("אנא הכנס סיסמא");
+                                    reafreshandclear();
+                                    return;
+                                }
+                                if (string.IsNullOrWhiteSpace(row["בית ספר יסודי"].ToString()))
+                                {
+                                    MessageBox.Show("אנא הכנס בית ספר יסודי");
+                                    reafreshandclear();
+                                    return;
+                                }
                                 string pass = row["סיסמה"].ToString();
                                 string role = row["תפקיד"].ToString();
                                 string connected = row["מחובר"].ToString();
                                 string email = row["כתובת אימייל"].ToString();
-
+                                string userdesc = row["הערות לגבי המשתמש"].ToString();
+                                string school = row["בית ספר יסודי"].ToString();
                                 try
                                 {
-
                                     MySqlConnection MySqlConn = new MySqlConnection(Login.Connectionstring);
                                     MySqlConn.Open();
-                                    string Query1 = "update users set empid='" + selected + "',password='" + pass + "',role='" + role + "',connected='" + connected + "',email='" + email + "'where empid='" + selected + "'";
+                                    string Query1 = "update users set empid='" + selected + "',password='" + pass + "',role='" + role + "',connected='" + connected + "',email='" + email + "' ,user_description='" + userdesc + "',rec_answer='" + school + "' where empid='" + selected + "'";
                                     MySqlCommand MSQLcrcommand1 = new MySqlCommand(Query1, MySqlConn);
                                     MSQLcrcommand1.ExecuteNonQuery();
                                     MySqlDataAdapter mysqlDAdp = new MySqlDataAdapter(MSQLcrcommand1);
@@ -304,34 +299,18 @@ namespace project
                                 {
                                     MessageBox.Show(ex.Message);
                                 }
-                                try
-                                {
-                                    MySqlConnection MySqlConn = new MySqlConnection(Login.Connectionstring);
-                                    MySqlConn.Open();
-                                    string Query1 = ("SELECT users.empid as `תעודת זהות`,employees.emp_firstname as `שם פרטי` ,employees.emp_lastname as `שם משפחה` ,password as סיסמה ,role as תפקיד ,connected as מחובר ,email as `כתובת אימייל`, users.last_log_in_date as `התחברות אחרונה` ,last_location as `התחברות אחרונה ממחשב` , users.user_description as `הערות לגבי המשתמש` FROM project.users , project.employees WHERE users.empid=employees.empid");
-                                    MySqlCommand MSQLcrcommand1 = new MySqlCommand(Query1, MySqlConn);
-                                    MSQLcrcommand1.ExecuteNonQuery();
-                                    MySqlDataAdapter mysqlDAdp = new MySqlDataAdapter(MSQLcrcommand1);
-                                    DataTable dt = new DataTable("users");
-                                    mysqlDAdp.Fill(dt);
-                                    dataGrid1.ItemsSource = dt.DefaultView;
-                                    mysqlDAdp.Update(dt);
-                                    MySqlConn.Close();
-                                }
-                                catch (Exception ex)
-                                {
-                                    MessageBox.Show(ex.Message);
-                                }
+                                reafreshandclear();
                             }
-                            else MessageBox.Show("כתובת האימייל שהזנת לא תקינה");
-
-                        }
-
-
-                    
+                            else
+                            {
+                                MessageBox.Show("כתובת האימייל שהזנת לא תקינה");
+                                reafreshandclear();
+                            }
+                        }      
                 
             }
-            catch { MessageBox.Show("לא נבחר משתמש לעדכון "); }
+            catch
+            { MessageBox.Show("לא נבחר משתמש לעדכון "); }
         }
 
 
