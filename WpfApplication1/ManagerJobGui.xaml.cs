@@ -298,6 +298,12 @@ namespace project
                         return;
                     }
 
+                    if (row["תאריך רישום"].ToString().Equals(""))
+                    {
+                        MessageBox.Show("!לא ניתן למחוק את תאריך רישום אלא רק לשנות", "שים לב", MessageBoxButton.OK, MessageBoxImage.Error);
+                        refreashandclear();
+                        return;
+                    }
 
                     DateTime s = (DateTime)Convert.ToDateTime(row["תאריך התחלה"].ToString());
                     DateTime f = (DateTime)Convert.ToDateTime(row["תאריך סיום משוער"].ToString());
@@ -319,20 +325,51 @@ namespace project
                         return;
                     }
 
+                    if (row["תעודת משלוח"].ToString() != "לא עודכן")
+                    {
+                        if (!string.IsNullOrWhiteSpace(row["תעודת משלוח"].ToString()))
+                        {
+                            try
+                            {
+                                int testdv = Convert.ToInt32(row["תעודת משלוח"].ToString());
+                            }
+                            catch
+                            {
+                                MessageBox.Show("!תעודת המשלוח לא מכילה רק מספרים", "שים לב", MessageBoxButton.OK, MessageBoxImage.Error);
+                                refreashandclear();
+                                return;
+                            }
+                        }
+                    }
+                    string deliveryid = row["תעודת משלוח"].ToString();
+
+                    if (row["מספר חשבונית"].ToString() != "לא עודכן")
+                    {
+                        if (!string.IsNullOrWhiteSpace(row["מספר חשבונית"].ToString()))
+                        {
+                            try
+                            {
+                                int testinv = Convert.ToInt32(row["מספר חשבונית"].ToString());
+                            }
+                            catch
+                            {
+                                MessageBox.Show("!מספר חשבונית לא מכיל רק מספרים", "שים לב", MessageBoxButton.OK, MessageBoxImage.Error);
+                                refreashandclear();
+                                return;
+                            }
+                        }
+                    }
+                    string invoiceNumber = row["מספר חשבונית"].ToString();
+                  
                     string start_date =  Convert.ToDateTime(row["תאריך התחלה"].ToString()).ToString("yyyy-MM-dd");
                     string finish_date = Convert.ToDateTime(row["תאריך סיום משוער"].ToString()).ToString("yyyy-MM-dd");
-                    string reg_date;
+                    string reg_date = Convert.ToDateTime(row["תאריך רישום"].ToString()).ToString("yyyy-MM-dd");;
                     string actual_finish_date;
                     if (row["תאריך סיום בפועל"].ToString().Equals(""))
                     {
                         try
                         {
-                            string Query1 = "UPDATE jobs SET job_status='" + status + "',jobdescription='" + description + "',startDate='" + start_date + "',expectedFinishDate='" + finish_date + "',actualFinishDate=NULL ,orderid='" + orderid + "' ,reg_date=NULL WHERE jobid='" + jobid + "'";
-                            if (!row["תאריך רישום"].ToString().Equals(""))
-                            {
-                                reg_date = Convert.ToDateTime(row["תאריך רישום"].ToString()).ToString("yyyy-MM-dd");
-                                Query1 = "UPDATE jobs SET job_status='" + status + "',jobdescription='" + description + "',startDate='" + start_date + "',expectedFinishDate='" + finish_date + "',actualFinishDate=NULL ,orderid='" + orderid + "',reg_date='" + reg_date + "' WHERE jobid='" + jobid + "'";
-                            }
+                            string Query1 = "UPDATE jobs SET job_status='" + status + "',jobdescription='" + description + "',startDate='" + start_date + "',expectedFinishDate='" + finish_date + "',actualFinishDate=NULL ,orderid='" + orderid + "' ,deliveryid='" + deliveryid + "' ,invoiceNumber='" + invoiceNumber + "',reg_date='" + reg_date + "' WHERE jobid='" + jobid + "'";
                             MySqlConnection MySqlConn = new MySqlConnection(Login.Connectionstring);
                             MySqlConn.Open();
                            // string Query1 = "UPDATE jobs SET job_status='" + status + "',jobdescription='" + description + "',startDate='" + start_date + "',expectedFinishDate='" + finish_date + "',actualFinishDate=NULL ,orderid='" + orderid + "' WHERE jobid='" + jobid + "'";
@@ -363,12 +400,7 @@ namespace project
                         actual_finish_date = Convert.ToDateTime(row["תאריך סיום בפועל"].ToString()).ToString("yyyy-MM-dd");
                         try
                         {
-                            string Query1 = "UPDATE jobs SET job_status='" + status + "',jobdescription='" + description + "',startDate='" + start_date + "',expectedFinishDate='" + finish_date + "',actualFinishDate='" + actual_finish_date + "' ,orderid='" + orderid + "' ,reg_date=NULL WHERE jobid='" + jobid + "'";
-                            if (!row["תאריך רישום"].ToString().Equals(""))
-                            {
-                                reg_date = Convert.ToDateTime(row["תאריך רישום"].ToString()).ToString("yyyy-MM-dd");
-                                Query1 = "UPDATE jobs SET job_status='" + status + "',jobdescription='" + description + "',startDate='" + start_date + "',expectedFinishDate='" + finish_date + "',actualFinishDate='" + actual_finish_date + "' ,orderid='" + orderid + "' ,reg_date='" + reg_date + "' WHERE jobid='" + jobid + "'";   
-                            }
+                            string Query1 = "UPDATE jobs SET job_status='" + status + "',jobdescription='" + description + "',startDate='" + start_date + "',expectedFinishDate='" + finish_date + "',actualFinishDate='" + actual_finish_date + "' ,orderid='" + orderid + "' ,deliveryid='" + deliveryid + "' ,invoiceNumber='" + invoiceNumber + "' ,reg_date='" + reg_date + "' WHERE jobid='" + jobid + "'";   
                             MySqlConnection MySqlConn = new MySqlConnection(Login.Connectionstring);
                             MySqlConn.Open();
                            // string Query1 = "UPDATE jobs SET job_status='" + status + "',jobdescription='" + description + "',startDate='" + start_date + "',expectedFinishDate='" + finish_date + "',actualFinishDate='" + actual_finish_date + "' ,orderid='" + orderid + "' WHERE jobid='" + jobid + "'";
