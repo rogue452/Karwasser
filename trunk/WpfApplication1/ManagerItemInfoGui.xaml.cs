@@ -133,7 +133,7 @@ namespace project
                 MySqlConnection MySqlConn = new MySqlConnection(Login.Connectionstring);
                 MySqlConn.Open();
                 String searchkey = this.ItemIDSearch_TextBox.Text;
-                string Query1 = ("SELECT jobs.itemNum as `מספר פריט בסט`, jobs.itemDescription as `תיאור פריט`,jobs.itemStatus  as `סטטוס הפריט`, jobs.itemStageOrder as `מספר השלב הנוכחי`,stageName  as `שם השלב הנוכחי` ,item.stage_discription as `תאור השלב הנוכחי`,itemToFixStageOrder as `מספר השלב שבו זוהה כתקול (אם זוהה)`  FROM jobs,item WHERE jobs.itemid=item.itemid and jobs.itemStageOrder=item.itemStageOrder and jobs.itemStatus=item.itemStatus and jobs.jobid='" + jobID + "' and jobs.itemid='" + itemID + "' and jobs.itemNum Like '%" + searchkey + "%'");
+                string Query1 = ("SELECT jobs.itemNum as `מספר פריט בסט`, inTheGroup as `ייחשב בקבוצה`, jobs.itemDescription as `תיאור פריט`,jobs.itemStatus  as `סטטוס הפריט`, jobs.itemStageOrder as `מספר השלב הנוכחי`,stageName  as `שם השלב הנוכחי` ,item.stage_discription as `תאור השלב הנוכחי`,itemToFixStageOrder as `מספר השלב שבו זוהה כתקול (אם זוהה)`  FROM jobs,item WHERE jobs.itemid=item.itemid and jobs.itemStageOrder=item.itemStageOrder and jobs.itemStatus=item.itemStatus and jobs.jobid='" + jobID + "' and jobs.itemid='" + itemID + "' and jobs.itemNum Like '%" + searchkey + "%'");
                 MySqlCommand MSQLcrcommand1 = new MySqlCommand(Query1, MySqlConn);
                 MSQLcrcommand1.ExecuteNonQuery();
                 MySqlDataAdapter mysqlDAdp = new MySqlDataAdapter(MSQLcrcommand1);
@@ -159,7 +159,7 @@ namespace project
                 MySqlConnection MySqlConn = new MySqlConnection(Login.Connectionstring);
                 MySqlConn.Open();
                 String searchNamekey = this.StageNameSearchTextBox.Text;
-                string Query1 = ("SELECT jobs.itemNum as `מספר פריט בסט`, jobs.itemDescription as `תיאור פריט`,jobs.itemStatus  as `סטטוס הפריט`, jobs.itemStageOrder as `מספר השלב הנוכחי`,stageName  as `שם השלב הנוכחי` ,item.stage_discription as `תאור השלב הנוכחי`,itemToFixStageOrder as `מספר השלב שבו זוהה כתקול (אם זוהה)`  FROM jobs,item WHERE jobs.itemid=item.itemid and jobs.itemStageOrder=item.itemStageOrder and jobs.itemStatus=item.itemStatus and jobs.jobid='" + jobID + "'and jobs.itemid='" + itemID + "' and item.stageName Like '%" + searchNamekey + "%'");
+                string Query1 = ("SELECT jobs.itemNum as `מספר פריט בסט`, inTheGroup as `ייחשב בקבוצה`, jobs.itemDescription as `תיאור פריט`,jobs.itemStatus  as `סטטוס הפריט`, jobs.itemStageOrder as `מספר השלב הנוכחי`,stageName  as `שם השלב הנוכחי` ,item.stage_discription as `תאור השלב הנוכחי`,itemToFixStageOrder as `מספר השלב שבו זוהה כתקול (אם זוהה)`   FROM jobs,item WHERE jobs.itemid=item.itemid and jobs.itemStageOrder=item.itemStageOrder and jobs.itemStatus=item.itemStatus and jobs.jobid='" + jobID + "'and jobs.itemid='" + itemID + "' and item.stageName Like '%" + searchNamekey + "%'");
                 MySqlCommand MSQLcrcommand1 = new MySqlCommand(Query1, MySqlConn);
                 MSQLcrcommand1.ExecuteNonQuery();
                 MySqlDataAdapter mysqlDAdp = new MySqlDataAdapter(MSQLcrcommand1);
@@ -186,50 +186,148 @@ namespace project
             {
                 //System.Collections.IList rows = dataGrid1.SelectedItems;
                 DataRowView row = (DataRowView)dataGrid1.SelectedItems[0];
-                if (MessageBox.Show("?האם אתה בטוח שברצונך למחוק פריט זה", "וידוא מחיקה", MessageBoxButton.YesNo, MessageBoxImage.Warning) == MessageBoxResult.No)
+                if (MessageBox.Show("?האם אתה בטוח שברצונך למחוק פריט זה", "וידוא מחיקה", MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.No)
                 {
                     return;
                 }
                 else // if the user clicked on "Yes" so he wants to Delete.
                 {
                     string itemnum = row["מספר פריט בסט"].ToString();
+                    int thecountinitemid = 0;
+                    int thecountinjobid = 0;
+
+                    // see if this is the last item in this itemid
                     try
                     {
                         MySqlConnection MySqlConn = new MySqlConnection(Login.Connectionstring);
                         MySqlConn.Open();
-                        string Query1 = "DELETE FROM jobs WHERE jobid='" + jobID + "' and itemid='" + itemID + "'and itemNum='" + itemnum + "'";
+                        string Query1 = "select COUNT(itemNum) from jobs where itemid='" + itemID + "' and   jobid='" + jobID + "' ";
                         MySqlCommand MSQLcrcommand1 = new MySqlCommand(Query1, MySqlConn);
                         MSQLcrcommand1.ExecuteNonQuery();
                         MySqlDataAdapter mysqlDAdp = new MySqlDataAdapter(MSQLcrcommand1);
-                        MySqlConn.Close();
-                        MessageBox.Show("!הפריט נמחק מהעבודה");
-                    }
-                    catch (Exception ex)
-                    {
-                        MessageBox.Show(ex.Message);
-                    }
-                    try
-                    {
-                        MySqlConnection MySqlConn = new MySqlConnection(Login.Connectionstring);
-                        MySqlConn.Open();
-                        string Query1 = ("SELECT jobs.itemNum as `מספר פריט בסט`, jobs.itemDescription as `תיאור פריט`,jobs.itemStatus  as `סטטוס הפריט`, jobs.itemStageOrder as `מספר השלב הנוכחי`,stageName  as `שם השלב הנוכחי` ,item.stage_discription as `תאור השלב הנוכחי`,itemToFixStageOrder as `מספר השלב שבו זוהה כתקול (אם זוהה)`  FROM jobs,item WHERE jobs.itemid=item.itemid and jobs.itemStageOrder=item.itemStageOrder and jobs.itemStatus=item.itemStatus and jobs.jobid='" + jobID + "' and jobs.itemid='" + itemID + "' ");
-                        MySqlCommand MSQLcrcommand1 = new MySqlCommand(Query1, MySqlConn);
-                        MSQLcrcommand1.ExecuteNonQuery();
-                        MySqlDataAdapter mysqlDAdp = new MySqlDataAdapter(MSQLcrcommand1);
-                        dt.Clear();
-                        mysqlDAdp.Fill(dt);
-                        dataGrid1.ItemsSource = dt.DefaultView;
-                        mysqlDAdp.Update(dt);
+                        MySqlDataReader dr = MSQLcrcommand1.ExecuteReader();
+                        
+                        while (dr.Read())
+                        {
+                            if (!dr.IsDBNull(0))
+                            {
+                                thecountinitemid = dr.GetInt32(0);
+                            }
+
+                        }
                         MySqlConn.Close();
                     }
                     catch (Exception ex)
                     {
+                        Console.WriteLine("נפל בשורה מספר 222");
                         MessageBox.Show(ex.Message);
                     }
+                    Console.WriteLine("שורה  225 thecountinitemid=" + thecountinitemid);
+                    if (thecountinitemid > 1)
+                    {
+                        try
+                        {
+                            MySqlConnection MySqlConn = new MySqlConnection(Login.Connectionstring);
+                            MySqlConn.Open();
+                            string Query1 = "DELETE FROM jobs WHERE jobid='" + jobID + "' and itemid='" + itemID + "'and itemNum='" + itemnum + "'";
+                            MySqlCommand MSQLcrcommand1 = new MySqlCommand(Query1, MySqlConn);
+                            MSQLcrcommand1.ExecuteNonQuery();
+                            MySqlDataAdapter mysqlDAdp = new MySqlDataAdapter(MSQLcrcommand1);
+                            MySqlConn.Close();
+                            refreashandclear();
+                            MessageBox.Show("!הפריט נמחק מהעבודה", "הצלחה", MessageBoxButton.OK, MessageBoxImage.Information);
+                            return;
+                        }
+                        catch (Exception ex)
+                        {
+                            MessageBox.Show(ex.Message);
+                        }
+                    }
+                
+                    // if it is the last from the itemid then check if this is the last from the jobid.
+                    else 
+                    {
+                        try
+                        {
+                            MySqlConnection MySqlConn = new MySqlConnection(Login.Connectionstring);
+                            MySqlConn.Open();
+                            string Query1 = "select COUNT(itemNum) from jobs where jobid='" + jobID + "' ";
+                            MySqlCommand MSQLcrcommand1 = new MySqlCommand(Query1, MySqlConn);
+                            MSQLcrcommand1.ExecuteNonQuery();
+                            MySqlDataAdapter mysqlDAdp = new MySqlDataAdapter(MSQLcrcommand1);
+                            MySqlDataReader dr = MSQLcrcommand1.ExecuteReader();
+
+                            while (dr.Read())
+                            {
+                                if (!dr.IsDBNull(0))
+                                {
+                                    thecountinjobid = dr.GetInt32(0);
+                                }
+
+                            }
+                            MySqlConn.Close();
+                        }
+                        catch (Exception ex)
+                        {
+                            Console.WriteLine("נפל בשורה מספר 272");
+                            MessageBox.Show(ex.Message);
+                        }
+                        Console.WriteLine("שורה  275 thecountinjobid=" + thecountinjobid);
+                        if (thecountinjobid > 1)
+                        {
+                            try
+                            {
+                                MySqlConnection MySqlConn = new MySqlConnection(Login.Connectionstring);
+                                MySqlConn.Open();
+                                string Query1 = "DELETE FROM jobs WHERE jobid='" + jobID + "' and itemid='" + itemID + "'and itemNum='" + itemnum + "'";
+                                MySqlCommand MSQLcrcommand1 = new MySqlCommand(Query1, MySqlConn);
+                                MSQLcrcommand1.ExecuteNonQuery();
+                                MySqlDataAdapter mysqlDAdp = new MySqlDataAdapter(MSQLcrcommand1);
+                                MySqlConn.Close();
+                                refreashandclear();
+                                MessageBox.Show("!הפריט נמחק מהעבודה", "הצלחה", MessageBoxButton.OK, MessageBoxImage.Information);
+                                ManagerJobInfoGui MJIG = new ManagerJobInfoGui(jobID);
+                                MJIG.Show();
+                                Login.close = 1;
+                                this.Close();
+                            }
+                            catch (Exception ex)
+                            {
+                                MessageBox.Show(ex.Message);
+                            }
+                        }
+                        else // if this is the last item in this job then just update the job status to בוטלה
+                        {
+                            try
+                            {
+                                string Query1 = "UPDATE jobs SET job_status='בוטלה' WHERE jobid='" + jobID + "'";
+                                MySqlConnection MySqlConn = new MySqlConnection(Login.Connectionstring);
+                                MySqlConn.Open();
+                                MySqlCommand MSQLcrcommand1 = new MySqlCommand(Query1, MySqlConn);
+                                MSQLcrcommand1.ExecuteNonQuery();
+                                MySqlDataAdapter mysqlDAdp = new MySqlDataAdapter(MSQLcrcommand1);
+                                MySqlConn.Close();
+                                MessageBox.Show("בגלל שזהו הפריט האחרון בעבודה\n .הפריט לא נמחק אך סטטוס העבודה שונה לבוטלה", "שים לב - שינוי סטטוס עבודה", MessageBoxButton.OK, MessageBoxImage.Warning);
+                                return;
+                            }
+                            catch (Exception ex)
+                            {
+                                MessageBox.Show(ex.Message);
+                            }
+ 
+                        }
+
+                    }// end else -  if it is the last from the itemid then check if this is the last from the jobid.
+                    
+
+                    
                 }//end else
 
             }//end try
-            catch { MessageBox.Show("לא נבחר פריט למחיקה"); }
+            catch 
+            {
+                MessageBox.Show("לא נבחר פריט למחיקה", "שים לב", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
 
         }//end function
 
@@ -258,7 +356,7 @@ namespace project
                 DataRowView row = (DataRowView)dataGrid1.SelectedItems[0];
                 string itemnum = row["מספר פריט בסט"].ToString();
 
-                if (MessageBox.Show("?האם אתה בטוח שברצונך לעדכן פריט זה", "וידוא עדכון", MessageBoxButton.YesNo, MessageBoxImage.Warning) == MessageBoxResult.No)
+                if (MessageBox.Show("?האם אתה בטוח שברצונך לעדכן פריט זה", "וידוא עדכון", MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.No)
                 { }
                 else // if the user clicked on "Yes" so he wants to Update.
                 {
@@ -854,7 +952,7 @@ namespace project
             try
             {
                 DataRowView row = (DataRowView)dataGrid1.SelectedItems[0];
-                if (MessageBox.Show("?האם אתה בטוח שברצונך לחזור שלב  אחורה בפריט זה", "וידוא חזרת שלב", MessageBoxButton.YesNo, MessageBoxImage.Warning) == MessageBoxResult.No)
+                if (MessageBox.Show("?האם אתה בטוח שברצונך לחזור שלב  אחורה בפריט זה", "וידוא חזרת שלב", MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.No)
                 {
                     return; //do no stuff
                 }
@@ -993,7 +1091,7 @@ namespace project
 
             if (Login.close == 0) // then the user want to exit.
             {
-                if (MessageBox.Show("?האם אתה בטוח שברצונך לצאת מהמערכת ", "וידוא יציאה", MessageBoxButton.YesNo, MessageBoxImage.Warning) == MessageBoxResult.No)
+                if (MessageBox.Show("?האם אתה בטוח שברצונך לצאת מהמערכת ", "וידוא יציאה", MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.No)
                 {
                     e.Cancel = true; ; //don't exit.
                 }

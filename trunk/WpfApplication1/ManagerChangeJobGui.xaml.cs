@@ -232,7 +232,7 @@ namespace project
                                 if (!dr.IsDBNull(0))
                                 {
                                     Console.WriteLine("שורה 480");
-                                    if (MessageBox.Show("מספר הזמנה זהה כבר קיים האחרון ביותר היה עבור מספר עבודה " + dr.GetString(0) + "\n?האם ברצונך להוסיף בכל זאת", "מספר הזמנה קיים", MessageBoxButton.YesNo, MessageBoxImage.Warning) == MessageBoxResult.No)
+                                    if (MessageBox.Show("מספר הזמנה זהה כבר קיים האחרון ביותר היה עבור מספר עבודה " + dr.GetString(0) + "\n?האם ברצונך להוסיף בכל זאת", "מספר הזמנה קיים", MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.No)
                                     {
                                         MySqlConn.Close();
                                         return; //if user answerd NO
@@ -705,7 +705,7 @@ namespace project
 
             if (Login.close == 0) // then the user want to exit.
             {
-                if (MessageBox.Show("?האם אתה בטוח שברצונך לצאת מהמערכת ", "וידוא יציאה", MessageBoxButton.YesNo, MessageBoxImage.Warning) == MessageBoxResult.No)
+                if (MessageBox.Show("?האם אתה בטוח שברצונך לצאת מהמערכת ", "וידוא יציאה", MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.No)
                 {
                     e.Cancel = true; ; //don't exit.
                 }
@@ -745,7 +745,7 @@ namespace project
 
             if (Login.close == 0) // then the user want to exit.
             {
-                if (MessageBox.Show("?האם אתה בטוח שברצונך לצאת מהמערכת ", "וידוא יציאה", MessageBoxButton.YesNo, MessageBoxImage.Warning) == MessageBoxResult.No)
+                if (MessageBox.Show("?האם אתה בטוח שברצונך לצאת מהמערכת ", "וידוא יציאה", MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.No)
                 {
                     return; //don't exit.
                 }
