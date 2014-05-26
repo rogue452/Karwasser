@@ -244,7 +244,7 @@ namespace project
                 {
                     System.Collections.IList rows = dataGrid1.SelectedItems;
                     DataRowView row = (DataRowView)dataGrid1.SelectedItems[0];
-                    if (MessageBox.Show("?האם אתה בטוח שברצונך למחוק איש קשר זה", "וידוא מחיקה", MessageBoxButton.YesNo, MessageBoxImage.Warning) == MessageBoxResult.No)
+                    if (MessageBox.Show("?האם אתה בטוח שברצונך למחוק איש קשר זה", "וידוא מחיקה", MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.No)
                     {
                         //do no stuff
                     }
@@ -274,7 +274,7 @@ namespace project
                         }
                         if (con==1)
                         {
-                            if (MessageBox.Show(".זהו איש הקשר היחיד עבור לקוח זה\n  .מחיקה שלו תמחק את גם הלקוח\n  ?האם אתה רוצה למחוק בכל זאת", "וידוא מחיקת איש קשר יחיד", MessageBoxButton.YesNo, MessageBoxImage.Warning) == MessageBoxResult.No)
+                            if (MessageBox.Show(".זהו איש הקשר היחיד עבור לקוח זה\n  .מחיקה שלו תמחק את גם הלקוח\n  ?האם אתה רוצה למחוק בכל זאת", "וידוא מחיקת איש קשר יחיד", MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.No)
                             {
                                 return;
                             }
@@ -342,7 +342,7 @@ namespace project
                 DataRowView row = (DataRowView)dataGrid1.SelectedItems[0];
                 string selected = row["מספר איש קשר"].ToString();
                 // MessageBox.Show(""+selected+ "");
-                    if (MessageBox.Show("?האם אתה בטוח שברצונך לעדכן איש קשר זה", "וידוא עדכון", MessageBoxButton.YesNo, MessageBoxImage.Warning) == MessageBoxResult.No)
+                    if (MessageBox.Show("?האם אתה בטוח שברצונך לעדכן איש קשר זה", "וידוא עדכון", MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.No)
                     {
                         return; //dont do stuff
                     }
@@ -441,7 +441,7 @@ namespace project
 
             if (Login.close == 0) // then the user want to exit.
             {
-                if (MessageBox.Show("?האם אתה בטוח שברצונך לצאת מהמערכת ", "וידוא יציאה", MessageBoxButton.YesNo, MessageBoxImage.Warning) == MessageBoxResult.No)
+                if (MessageBox.Show("?האם אתה בטוח שברצונך לצאת מהמערכת ", "וידוא יציאה", MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.No)
                 {
                     e.Cancel = true; ; //don't exit.
                 }
