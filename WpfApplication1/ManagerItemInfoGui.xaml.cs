@@ -31,7 +31,8 @@ namespace project
 
             label1.Content = jobID;
             label4.Content = itemID;
-
+            refreashandclear();
+/*
             try
             {
                 MySqlConnection MySqlConn = new MySqlConnection(Login.Connectionstring);
@@ -50,6 +51,7 @@ namespace project
             {
                 MessageBox.Show(ex.Message);
             }
+ * */
         }
 
 
@@ -105,7 +107,7 @@ namespace project
             {
                 MySqlConnection MySqlConn = new MySqlConnection(Login.Connectionstring);
                 MySqlConn.Open();
-                string Query1 = ("SELECT jobs.itemNum as `מספר פריט בסט`, jobs.itemDescription as `תיאור פריט`,jobs.itemStatus  as `סטטוס הפריט`, jobs.itemStageOrder as `מספר השלב הנוכחי`,stageName  as `שם השלב הנוכחי` ,item.stage_discription as `תאור השלב הנוכחי`,itemToFixStageOrder as `מספר השלב שבו זוהה כתקול (אם זוהה)`  FROM jobs,item WHERE jobs.itemid=item.itemid and jobs.itemStageOrder=item.itemStageOrder and jobs.itemStatus=item.itemStatus and jobs.jobid='" + jobID + "' and jobs.itemid='" + itemID + "' ");
+                string Query1 = ("SELECT jobs.itemNum as `מספר פריט בסט`, inTheGroup as `ייחשב בקבוצה`, jobs.itemDescription as `תיאור פריט`,jobs.itemStatus  as `סטטוס הפריט`, jobs.itemStageOrder as `מספר השלב הנוכחי`,stageName  as `שם השלב הנוכחי` ,item.stage_discription as `תאור השלב הנוכחי`,itemToFixStageOrder as `מספר השלב שבו זוהה כתקול (אם זוהה)`  FROM jobs,item WHERE jobs.itemid=item.itemid and jobs.itemStageOrder=item.itemStageOrder and jobs.itemStatus=item.itemStatus and jobs.jobid='" + jobID + "' and jobs.itemid='" + itemID + "' ");
                 MySqlCommand MSQLcrcommand1 = new MySqlCommand(Query1, MySqlConn);
                 MSQLcrcommand1.ExecuteNonQuery();
                 MySqlDataAdapter mysqlDAdp = new MySqlDataAdapter(MSQLcrcommand1);
@@ -262,9 +264,9 @@ namespace project
                 {
                     string status = row["סטטוס הפריט"].ToString();
                     string itemdes = row["תיאור פריט"].ToString();
-
+                    string isIn = row["ייחשב בקבוצה"].ToString();
                     // check if the item status pattern exist.
-                    try
+               /*     try
                     {
                         MySqlConnection MySqlConn = new MySqlConnection(Login.Connectionstring);
                         MySqlConn.Open();
@@ -290,14 +292,14 @@ namespace project
                         }
                     }
                     catch (Exception ex) { MessageBox.Show(ex.Message); return; }
-
+                    */
 
                     //doing the update
                     try
                     {
                         MySqlConnection MySqlConn = new MySqlConnection(Login.Connectionstring);
                         MySqlConn.Open();
-                        string Query1 = "update jobs set itemStatus='" + status + "', itemDescription='" + itemdes + "'  where jobid='" + jobID + "' and itemid='" + itemID + "'and itemNum='" + itemnum + "'";
+                        string Query1 = "update jobs set itemStatus='" + status + "', itemDescription='" + itemdes + "' , inTheGroup='" + isIn + "'  where jobid='" + jobID + "' and itemid='" + itemID + "'and itemNum='" + itemnum + "'";
                         MySqlCommand MSQLcrcommand1 = new MySqlCommand(Query1, MySqlConn);
                         MSQLcrcommand1.ExecuteNonQuery();
                         MySqlDataAdapter mysqlDAdp = new MySqlDataAdapter(MSQLcrcommand1);
@@ -306,9 +308,9 @@ namespace project
 
                     }
                     catch (Exception ex) { MessageBox.Show(ex.Message); return; }
+                    refreashandclear();
 
-
-                    // refreash (need to change Query1)
+                  /*  // refreash (need to change Query1)
                     try
                     {
                         MySqlConnection MySqlConn = new MySqlConnection(Login.Connectionstring);
@@ -327,7 +329,7 @@ namespace project
                     catch (Exception ex)
                     {
                         MessageBox.Show(ex.Message);
-                    }
+                    }*/
                 }
             }
             catch { MessageBox.Show("לא נבחר פריט לעדכון "); }
