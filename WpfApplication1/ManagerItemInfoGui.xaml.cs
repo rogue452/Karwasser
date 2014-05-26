@@ -344,11 +344,6 @@ namespace project
 
 
 
-        //////////////////////
-        //////////////////////
-        // This func is not complete and will be changed 
-        /////////////////////
-        /////////////////////
         private void UpdateBtn_Click(object sender, RoutedEventArgs e)
         {
             try
@@ -357,40 +352,18 @@ namespace project
                 string itemnum = row["מספר פריט בסט"].ToString();
 
                 if (MessageBox.Show("?האם אתה בטוח שברצונך לעדכן פריט זה", "וידוא עדכון", MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.No)
-                { }
+                {
+                    return;
+                }
                 else // if the user clicked on "Yes" so he wants to Update.
                 {
-                    string status = row["סטטוס הפריט"].ToString();
-                    string itemdes = row["תיאור פריט"].ToString();
-                    string isIn = row["ייחשב בקבוצה"].ToString();
-                    // check if the item status pattern exist.
-               /*     try
+                    string itemdes = "";
+                    if (!string.IsNullOrWhiteSpace(row["תיאור פריט"].ToString()))
                     {
-                        MySqlConnection MySqlConn = new MySqlConnection(Login.Connectionstring);
-                        MySqlConn.Open();
-                        string Query1 = ("SELECT item.itemStatus FROM item WHERE item.itemid='" + itemID + " AND itemStatus='" + status + " ");
-                        MySqlCommand MSQLcrcommand1 = new MySqlCommand(Query1, MySqlConn);
-                        MSQLcrcommand1.ExecuteNonQuery();
-                        MySqlDataAdapter mysqlDAdp = new MySqlDataAdapter(MSQLcrcommand1);
-                        MySqlDataReader dr = MSQLcrcommand1.ExecuteReader();
-                        int exist = 0;
-                        while (dr.Read())
-                        {
-                            if (!dr.IsDBNull(0))
-                            {
-                                exist=1;
-                            }
-                        }
-                        MySqlConn.Close();
-                        if (exist == 0)
-                        {
-                            MessageBox.Show("!לא נוצרו עדיין שלבים עבור הסטטוס שבחרת - סטטוס לא עודכן");
-                            // need to do refreash here.
-                            return;
-                        }
+                        itemdes = row["תיאור פריט"].ToString();
                     }
-                    catch (Exception ex) { MessageBox.Show(ex.Message); return; }
-                    */
+                    string status = row["סטטוס הפריט"].ToString();
+                    string isIn = row["ייחשב בקבוצה"].ToString();
 
                     //doing the update
                     try
@@ -402,35 +375,21 @@ namespace project
                         MSQLcrcommand1.ExecuteNonQuery();
                         MySqlDataAdapter mysqlDAdp = new MySqlDataAdapter(MSQLcrcommand1);
                         MySqlConn.Close();
-
-
                     }
-                    catch (Exception ex) { MessageBox.Show(ex.Message); return; }
-                    refreashandclear();
-
-                  /*  // refreash (need to change Query1)
-                    try
-                    {
-                        MySqlConnection MySqlConn = new MySqlConnection(Login.Connectionstring);
-                        MySqlConn.Open();
-                        string Query1 = ("SELECT jobs.itemNum as `מספר פריט בסט`,jobs.itemStatus  as `סטטוס הפריט`, jobs.itemStageOrder as `מספר השלב הנוכחי`,stageName  as `שם השלב הנוכחי` ,item.stage_discription as `תאור השלב הנוכחי`,itemToFixStageOrder as `מספר השלב שבו זוהה כתקול (אם זוהה)`  FROM jobs,item WHERE jobs.itemid=item.itemid and jobs.itemStageOrder=item.itemStageOrder and jobs.itemStatus=item.itemStatus and jobs.jobid='" + jobID + "' and jobs.itemid='" + itemID + "' ");
-                        MySqlCommand MSQLcrcommand1 = new MySqlCommand(Query1, MySqlConn);
-                        MSQLcrcommand1.ExecuteNonQuery();
-                        MySqlDataAdapter mysqlDAdp = new MySqlDataAdapter(MSQLcrcommand1);
-                        dt.Clear();
-                        mysqlDAdp.Fill(dt);
-                        dataGrid1.ItemsSource = dt.DefaultView;
-                        mysqlDAdp.Update(dt);
-                        MySqlConn.Close();
-                        MessageBox.Show ("סטטוס התעדכן");
-                    }
-                    catch (Exception ex)
+                    catch (Exception ex) 
                     {
                         MessageBox.Show(ex.Message);
-                    }*/
+                        return; 
+                    }
+                    MessageBox.Show("!הפריט עודכן", "הצלחה", MessageBoxButton.YesNo, MessageBoxImage.Information);
+                    refreashandclear();
+
                 }
             }
-            catch { MessageBox.Show("לא נבחר פריט לעדכון "); }
+            catch 
+            {
+                MessageBox.Show("!לא נבחר פריט לעדכון", "שים לב", MessageBoxButton.YesNo, MessageBoxImage.Error);
+            }
         }
             
     
@@ -541,7 +500,7 @@ namespace project
 
 
 
-
+/*
 
         private void Add_Existing_button_Click(object sender, RoutedEventArgs e)
         {
@@ -550,6 +509,7 @@ namespace project
             Login.close = 1;
             this.Close();
         }
+*/
 
 
 
@@ -601,7 +561,7 @@ namespace project
                     }
                     catch (Exception ex)
                     {
-                        Console.WriteLine("נפל בשורה מספר 404");
+                        Console.WriteLine("נפל בשורה מספר 564");
                         MessageBox.Show(ex.Message);
                     }
 
@@ -680,7 +640,7 @@ namespace project
                     } // end try
                     catch (Exception ex)
                     {
-                        Console.WriteLine("נפל בשורה מספר 550");
+                        Console.WriteLine("נפל בשורה מספר 643");
                         MessageBox.Show(ex.Message);
                     }
 
@@ -707,7 +667,7 @@ namespace project
                     catch (Exception ex) 
                     {
                         MessageBox.Show(ex.Message);
-                        Console.WriteLine("נפל בשורה מספר 458");
+                        Console.WriteLine("נפל בשורה מספר 670");
                         return; 
                     }
                     if (last == true)
