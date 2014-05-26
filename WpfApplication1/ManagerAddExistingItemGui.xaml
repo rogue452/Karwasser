@@ -19,7 +19,7 @@
         <Image Height="29" HorizontalAlignment="Right" Margin="0,576,1157,0" Name="image7" Stretch="Fill" VerticalAlignment="Top" Width="33" Source="/WpfApplication1;component/Images/back.png" />
         <Button Content="שלבי הכנת פריט" Height="56" HorizontalAlignment="Right" Margin="0,41,94,0" Name="Item_Stages_button" VerticalAlignment="Top" Width="125" Click="Item_Stages_button_Click" FontWeight="Bold" />
         <Image Height="39" HorizontalAlignment="Left" Margin="1015,0,0,0" Name="image5" Stretch="Fill" VerticalAlignment="Top" Width="41" Source="/WpfApplication1;component/Images/window_process.png" />
-        <Button Content="הוסף הפריט/ים לעבודה" Height="56" HorizontalAlignment="Left" Margin="598,0,0,511" Name="Add_Existing_button" VerticalAlignment="Bottom" Width="165" FontWeight="Bold" Click="Add_Existing_button_Click" Background="#8400A500" />
+        <Button Content="הוסף הפריט/ים לעבודה" Height="56" HorizontalAlignment="Left" Margin="598,41,0,0" Name="Add_Existing_button" VerticalAlignment="Top" Width="165" FontWeight="Bold" Click="Add_Existing_button_Click" Background="#8400A500" />
         <Label Content="או" Height="28" HorizontalAlignment="Left" Margin="34,48,0,0" Name="label5" VerticalAlignment="Top" />
     </Grid>
 </Window>
