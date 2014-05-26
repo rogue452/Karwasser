@@ -264,6 +264,7 @@ namespace project
                                     MySqlConnection MySqlConn = new MySqlConnection(Login.Connectionstring);
                                     MySqlConn.Open();
                                     string Query1 = "(SELECT *, MAX(itemNum) FROM project.jobs WHERE jobid='" + jobID + "' AND itemid='" + itemid + "')";
+                                    Console.WriteLine("שורה 267 Query1 = " + Query1);
                                     MySqlCommand crcommand1 = new MySqlCommand(Query1, MySqlConn);
                                     crcommand1.ExecuteNonQuery();
                                     MySqlDataReader dr1 = crcommand1.ExecuteReader();
@@ -275,37 +276,57 @@ namespace project
                                         if (!dr1.IsDBNull(0))  
                                         {
                                             count1++; // inc count only if there are already items with this itemid for this jobid.
-                                            Console.WriteLine(+count1);
-                                            maxItemNum = dr1.GetInt32(22); // get the added MAX(itemNum) column
+                                            Console.WriteLine("שורה 279 count1 = " + count1);
+                                            maxItemNum = dr1.GetInt32(25); // get the added MAX(itemNum) column
+                                            Console.WriteLine("שורה 281 maxItemNum = " + maxItemNum);
                                             expectedItemQuantity = dr1.GetInt32(5);
+                                            Console.WriteLine("שורה 283 expectedItemQuantity = " + expectedItemQuantity);
                                             costumerid = dr1.GetString(6);
+                                            Console.WriteLine("שורה 285 costumerid = " + costumerid);
                                             itemsDescription = dr1.GetString(8);
+                                            Console.WriteLine("שורה 287 itemsDescription = " + itemsDescription);
                                             job_status = dr1.GetString(10);
+                                            Console.WriteLine("שורה 289 job_status = " + job_status);
                                             jobdescription = dr1.GetString(11);
+                                            Console.WriteLine("שורה 291 jobdescription = " + jobdescription);
                                             startDate = dr1.GetString(12);
+                                            Console.WriteLine("שורה 293 startDate = " + startDate);
                                             startDate = Convert.ToDateTime(startDate).ToString("yyyy-MM-dd");
+                                            Console.WriteLine("שורה 295 startDate = " + startDate);
                                             expectedFinishDate = dr1.GetString(13);
+                                            Console.WriteLine("שורה 297 expectedFinishDate = " + expectedFinishDate);
                                             expectedFinishDate = Convert.ToDateTime(expectedFinishDate).ToString("yyyy-MM-dd");
+                                            Console.WriteLine("שורה 299 expectedFinishDate = " + expectedFinishDate);
                                             contact_id = dr1.GetString(15);
+                                            Console.WriteLine("שורה 301 contact_id = " + contact_id);
                                             orderid = dr1.GetString(16);
+                                            Console.WriteLine("שורה 303 orderid = " + orderid);
                                             group_Status = dr1.GetString(17);
+                                            Console.WriteLine("שורה 305 group_Status = " + group_Status);
                                             group_StageOrder = dr1.GetString(18);
+                                            Console.WriteLine("שורה 307 group_StageOrder = " + group_StageOrder);
                                             deliveryid = dr1.GetString(19);
+                                            Console.WriteLine("שורה 309 deliveryid = " + deliveryid);
                                             invoiceNumber = dr1.GetString(20);
+                                            Console.WriteLine("שורה 311 invoiceNumber = " + invoiceNumber);
                                             group_costomer_itemid = dr1.GetString(21);
+                                            Console.WriteLine("שורה 312 group_costomer_itemid = " + group_costomer_itemid);
                                             group_itemToFixStageOrder= dr1.GetString(22);
+                                            Console.WriteLine("שורה 315 group_itemToFixStageOrder = " + group_itemToFixStageOrder);
                                             reg_date = dr1.GetString(24);
+                                            Console.WriteLine("שורה 317 reg_date = " + reg_date);
                                             reg_date = Convert.ToDateTime(reg_date).ToString("yyyy-MM-dd");
+                                            Console.WriteLine("שורה 319 reg_date = " + reg_date);
                                         }
                                     }
                                     MySqlConn.Close();
-
+                                    Console.WriteLine("שורה 323 לפני בדיקה האם המקט כבר קיים");
                                     if (count1 == 1)// if an itemid already exist in this job.
                                     {
                                       //  int new_expected = new_item_quantity + expectedItemQuantity;
                                         for (int i = 1; i <= new_item_quantity; i++)
                                         {
-                                            Console.WriteLine("לפני שאילתא");
+                                            Console.WriteLine("שורה 329 if (count1 == 1)// if an itemid already exist in this job.");
                                             maxItemNum++; 
                                           //  string itemid = dri["מקט פריט"].ToString();
                                             try
@@ -313,6 +334,7 @@ namespace project
                                                 MySqlConnection MySqlConn1 = new MySqlConnection(Login.Connectionstring);
                                                 MySqlConn1.Open();
                                                 string Query2 = ("INSERT INTO project.jobs (jobid, itemid,itemNum,itemStatus,itemStageOrder, expectedItemQuantity,costumerid, itemsDescription, job_status, jobdescription, startDate, expectedFinishDate, contact_id , orderid , group_Status , group_StageOrder , deliveryid , invoiceNumber , group_costomer_itemid, group_itemToFixStageOrder, reg_date ) VALUES ('" + jobID + "','" + itemid + "','" + maxItemNum + "','" + itemStatus + "','" + itemStageOrder + "','" + expectedItemQuantity + "','" + costumerid + "','" + itemsDescription + "','" + job_status + "','" + jobdescription + "','" + startDate + "','" + expectedFinishDate + "','" + contact_id + "','" + orderid + "','" + group_Status + "','" + group_StageOrder + "','" + deliveryid + "','" + invoiceNumber + "','" + group_costomer_itemid + "','" + group_itemToFixStageOrder + "','" + reg_date + "')");
+                                                Console.WriteLine("שורה 377 Query2 = " + Query2);
                                                 MySqlCommand MSQLcrcommand2 = new MySqlCommand(Query2, MySqlConn1);
                                                 MSQLcrcommand2.ExecuteNonQuery();
                                                 MySqlDataAdapter mysqlDAdp1 = new MySqlDataAdapter(MSQLcrcommand2);
@@ -350,9 +372,11 @@ namespace project
                                     {
                                         try
                                         {
+                                            Console.WriteLine("שורה 373 cound1==0 so no such itemid for this jobid. ");
                                             MySqlConnection MySqlConn5 = new MySqlConnection(Login.Connectionstring);
                                             MySqlConn5.Open();
                                             string Query5 = "(SELECT *, MAX(itemNum) FROM project.jobs WHERE jobid='" + jobID + "')";
+                                            Console.WriteLine("שורה 377 Query5 = " + Query5);
                                             MySqlCommand crcommand5 = new MySqlCommand(Query5, MySqlConn5);
                                             crcommand5.ExecuteNonQuery();
                                             MySqlDataReader dr5 = crcommand5.ExecuteReader();
@@ -360,28 +384,43 @@ namespace project
                                             while (dr5.Read())
                                             {
                                                 expectedItemQuantity = dr5.GetInt32(5);
+                                                Console.WriteLine("שורה 384 expectedItemQuantity = " + expectedItemQuantity);
                                                 costumerid = dr5.GetString(6);
+                                                Console.WriteLine("שורה 386 costumerid = " + costumerid);
                                                 itemsDescription = dr5.GetString(8);
+                                                Console.WriteLine("שורה 388 itemsDescription = " + itemsDescription);
                                                 job_status = dr5.GetString(10);
+                                                Console.WriteLine("שורה 390 job_status = " + job_status);
                                                 jobdescription = dr5.GetString(11);
+                                                Console.WriteLine("שורה 392 jobdescription = " + jobdescription);
                                                 startDate = dr5.GetString(12);
+                                                Console.WriteLine("שורה 394 startDate = " + startDate);
                                                 startDate = Convert.ToDateTime(startDate).ToString("yyyy-MM-dd");
+                                                Console.WriteLine("שורה 396 startDate = " + startDate);
                                                 expectedFinishDate = dr5.GetString(13);
+                                                Console.WriteLine("שורה 398 expectedFinishDate = " + expectedFinishDate);
                                                 expectedFinishDate = Convert.ToDateTime(expectedFinishDate).ToString("yyyy-MM-dd");
+                                                Console.WriteLine("שורה 400 expectedFinishDate = " + expectedFinishDate);
                                                 contact_id = dr5.GetString(15);
+                                                Console.WriteLine("שורה 402 contact_id = " + contact_id);
 
-                                                orderid = dr1.GetString(16);
-                                                deliveryid = dr1.GetString(19);
-                                                invoiceNumber = dr1.GetString(20);
-                                                reg_date = dr1.GetString(24);
+                                                orderid = dr5.GetString(16);
+                                                Console.WriteLine("שורה 405 orderid = " + orderid);
+                                                deliveryid = dr5.GetString(19);
+                                                Console.WriteLine("שורה 407 deliveryid = " + deliveryid);
+                                                invoiceNumber = dr5.GetString(20);
+                                                Console.WriteLine("שורה 409 invoiceNumber = " + invoiceNumber);
+                                                reg_date = dr5.GetString(24);
+                                                Console.WriteLine("שורה 411 reg_date = " + reg_date);
                                                 reg_date = Convert.ToDateTime(reg_date).ToString("yyyy-MM-dd");
+                                                Console.WriteLine("שורה 413 reg_date = " + reg_date);
                                             }
                                             MySqlConn5.Close();
                                         }
                                         catch (Exception ex)
                                         {
                                             MessageBox.Show(ex.Message);
-                                            Console.WriteLine("Query5");
+                                            Console.WriteLine("שורה 423");
                                             return;
                                         }
 
@@ -389,12 +428,13 @@ namespace project
                                         for (int i = 1; i <= new_item_quantity; i++)
                                         {
                                             itemNum++;
-                                            
+                                            Console.WriteLine("שורה 430 itemNum = " + itemNum);
                                             try
                                             {
                                                 MySqlConnection MySqlConn4 = new MySqlConnection(Login.Connectionstring);
                                                 MySqlConn4.Open();
                                                 string Query4 = ("INSERT INTO project.jobs (jobid, itemid,itemNum,itemStatus,itemStageOrder, expectedItemQuantity,costumerid, itemsDescription, job_status, jobdescription, startDate, expectedFinishDate, contact_id , orderid  , deliveryid , invoiceNumber , reg_date) VALUES ('" + jobID + "','" + itemid + "','" + itemNum + "','" + itemStatus + "','" + itemStageOrder + "','" + new_item_quantity + "','" + costumerid + "','" + itemsDescription + "','" + job_status + "','" + jobdescription + "','" + startDate + "','" + expectedFinishDate + "','" + contact_id + "','" + orderid + "','" + deliveryid + "','" + invoiceNumber + "','" + reg_date + "')");
+                                                Console.WriteLine("שורה 436 Query4 = " + Query4);
                                                 MySqlCommand MSQLcrcommand4 = new MySqlCommand(Query4, MySqlConn4);
                                                 MSQLcrcommand4.ExecuteNonQuery();
                                                 MySqlDataAdapter mysqlDAdp4 = new MySqlDataAdapter(MSQLcrcommand4);
@@ -404,7 +444,7 @@ namespace project
                                             catch (Exception ex)
                                             {
                                                 MessageBox.Show(ex.Message);
-                                                Console.WriteLine("Query4");
+                                                Console.WriteLine("שורה 445");
                                                 return;
                                             }
 
