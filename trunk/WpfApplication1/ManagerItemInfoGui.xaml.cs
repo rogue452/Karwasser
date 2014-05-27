@@ -364,14 +364,195 @@ namespace project
                     }
                     string status = row["סטטוס הפריט"].ToString();
                     string isIn = row["ייחשב בקבוצה"].ToString();
+                    string currStageOrder = row["מספר השלב הנוכחי"].ToString();
+
+
+                    // now we will check if the status of the item was chenged and get some info.
+                    bool itemStatusChanged = false;
+                    string oldstatus = "", oldStageOrder = "", itemToFixStageOrder="";
+                    try
+                    {
+                        Console.WriteLine("שורה 375");
+                        MySqlConnection MySqlConn = new MySqlConnection(Login.Connectionstring);
+                        MySqlConn.Open();
+                        string Query1 = ("SELECT itemStatus ,itemStageOrder,itemToFixStageOrder FROM project.jobs WHERE jobid='" + jobID + "' AND itemid='" + itemID + "' AND itemNum='" + itemnum + "'  ");
+                        MySqlCommand MSQLcrcommand1 = new MySqlCommand(Query1, MySqlConn);
+                        MSQLcrcommand1.ExecuteNonQuery();
+                        MySqlDataReader dr = MSQLcrcommand1.ExecuteReader();
+                        MySqlDataAdapter mysqlDAdp = new MySqlDataAdapter(MSQLcrcommand1);
+                        Console.WriteLine("שורה 383");
+                        while (dr.Read())
+                        {
+                            if (!dr.IsDBNull(0))
+                            {
+                                Console.WriteLine("שורה 236");
+
+                                if (status != dr.GetString(0)) // if status chenged.
+                                {// if item status changed.
+                                    oldstatus = dr.GetString(0); // get the old itemStatus.
+                                    oldStageOrder = dr.GetString(1); // get the old itemStageOrder.
+                                    itemToFixStageOrder = dr.GetString(2); // get the old itemToFixStageOrder.
+                                    itemStatusChanged = true;
+                                    Console.WriteLine(itemStatusChanged);
+                                }
+                                else
+                                {
+                                    oldstatus = status;
+                                    oldStageOrder = currStageOrder;
+                                }
+
+                            }
+                        }
+                        dr.Close();
+                        MySqlConn.Close();
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show(ex.Message);
+                        refreashandclear();
+                        return;
+                    }
+
+
+                    string Query2 = "";
+
+                    if (itemStatusChanged == true)
+                    {
+                        Query2 = "update jobs set itemStatus='" + status + "', itemStageOrder='1' , itemDescription='" + itemdes + "' , inTheGroup='" + isIn + "'  where jobid='" + jobID + "' and itemid='" + itemID + "' and itemNum='" + itemnum + "'";
+
+                        if ((oldstatus == "פסול") && (status != "תיקון"))
+                        {// if the user wants to change from bad status and the new status is NOT fix 
+                            MessageBox.Show("!מעבר מסטטוס פסול אפשרי רק אל סטטוס תיקון - עדכון לא אושר", "!שים לב", MessageBoxButton.OK, MessageBoxImage.Error);
+                            refreashandclear();
+                            return;
+                        }
+
+
+                        if ((oldstatus == "גמר ייצור") && (oldStageOrder != "0") && (status == "תיקון"))
+                        {
+                            MessageBox.Show("!מעבר אל שלב התיקון אפשרי בשלב גמר ייצור רק ממספר שלב 0 - עדכון לא אושר", "!שים לב", MessageBoxButton.OK, MessageBoxImage.Error);
+                            refreashandclear();
+                            return;
+                        }
+
+                        if ((oldstatus == "תיקון") && (itemToFixStageOrder != "0") && (status == "גמר ייצור"))
+                        {
+                            MessageBox.Show("!הפריט נכנס לתיקון מסטטוס בעבודה ולכן לא יכול לעבור אל סטטוס גמר ייצור", "!שים לב", MessageBoxButton.OK, MessageBoxImage.Error);
+                            refreashandclear();
+                            return;
+                        }
+
+                        if ((oldstatus == "תיקון") && (status != "בעבודה"))
+                        {
+                            if (status != "גמר ייצור")
+                            {
+                                if (status != "פסול")
+                                {
+                                    if (status != "גמר ייצור")
+                                    {
+                                        MessageBox.Show(":מעבר מסטטוס התיקון אפשרי רק אל הסטטוסים הבאים \n גמר ייצור, פסול או  בעבודה.\n העדכון לא אושר", "!שים לב", MessageBoxButton.OK, MessageBoxImage.Error);
+                                        refreashandclear();
+                                        return;  
+                                    }
+                                }
+                            }
+                        }
+
+
+                        if ((status == "תיקון") && (oldstatus != "בעבודה"))
+                        {
+                            if (oldstatus != "גמר ייצור")
+                            {
+                                if (oldstatus != "פסול")
+                                {
+                                    MessageBox.Show("עדכון לא אושר \n .מעבר אל סטטוס התיקון אפשרי רק מהסטטוסים פסול, בעבודה או גמר ייצור בשלב מספר 0", "!שים לב", MessageBoxButton.OK, MessageBoxImage.Error);
+                                    refreashandclear();
+                                    return;
+                                }
+                            }
+                        }
+
+
+                        if (oldstatus != "תיקון" && status == "פסול")
+                        {
+                            MessageBox.Show("!מעבר אל סטטוס פסול אפשרי רק משלב תיקון - עדכון לא אושר", "!שים לב", MessageBoxButton.OK, MessageBoxImage.Error);
+                            refreashandclear();
+                            return;
+                        }
+
+
+                        if (status == "גמר ייצור")
+                        {
+                            Query2 = "update jobs set itemStatus='" + status + "' , itemStageOrder='0' , itemDescription='" + itemdes + "' , inTheGroup='" + isIn + "'  where jobid='" + jobID + "' and itemid='" + itemID + "' and itemNum='" + itemnum + "'";
+                        }
+                        Console.WriteLine("Query2= " + Query2);
+
+
+                        if (oldstatus == "תיקון" && status == "גמר ייצור")
+                        {// we would be here only if itemToFixStageOrder=0
+
+                            Query2 = "update jobs set itemStatus='" + status + "' , itemStageOrder='0' , itemToFixStageOrder='הפריט חזר מתיקון מסטטוס גמר ייצור' ,itemDescription='" + itemdes + "' , inTheGroup='" + isIn + "'  where jobid='" + jobID + "' and itemid='" + itemID + "' and itemNum='" + itemnum + "'";
+
+                        } Console.WriteLine("Query2= " + Query2);
+
+
+                        if (oldstatus == "תיקון" && status == "בעבודה")
+                        {
+                            Query2 = "update jobs set itemStatus='" + status + "' , itemStageOrder='" + itemToFixStageOrder + "' , itemToFixStageOrder='הפריט חזר מתיקון מסטטוס בעבודה' ,itemDescription='" + itemdes + "' , inTheGroup='" + isIn + "'  where jobid='" + jobID + "' and itemid='" + itemID + "' and itemNum='" + itemnum + "'";
+                        }
+                        Console.WriteLine("Query2= " + Query2);
+
+
+                        if (oldstatus == "גמר ייצור" && status == "תיקון")
+                        {
+                            Query2 = "update jobs set itemStatus='" + status + "' , itemStageOrder='1' , itemToFixStageOrder='0' ,itemDescription='" + itemdes + "' , inTheGroup='" + isIn + "'  where jobid='" + jobID + "' and itemid='" + itemID + "' and itemNum='" + itemnum + "'";
+                        } Console.WriteLine("Query2= " + Query2);
+
+
+                        if (oldstatus == "בעבודה" && status == "תיקון")
+                        {
+                            Query2 = "update jobs set itemStatus='" + status + "' , itemStageOrder='1' , itemToFixStageOrder='" + currStageOrder + "' ,itemDescription='" + itemdes + "' , inTheGroup='" + isIn + "'  where jobid='" + jobID + "' and itemid='" + itemID + "' and itemNum='" + itemnum + "'";
+                        }
+                        Console.WriteLine("Query2= " + Query2);
+
+
+                        // now before we update our item, if status is "תיקון" or "פסול" (and we did not came from פסול - need to ask about that) then we need to update the "fix" table in the DB with: jobid - itemid - itemnum - itemStageOrder - stageName - fromFixOrBad - itemToFixStageOrder - dateAddedToFixTable.
+                        if ((status == "תיקון" || status == "פסול") && (oldstatus != "פסול"))
+                        {
+                            try
+                            {
+                                MySqlConnection MySqlConn33 = new MySqlConnection(Login.Connectionstring);
+                                MySqlConn33.Open();
+                                string Query33 = ("INSERT INTO project.fix (jobid, itemid,itemNum, itemStageOrder,stageStatusName, fromFixOrBad , itemToFixStageOrder , dateAddedToFixTable) VALUES ('" + jobID + "','" + itemID + "','" + itemnum + "','" + oldStageOrder + "','" + oldstatus + "','" + status + "','" + itemToFixStageOrder + "', '" + DateTime.Now.ToString("yyyy-MM-dd-HH-mm-ss") + "')");
+                                Console.WriteLine("השאילתא הנשלחת לפיקס  - " + Query33 + "");
+                                MySqlCommand MSQLcrcommand33 = new MySqlCommand(Query33, MySqlConn33);
+                                MSQLcrcommand33.ExecuteNonQuery();
+                                MySqlDataAdapter mysqlDAdp33 = new MySqlDataAdapter(MSQLcrcommand33);
+                                MySqlConn33.Close();
+                            }
+                            catch (Exception ex)
+                            {
+                                MessageBox.Show(ex.Message);
+                                refreashandclear();
+                                return;
+                            }
+                        }// end of if (status == "תיקון" || status == "פסול")
+                        // finish updateing the fix table in the DB
+
+                    } // end of if (itemStatusChanged == true)
+
+                    else
+                    {
+                        Query2 = "update jobs set itemDescription='" + itemdes + "' , inTheGroup='" + isIn + "'  where jobid='" + jobID + "' and itemid='" + itemID + "' and itemNum='" + itemnum + "'";
+                    }
+
 
                     //doing the update
                     try
                     {
                         MySqlConnection MySqlConn = new MySqlConnection(Login.Connectionstring);
                         MySqlConn.Open();
-                        string Query1 = "update jobs set itemStatus='" + status + "', itemDescription='" + itemdes + "' , inTheGroup='" + isIn + "'  where jobid='" + jobID + "' and itemid='" + itemID + "'and itemNum='" + itemnum + "'";
-                        MySqlCommand MSQLcrcommand1 = new MySqlCommand(Query1, MySqlConn);
+                        MySqlCommand MSQLcrcommand1 = new MySqlCommand(Query2, MySqlConn);
                         MSQLcrcommand1.ExecuteNonQuery();
                         MySqlDataAdapter mysqlDAdp = new MySqlDataAdapter(MSQLcrcommand1);
                         MySqlConn.Close();
@@ -381,14 +562,14 @@ namespace project
                         MessageBox.Show(ex.Message);
                         return; 
                     }
-                    MessageBox.Show("!הפריט עודכן", "הצלחה", MessageBoxButton.YesNo, MessageBoxImage.Information);
+                    MessageBox.Show("!הפריט עודכן", "הצלחה", MessageBoxButton.OK, MessageBoxImage.Information);
                     refreashandclear();
 
                 }
             }
             catch 
             {
-                MessageBox.Show("!לא נבחר פריט לעדכון", "שים לב", MessageBoxButton.YesNo, MessageBoxImage.Error);
+                MessageBox.Show("!לא נבחר פריט לעדכון", "שים לב", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
             

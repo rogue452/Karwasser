@@ -291,7 +291,7 @@ namespace project
 //////////////////////////////////////////////////////////////////////
                     else // user changed the group status.
                     {//        if the changed is not allwoed.
-                        bool fromFixToWork = false, fromWorkToFix = false , fromFixToFinish=false , fromFinishToFix=false , fromFixToBad=false , badToWork=false ,badToFix=false ,badToFinish=false ;
+                        bool fromFixToWork = false, fromWorkToFix = false , fromFixToFinish=false , fromFinishToFix=false , fromFixToBad=false , badToFix=false;  // badToWork=false ,badToFinish=false ;
                         string group_itemToFixStageOrder="";
                         int no_advence = 0; // if there are items in the group that do not match the new status rules.
                         // now we are going to save the group from the DB to a DataSet.
@@ -851,6 +851,578 @@ namespace project
 
 
 
+        private void NextStage_button_Click(object sender, RoutedEventArgs e)
+        {
+
+            string next_stage = "";
+            string group_Status = "";
+            string next_status = "";
+            string group_itemToFixStageOrder = "";
+            bool last = false;
+            string Query1 = "";
+            try
+            {
+                DataRowView row = (DataRowView)dataGrid1.SelectedItems[0];
+                if (MessageBox.Show("?האם אתה בטוח שברצונך לקדם קבוצת פריט זה", "וידוא קידום", MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.No)
+                {
+                    return; //do no stuff
+                }
+                else // if the user clicked on "Yes" 
+                {
+
+                    string curr = row["מספר שלב הקבוצה"].ToString();
+                    string allitemid = row["מקט פריט"].ToString();
+
+
+                    try
+                    {
+                        MySqlConnection MySqlConn = new MySqlConnection(Login.Connectionstring);
+                        MySqlConn.Open();
+                        Query1 = "select group_Status , group_itemToFixStageOrder from jobs where itemid='" + allitemid + "' and   jobid='" + jobID + "' LIMIT 1";
+                        MySqlCommand MSQLcrcommand1 = new MySqlCommand(Query1, MySqlConn);
+                        MSQLcrcommand1.ExecuteNonQuery();
+                        MySqlDataAdapter mysqlDAdp = new MySqlDataAdapter(MSQLcrcommand1);
+                        MySqlDataReader dr = MSQLcrcommand1.ExecuteReader();
+
+                        while (dr.Read())
+                        {
+                            if (!dr.IsDBNull(0))
+                            {
+                                group_Status = dr.GetString(0);
+                                group_itemToFixStageOrder = dr.GetString(1);
+                            }
+
+                        }
+
+                        MySqlConn.Close();
+
+                    }
+                    catch (Exception ex)
+                    {
+                        Console.WriteLine("נפל בשורה מספר 1049");
+                        MessageBox.Show(ex.Message);
+                    }
+
+
+                    try
+                    {
+                        MySqlConnection MySqlConn = new MySqlConnection(Login.Connectionstring);
+                        MySqlConn.Open();
+                        Query1 = "select MIN(itemStageOrder) from item where itemid='" + allitemid + "' and   itemStageOrder>'" + curr + "' and itemStatus= '" + group_Status + "'     ";
+                        MySqlCommand MSQLcrcommand1 = new MySqlCommand(Query1, MySqlConn);
+                        MSQLcrcommand1.ExecuteNonQuery();
+                        MySqlDataAdapter mysqlDAdp = new MySqlDataAdapter(MSQLcrcommand1);
+                        MySqlDataReader dr = MSQLcrcommand1.ExecuteReader();
+                        while (dr.Read())
+                        {
+                            if (!dr.IsDBNull(0))
+                            {
+                                next_stage = dr.GetString(0);
+                                next_status = group_Status;
+                            }
+                            else
+                            {
+                                last = true;
+                                if (group_Status == "רישום")
+                                {
+                                    next_status = "בעבודה";
+                                    next_stage = "1";
+                                }
+                                if (group_Status == "בעבודה")
+                                {
+                                    next_status = "גמר ייצור";
+                                    next_stage = "0";
+
+                                }
+                                if (group_Status == "גמר ייצור")
+                                {
+                                    next_status = "הסתיים";
+                                    next_stage = "1";
+
+                                }
+                                if (group_Status == "תיקון")
+                                {
+                                    MessageBox.Show(".עבור קבוצת פריט בסטטוס תיקון עליך לשנות סטטוס ידנית", "שים לב", MessageBoxButton.OK, MessageBoxImage.Error);
+                                    MySqlConn.Close();
+                                    refreashandClear();
+                                    return;
+                                    /*
+                                    if (group_itemToFixStageOrder != "0")
+                                    {
+                                        next_status = "בעבודה";
+                                        next_stage = group_itemToFixStageOrder;
+                                    }
+                                    if (group_itemToFixStageOrder == "0")
+                                    {
+                                        next_status = "גמר ייצור";
+                                        next_stage = group_itemToFixStageOrder;
+                                    }
+                                     * */
+                                }
+
+                                if (group_Status == "הסתיים")
+                                {
+                                    MessageBox.Show(".כבר בוצעו כל השלבים הקיימים עבור קבוצת פריט זה", "שים לב", MessageBoxButton.OK, MessageBoxImage.Warning);
+                                    MySqlConn.Close();
+                                    refreashandClear();
+                                    return;
+                                }
+
+                                if (group_Status == "פסול")
+                                {
+                                    MessageBox.Show(".עבור קבוצת פריט בסטטוס פסול עליך לשנות סטטוס ידנית", "שים לב", MessageBoxButton.OK, MessageBoxImage.Error);
+                                    MySqlConn.Close();
+                                    refreashandClear();
+                                    return;
+
+                                }
+
+                            } // end else of if (!dr.IsDBNull(0))
+                        } // end while (dr.Read())
+
+                        MySqlConn.Close();
+
+                    } // end try
+                    catch (Exception ex)
+                    {
+                        Console.WriteLine("נפל בשורה מספר 643");
+                        MessageBox.Show(ex.Message);
+                    }
+
+                    // now we will see if there is a group.
+                    DataSet group = new DataSet();
+                    try
+                    {
+                        Console.WriteLine("שורה 301");
+                        MySqlConnection MySqlConn22 = new MySqlConnection(Login.Connectionstring);
+                        MySqlConn22.Open();
+                        string Query22 = (" SELECT * FROM project.jobs WHERE jobid='" + jobID + "' AND itemid='" + allitemid + "' AND itemStatus='" + group_Status + "' AND itemStageOrder='" + curr + "' AND inTheGroup='כן' ");
+                        MySqlCommand MSQLcrcommand22 = new MySqlCommand(Query22, MySqlConn22);
+                        MSQLcrcommand22.ExecuteNonQuery();
+                        MySqlDataAdapter mysqlDAdp22 = new MySqlDataAdapter(MSQLcrcommand22);
+                        Console.WriteLine("שורה 308");
+                        //string itemNumToDB = "";
+                        mysqlDAdp22.Fill(group);
+                        Console.WriteLine("שורה 311");
+                        Console.WriteLine(group);
+                        MySqlConn22.Close();
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show(ex.Message);
+                        refreashandClear();
+                        return;
+                    }
+
+                    int groupsize;
+                    groupsize = group.Tables[0].Rows.Count;
+
+
+                    // now update the group and only the ones who said YES.
+               //     if (last == true)
+                //    {
+                    if (groupsize > 0)
+                    {
+                        Query1 = "update jobs set itemStatus='" + next_status + "' , itemStageOrder='" + next_stage + "' where jobid='" + jobID + "' and itemid='" + allitemid + "' AND itemStatus='" + group_Status + "' AND inTheGroup='כן' ";
+                        //    }
+                        //    else
+                        //    {
+                        //        Query1 = "update jobs set itemStageOrder='" + next_stage + "' where jobid='" + jobID + "'  and itemid='" + allitemid + "' AND itemStatus='" + group_Status + "' AND inTheGroup='כן' ";
+                        //    }
+                        try
+                        {
+                            MySqlConnection MySqlConn = new MySqlConnection(Login.Connectionstring);
+                            MySqlConn.Open();
+                            //string Query1 = "update jobs set itemStageOrder='" + next_stage + "' where jobid='" + jobID + "' and itemid='" + itemID + "'and itemNum='" + itemnum + "'";
+                            MySqlCommand MSQLcrcommand1 = new MySqlCommand(Query1, MySqlConn);
+                            MSQLcrcommand1.ExecuteNonQuery();
+                            MySqlDataAdapter mysqlDAdp = new MySqlDataAdapter(MSQLcrcommand1);
+                            MySqlConn.Close();
+
+
+                        }
+                        catch (Exception ex)
+                        {
+                            MessageBox.Show(ex.Message);
+                            Console.WriteLine("נפל בשורה מספר 670");
+                            return;
+                        }
+                    }
+
+
+                    // now update all of this itemid to the new group status.
+                    try
+                    {
+                        MySqlConnection MySqlConn = new MySqlConnection(Login.Connectionstring);
+                        MySqlConn.Open();
+
+                        Query1 = "UPDATE jobs SET group_Status='" + next_status + "' , group_StageOrder='" + next_stage + "'   WHERE jobid='" + jobID + "' AND itemid='" + allitemid + "'";
+                        //if (fromFixToFinish == false && status == "גמר ייצור")
+/*
+                        if (status == "גמר ייצור")
+                        {
+                            Console.WriteLine("שורה 782");
+                            Query1 = "UPDATE jobs SET itemsDescription='" + itemdesc + "',expectedItemQuantity='" + exqun + "' ,group_costomer_itemid='" + cosMAKAT + "',group_Status='" + status + "' , group_StageOrder='0'   WHERE jobid='" + jobID + "' AND itemid='" + selected_Item + "'";
+                        }
+
+                        if (fromFixToWork)
+                        {
+                            Console.WriteLine("שורה 788");
+                            Query1 = "UPDATE jobs SET itemsDescription='" + itemdesc + "',expectedItemQuantity='" + exqun + "' ,group_costomer_itemid='" + cosMAKAT + "',group_Status='" + status + "' , group_StageOrder='" + group_itemToFixStageOrder + "'  , group_itemToFixStageOrder='הקבוצה תוקנה בעבר מבעבודה'  WHERE jobid='" + jobID + "' AND itemid='" + selected_Item + "'";
+                            if (group_itemToFixStageOrder == "0")
+                            {
+                                Query1 = "UPDATE jobs SET itemsDescription='" + itemdesc + "',expectedItemQuantity='" + exqun + "' ,group_costomer_itemid='" + cosMAKAT + "',group_Status='" + status + "' , group_StageOrder='1'  , group_itemToFixStageOrder='הקבוצה תוקנה בעבר מבעבודה'  WHERE jobid='" + jobID + "' AND itemid='" + selected_Item + "'";
+                            }
+                        }
+                        if (fromFixToFinish == true && status == "גמר ייצור")
+                        {
+                            Query1 = "UPDATE jobs SET itemsDescription='" + itemdesc + "',expectedItemQuantity='" + exqun + "' ,group_costomer_itemid='" + cosMAKAT + "',group_Status='" + status + "' , group_StageOrder='0' , group_itemToFixStageOrder='הקבוצה תוקנה בעבר מגמר ייצור'   WHERE jobid='" + jobID + "' AND itemid='" + selected_Item + "'";
+                        }
+
+                        if (fromFinishToFix == true)
+                        {
+                            Query1 = "UPDATE jobs SET itemsDescription='" + itemdesc + "',expectedItemQuantity='" + exqun + "' ,group_costomer_itemid='" + cosMAKAT + "',group_Status='" + status + "' , group_StageOrder='1' , group_itemToFixStageOrder='0'   WHERE jobid='" + jobID + "' AND itemid='" + selected_Item + "'";
+                        }
+
+                        if (fromWorkToFix == true)
+                        {
+
+                            Query1 = "UPDATE jobs SET itemsDescription='" + itemdesc + "',expectedItemQuantity='" + exqun + "' ,group_costomer_itemid='" + cosMAKAT + "',group_Status='" + status + "' , group_StageOrder='1' , group_itemToFixStageOrder='" + oldStageOrder + "'   WHERE jobid='" + jobID + "' AND itemid='" + selected_Item + "'";
+                        }
+ */
+                        Console.WriteLine("שורה 810");
+                        MySqlCommand MSQLcrcommand1 = new MySqlCommand(Query1, MySqlConn);
+                        MSQLcrcommand1.ExecuteNonQuery();
+                        MySqlDataAdapter mysqlDAdp = new MySqlDataAdapter(MSQLcrcommand1);
+                        MySqlConn.Close();
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show(ex.Message);
+                        Console.WriteLine("שורה 819");
+                        refreashandClear();
+                        return;
+                    }
+                    refreashandClear();
+
+
+
+                    if (last == true)
+                    {
+                        if (groupsize > 0)
+                        {
+                            MessageBox.Show(".הקבוצה קודמה לסטטוס הבא", "הצלחה", MessageBoxButton.OK, MessageBoxImage.Information);
+                            refreashandClear();
+                            return;
+                        }
+                        else
+                        {
+                            MessageBox.Show(".הקבוצה קודמה לסטטוס הבא\n       .אך שים לב לכך שהקבוצה הייתה ריקה", "הצלחה", MessageBoxButton.OK, MessageBoxImage.Information);
+                            refreashandClear();
+                            return;
+                        }
+                    }
+                    else
+                    {
+                        if (groupsize > 0)
+                        {
+                            MessageBox.Show(".הקבוצה קודמה לשלב הבא", "הצלחה", MessageBoxButton.OK, MessageBoxImage.Information);
+                            refreashandClear();
+                        }
+                        else
+                        {
+                            MessageBox.Show(".הקבוצה קודמה לשלב הבא\n       .אך שים לב לכך שהקבוצה הייתה ריקה", "הצלחה", MessageBoxButton.OK, MessageBoxImage.Information);
+                            refreashandClear();
+                        }
+                    }
+
+                } // end of else // if the user clicked on "Yes" so he wants to Delete.
+
+            }
+            catch
+            {
+                MessageBox.Show(".לא נבחרה קבוצה לקדם", "שים לב", MessageBoxButton.OK, MessageBoxImage.Error);
+                refreashandClear();
+                return;
+            }
+        }
+
+        private void PrevStage_button_Click(object sender, RoutedEventArgs e)
+        {
+            string prev_stage = "";
+            string group_Status = "";
+            string prev_status = "";
+            string group_itemToFixStageOrder = "";
+            string workLast = "";
+            bool first = false;
+            string Query1 = "";
+            try
+            {
+                DataRowView row = (DataRowView)dataGrid1.SelectedItems[0];
+                if (MessageBox.Show("?האם אתה בטוח שברצונך להחזיר קבוצת פריט זה", "וידוא קידום", MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.No)
+                {
+                    return; //do no stuff
+                }
+                else // if the user clicked on "Yes" so he wants to Delete.
+                {
+
+                    string curr = row["מספר שלב הקבוצה"].ToString();
+                    string allitemid = row["מקט פריט"].ToString();
+
+
+                    try
+                    {
+                        MySqlConnection MySqlConn = new MySqlConnection(Login.Connectionstring);
+                        MySqlConn.Open();
+                        Query1 = "select group_Status , group_itemToFixStageOrder from jobs where itemid='" + allitemid + "' and   jobid='" + jobID + "' LIMIT 1";
+                        MySqlCommand MSQLcrcommand1 = new MySqlCommand(Query1, MySqlConn);
+                        MSQLcrcommand1.ExecuteNonQuery();
+                        MySqlDataAdapter mysqlDAdp = new MySqlDataAdapter(MSQLcrcommand1);
+                        MySqlDataReader dr = MSQLcrcommand1.ExecuteReader();
+
+                        while (dr.Read())
+                        {
+                            if (!dr.IsDBNull(0))
+                            {
+                                group_Status = dr.GetString(0);
+                                group_itemToFixStageOrder = dr.GetString(1);
+                            }
+
+                        }
+
+                        MySqlConn.Close();
+
+                    }
+                    catch (Exception ex)
+                    {
+                        Console.WriteLine("נפל בשורה מספר 1049");
+                        MessageBox.Show(ex.Message);
+                    }
+
+
+                    if (group_Status == "גמר ייצור")
+                    {// get the last stage of Work status.
+                        try
+                        {
+                            MySqlConnection MySqlConn = new MySqlConnection(Login.Connectionstring);
+                            MySqlConn.Open();
+                            Query1 = "select MAX(itemStageOrder) from item where itemid='" + allitemid + "' and itemStatus= 'בעבודה' ";
+                            MySqlCommand MSQLcrcommand1 = new MySqlCommand(Query1, MySqlConn);
+                            MSQLcrcommand1.ExecuteNonQuery();
+                            MySqlDataAdapter mysqlDAdp = new MySqlDataAdapter(MSQLcrcommand1);
+                            MySqlDataReader dr = MSQLcrcommand1.ExecuteReader();
+
+                            while (dr.Read())
+                            {
+                                if (!dr.IsDBNull(0))
+                                {
+                                    workLast = dr.GetString(0);
+                                }
+
+                            }
+
+                            MySqlConn.Close();
+
+                        }
+                        catch (Exception ex)
+                        {
+                            Console.WriteLine("נפל בשורה מספר 669");
+                            MessageBox.Show(ex.Message);
+                        }
+                    }
+
+                    try
+                    {
+                        MySqlConnection MySqlConn = new MySqlConnection(Login.Connectionstring);
+                        MySqlConn.Open();
+                        Query1 = "select MAX(itemStageOrder) from item where itemid='" + allitemid + "' and   itemStageOrder<'" + curr + "' and itemStatus= '" + group_Status + "'     ";
+                        MySqlCommand MSQLcrcommand1 = new MySqlCommand(Query1, MySqlConn);
+                        MSQLcrcommand1.ExecuteNonQuery();
+                        MySqlDataAdapter mysqlDAdp = new MySqlDataAdapter(MSQLcrcommand1);
+                        MySqlDataReader dr = MSQLcrcommand1.ExecuteReader();
+                        while (dr.Read())
+                        {
+                            if (!dr.IsDBNull(0))
+                            {
+                                prev_stage = dr.GetString(0);
+                                prev_status = group_Status;
+                            }
+                            else
+                            {
+                                first = true;
+                                if (group_Status == "רישום")
+                                {
+                                    MessageBox.Show(".הפריט כבר נמצא בשלב הראשון הקיים", "שים לב", MessageBoxButton.OK, MessageBoxImage.Warning);
+                                    MySqlConn.Close();
+                                    refreashandClear();
+                                    return;
+                                }
+
+                                if (group_Status == "תיקון")
+                                {
+                                    MessageBox.Show(".עבור קבוצת פריט בסטטוס תיקון עליך לשנות סטטוס ידנית", "שים לב", MessageBoxButton.OK, MessageBoxImage.Error);
+                                    MySqlConn.Close();
+                                    refreashandClear();
+                                    return;
+                                }
+
+
+                                if (group_Status == "פסול")
+                                {
+                                    MessageBox.Show(".עבור פריט בסטטוס פסול עליך לשנות סטטוס ידנית", "שים לב", MessageBoxButton.OK, MessageBoxImage.Error);
+                                    MySqlConn.Close();
+                                    refreashandClear();
+                                    return;
+                                }
+
+                                if (group_Status == "בעבודה")
+                                {
+                                    prev_status = "רישום";
+                                    prev_stage = "2";
+
+                                }
+
+                                if (group_Status == "גמר ייצור")
+                                {
+                                    prev_status = "בעבודה";
+                                    prev_stage = workLast;
+
+                                }
+
+
+                                if (group_Status == "הסתיים")
+                                {
+                                    prev_status = "גמר ייצור";
+                                    prev_stage = "1";
+
+                                }   
+
+                            } // end else of if (!dr.IsDBNull(0))
+                        } // end while (dr.Read())
+
+                        MySqlConn.Close();
+
+                    } // end try
+                    catch (Exception ex)
+                    {
+                        Console.WriteLine("נפל בשורה מספר 744");
+                        MessageBox.Show(ex.Message);
+                    }
+
+
+                    // now we will see if there is a group.
+                    DataSet group = new DataSet();
+                    try
+                    {
+                        Console.WriteLine("שורה 301");
+                        MySqlConnection MySqlConn22 = new MySqlConnection(Login.Connectionstring);
+                        MySqlConn22.Open();
+                        string Query22 = (" SELECT * FROM project.jobs WHERE jobid='" + jobID + "' AND itemid='" + allitemid + "' AND itemStatus='" + group_Status + "' AND itemStageOrder='" + curr + "' AND inTheGroup='כן' ");
+                        MySqlCommand MSQLcrcommand22 = new MySqlCommand(Query22, MySqlConn22);
+                        MSQLcrcommand22.ExecuteNonQuery();
+                        MySqlDataAdapter mysqlDAdp22 = new MySqlDataAdapter(MSQLcrcommand22);
+                        Console.WriteLine("שורה 308");
+                        //string itemNumToDB = "";
+                        mysqlDAdp22.Fill(group);
+                        Console.WriteLine("שורה 311");
+                        Console.WriteLine(group);
+                        MySqlConn22.Close();
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show(ex.Message);
+                        refreashandClear();
+                        return;
+                    }
+
+                    int groupsize;
+                    groupsize = group.Tables[0].Rows.Count;
+
+
+                    // update the group if there is a group.
+                    if (groupsize > 0)
+                    {
+                        Query1 = "update jobs set itemStatus='" + prev_status + "' , itemStageOrder='" + prev_stage + "' where jobid='" + jobID + "' and itemid='" + allitemid + "' AND itemStatus='" + group_Status + "' AND inTheGroup='כן' ";
+
+                        try
+                        {
+                            MySqlConnection MySqlConn = new MySqlConnection(Login.Connectionstring);
+                            MySqlConn.Open();
+                            MySqlCommand MSQLcrcommand1 = new MySqlCommand(Query1, MySqlConn);
+                            MSQLcrcommand1.ExecuteNonQuery();
+                            MySqlDataAdapter mysqlDAdp = new MySqlDataAdapter(MSQLcrcommand1);
+                            MySqlConn.Close();
+                        }
+                        catch (Exception ex)
+                        {
+                            MessageBox.Show(ex.Message);
+                            Console.WriteLine("נפל בשורה מספר 458");
+                            return;
+                        }
+                    }
+
+                    // update all the items in the set to hold the new  group_Status and group_StageOrder.
+                    try
+                    {
+                        MySqlConnection MySqlConn = new MySqlConnection(Login.Connectionstring);
+                        MySqlConn.Open();
+                        Query1 = "UPDATE jobs SET group_Status='" + prev_status + "' , group_StageOrder='" + prev_stage + "'   WHERE jobid='" + jobID + "' AND itemid='" + allitemid + "'";
+                        Console.WriteLine("שורה 810");
+                        MySqlCommand MSQLcrcommand1 = new MySqlCommand(Query1, MySqlConn);
+                        MSQLcrcommand1.ExecuteNonQuery();
+                        MySqlDataAdapter mysqlDAdp = new MySqlDataAdapter(MSQLcrcommand1);
+                        MySqlConn.Close();
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show(ex.Message);
+                        Console.WriteLine("שורה 819");
+                        refreashandClear();
+                        return;
+                    }
+
+                    if (first == true)
+                    {
+                        if (groupsize > 0)
+                        {
+                            MessageBox.Show(".הקבוצה הוחזרה לסטטוס הקודם", "הצלחה", MessageBoxButton.OK, MessageBoxImage.Information);
+                            refreashandClear();
+                            return;
+                        }
+                        else
+                        {
+                            MessageBox.Show(".הקבוצה הוחזרה לסטטוס הקודם\n       .אך שים לב לכך שהקבוצה הייתה ריקה", "הצלחה", MessageBoxButton.OK, MessageBoxImage.Information);
+                            refreashandClear();
+                            return;
+                        }
+                    }
+                    else
+                    {
+                        if (groupsize > 0)
+                        {
+                            MessageBox.Show(".הקבוצה הוחזרה לשלב הקודם", "הצלחה", MessageBoxButton.OK, MessageBoxImage.Information);
+                            refreashandClear();
+                        }
+                        else
+                        {
+                            MessageBox.Show(".הקבוצה הוחזרה לשלב הקודם\n       .אך שים לב לכך שהקבוצה הייתה ריקה", "הצלחה", MessageBoxButton.OK, MessageBoxImage.Information);
+                            refreashandClear();
+                        }
+                    }
+                   
+                } // end of else // if the user clicked on "Yes" so he wants to Delete.
+
+            }
+            catch
+            {
+                MessageBox.Show(".לא נבחרה קבוצה להחזרה", "שים לב", MessageBoxButton.OK, MessageBoxImage.Error);
+                refreashandClear();
+                return;
+            }
+        
+        }
+
+
 
 
 
@@ -998,15 +1570,7 @@ namespace project
             }
         }
 
-        private void NextStage_button_Click(object sender, RoutedEventArgs e)
-        {
-
-        }
-
-        private void PrevStage_button_Click(object sender, RoutedEventArgs e)
-        {
-
-        }
+       
 
 
     }
