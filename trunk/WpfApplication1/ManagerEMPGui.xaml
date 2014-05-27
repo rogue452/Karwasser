@@ -30,7 +30,7 @@
         <Image Height="36" HorizontalAlignment="Right" Margin="0,3,88,0" Name="image2" Stretch="Fill" VerticalAlignment="Top" Width="31" Source="/WpfApplication1;component/Images/delete_user.png" />
         <Image Height="36" HorizontalAlignment="Left" Margin="867,3,0,0" Name="image3" Stretch="Fill" VerticalAlignment="Top" Width="42" Source="/WpfApplication1;component/Images/update.png" />
         <Image Height="28" HorizontalAlignment="Left" Margin="1009,573,0,0" Name="image4" Stretch="Fill" VerticalAlignment="Top" Width="25" Source="/WpfApplication1;component/Images/exit.png" />
-        <Image Height="35" HorizontalAlignment="Left" Margin="499,573,0,0" Name="image6" Stretch="Fill" VerticalAlignment="Top" Width="33" Source="/WpfApplication1;component/Images/save_to.png"  />
+        <Image Height="35" HorizontalAlignment="Left" Margin="499,573,0,0" Name="image6" Stretch="Fill" VerticalAlignment="Top" Width="33" Source="/WpfApplication1;component/Images/icon_microsoftexcel.png"  />
         <Image Height="29" HorizontalAlignment="Left" Margin="12,573,0,0" Name="image7" Stretch="Fill" VerticalAlignment="Top" Width="33" Source="/WpfApplication1;component/Images/back.png" />
         <Label Content="או" Height="28" HorizontalAlignment="Left" Margin="32,46,0,0" Name="label5" VerticalAlignment="Top" />
     </Grid>
