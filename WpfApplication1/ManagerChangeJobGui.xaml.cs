@@ -501,7 +501,7 @@ namespace project
                                                 Console.WriteLine("מספר איש קשר - " + contactid + "");
                                             }
 
-                                            //now we need to uptade all of the old items with our new description of the job.
+                                            //now we need to uptade all of the old items in this current itemid with our new description of the job.
                                             if (keep == true)
                                             {
                                                 try
