@@ -140,35 +140,92 @@ namespace project
             {
                
                 DataRowView row = (DataRowView)dataGrid1.SelectedItems[0];
-                if (MessageBox.Show("?האם אתה בטוח שברצונך למחוק פריט זה", "וידוא מחיקה", MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.No)
+                if (MessageBox.Show("?האם אתה בטוח שברצונך למחוק סט פריט זה", "וידוא מחיקה", MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.No)
                 {
                     //do no stuff
                 }
                 else // if the user clicked on "Yes" so he wants to Delete.
                 {
                     string selected = row["מקט פריט"].ToString();
+                    int thecountinitemid = 0;
 
+                    // see if this is the last set of items in this jobid
                     try
                     {
                         MySqlConnection MySqlConn = new MySqlConnection(Login.Connectionstring);
                         MySqlConn.Open();
-                        string Query1 = "delete from jobs where itemid='" + selected + "'and jobs.jobid='" + jobID + "'";
+                        string Query1 = "select COUNT(itemid) from jobs where jobid='" + jobID + "' GROUP BY itemid";
                         MySqlCommand MSQLcrcommand1 = new MySqlCommand(Query1, MySqlConn);
                         MSQLcrcommand1.ExecuteNonQuery();
                         MySqlDataAdapter mysqlDAdp = new MySqlDataAdapter(MSQLcrcommand1);
+                        MySqlDataReader dr = MSQLcrcommand1.ExecuteReader();
+                        while (dr.Read())
+                        {
+                            if (!dr.IsDBNull(0))
+                            {
+                                thecountinitemid = dr.GetInt32(0);
+                            }
+
+                        }
                         MySqlConn.Close();
-                        MessageBox.Show("!קבוצת הפריט נמחקה מהמערכת");
                     }
                     catch (Exception ex)
                     {
+                        Console.WriteLine("נפל בשורה מספר 174");
                         MessageBox.Show(ex.Message);
+                    }
+                    Console.WriteLine("שורה  177 thecountinitemid=" + thecountinitemid);
+                    if (thecountinitemid > 1)
+                    { // if this is not the last set then delete.
+                        try
+                        {
+                            MySqlConnection MySqlConn = new MySqlConnection(Login.Connectionstring);
+                            MySqlConn.Open();
+                            string Query1 = "DELETE FROM jobs WHERE jobid='" + jobID + "' and itemid='" + selected + "' ";
+                            MySqlCommand MSQLcrcommand1 = new MySqlCommand(Query1, MySqlConn);
+                            MSQLcrcommand1.ExecuteNonQuery();
+                            MySqlDataAdapter mysqlDAdp = new MySqlDataAdapter(MSQLcrcommand1);
+                            MySqlConn.Close();
+                            refreashandClear();
+                            MessageBox.Show("!סט הפריט נמחק מהעבודה", "הצלחה", MessageBoxButton.OK, MessageBoxImage.Information);
+                            return;
+                        }
+                        catch (Exception ex)
+                        {
+                            MessageBox.Show(ex.Message);
+                        }
+                    }
+
+                    //  if this is the last set of items in this job then just update the job status to בוטלה
+                    else
+                    {
+                        try
+                        {
+                            string Query1 = "UPDATE jobs SET job_status='בוטלה' WHERE jobid='" + jobID + "'";
+                            MySqlConnection MySqlConn = new MySqlConnection(Login.Connectionstring);
+                            MySqlConn.Open();
+                            MySqlCommand MSQLcrcommand1 = new MySqlCommand(Query1, MySqlConn);
+                            MSQLcrcommand1.ExecuteNonQuery();
+                            MySqlDataAdapter mysqlDAdp = new MySqlDataAdapter(MSQLcrcommand1);
+                            MySqlConn.Close();
+                            MessageBox.Show("בגלל שזהו סט הפריט האחרון בעבודה\n .סט הפריט לא נמחק אך סטטוס העבודה שונה לבוטלה", "שים לב - שינוי סטטוס עבודה", MessageBoxButton.OK, MessageBoxImage.Warning);
+                            return;
+                        }
+                        catch (Exception ex)
+                        {
+                            MessageBox.Show(ex.Message);
+                        }
+
                     }
                     refreashandClear();
 
-                }//end else
+                }//end else if the user clicked on "Yes" so he wants to Delete.
 
             }//end try
-            catch { MessageBox.Show("לא נבחרה קבוצת פריט למחיקה"); }
+            catch 
+            {
+                MessageBox.Show("לא נבחר סט פריט למחיקה" , "שים לב", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
 
         }//end function
 
