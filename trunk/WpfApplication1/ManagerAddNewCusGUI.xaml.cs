@@ -171,7 +171,7 @@ namespace project
             }
             else
             {
-                contact_email = "לא הוזנה";
+                contact_email = "לא הוזן";
                 f4 = true;
                // mail_W_label.Content = "אנא הכנס כתובת אימייל";
               //  mail_W_label.Visibility = Visibility.Visible;

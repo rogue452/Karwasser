@@ -82,16 +82,19 @@ namespace project
                     mail_W_label.Content = "אנא בדוק תקינות כתובת האימייל";
                     mail_W_label.Visibility = Visibility.Visible;
                     //MessageBox.Show("אנא בדוק תקינות כתובת האימייל");
-                    
+
                 }
             }
             else
             {
-                mail_W_label.Content = "אנא הכנס כתובת אימייל";
-                mail_W_label.Visibility = Visibility.Visible;
+                contact_email = "לא הוזן";
+                f1 = true;
+                // mail_W_label.Content = "אנא הכנס כתובת אימייל";
+                // mail_W_label.Visibility = Visibility.Visible;
                 //MessageBox.Show("אנא הכנס כתובת אימייל");
-                
+
             }
+
 
             if (!string.IsNullOrWhiteSpace(contact_name_textBox.Text))
             {
@@ -170,8 +173,10 @@ namespace project
             }
             else
             {
-                dep_W_label.Content = "אנא הכנס מחלקת איש קשר";
-                dep_W_label.Visibility = Visibility.Visible;
+                contact_dep = "לא הוזן";
+                f4 = true;
+              //  dep_W_label.Content = "אנא הכנס מחלקת איש קשר";
+               // dep_W_label.Visibility = Visibility.Visible;
                 //MessageBox.Show("אנא הכנס מחלקת איש קשר ");
                 
             }
