@@ -71,6 +71,29 @@ namespace project
             // if (id_textBox.Text != null)
             if (id_textBox != null && !string.IsNullOrWhiteSpace(id_textBox.Text))
             {
+                try
+                {   //to see if the empid already in the system.
+                    MySqlConnection MySqlConn = new MySqlConnection(Login.Connectionstring);
+                    MySqlConn.Open();
+                    string Query1 = ("SELECT COUNT(empid) FROM employees WHERE empid='" + id_textBox.Text + "' ");
+                    MySqlCommand MSQLcrcommand1 = new MySqlCommand(Query1, MySqlConn);
+                    MSQLcrcommand1.ExecuteNonQuery();
+                    int empidtimes = Convert.ToInt32(MSQLcrcommand1.ExecuteScalar());
+                    MySqlDataReader dr = MSQLcrcommand1.ExecuteReader();
+                    MySqlDataAdapter mysqlDAdp = new MySqlDataAdapter(MSQLcrcommand1);
+                    MySqlConn.Close();
+
+                    if (empidtimes != 0)
+                    {
+                        MessageBox.Show("כבר קיים עובד בעל תעודת זהות זו - " + id_textBox.Text , "!שים לב" ,MessageBoxButton.OK ,MessageBoxImage.Error);
+                        return;
+                    }
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message);
+                    return;
+                }
                 empid = id_textBox.Text;
                 f1 = true;
             }
@@ -123,7 +146,7 @@ namespace project
 
                     if (times != 0)
                     {
-                        MessageBox.Show("כבר קיים מספר עובד - " + emp_num_textBox.Text);
+                        MessageBox.Show("כבר קיים מספר עובד - " + emp_num_textBox.Text, "!שים לב", MessageBoxButton.OK, MessageBoxImage.Error);
                         return;
                     }
                 }
@@ -235,7 +258,7 @@ namespace project
 
                     MySqlConnection MySqlConn = new MySqlConnection(Login.Connectionstring);
                     MySqlConn.Open();
-                    string Query1 = ("select empid as `תעודת זהות`,emp_firstname as `שם פרטי` ,emp_lastname as `שם משפחה` ,emp_address as `כתובת` ,emp_phone as `מספר טלפון` from project.employees ");
+                    string Query1 = ("SELECT empid as `תעודת זהות`,emp_firstname as `שם פרטי` ,emp_lastname as `שם משפחה` , emp_insidenum as `מספר עובד` ,emp_address as `כתובת` ,emp_phone as `מספר טלפון`, emp_cellphone as `טלפון נייד`, emp_start_date as `תאריך התחלת עבודה` FROM project.employees ");
                     MySqlCommand MSQLcrcommand1 = new MySqlCommand(Query1, MySqlConn);
                     MSQLcrcommand1.ExecuteNonQuery();
                     MySqlDataAdapter mysqlDAdp = new MySqlDataAdapter(MSQLcrcommand1);

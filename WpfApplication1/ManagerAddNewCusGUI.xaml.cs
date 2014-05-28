@@ -115,8 +115,10 @@ namespace project
             }
             else
             {
-                internalcusid_W_label.Content = "אנא הכנס מס לקוח";
-                internalcusid_W_label.Visibility = Visibility.Visible;
+                internalcusid = "לא הוזן";
+                f8 = true;
+              //  internalcusid_W_label.Content = "אנא הכנס מס לקוח";
+              //  internalcusid_W_label.Visibility = Visibility.Visible;
                 //MessageBox.Show("אנא הכנס מס לקוח ");
             }
 
@@ -169,8 +171,10 @@ namespace project
             }
             else
             {
-                mail_W_label.Content = "אנא הכנס כתובת אימייל";
-                mail_W_label.Visibility = Visibility.Visible;
+                contact_email = "לא הוזנה";
+                f4 = true;
+               // mail_W_label.Content = "אנא הכנס כתובת אימייל";
+              //  mail_W_label.Visibility = Visibility.Visible;
                 //MessageBox.Show("אנא הכנס כתובת אימייל");
             }
 
@@ -250,8 +254,10 @@ namespace project
             }
             else
             {
-                dep_W_label.Content = "אנא הכנס מחלקת איש קשר";
-                dep_W_label.Visibility = Visibility.Visible;
+                contact_dep = "לא הוזן";
+                f7 = true;
+               // dep_W_label.Content = "אנא הכנס מחלקת איש קשר";
+              //  dep_W_label.Visibility = Visibility.Visible;
                 //MessageBox.Show("אנא הכנס מחלקת איש קשר "); 
             }
 
@@ -288,26 +294,33 @@ namespace project
                     return;
                 }
 
-                try
+                if (internalcusid != "לא הוזן")
                 {
-                    MySqlConnection MySqlConn = new MySqlConnection(Login.Connectionstring);
-                    MySqlConn.Open();
-                    string query2 = ("select costumer_insideNum from costumers where costumer_insideNum='" + internalcusid + "'");
-                    MySqlCommand MSQLcrcommand2 = new MySqlCommand(query2, MySqlConn);
-                    MSQLcrcommand2.ExecuteNonQuery();
-                    MySqlDataReader dr2 = MSQLcrcommand2.ExecuteReader();
-                    while (dr2.Read())
+                    try
                     {
+                        MySqlConnection MySqlConn = new MySqlConnection(Login.Connectionstring);
+                        MySqlConn.Open();
+                        string query2 = ("select costumer_insideNum from costumers where costumer_insideNum='" + internalcusid + "' AND costumer_insideNum !='לא הוזן` ");
+                        MySqlCommand MSQLcrcommand2 = new MySqlCommand(query2, MySqlConn);
+                        MSQLcrcommand2.ExecuteNonQuery();
+                        MySqlDataReader dr2 = MSQLcrcommand2.ExecuteReader();
+                        while (dr2.Read())
+                        {
 
-                        count++;
+                            count++;
 
+                        }
+                        MySqlConn.Close();
                     }
-                    MySqlConn.Close();
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show(ex.Message);
+                        return;
+                    }
                 }
-                catch (Exception ex)
+                else
                 {
-                    MessageBox.Show(ex.Message);
-                    return;
+                    count=0;
                 }
 
                 //MessageBox.Show("" + count + "");
@@ -361,17 +374,17 @@ namespace project
                 {
                     if (hp > 0 && count > 0)
                     {
-                        MessageBox.Show("מספר ח.פ. ומספר לקוח שהוזנו כבר קיימים במערכת");
+                        MessageBox.Show("מספר ח.פ. ומספר לקוח שהוזנו כבר קיימים במערכת", "!שים לב", MessageBoxButton.OK, MessageBoxImage.Error);
                         return;
                     }
                     if (hp > 0)
                     {
-                        MessageBox.Show("מספר ח.פ. שהוזן כבר קיים במערכת");
+                        MessageBox.Show("מספר ח.פ. שהוזן כבר קיים במערכת", "!שים לב", MessageBoxButton.OK, MessageBoxImage.Error);
                         return;
                     }
                     else
                     {
-                        MessageBox.Show("מספר לקוח כבר קיים במערכת ");
+                        MessageBox.Show("מספר לקוח כבר קיים במערכת ", "!שים לב", MessageBoxButton.OK, MessageBoxImage.Error);
                         return;
                     }
                 }

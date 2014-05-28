@@ -241,49 +241,59 @@ namespace project
                 string selected = row["חפ לקוח"].ToString();
                 // MessageBox.Show(""+selected+ "");
 
-                try
-                {
-                    int phoneCheck = Convert.ToInt32(row["מספר לקוח"].ToString());
-                }
-                catch 
-                {
-                    MessageBox.Show("מספר הלקוח שהוזן לא מכיל רק מספרים");
-                    refreashcus();
-                    return;
-                }
+                
 
                 if (MessageBox.Show("?האם אתה בטוח שברצונך לעדכן לקוח זה", "וידוא עדכון", MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.No)
                 {
-                    //dont do stuff
+                    return; //dont do stuff
                 }
                 else // if the user clicked on "Yes" so he wants to Update.
                 {
-                        string custumername = row["שם לקוח"].ToString();
-                        string custumeraddress = row["כתובת לקוח"].ToString();
-                        string cos_insideNum = row["מספר לקוח"].ToString();
-                        string cos_desc = row["הערות בקשר ללקוח"].ToString();
+                    string cos_insideNum;
+                    if (!string.IsNullOrWhiteSpace(row["מספר לקוח"].ToString()))
+                    {
                         try
                         {
-
-                            MySqlConnection MySqlConn = new MySqlConnection(Login.Connectionstring);
-                            MySqlConn.Open();
-                            string Query1 = "update costumers set costumerName='" + custumername + "',costumerAddress='" + custumeraddress + "',costumerDesc='" + cos_desc + "',costumer_insideNum='" + cos_insideNum + "' where costumerid='" + selected + "'";
-                            MySqlCommand MSQLcrcommand1 = new MySqlCommand(Query1, MySqlConn);
-                            MSQLcrcommand1.ExecuteNonQuery();
-                            MySqlDataAdapter mysqlDAdp = new MySqlDataAdapter(MSQLcrcommand1);
-                            MySqlConn.Close();
-                            MessageBox.Show("!פרטי הלקוח עודכנו");
+                            int phoneCheck = Convert.ToInt32(row["מספר לקוח"].ToString());
+                            cos_insideNum = row["מספר לקוח"].ToString();
                         }
-                        catch (Exception ex)
+                        catch
                         {
-                            MessageBox.Show(ex.Message);
+                            MessageBox.Show("מספר הלקוח שהוזן לא מכיל רק מספרים", "!שים לב", MessageBoxButton.OK, MessageBoxImage.Error);
+                            refreashcus();
+                            return;
                         }
-                        refreashcus();
+                    }
+                    else
+                    {
+                        cos_insideNum = "לא הוזן";
+                    }
+
+                    string custumername = row["שם לקוח"].ToString();
+                    string custumeraddress = row["כתובת לקוח"].ToString();
+                    string cos_desc = row["הערות בקשר ללקוח"].ToString();
+                    try
+                    {
+
+                        MySqlConnection MySqlConn = new MySqlConnection(Login.Connectionstring);
+                        MySqlConn.Open();
+                        string Query1 = "update costumers set costumerName='" + custumername + "',costumerAddress='" + custumeraddress + "',costumerDesc='" + cos_desc + "',costumer_insideNum='" + cos_insideNum + "' where costumerid='" + selected + "'";
+                        MySqlCommand MSQLcrcommand1 = new MySqlCommand(Query1, MySqlConn);
+                        MSQLcrcommand1.ExecuteNonQuery();
+                        MySqlDataAdapter mysqlDAdp = new MySqlDataAdapter(MSQLcrcommand1);
+                        MySqlConn.Close();
+                        MessageBox.Show("!פרטי הלקוח עודכנו", "!הצלחה", MessageBoxButton.OK, MessageBoxImage.Information);
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show(ex.Message);
+                    }
+                    refreashcus();
                     
-                }
+                } // else // if the user clicked on "Yes" so he wants to Update.
 
             }
-            catch { MessageBox.Show("לא נבחר לקוח לעדכון "); }
+            catch { MessageBox.Show("לא נבחר לקוח לעדכון", "!שים לב", MessageBoxButton.OK, MessageBoxImage.Error); }
         }
 
 

@@ -468,7 +468,7 @@ namespace project
                 }
                 else 
                 { 
-                    MessageBox.Show(".!הפריט/ים נוסף/ו למערכת", "!הצלחה", MessageBoxButton.OK, MessageBoxImage.Information);
+                    MessageBox.Show(".!הפריט/ים נוסף/ו לעבודה", "!הצלחה", MessageBoxButton.OK, MessageBoxImage.Information);
                     ManagerJobInfoGui MJIG = new ManagerJobInfoGui(jobID);
                     MJIG.Show();
                     Login.close = 1;
