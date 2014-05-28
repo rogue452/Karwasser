@@ -597,6 +597,44 @@ namespace project
                         int count = 0; // will count the number of rows with cell "" in the  changedRecordsItemsTable.
 
                         // input checks for כמות.
+                        foreach (DataRow testrow in changedRecordsItemsTable.Rows)// for every row in the updateds table.
+                        {
+                            string q = testrow["כמות"].ToString();
+                            Console.WriteLine("q = " + q);
+                            try
+                            {
+
+                                if (q != "") // in case the user deleted a cell in the item and now it have a string of-  "" .
+                                {
+                                    int new_item_quantity = Convert.ToInt32(q);
+                                    if (new_item_quantity > 0)
+                                    {
+                                        Console.WriteLine("הקלט היה טוב במקט מספר =" + testrow["מקט פריט"].ToString());
+                                    }//end if (item_quantity > 0)
+                                    else
+                                    {
+                                        MessageBox.Show("שדה הכמות מכיל כמות שלילית או 0 במקט פריט - " + testrow["מקט פריט"].ToString() + "", "!שים לב", MessageBoxButton.OK, MessageBoxImage.Error);
+                                        return;
+                                    }
+
+                                } // if (q != "")
+                                else { count++; }
+
+
+                            }// end try
+                            catch
+                            {
+                                MessageBox.Show("שדה הכמות לא כולל רק מספרים במקט פריט - " + testrow["מקט פריט"].ToString() + "", "!שים לב", MessageBoxButton.OK, MessageBoxImage.Error);
+                                return;
+                            }
+
+                        } // end of foreach to test the input
+                        if (count == changedRecordsItemsTable.Rows.Count)
+                        {
+                            MessageBox.Show("  לא נבחרו פריטים מהטבלה ", "!שים לב", MessageBoxButton.OK, MessageBoxImage.Error);
+                            return;
+                        }
+                        /*
                         foreach (DataRow quantity_row in changedRecordsItemsTable.Rows)
                         {
                             try
@@ -604,12 +642,14 @@ namespace project
                                 if(quantity_row["כמות"].ToString()!="")
                                 {
                                 int item_quantity = Convert.ToInt32(quantity_row["כמות"].ToString());
-                                    }
+                                }
                             }// end try
                             catch
                             { MessageBox.Show(" אחד שדה הכמות לא כולל רק מספרים בפריט מספר - " + quantity_row["מקט פריט"].ToString() + ""); return; }
                         }
-                        
+                        */
+
+                        count = 0;
                         foreach (DataRow dri in changedRecordsItemsTable.Rows)
                         {
                             itemNum = 0;

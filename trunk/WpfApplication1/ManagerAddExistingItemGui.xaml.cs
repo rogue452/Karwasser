@@ -243,6 +243,49 @@ namespace project
                 int sizeofItemsnewtable = changedRecordsItemsTable.Rows.Count;
                 int count = 0; // will count the number of rows with cell "" in the  changedRecordsItemsTable.
                 Console.WriteLine("sizeofItemsnewtable = " + sizeofItemsnewtable);
+
+                // test the input
+                foreach (DataRow testrow in changedRecordsItemsTable.Rows)// for every row in the updateds table.
+                {
+                    string q = testrow["כמות"].ToString();
+                    Console.WriteLine("q = " + q);
+                    try
+                    {
+
+                        if (q != "") // in case the user deleted a cell in the item and now it have a string of-  "" .
+                        {
+                            int new_item_quantity = Convert.ToInt32(q);
+                            if (new_item_quantity > 0)
+                            {
+                                Console.WriteLine("הקלט היה טוב במקט מספר =" + testrow["מקט פריט"].ToString());
+                            }//end if (item_quantity > 0)
+                            else
+                            {
+                                MessageBox.Show("שדה הכמות מכיל כמות שלילית או 0 במקט פריט - " + testrow["מקט פריט"].ToString() + "", "!שים לב", MessageBoxButton.OK, MessageBoxImage.Error);
+                                return;
+                            }
+
+                        } // if (q != "")
+                        else { count++; }
+
+
+                    }// end try
+                    catch
+                    {
+                        MessageBox.Show("שדה הכמות לא כולל רק מספרים במקט פריט - " + testrow["מקט פריט"].ToString() + "", "!שים לב", MessageBoxButton.OK, MessageBoxImage.Error);
+                        return;
+                    }
+
+                } // end of foreach to test the input
+                if (count == changedRecordsItemsTable.Rows.Count)
+                {
+                    MessageBox.Show("  לא נבחרו פריטים מהטבלה ", "!שים לב", MessageBoxButton.OK, MessageBoxImage.Error);
+                    return;
+                }
+
+
+                // if the unpute was OK then we can add the items.
+                count = 0;
                 foreach (DataRow dri in changedRecordsItemsTable.Rows)// for every row in the updateds table.
                 {
                     string q = dri["כמות"].ToString();

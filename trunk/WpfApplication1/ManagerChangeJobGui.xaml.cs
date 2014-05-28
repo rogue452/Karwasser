@@ -351,19 +351,47 @@ namespace project
                             int count = 0; // will count the number of rows with cell "" in the  changedRecordsItemsTable.
 
                             // input checks for כמות.
-                            foreach (DataRow quantity_row in changedRecordsItemsTable.Rows)
+                            foreach (DataRow testrow in changedRecordsItemsTable.Rows)// for every row in the updateds table.
                             {
+                                string q = testrow["כמות"].ToString();
+                                Console.WriteLine("q = " + q);
                                 try
                                 {
-                                    if (quantity_row["כמות"].ToString() != "")
+
+                                    if (q != "") // in case the user deleted a cell in the item and now it have a string of-  "" .
                                     {
-                                        int item_quantity = Convert.ToInt32(quantity_row["כמות"].ToString());
-                                    }
+                                        int new_item_quantity = Convert.ToInt32(q);
+                                        if (new_item_quantity > 0)
+                                        {
+                                            Console.WriteLine("הקלט היה טוב במקט מספר =" + testrow["מקט פריט"].ToString());
+                                        }//end if (item_quantity > 0)
+                                        else
+                                        {
+                                            MessageBox.Show("שדה הכמות מכיל כמות שלילית או 0 מקט פריט - " + testrow["מקט פריט"].ToString() + "", "!שים לב", MessageBoxButton.OK, MessageBoxImage.Error);
+                                            return;
+                                        }
+
+                                    } // if (q != "")
+                                    else { count++; }
+
+
                                 }// end try
                                 catch
-                                { MessageBox.Show(" אחד שדה הכמות לא כולל רק מספרים בפריט מספר - " + quantity_row["מקט פריט"].ToString() + ""); return; }
+                                {
+                                    MessageBox.Show("שדה הכמות לא כולל רק מספרים במקט פריט - " + testrow["מקט פריט"].ToString() + "", "!שים לב", MessageBoxButton.OK, MessageBoxImage.Error);
+                                    return;
+                                }
+
+                            } // end of foreach to test the input
+                            if (count == changedRecordsItemsTable.Rows.Count)
+                            {
+                                MessageBox.Show("  לא נבחרו פריטים מהטבלה ", "!שים לב", MessageBoxButton.OK, MessageBoxImage.Error);
+                                return;
                             }
 
+
+                            string reg_date = DateTime.Now.ToString("yyyy-MM-dd");
+                            count = 0;
                             foreach (DataRow dri in changedRecordsItemsTable.Rows)
                             {
                                 itemNum = 0;
@@ -440,16 +468,18 @@ namespace project
 
                                             int expected = itemNum + item_quantity;
                                             string itemid1 = dri["מקט פריט"].ToString();
+                                            //string reg_date = DateTime.Now.ToString("yyyy-MM-dd");
                                             for (int i = 1; i <= item_quantity; i++)
                                             {
                                                 Console.WriteLine("לפני שאילתא");
                                                 itemNum++;
                                                 string itemid = dri["מקט פריט"].ToString();
+                                                
                                                 try
                                                 {
                                                     MySqlConnection MySqlConn = new MySqlConnection(Login.Connectionstring);
                                                     MySqlConn.Open();
-                                                    string Query1 = ("INSERT INTO project.jobs (jobid, itemid,itemNum, expectedItemQuantity,costumerid, jobdescription, startDate, expectedFinishDate, contact_id,orderid,group_costomer_itemid) VALUES ('" + jobid + "','" + itemid + "','" + itemNum + "','" + expected + "','" + selected + "','" + jobdes + "','" + start + "','" + end + "','" + contactid + "','" + orderid + "','" + cosItemID + "')");
+                                                    string Query1 = ("INSERT INTO project.jobs (jobid, itemid,itemNum, expectedItemQuantity,costumerid, jobdescription, startDate, expectedFinishDate, contact_id,orderid,group_costomer_itemid ,reg_date) VALUES ('" + jobid + "','" + itemid + "','" + itemNum + "','" + expected + "','" + selected + "','" + jobdes + "','" + start + "','" + end + "','" + contactid + "','" + orderid + "','" + cosItemID + "' , '" + reg_date + "')");
                                                     Console.WriteLine("השאילתא הנשלחת  - " + Query1 + "");
                                                     MySqlCommand MSQLcrcommand1 = new MySqlCommand(Query1, MySqlConn);
                                                     MSQLcrcommand1.ExecuteNonQuery();
@@ -478,7 +508,7 @@ namespace project
                                                 {
                                                     MySqlConnection MySqlConn = new MySqlConnection(Login.Connectionstring);
                                                     MySqlConn.Open();
-                                                    string Query1 = "UPDATE jobs SET expectedItemQuantity='" + expected + "',itemsDescription='לא נרשם תיאור',group_Status='רישום' ,group_costomer_itemid='" + cosItemID + "' where jobid='" + jobid + "' AND itemid='" + itemid1 + "'";
+                                                    string Query1 = "UPDATE jobs SET expectedItemQuantity='" + expected + "',itemsDescription='לא נרשם תיאור',group_Status='רישום' ,group_costomer_itemid='" + cosItemID + "', group_StageOrder='1' ,reg_date='" + reg_date + "'  where jobid='" + jobid + "' AND itemid='" + itemid1 + "'";
                                                     MySqlCommand MSQLcrcommand1 = new MySqlCommand(Query1, MySqlConn);
                                                     MSQLcrcommand1.ExecuteNonQuery();
                                                     MySqlDataAdapter mysqlDAdp = new MySqlDataAdapter(MSQLcrcommand1);
@@ -516,7 +546,7 @@ namespace project
                                     {
                                         MySqlConnection MySqlConn = new MySqlConnection(Login.Connectionstring);
                                         MySqlConn.Open();
-                                        string Query1 = "UPDATE jobs SET job_status='נרשמה',jobdescription='" + jobdes + "',startDate='" + start + "',expectedFinishDate='" + end + "',actualFinishDate=NULL ,costumerid='" + selected + "',contact_id='" + contactid + "',orderid='" + orderid + "',deliveryid='לא עודכן',invoiceNumber='לא עודכן',costumerid='" + selected + "' WHERE jobid='" + jobid + "'";
+                                        string Query1 = "UPDATE jobs SET job_status='נרשמה',jobdescription='" + jobdes + "',startDate='" + start + "',expectedFinishDate='" + end + "',actualFinishDate=NULL ,costumerid='" + selected + "',contact_id='" + contactid + "',orderid='" + orderid + "',deliveryid='לא עודכן',invoiceNumber='לא עודכן' ,reg_date='" + reg_date + "' WHERE jobid='" + jobid + "'";
                                         MySqlCommand MSQLcrcommand1 = new MySqlCommand(Query1, MySqlConn);
                                         MSQLcrcommand1.ExecuteNonQuery();
                                         MySqlDataAdapter mysqlDAdp = new MySqlDataAdapter(MSQLcrcommand1);
