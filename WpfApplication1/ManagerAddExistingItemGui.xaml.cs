@@ -141,7 +141,7 @@ namespace project
                 MessageBox.Show(ex.Message);
             }
         }
-
+/*
         private void ADD_Btn_Click(object sender, RoutedEventArgs e)
         {
           //  ManagerAddNewItemGUI MANIG = new ManagerAddNewItemGUI(jobID);
@@ -149,7 +149,7 @@ namespace project
           //  this.Close();
         }
 
-
+*/
 
         // go to previous screen.
         private void Back_Btn_Click(object sender, RoutedEventArgs e)
@@ -349,25 +349,8 @@ namespace project
 
                                         }//end for (int i = 1; i <= new_item_quantity; i++)
 
-                                       /* try
-                                        {
-                                            MySqlConnection MySqlConn3 = new MySqlConnection(Login.Connectionstring);
-                                            MySqlConn3.Open();
-                                            string Query3 = "UPDATE project.jobs SET expectedItemQuantity='" + new_expected + "' WHERE jobid='"+jobID+"' AND itemid='"+itemid+"' ";
-                                            MySqlCommand MSQLcrcommand3 = new MySqlCommand(Query3, MySqlConn3);
-                                            MSQLcrcommand3.ExecuteNonQuery();
-                                            MySqlDataAdapter mysqlDAdp2 = new MySqlDataAdapter(MSQLcrcommand3);
-                                            MySqlConn.Close();
-                                        }
-                                        catch (Exception ex)
-                                        {
-                                            MessageBox.Show(ex.Message);
-                                            Console.WriteLine("Query3");
-                                            return;
-                                        }
-                                         */
+                                    } //  end of if (count1 == 1)// if an itemid already exist in this job.
 
-                                    }
                                     else // cound1==0 so no such itemid for this jobid.
                                     {
                                         try
@@ -380,7 +363,6 @@ namespace project
                                             MySqlCommand crcommand5 = new MySqlCommand(Query5, MySqlConn5);
                                             crcommand5.ExecuteNonQuery();
                                             MySqlDataReader dr5 = crcommand5.ExecuteReader();
-
                                             while (dr5.Read())
                                             {
                                                 expectedItemQuantity = dr5.GetInt32(5);
@@ -461,7 +443,11 @@ namespace project
 
                                
                             }//end if (item_quantity > 0)
-                            else { MessageBox.Show("שדה הכמות מכיל כמות שלילית או 0 בפריט מספר - " + dri["מקט פריט"].ToString() + ""); return; }
+                            else 
+                            { 
+                                MessageBox.Show("שדה הכמות מכיל כמות שלילית או 0 בפריט מספר - " + dri["מקט פריט"].ToString() + "" , "!שים לב", MessageBoxButton.OK, MessageBoxImage.Error);
+                                return; 
+                            }
 
                         } // if (q != "")
                         else { count++; }
@@ -469,18 +455,30 @@ namespace project
 
                     }// end try
                     catch
-                    { MessageBox.Show("שדה הכמות לא כולל רק מספרים בפריט מספר - " + dri["מקט פריט"].ToString() + ""); return; }
+                    { 
+                        MessageBox.Show("שדה הכמות לא כולל רק מספרים בפריט מספר - " + dri["מקט פריט"].ToString() + "", "!שים לב", MessageBoxButton.OK, MessageBoxImage.Error);
+                        return; 
+                    }
 
                 }// end foreach (DataRow dri in changedRecordsTable.Rows)}
 
                 if (count == changedRecordsItemsTable.Rows.Count)
                 {
-                    MessageBox.Show("  לא נבחרו פריטים מהטבלה "); return;
+                    MessageBox.Show("  לא נבחרו פריטים מהטבלה ", "!שים לב", MessageBoxButton.OK, MessageBoxImage.Error); return;
                 }
-
-                else { MessageBox.Show("!הפריט/ים נוסף/ו למערכת"); }
+                else 
+                { 
+                    MessageBox.Show(".!הפריט/ים נוסף/ו למערכת", "!הצלחה", MessageBoxButton.OK, MessageBoxImage.Information);
+                    ManagerJobInfoGui MJIG = new ManagerJobInfoGui(jobID);
+                    MJIG.Show();
+                    Login.close = 1;
+                    this.Close();
+                }
             }
-            catch { MessageBox.Show("לא נבחר פריט"); }
+            catch 
+            {
+                MessageBox.Show("לא נבחרו פריטים", "!שים לב", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
         }
 
 
