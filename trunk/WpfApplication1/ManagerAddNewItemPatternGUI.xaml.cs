@@ -75,28 +75,22 @@ namespace project
                 MessageBox.Show("!לא נבחר שלב", "שים לב", MessageBoxButton.OK, MessageBoxImage.Error);
                 return;
             }
+
+           // string itemid;
             if (count == 1) // if this is the first stage.
             {
-                try
+                string itemid;
+                if (!string.IsNullOrWhiteSpace(item_id_textBox.Text))
                 {
-                    if (!string.IsNullOrWhiteSpace(item_id_textBox.Text))
-                    {
-                        int testid = Convert.ToInt32(item_id_textBox.Text);
-                    }
-                    else
-                    {
-                        MessageBox.Show("!לא הוכנס מקט פריט", "שים לב", MessageBoxButton.OK, MessageBoxImage.Error);
-                        // MessageBox.Show("לא הוכנס מק``ט פריט");
-                        return;
-                    }
+                    itemid = item_id_textBox.Text;
                 }
-                catch
+                else
                 {
-                    MessageBox.Show("!מקט פריט חייב להכיל מספרים בלבד", "שים לב", MessageBoxButton.OK, MessageBoxImage.Error);
+                    MessageBox.Show("!לא הוכנס מקט פריט", "שים לב", MessageBoxButton.OK, MessageBoxImage.Error);
+                    // MessageBox.Show("לא הוכנס מק``ט פריט");
                     return;
                 }
-                string itemid;
-                itemid = item_id_textBox.Text;
+                
 
                 if (string.IsNullOrWhiteSpace(itemname_textBox.Text))
                 {
@@ -128,9 +122,7 @@ namespace project
                     return;
                 }
 
-              
-            } // end if (count == 1)
-
+            } // end if (count == 1) -  if this is the first stage.
 
             try // if all is OK then create the stage.
             {

@@ -249,68 +249,66 @@ namespace project
             {
                 System.Collections.IList rows = dataGrid1.SelectedItems;
 
-                    DataRowView row = (DataRowView)dataGrid1.SelectedItems[0];
-                    string selected = row["תעודת זהות"].ToString();
+                DataRowView row = (DataRowView)dataGrid1.SelectedItems[0];
+                string selected = row["תעודת זהות"].ToString();
                     // MessageBox.Show(""+selected+ "");
 
-
-
-                        if (MessageBox.Show("?האם אתה בטוח שברצונך לעדכן משתמש זה", "וידוא עדכון", MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.No)
+                if (MessageBox.Show("?האם אתה בטוח שברצונך לעדכן משתמש זה", "וידוא עדכון", MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.No)
+                {
+                    //dont do stuff
+                }
+                else // if the user clicked on "Yes" so he wants to Update.
+                {
+                    //checking if the email intered correctlly.
+                    if ((Regex.IsMatch(row["כתובת אימייל"].ToString(), @"^[a-zA-Z][\w\.-]*[a-zA-Z0-9]@[a-zA-Z0-9][\w\.-]*[a-zA-Z0-9]\.[a-zA-Z][a-zA-Z\.]*[a-zA-Z]$")))
+                    {
+                        string firstname = row["שם פרטי"].ToString();
+                        string lastname = row["שם משפחה"].ToString();
+                        if (string.IsNullOrWhiteSpace(row["סיסמה"].ToString()))
                         {
-                            //dont do stuff
+                            MessageBox.Show("אנא הכנס סיסמא", "!שים לב", MessageBoxButton.YesNo, MessageBoxImage.Error);
+                            reafreshandclear();
+                            return;
                         }
-                        else // if the user clicked on "Yes" so he wants to Update.
+                        if (string.IsNullOrWhiteSpace(row["בית ספר יסודי"].ToString()))
                         {
-                            //checking if the email intered correctlly.
-                            if ((Regex.IsMatch(row["כתובת אימייל"].ToString(), @"^[a-zA-Z][\w\.-]*[a-zA-Z0-9]@[a-zA-Z0-9][\w\.-]*[a-zA-Z0-9]\.[a-zA-Z][a-zA-Z\.]*[a-zA-Z]$")))
-                            {
-                                string firstname = row["שם פרטי"].ToString();
-                                string lastname = row["שם משפחה"].ToString();
-                                if (string.IsNullOrWhiteSpace(row["סיסמה"].ToString()))
-                                {
-                                    MessageBox.Show("אנא הכנס סיסמא");
-                                    reafreshandclear();
-                                    return;
-                                }
-                                if (string.IsNullOrWhiteSpace(row["בית ספר יסודי"].ToString()))
-                                {
-                                    MessageBox.Show("אנא הכנס בית ספר יסודי");
-                                    reafreshandclear();
-                                    return;
-                                }
-                                string pass = row["סיסמה"].ToString();
-                                string role = row["תפקיד"].ToString();
-                                string connected = row["מחובר"].ToString();
-                                string email = row["כתובת אימייל"].ToString();
-                                string userdesc = row["הערות לגבי המשתמש"].ToString();
-                                string school = row["בית ספר יסודי"].ToString();
-                                try
-                                {
-                                    MySqlConnection MySqlConn = new MySqlConnection(Login.Connectionstring);
-                                    MySqlConn.Open();
-                                    string Query1 = "update users set empid='" + selected + "',password='" + pass + "',role='" + role + "',connected='" + connected + "',email='" + email + "' ,user_description='" + userdesc + "',rec_answer='" + school + "' where empid='" + selected + "'";
-                                    MySqlCommand MSQLcrcommand1 = new MySqlCommand(Query1, MySqlConn);
-                                    MSQLcrcommand1.ExecuteNonQuery();
-                                    MySqlDataAdapter mysqlDAdp = new MySqlDataAdapter(MSQLcrcommand1);
-                                    MySqlConn.Close();
-                                    MessageBox.Show("!פרטי המשתמש עודכנו");
-                                }
-                                catch (Exception ex)
-                                {
-                                    MessageBox.Show(ex.Message);
-                                }
-                                reafreshandclear();
-                            }
-                            else
-                            {
-                                MessageBox.Show("כתובת האימייל שהזנת לא תקינה");
-                                reafreshandclear();
-                            }
-                        }      
+                            MessageBox.Show("אנא הכנס בית ספר יסודי", "!שים לב", MessageBoxButton.YesNo, MessageBoxImage.Error);
+                            reafreshandclear();
+                            return;
+                        }
+                        string pass = row["סיסמה"].ToString();
+                        string role = row["תפקיד"].ToString();
+                        string connected = row["מחובר"].ToString();
+                        string email = row["כתובת אימייל"].ToString();
+                        string userdesc = row["הערות לגבי המשתמש"].ToString();
+                        string school = row["בית ספר יסודי"].ToString();
+                        try
+                        {
+                            MySqlConnection MySqlConn = new MySqlConnection(Login.Connectionstring);
+                            MySqlConn.Open();
+                            string Query1 = "update users set empid='" + selected + "',password='" + pass + "',role='" + role + "',connected='" + connected + "',email='" + email + "' ,user_description='" + userdesc + "',rec_answer='" + school + "' where empid='" + selected + "'";
+                            MySqlCommand MSQLcrcommand1 = new MySqlCommand(Query1, MySqlConn);
+                            MSQLcrcommand1.ExecuteNonQuery();
+                            MySqlDataAdapter mysqlDAdp = new MySqlDataAdapter(MSQLcrcommand1);
+                            MySqlConn.Close();
+                            MessageBox.Show("!פרטי המשתמש עודכנו", "!הצלחה", MessageBoxButton.YesNo, MessageBoxImage.Information);
+                        }
+                        catch (Exception ex)
+                        {
+                            MessageBox.Show(ex.Message);
+                        }
+                        reafreshandclear();
+                    }
+                    else
+                    {
+                        MessageBox.Show("כתובת האימייל שהזנת לא תקינה", "!שים לב", MessageBoxButton.YesNo, MessageBoxImage.Error);
+                        reafreshandclear();
+                    }
+                }      
                 
             }
             catch
-            { MessageBox.Show("לא נבחר משתמש לעדכון "); }
+            { MessageBox.Show("לא נבחר משתמש לעדכון", "!שים לב", MessageBoxButton.YesNo, MessageBoxImage.Error); }
         }
 
 

@@ -71,7 +71,7 @@ namespace project
                 this.adapter.Fill(this.dataset);
                 try
                 {
-                    MessageBox.Show("המידע נשמר בהצלחה!");
+                    MessageBox.Show("המידע נשמר בהצלחה!", "!הצלחה", MessageBoxButton.OK, MessageBoxImage.Information);
                     return this.dataset;
                 }
                 catch (Exception e)

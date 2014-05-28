@@ -348,77 +348,100 @@ namespace project
                     }
                     else // if the user clicked on "Yes" so he wants to Update.
                     {
-                        //checking if the email intered correctlly.
-                        if ((Regex.IsMatch(row["אימייל איש קשר"].ToString(), @"^[a-zA-Z][\w\.-]*[a-zA-Z0-9]@[a-zA-Z0-9][\w\.-]*[a-zA-Z0-9]\.[a-zA-Z][a-zA-Z\.]*[a-zA-Z]$")))
-                        {
+                        string contactEmail ;
+                        string contactcell ;
+                        string contactPhone ;
+                        string contactName ;
+                        string contactDepartment ;
+                        string contactdesc ;
 
-                            if (string.IsNullOrWhiteSpace(row["טלפון נייד של איש הקשר"].ToString()) && string.IsNullOrWhiteSpace(row["טלפון איש קשר"].ToString()))
+                        if ( !string.IsNullOrWhiteSpace(row["אימייל איש קשר"].ToString()) )
+                        {
+                            //checking if the email intered correctlly.
+                            if ((Regex.IsMatch(row["אימייל איש קשר"].ToString(), @"^[a-zA-Z][\w\.-]*[a-zA-Z0-9]@[a-zA-Z0-9][\w\.-]*[a-zA-Z0-9]\.[a-zA-Z][a-zA-Z\.]*[a-zA-Z]$")))
                             {
-                                MessageBox.Show("לפחות אחד מ- טלפון או טלפון נייד חייב להיות מוזן");
+                                 contactEmail = row["אימייל איש קשר"].ToString(); 
+                            }
+                            else 
+                            {
+                                MessageBox.Show("כתובת האימייל שהזנת לא תקינה", "!שים לב", MessageBoxButton.OK, MessageBoxImage.Error);
                                 refreashandclear();
                                 return;
                             }
+                        }
+                        else
+                        {
+                             contactEmail = "לא הוזן"; 
+                        }
 
-                            if (!string.IsNullOrWhiteSpace(row["טלפון נייד של איש הקשר"].ToString()))
-                            {
-                                try
-                                {
-                                    int cellphoneCheck = Convert.ToInt32(row["טלפון נייד של איש הקשר"].ToString());
-                                }
-                                catch 
-                                { 
-                                    MessageBox.Show("טלפון נייד חייב לכלול מספרים בלבד"); 
-                                    refreashandclear(); 
-                                    return; 
-                                }
-                            }
+                        if (string.IsNullOrWhiteSpace(row["טלפון נייד של איש הקשר"].ToString()) && string.IsNullOrWhiteSpace(row["טלפון איש קשר"].ToString()))
+                        {
+                            MessageBox.Show("לפחות אחד מ- טלפון או טלפון נייד חייב להיות מוזן", "!שים לב", MessageBoxButton.OK, MessageBoxImage.Error);
+                            refreashandclear();
+                            return;
+                        }
 
-                            if (!string.IsNullOrWhiteSpace(row["טלפון איש קשר"].ToString()))
-                            {
-                                try
-                                {
-                                    int cellphoneCheck = Convert.ToInt32(row["טלפון איש קשר"].ToString());
-                                }
-                                catch
-                                {
-                                    MessageBox.Show("מספר טלפון חייב לכלול מספרים בלבד");
-                                    refreashandclear();
-                                    return;
-                                }
-                            }
-                            string contactcell = row["טלפון נייד של איש הקשר"].ToString();
-                            string contactPhone = row["טלפון איש קשר"].ToString();
-                            string contactName = row["שם איש קשר"].ToString();
-                            string contactEmail = row["אימייל איש קשר"].ToString();          
-                            string contactDepartment = row["מחלקת איש קשר"].ToString();
-                            string contactdesc = row["הערות לגבי איש הקשר"].ToString();
+                        if (!string.IsNullOrWhiteSpace(row["טלפון נייד של איש הקשר"].ToString()))
+                        {
                             try
                             {
-                                MySqlConnection MySqlConn = new MySqlConnection(Login.Connectionstring);
-                                MySqlConn.Open();
-                                string Query1 = "UPDATE costumers SET contactName='" + contactName + "',contactEmail='" + contactEmail + "',contactPhone='" + contactPhone + "',contactDepartment='" + contactDepartment + "',contactCellPhone='" + contactcell + "',contactDesc='" + contactdesc + "' WHERE costumerid='" + hpcostid + "' and contactid='" + selected + "'";
-                                MySqlCommand MSQLcrcommand1 = new MySqlCommand(Query1, MySqlConn);
-                                MSQLcrcommand1.ExecuteNonQuery();
-                                MySqlDataAdapter mysqlDAdp = new MySqlDataAdapter(MSQLcrcommand1);
-                                MySqlConn.Close();
-                                MessageBox.Show("!פרטי איש הקשר עודכנו");
+                                int cellphoneCheck = Convert.ToInt32(row["טלפון נייד של איש הקשר"].ToString());
                             }
-                            catch (Exception ex)
+                            catch 
                             {
-                                MessageBox.Show(ex.Message);
+                                MessageBox.Show("טלפון נייד חייב לכלול מספרים בלבד", "!שים לב", MessageBoxButton.OK, MessageBoxImage.Error); 
+                                refreashandclear(); 
+                                return; 
                             }
-                            refreashandclear();
-                        }
-                        else 
-                        { 
-                            MessageBox.Show("כתובת האימייל שהזנת לא תקינה");
-                            refreashandclear();
                         }
 
-                    }
+                        if (!string.IsNullOrWhiteSpace(row["טלפון איש קשר"].ToString()))
+                        {
+                            try
+                            {
+                                int cellphoneCheck = Convert.ToInt32(row["טלפון איש קשר"].ToString());
+                            }
+                            catch
+                            {
+                                MessageBox.Show("מספר טלפון חייב לכלול מספרים בלבד", "!שים לב", MessageBoxButton.OK, MessageBoxImage.Error);
+                                refreashandclear();
+                                return;
+                            }
+                        }
+                        if (string.IsNullOrWhiteSpace(row["מחלקת איש קשר"].ToString()))
+                        {
+                            contactDepartment="לא הוזן";
+                        }
+                        else
+                        {
+                            contactDepartment = row["מחלקת איש קשר"].ToString();
+                        }
+
+                        contactcell = row["טלפון נייד של איש הקשר"].ToString();
+                        contactPhone = row["טלפון איש קשר"].ToString();
+                        contactName = row["שם איש קשר"].ToString();   
+                        contactdesc = row["הערות לגבי איש הקשר"].ToString();
+                        try
+                        {
+                            MySqlConnection MySqlConn = new MySqlConnection(Login.Connectionstring);
+                            MySqlConn.Open();
+                            string Query1 = "UPDATE costumers SET contactName='" + contactName + "',contactEmail='" + contactEmail + "',contactPhone='" + contactPhone + "',contactDepartment='" + contactDepartment + "',contactCellPhone='" + contactcell + "',contactDesc='" + contactdesc + "' WHERE costumerid='" + hpcostid + "' and contactid='" + selected + "'";
+                            MySqlCommand MSQLcrcommand1 = new MySqlCommand(Query1, MySqlConn);
+                            MSQLcrcommand1.ExecuteNonQuery();
+                            MySqlDataAdapter mysqlDAdp = new MySqlDataAdapter(MSQLcrcommand1);
+                            MySqlConn.Close();
+                            MessageBox.Show("!פרטי איש הקשר עודכנו", "!הצלחה", MessageBoxButton.OK, MessageBoxImage.Information);
+                        }
+                        catch (Exception ex)
+                        {
+                            MessageBox.Show(ex.Message);
+                        }
+                        refreashandclear();
+
+                    } // end else // if the user clicked on "Yes" so he wants to Update.
    
             }
-            catch { MessageBox.Show("לא נבחר איש קשר לעדכון "); }
+            catch { MessageBox.Show("לא נבחר איש קשר לעדכון", "!שים לב", MessageBoxButton.OK, MessageBoxImage.Error); }
         }
 
 

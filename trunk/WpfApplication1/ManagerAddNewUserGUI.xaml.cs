@@ -227,7 +227,7 @@ namespace project
                     {
                         MySqlConnection MySqlConn = new MySqlConnection(Login.Connectionstring);
                         MySqlConn.Open();
-                        string Query1 = ("SELECT empid as `תעודת זהות`,emp_firstname as `שם פרטי` ,emp_lastname as `שם משפחה` , emp_insidenum as `מספר עובד` ,emp_address as `כתובת` ,emp_phone as `מספר טלפון`, emp_cellphone as `טלפון נייד`, emp_start_date as `תאריך התחלת עבודה` FROM project.employees WHERE employees.empid not in (SELECT users.empid FROM project.users)");
+                        string Query1 = ("SELECT users.empid as `תעודת זהות`,employees.emp_firstname as `שם פרטי` ,employees.emp_lastname as `שם משפחה` ,password as סיסמה ,role as תפקיד ,connected as מחובר ,email as `כתובת אימייל`, rec_answer as `בית ספר יסודי`,users.last_log_in_date as `התחברות אחרונה` ,last_location as `התחברות אחרונה ממחשב` , users.user_description as `הערות לגבי המשתמש` FROM project.users , project.employees WHERE users.empid=employees.empid)");
                         MySqlCommand MSQLcrcommand1 = new MySqlCommand(Query1, MySqlConn);
                         MSQLcrcommand1.ExecuteNonQuery();
                         MySqlDataAdapter mysqlDAdp = new MySqlDataAdapter(MSQLcrcommand1);
