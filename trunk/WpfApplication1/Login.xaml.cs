@@ -158,8 +158,8 @@ namespace project
                         {
                             MessageBox.Show("      ברוכ/ה הבא/ה " + Login.last_name + " " + Login.first_name + "", "!ההתחברות למערכת בוצעה בהצלחה", MessageBoxButton.OK);
                             empid = this.textBox1.Text;
-                            //string user_connected = "מחובר";
-                            string user_connected = "לא מחובר";
+                            string user_connected = "מחובר";
+                            //string user_connected = "לא מחובר";
 
                             if (user_role.Equals("מנהל"))
                             {
