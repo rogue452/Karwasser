@@ -42,7 +42,7 @@ namespace project
             cell_W_label.Visibility = Visibility.Hidden;
             empnum_W_label.Visibility = Visibility.Hidden;
 
-            Login.close = 1;
+           // Login.close = 1;
           
 
         }
@@ -284,6 +284,19 @@ namespace project
 
             if (Login.close == 0) // then the user want to exit.
             {
+                if (MessageBox.Show("?האם אתה בטוח שברצונך לסגור את החלון ", "וידוא יציאה מהוספת עובד חדש", MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.No)
+                {
+                    e.Cancel = true; ; //don't exit.
+                }
+            }
+
+            Login.close = 0;
+            
+            /*
+            Console.WriteLine("" + Login.close);
+
+            if (Login.close == 0) // then the user want to exit.
+            {
                 if (MessageBox.Show("?האם אתה בטוח שברצונך לצאת מהמערכת ", "וידוא יציאה", MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.No)
                 {
                     e.Cancel = true; ; //don't exit.
@@ -317,6 +330,7 @@ namespace project
 
             }
             Login.close = 0;
+            */
         }
 
     }

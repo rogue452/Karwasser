@@ -33,7 +33,7 @@ namespace project
         public ManagerAddContactsGUI(string selected,string cos_insideNum , string cosName,string cosADDs)
         {
             InitializeComponent();
-            Login.close = 1;
+            //Login.close = 1;
             CostName_label.Content = cosName;
             CostNum_label.Content = selected;
             cos_num_label.Content = cos_insideNum;
@@ -275,6 +275,18 @@ namespace project
 
             if (Login.close == 0) // then the user want to exit.
             {
+                if (MessageBox.Show("?האם אתה בטוח שברצונך לסגור את החלון ", "וידוא יציאה מהוספת איש קשר חדש", MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.No)
+                {
+                    e.Cancel = true; ; //don't exit.
+                }
+            }
+
+            Login.close = 0;
+            /*
+            Console.WriteLine("" + Login.close);
+
+            if (Login.close == 0) // then the user want to exit.
+            {
                 if (MessageBox.Show("?האם אתה בטוח שברצונך לצאת מהמערכת ", "וידוא יציאה", MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.No)
                 {
                     e.Cancel = true; ; //don't exit.
@@ -308,6 +320,7 @@ namespace project
 
             }
             Login.close = 0;
+            */
         }
 
 

@@ -4,8 +4,8 @@
        Title="הוסף פריט חדש" Height="470" Width="900" FlowDirection="RightToLeft" ResizeMode="CanMinimize" Icon="/WpfApplication1;component/Images/Israel.ico" WindowStartupLocation="CenterScreen" Closing="exit_clicked">
     <Grid>
         <Image Source="/WpfApplication1;component/Images/31.jpg"  Stretch="UniformToFill" FlowDirection="RightToLeft" />
-        <Label Content="מק&quot;ט פריט " Height="28" HorizontalAlignment="Left" Margin="5,41,0,0" Name="itemnum_label" VerticalAlignment="Top" />
-        <Label Content="שם פריט" HorizontalAlignment="Left" Margin="5,75,0,331" Name="firstname_label" />
+        <Label Content="מק&quot;ט פריט *" Height="28" HorizontalAlignment="Left" Margin="5,41,0,0" Name="itemnum_label" VerticalAlignment="Top" />
+        <Label Content="שם פריט *" HorizontalAlignment="Left" Margin="5,75,0,331" Name="firstname_label" />
         <Label Content="תאור שלב" HorizontalAlignment="Left" Margin="240,194,0,209" Name="item_des_label" />
         <Button Content="הוסף שלב" Height="47" HorizontalAlignment="Left" Margin="306,372,0,0" Name="Add_button" VerticalAlignment="Top" Width="125" Click="Add_button_Click" />
         <Button Content="סיום" Height="23" HorizontalAlignment="Left" Margin="12,396,0,0" Name="Back_button" VerticalAlignment="Top" Width="114" Click="Back_button_Click" />
@@ -14,7 +14,7 @@
         <TextBox Height="149" HorizontalAlignment="Left" Margin="240,217,0,0" Name="stage_desc_textBox" VerticalAlignment="Top" Width="254" TextWrapping="Wrap" />
         <Label Content="שלב מספר:" Height="28" HorizontalAlignment="Left" Margin="5,12,0,0" Name="la" VerticalAlignment="Top" Width="73" />
         <Label Height="28" HorizontalAlignment="Left" Margin="84,12,0,0" Name="item_stage_num" VerticalAlignment="Top" Width="151" Content="1" />
-        <Label Content="שם השלב " Height="28" HorizontalAlignment="Left" Margin="12,195,0,0" Name="label2" VerticalAlignment="Top" Width="71" />
+        <Label Content="שם השלב *" Height="28" HorizontalAlignment="Left" Margin="12,195,0,0" Name="label2" VerticalAlignment="Top" Width="71" />
         <ComboBox Height="23" HorizontalAlignment="Left" Margin="12,217,0,0" Name="stages_comboBox" VerticalAlignment="Top" Width="153" />
         <Label Content="Label" Height="23" HorizontalAlignment="Left" Margin="84,41,0,0" Name="item_num2_label" VerticalAlignment="Top" Width="151"  Visibility="Hidden"/>
         <Label Content="Label" Height="28" Margin="84,75,643,0" Name="item_name2_label" VerticalAlignment="Top"  Visibility="Hidden"/>
@@ -23,5 +23,6 @@
         <DataGrid  AutoGenerateColumns="True" AutoGeneratingColumn="Grid_AutoGeneratingColumn"  Height="376" HorizontalAlignment="Left" Margin="500,43,0,0" Name="dataGrid1" VerticalAlignment="Top" Width="378" CanUserAddRows="False" CanUserDeleteRows="False" />
         <TextBlock Height="145" HorizontalAlignment="Left" Margin="240,43,0,0" Name="item_disc_textBlock" Text="TextBlock" VerticalAlignment="Top" Width="254" TextWrapping="Wrap" Visibility="Hidden"/>
         <Label Content="טבלת השלבים תוצג החל מהוספת השלב הראשון" Height="28" HorizontalAlignment="Left" Margin="537,9,0,0" Name="label1" VerticalAlignment="Top" FontWeight="Bold" />
+        <Label Content="שדות עם * מציינים חובה" Height="28" HorizontalAlignment="Left" Margin="161,391,0,0" Name="label4" VerticalAlignment="Top" />
     </Grid>
 </Window>

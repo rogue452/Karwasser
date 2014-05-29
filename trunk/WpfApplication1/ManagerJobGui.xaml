@@ -15,7 +15,7 @@
         <Label Content="ניהול עבודות:" HorizontalAlignment="Left" VerticalAlignment="Top" Width="91" Margin="633,0,0,0" FontStyle="Normal" FontWeight="Bold" />
         <Button Content="שנה עבודה קיימת"  Margin="0,40,12,0" VerticalAlignment="Top" Height="56" Name="ChangeBtn" FontWeight="Bold" Click="ChangeBtn_Click" Background="LightSlateGray" HorizontalAlignment="Right" Width="118"></Button>
         <Button Content="עדכון פרטי עבודה"  Margin="0,40,138,0" VerticalAlignment="Top" Width="118" Height="56" Name="UpdateBtn" FontWeight="Bold" Click="UpdateBtn_Click" HorizontalAlignment="Right" />
-        <Button Content="יציאה מהמערכת" HorizontalAlignment="Right" Margin="0,579,12,0" VerticalAlignment="Top" Width="142" Height="28" Grid.Column="1" />
+        <Button Content="יציאה מהמערכת" HorizontalAlignment="Right" Margin="0,579,12,0" VerticalAlignment="Top" Width="142" Height="28" Grid.Column="1" Name="exit_button" Click="exit_button_Click" />
         <Button Content="חזור למסך ראשי" HorizontalAlignment="Right" Margin="0,578,1017,0" VerticalAlignment="Top" Width="134" Height="28" Click="Back_Btn_Click" Name="Back_Btn" />
         <Button Content="ייצא רשימה לקובץ אקסל" Height="28" HorizontalAlignment="Right" Margin="0,580,522,0" Name="TXTBtn" VerticalAlignment="Top" Width="161" Click="TXTBtn_Click" Grid.Column="1" />
         <Image Height="36" HorizontalAlignment="Right" Margin="0,3,300,0" Name="image1" Stretch="Fill" VerticalAlignment="Top" Width="42" FlowDirection="RightToLeft" Source="/WpfApplication1;component/Images/plus_k03-20111007231452-00017.png" />

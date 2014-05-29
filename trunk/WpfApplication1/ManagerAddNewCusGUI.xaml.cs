@@ -46,13 +46,13 @@ namespace project
             both_W_label.Visibility = Visibility.Hidden;
             cell_W_label.Visibility = Visibility.Hidden;
             dep_W_label.Visibility = Visibility.Hidden;
-            Login.close = 1;
+            //Login.close = 1;
         }
 
         private void Back_button_Click(object sender, RoutedEventArgs e)
         {
            // ManagerCusGui MCG = new ManagerCusGui();
-            //Login.close = 1;
+            Login.close = 1;
             this.Close();
           //  MCG.Show();
         }
@@ -401,6 +401,20 @@ namespace project
 
             if (Login.close == 0) // then the user want to exit.
             {
+                if (MessageBox.Show("?האם אתה בטוח שברצונך לסגור את החלון ", "וידוא יציאה מהוספת לקוח חדש", MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.No)
+                {
+                    e.Cancel = true; ; //don't exit.
+                }
+            }
+
+            Login.close = 0;
+            /*
+            Console.WriteLine("" + Login.close);
+
+            if (Login.close == 0) // then the user want to exit.
+            {
+
+
                 if (MessageBox.Show("?האם אתה בטוח שברצונך לצאת מהמערכת ", "וידוא יציאה", MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.No)
                 {
                     e.Cancel = true; ; //don't exit.
@@ -434,6 +448,7 @@ namespace project
 
             }
             Login.close = 0;
+            */
         }
     }
 }
