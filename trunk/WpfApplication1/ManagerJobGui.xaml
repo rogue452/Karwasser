@@ -10,7 +10,7 @@
         <Label Content="שם לקוח" HorizontalAlignment="Right" Margin="0,66,1122,0" VerticalAlignment="Top"/>
         <Label Content="מספר עבודה" HorizontalAlignment="Right" Margin="0,31,1103,0" VerticalAlignment="Top" Width="83"/>
         <Label Content="החל להקליד כדי לחפש לפי:" HorizontalAlignment="Right" Margin="0,0,1010,0" VerticalAlignment="Top" FontWeight="Bold" />
-        <Button Content="פרטי העבודה" Height="56"  Margin="0,40,382,0" Name="ViewJobIInfo_button" VerticalAlignment="Top" Click="ViewJobIInfo_button_Click"  Width="114" HorizontalAlignment="Right" />
+        <Button Content="פרטי העבודה" Height="56"  Margin="0,40,382,0" Name="ViewJobIInfo_button" VerticalAlignment="Top" Click="ViewJobIInfo_button_Click"  Width="114" HorizontalAlignment="Right" Background="Yellow" />
         <Button Content="הוסף עבודה" Margin="0,40,262,0" Name="ADD_Btn" Background="#8400A500" FontWeight="Bold" Click="ADD_Btn_Click" VerticalAlignment="Top" Height="56" Width="114" HorizontalAlignment="Right" />
         <Label Content="ניהול עבודות:" HorizontalAlignment="Left" VerticalAlignment="Top" Width="91" Margin="633,0,0,0" FontStyle="Normal" FontWeight="Bold" />
         <Button Content="שנה עבודה קיימת"  Margin="0,40,12,0" VerticalAlignment="Top" Height="56" Name="ChangeBtn" FontWeight="Bold" Click="ChangeBtn_Click" Background="LightSlateGray" HorizontalAlignment="Right" Width="118"></Button>
