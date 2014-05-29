@@ -13,7 +13,7 @@
         <Button Content="יציאה מהמערכת" HorizontalAlignment="Right" Margin="0,577,12,0" VerticalAlignment="Top" Width="142" Height="28" Name="exit_button" Click="exit_button_Click" />
         <Button Content="חזור לניהול עבודות" HorizontalAlignment="Right" Margin="0,577,1017,0" VerticalAlignment="Top" Width="134" Height="28" Click="Back_Btn_Click" Name="Back_Btn" />
         <Button Content="ייצא רשימה לקובץ אקסל" Height="28" HorizontalAlignment="Right" Margin="0,578,522,0" Name="TXTBtn" VerticalAlignment="Top" Width="161" Click="TXTBtn_Click" />
-        <Image Height="36" HorizontalAlignment="Right" Margin="0,2,326,0" Name="image1" Stretch="Fill"  Width="42" FlowDirection="RightToLeft" Source="/WpfApplication1;component/Images/add_item_list_icon_med_hr.png" VerticalAlignment="Top" />
+        <Image Height="36" HorizontalAlignment="Right" Margin="0,2,326,0" Name="image1" Stretch="Fill"  Width="42" FlowDirection="RightToLeft" Source="/WpfApplication1;component/Images/plus_k03-20111007231452-00017.png" VerticalAlignment="Top" />
         <Image Height="36" HorizontalAlignment="Right" Margin="0,3,52,0" Name="image2" Stretch="Fill" VerticalAlignment="Top" Width="42" Source="/WpfApplication1;component/Images/remove.png" />
         <Image Height="28" HorizontalAlignment="Right" Margin="0,577,156,0" Name="image4" Stretch="Fill" VerticalAlignment="Top" Width="25" Source="/WpfApplication1;component/Images/exit.png" />
         <Image Height="35" HorizontalAlignment="Right" Margin="0,573,686,0" Name="image6" Stretch="Fill" VerticalAlignment="Top" Width="33" Source="/WpfApplication1;component/Images/icon_microsoftexcel.png" />
@@ -28,7 +28,7 @@
         <Image Height="33" HorizontalAlignment="Right" Margin="0,5,928,0" Name="image10" Source="/WpfApplication1;component/Images/stages.png" Stretch="Fill" VerticalAlignment="Top" Width="41" />
         <Image Height="36" HorizontalAlignment="Right" Margin="0,3,482,0" Name="image8" Source="/WpfApplication1;component/Images/Prev.gif" Stretch="Fill" VerticalAlignment="Top" Width="42" />
         <Image Height="36" HorizontalAlignment="Right" Margin="0,3,185,0" Name="image3" Source="/WpfApplication1;component/Images/update.png" Stretch="Fill" VerticalAlignment="Top" Width="42" />
-        <Image Height="33" HorizontalAlignment="Right" Margin="0,5,778,0" Name="image5" Source="/WpfApplication1;component/Images/window_process.png" Stretch="Fill" VerticalAlignment="Top" Width="41" />
+        <Image Height="33" HorizontalAlignment="Right" Margin="0,5,778,0" Name="image5" Source="/WpfApplication1;component/Images/inventory_management-300x300.jpg" Stretch="Fill" VerticalAlignment="Top" Width="41" />
         <Label Content="Label" Height="28" HorizontalAlignment="Left" Margin="93,75,0,0" Name="label1" VerticalAlignment="Top" Width="83" FontWeight="Bold" />
         <Label Content="מספר עבודה" Height="28" HorizontalAlignment="Left" Margin="13,75,0,0" Name="label2" VerticalAlignment="Top" />
     </Grid>
