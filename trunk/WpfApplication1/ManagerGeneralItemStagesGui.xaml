@@ -5,12 +5,14 @@
     <Grid>
         <Image Source="/WpfApplication1;component/Images/31.jpg"  Stretch="UniformToFill" FlowDirection="RightToLeft" Margin="-20,-32,-26,-18" />
         <DataGrid x:Name="dataGrid1" HorizontalAlignment="Right" Margin="0,0,0,55" VerticalAlignment="Bottom" Height="327" Width="646" FontSize="15"  AutoGenerateColumns="True" AutoGeneratingColumn="Grid_AutoGeneratingColumn"  ItemsSource="{Binding}" HeadersVisibility="All" MaxColumnWidth="Infinity" CanUserAddRows="false" HorizontalContentAlignment="Right" SelectionMode="Single" />
-        <Button Content="סגור" HorizontalAlignment="Right" Margin="0,468,256,0" VerticalAlignment="Top" Width="134" Height="28"  Name="Back_Btn" Click="Back_Btn_Click" />
+        <Button Content="סגור" HorizontalAlignment="Left" Margin="13,471,0,0" VerticalAlignment="Top" Width="134" Height="28"  Name="Back_Btn" Click="Back_Btn_Click" />
         <Label Content="מקט פריט:" Height="28" Margin="12,50,544,0" Name="label1" VerticalAlignment="Top" />
         <Label Content="Label" Height="26" HorizontalAlignment="Left" Margin="92,50,0,0" Name="itemidlabel" VerticalAlignment="Top" Width="98" />
         <Label Content="Label" Height="28" HorizontalAlignment="Left" Margin="89,76,0,0" Name="itemnamelabel" VerticalAlignment="Top" Width="141" />
         <Label Content="שם הפריט:" Height="28" HorizontalAlignment="Left" Margin="13,76,0,0" Name="label2" VerticalAlignment="Top" Width="69" />
         <Label Content="בחר סטטוס פריט " HorizontalAlignment="Left" Margin="250,-2,0,0" Name="label3" Width="107" Height="28" VerticalAlignment="Top" />
         <ComboBox Height="23" HorizontalAlignment="Left" Margin="236,18,0,0" Name="type_comboBox" VerticalAlignment="Top" Width="134" SelectionChanged="type_comboBox_SelectionChanged" />
+        <Button Content="ייצא רשימה לקובץ אקסל" Height="28" HorizontalAlignment="Left" Margin="244,468,0,0" Name="ExcelBtn" VerticalAlignment="Top" Width="161" Click="ExcelBtn_Click"/>
+        <Image Height="35" HorizontalAlignment="Left" Margin="206,464,0,0" Name="image6" Source="/WpfApplication1;component/Images/icon_microsoftexcel.png" Stretch="Fill" VerticalAlignment="Top" Width="33" />
     </Grid>
 </Window>

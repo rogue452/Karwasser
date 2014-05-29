@@ -28,7 +28,7 @@ namespace project
 
         public ManagerGeneralItemStagesGui(string itemid)
         {
-            Login.close = 1;
+            //Login.close = 1;
             InitializeComponent();
             this.WindowStartupLocation = WindowStartupLocation.CenterScreen;
             this.itemID = itemid;
@@ -88,6 +88,51 @@ namespace project
 
         }
 
+        private void ExcelBtn_Click(object sender, RoutedEventArgs e)
+        {
+
+            ExportToExcel();
+        }
+
+
+
+
+
+        private void ExportToExcel()
+        {
+            try
+            {
+                SaveFileDialog dialog = new SaveFileDialog();
+                string selectedstatus = type_comboBox.SelectedValue.ToString();
+                dialog.FileName = "רשימת שלבים בסטטוס -" + selectedstatus + "- עבור מקט פריט - " + itemID + "- נכון לתאריך - " + DateTime.Now.Year.ToString() + "_" + DateTime.Now.Month.ToString() + "_" + DateTime.Now.Day.ToString(); ; // Default file name
+                dialog.DefaultExt = ".xlsx"; // Default file extension
+                dialog.Filter = "Microsoft Excel 2003 and above Documents (.xlsx)|*.xlsx";  // |Text documents (.txt)|*.txt| Filter files by extension 
+
+                // Show save file dialog box
+                Nullable<bool> result = dialog.ShowDialog();
+
+                // Process save file dialog box results 
+                if (result == true)
+                {
+                    string saveto = dialog.FileName;
+                    bool success = CreateExcelFile.CreateExcelDocument(dt, saveto);
+                    if (success)
+                    {
+                        MessageBox.Show(" נוצר בהצלחה Microsoft Excel -מסמך ה");
+                    }
+                    else
+                    {
+                        MessageBox.Show(" לא נוצר  Microsoft Excel -התרחשה שגיאה ולכן מסמך ה");
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+
+        }
+
         private void Back_Btn_Click(object sender, RoutedEventArgs e)
         {
             Login.close = 1;
@@ -128,7 +173,18 @@ namespace project
 
         private void exit_clicked(object sender, CancelEventArgs e)
         {
-            Login.close = 1;
+            Console.WriteLine("" + Login.close);
+
+            if (Login.close == 0) // then the user want to exit.
+            {
+                if (MessageBox.Show("?האם אתה בטוח שברצונך לסגור את החלון ", "וידוא יציאה מהוספת איש קשר חדש", MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.No)
+                {
+                    e.Cancel = true; ; //don't exit.
+                }
+            }
+
+            Login.close = 0;
+           // Login.close = 1;
 
             /*
             Console.WriteLine("" + Login.close);
