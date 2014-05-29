@@ -6,8 +6,8 @@
         <Image Source="/WpfApplication1;component/Images/31.jpg"  Stretch="UniformToFill" FlowDirection="RightToLeft" Margin="-1,0,1,0" />
         <DataGrid x:Name="dataGrid1" HorizontalAlignment="Right" Margin="0,103,12,0" VerticalAlignment="Top" Height="471" Width="1178" FontSize="15"  AutoGenerateColumns="True" AutoGeneratingColumn="Grid_AutoGeneratingColumn"  ItemsSource="{Binding}" HeadersVisibility="All" MaxColumnWidth="Infinity" CanUserAddRows="false" HorizontalContentAlignment="Right" Grid.ColumnSpan="2" SelectionMode="Single" />
         <TextBox HorizontalAlignment="Right" Height="22" Margin="0,33,985,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="124" FontSize="15" Name="JobIDSearchTextBox" TextChanged="JobIDSearchTextBox_TextChanged" />
-        <TextBox HorizontalAlignment="Right" Height="23" Margin="0,68,985,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="124" Name="Name_Search_TextBox" TextChanged="IDSearchTextBox_TextChanged" />
-        <Label Content="שם לקוח" HorizontalAlignment="Right" Margin="0,66,1127,0" VerticalAlignment="Top"/>
+        <TextBox HorizontalAlignment="Right" Height="23" Margin="0,68,985,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="124" Name="Name_Search_TextBox" TextChanged="Name_Search_TextBox_TextChanged" />
+        <Label Content="שם לקוח" HorizontalAlignment="Right" Margin="0,66,1122,0" VerticalAlignment="Top"/>
         <Label Content="מספר עבודה" HorizontalAlignment="Right" Margin="0,31,1103,0" VerticalAlignment="Top" Width="83"/>
         <Label Content="החל להקליד כדי לחפש לפי:" HorizontalAlignment="Right" Margin="0,0,1010,0" VerticalAlignment="Top" FontWeight="Bold" />
         <Button Content="פרטי העבודה" Height="56"  Margin="0,40,382,0" Name="ViewJobIInfo_button" VerticalAlignment="Top" Click="ViewJobIInfo_button_Click"  Width="114" HorizontalAlignment="Right" />

@@ -149,9 +149,33 @@ namespace project
             }
         }
 
-        private void IDSearchTextBox_TextChanged(object sender, TextChangedEventArgs e)
+        private void Name_Search_TextBox_TextChanged(object sender, TextChangedEventArgs e)
         {
-            try
+            // if both of the datepickers are with dates
+            if (!string.IsNullOrWhiteSpace(Start_datePicker.Text) || !string.IsNullOrWhiteSpace(End_datePicker.Text))
+            {
+                Fillterdates();
+            }
+            string searchidkey = this.Name_Search_TextBox.Text;
+            dt.DefaultView.RowFilter = string.Format("`שם לקוח` LIKE '%{0}%'", searchidkey);
+
+            // if not both of the datepicker are filled
+       /*     if (string.IsNullOrWhiteSpace(Start_datePicker.Text) || string.IsNullOrWhiteSpace(End_datePicker.Text))
+            {
+                string searchidkey = this.Name_Search_TextBox.Text;
+                dt.DefaultView.RowFilter = string.Format("`שם לקוח` LIKE '%{0}%'", searchidkey);
+            }
+
+            // if both of the datepickers are with dates
+            if (string.IsNullOrWhiteSpace(Start_datePicker.Text) || string.IsNullOrWhiteSpace(End_datePicker.Text))
+            {
+                string searchidkey = this.Name_Search_TextBox.Text;
+                string startdate = this.Start_datePicker.Text;
+                string enddate = this.End_datePicker.Text;
+                dt.DefaultView.RowFilter = string.Format("`שם לקוח` LIKE '%{0}%' AND `תאריך התחלה` LIKE '#{0}#' AND `תאריך סיום משוער` LIKE '#{0}#'", searchidkey, startdate, enddate);
+            }
+            */
+         /*   try
             {
                 MySqlConnection MySqlConn = new MySqlConnection(Login.Connectionstring);
                 MySqlConn.Open();
@@ -171,6 +195,7 @@ namespace project
             {
                 MessageBox.Show(ex.Message);
             }
+          */
         }
 
         private void ADD_Btn_Click(object sender, RoutedEventArgs e)
@@ -641,6 +666,13 @@ namespace project
         // if the dates were not right a message will be shown. 
         private void Filter_button_Click(object sender, RoutedEventArgs e)
         {
+            Fillterdates();
+            if (!string.IsNullOrWhiteSpace(Name_Search_TextBox.Text))
+            {
+                string searchidkey = this.Name_Search_TextBox.Text;
+                dt.DefaultView.RowFilter = string.Format("`שם לקוח` LIKE '%{0}%'", searchidkey);
+            }
+            /*
             //MessageBox.Show("" + Start_datePicker.Text + "");
             if (Start_datePicker.Text != "" && End_datePicker.Text != "")
             {
@@ -700,11 +732,72 @@ namespace project
                 if (Start_datePicker.Text == "" && End_datePicker.Text == "")
                 { MessageBox.Show("לא נבחרו תאריכי התחלה וסוף לסינון "); }
             }
-
+            */
         }
 
 
+        private void Fillterdates()
+        {
+            //MessageBox.Show("" + Start_datePicker.Text + "");
+            if (Start_datePicker.Text != "" && End_datePicker.Text != "")
+            {
+                String start, end;
+                DateTime s = (DateTime)Convert.ToDateTime(Start_datePicker.Text);
+                DateTime f = (DateTime)Convert.ToDateTime(End_datePicker.Text);
+                TimeSpan ts = f - s;
+                //MessageBox.Show("" + s + "");
+                //MessageBox.Show("" + f + "");
+                //MessageBox.Show("" + ts.Days + "");
+                if (ts.Days >= 0)
+                {
+                    start = Convert.ToDateTime(Start_datePicker.Text).ToString("yyyy-MM-dd");
+                    end = Convert.ToDateTime(End_datePicker.Text).ToString("yyyy-MM-dd");
 
+                    string radio = "startDate";
+                    if (ExpectedFinishDate_radioButton.IsChecked == true)
+                    {
+                        radio = "expectedFinishDate";
+                    }
+                    if (ActualFinishDate_radioButton.IsChecked == true)
+                    {
+                        radio = "actualFinishDate";
+                    }
+                    //MessageBox.Show("" + radio + "");
+                    try
+                    {
+                        MySqlConnection MySqlConn = new MySqlConnection(Login.Connectionstring);
+                        MySqlConn.Open();
+                        string Query1 = ("SELECT jobid as `מספר עבודה`, reg_date as `תאריך רישום`,orderid as`מספר הזמנה` ,jobdescription  as `תאור עבודה` ,jobs.costumerid as `חפ לקוח` ,costumers.costumerName as `שם לקוח` ,contact_id as `מספר איש קשר` , costumers.contactName as `שם איש קשר` ,job_status as `סטטוס עבודה`,startDate  as `תאריך התחלה`,expectedFinishDate as `תאריך סיום משוער` ,actualFinishDate as `תאריך סיום בפועל` ,deliveryid  as `תעודת משלוח` ,invoiceNumber  as `מספר חשבונית`  FROM jobs,costumers WHERE " + radio + " BETWEEN '" + start + "' AND '" + end + "' AND jobs.costumerid=costumers.costumerid AND jobs.contact_id=costumers.contactid GROUP BY jobid");
+                        //MessageBox.Show("" + Query1 + "");
+                        MySqlCommand MSQLcrcommand1 = new MySqlCommand(Query1, MySqlConn);
+                        MSQLcrcommand1.ExecuteNonQuery();
+                        MySqlDataAdapter mysqlDAdp = new MySqlDataAdapter(MSQLcrcommand1);
+                        dt.Clear();
+                        mysqlDAdp.Fill(dt);
+                        dataGrid1.ItemsSource = dt.DefaultView;
+                        mysqlDAdp.Update(dt);
+                        MySqlConn.Close();
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show(ex.Message);
+                    }
+                }
+                else
+                {
+                    MessageBox.Show("אסור שתאריך הסוף הנבחר יהיה לפני תאריך ההתחלה הנבחר");
+                }
+            }
+            else
+            {
+                if (Start_datePicker.Text == "" && End_datePicker.Text != "")
+                { MessageBox.Show("לא נבחר תאריך התחלה לסינון"); }
+                if (Start_datePicker.Text != "" && End_datePicker.Text == "")
+                { MessageBox.Show("לא נבחר תאריך סוף לסינון"); }
+                if (Start_datePicker.Text == "" && End_datePicker.Text == "")
+                { MessageBox.Show("לא נבחרו תאריכי התחלה וסוף לסינון "); }
+            }
+        }
 
 
 
