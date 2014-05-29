@@ -31,7 +31,7 @@ namespace project
             this.jobID = jobID1;
             InitializeComponent();
             this.WindowStartupLocation = WindowStartupLocation.CenterScreen;
-
+            jobid_label.Content = jobID;
 
 
             try

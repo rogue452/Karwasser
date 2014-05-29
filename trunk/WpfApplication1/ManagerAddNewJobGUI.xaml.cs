@@ -67,8 +67,9 @@ namespace project
                 MSQLcrcommand1.ExecuteNonQuery();
                 MySqlDataAdapter mysqlDAdp = new MySqlDataAdapter(MSQLcrcommand1);
                 //DataTable dt1 = new DataTable("items");
+                Create_DataTable1_Columns_Start();
                 mysqlDAdp.Fill(dt1);
-                Create_DataTable1_Columns_End();
+                //Create_DataTable1_Columns_End();
            //   Make_CheckBox1_Columns_False();
                 dataGrid2.ItemsSource = dt1.DefaultView;
                 mysqlDAdp.Update(dt1);
@@ -294,7 +295,7 @@ namespace project
         }
 
 
-        private void Create_DataTable1_Columns_End()
+        private void Create_DataTable1_Columns_Start()
         {
             // DataColumn q = new DataColumn();
             // q.ColumnName = "כמות";
