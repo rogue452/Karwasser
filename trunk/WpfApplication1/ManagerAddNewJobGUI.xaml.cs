@@ -560,11 +560,11 @@ namespace project
                         start = Convert.ToDateTime(startdatePicker.Text).ToString("yyyy-MM-dd");
                         end = Convert.ToDateTime(finishdatePicker.Text).ToString("yyyy-MM-dd");
                     }
-                    else { MessageBox.Show(".תאריך ההתחלה שנבחר הוא לאחר תאריך הסיום"); return; }
+                    else { MessageBox.Show(".תאריך ההתחלה שנבחר הוא לאחר תאריך הסיום", "!שים לב", MessageBoxButton.OK, MessageBoxImage.Error); return; }
                 }
-                else { MessageBox.Show("לא הוכנסה מספר הזמנה"); return; }
+                else { MessageBox.Show("לא הוכנסה מספר הזמנה", "!שים לב", MessageBoxButton.OK, MessageBoxImage.Error); return; }
             }// the if (startdatePicker.Text != "" && finishdatePicker.Text != "") closer.
-            else { MessageBox.Show(".לא נבחרו 2 התאריכים"); return; }
+            else { MessageBox.Show(".לא נבחרו 2 התאריכים", "!שים לב", MessageBoxButton.OK, MessageBoxImage.Error); return; }
 
             DataTable changedRecordsItemsTable = dt1.GetChanges();
             //DataTable changedRecordsTableCust = dt.GetChanges();

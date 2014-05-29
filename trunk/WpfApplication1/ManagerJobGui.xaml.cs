@@ -24,6 +24,7 @@ namespace project
     public partial class ManagerJobGui : Window
     {
         DataTable dt = new DataTable("jobs");
+        bool mistake = false;
         public ManagerJobGui()
         {
             InitializeComponent();
@@ -132,7 +133,7 @@ namespace project
                 MySqlConnection MySqlConn = new MySqlConnection(Login.Connectionstring);
                 MySqlConn.Open();
                 String searchkey = this.JobIDSearchTextBox.Text;
-                string Query1 = ("SELECT jobid as `מספר עבודה`, reg_date as `תאריך רישום`,orderid as`מספר הזמנה` ,jobdescription  as `תאור עבודה` ,jobs.costumerid as `חפ לקוח` ,costumers.costumerName as `שם לקוח` ,contact_id as `מספר איש קשר` , costumers.contactName as `שם איש קשר` ,job_status as `סטטוס עבודה`,startDate  as `תאריך התחלה`,expectedFinishDate as `תאריך סיום משוער` ,actualFinishDate as `תאריך סיום בפועל` ,deliveryid  as `תעודת משלוח` ,invoiceNumber  as `מספר חשבונית`  from project.jobs  where  jobid Like '%" + searchkey + "%' group by jobid");
+                string Query1 = ("SELECT jobid as `מספר עבודה`, reg_date as `תאריך רישום`,orderid as`מספר הזמנה` ,jobdescription  as `תאור עבודה` ,jobs.costumerid as `חפ לקוח` ,costumers.costumerName as `שם לקוח` ,contact_id as `מספר איש קשר` , costumers.contactName as `שם איש קשר` ,job_status as `סטטוס עבודה`,startDate  as `תאריך התחלה`,expectedFinishDate as `תאריך סיום משוער` ,actualFinishDate as `תאריך סיום בפועל` ,deliveryid  as `תעודת משלוח` ,invoiceNumber  as `מספר חשבונית`  from project.jobs, project.costumers  where  jobid Like '" + searchkey + "%' AND jobs.costumerid=costumers.costumerid AND jobs.contact_id=costumers.contactid GROUP BY jobid");
                 MySqlCommand MSQLcrcommand1 = new MySqlCommand(Query1, MySqlConn);
                 MSQLcrcommand1.ExecuteNonQuery();
                 MySqlDataAdapter mysqlDAdp = new MySqlDataAdapter(MSQLcrcommand1);
@@ -156,8 +157,11 @@ namespace project
             {
                 Fillterdates();
             }
-            string searchidkey = this.Name_Search_TextBox.Text;
-            dt.DefaultView.RowFilter = string.Format("`שם לקוח` LIKE '%{0}%'", searchidkey);
+            if (mistake == false)
+            {
+                string searchidkey = this.Name_Search_TextBox.Text;
+                dt.DefaultView.RowFilter = string.Format("`שם לקוח` LIKE '%{0}%'", searchidkey);
+            }
 
             // if not both of the datepicker are filled
        /*     if (string.IsNullOrWhiteSpace(Start_datePicker.Text) || string.IsNullOrWhiteSpace(End_datePicker.Text))
@@ -738,6 +742,7 @@ namespace project
 
         private void Fillterdates()
         {
+            mistake =false;
             //MessageBox.Show("" + Start_datePicker.Text + "");
             if (Start_datePicker.Text != "" && End_datePicker.Text != "")
             {
@@ -785,17 +790,31 @@ namespace project
                 }
                 else
                 {
-                    MessageBox.Show("אסור שתאריך הסוף הנבחר יהיה לפני תאריך ההתחלה הנבחר");
+                    MessageBox.Show("אסור שתאריך הסוף הנבחר יהיה לפני תאריך ההתחלה הנבחר", "!שים לב", MessageBoxButton.OK, MessageBoxImage.Error);
+                    mistake = true;
+                    return;
                 }
             }
             else
             {
                 if (Start_datePicker.Text == "" && End_datePicker.Text != "")
-                { MessageBox.Show("לא נבחר תאריך התחלה לסינון"); }
+                { 
+                    MessageBox.Show("לא נבחר תאריך התחלה לסינון", "!שים לב", MessageBoxButton.OK, MessageBoxImage.Error);
+                    mistake = true;
+                    return;
+                }
                 if (Start_datePicker.Text != "" && End_datePicker.Text == "")
-                { MessageBox.Show("לא נבחר תאריך סוף לסינון"); }
+                {
+                    MessageBox.Show("לא נבחר תאריך סוף לסינון", "!שים לב", MessageBoxButton.OK, MessageBoxImage.Error);
+                    mistake = true;
+                    return;
+                }
                 if (Start_datePicker.Text == "" && End_datePicker.Text == "")
-                { MessageBox.Show("לא נבחרו תאריכי התחלה וסוף לסינון "); }
+                {
+                    MessageBox.Show("לא נבחרו תאריכי התחלה וסוף לסינון ", "!שים לב", MessageBoxButton.OK, MessageBoxImage.Error);
+                    mistake = true;
+                    return;
+                }
             }
         }
 
