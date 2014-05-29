@@ -128,6 +128,9 @@ namespace project
 
         private void exit_clicked(object sender, CancelEventArgs e)
         {
+            Login.close = 1;
+
+            /*
             Console.WriteLine("" + Login.close);
 
             if (Login.close == 0) // then the user want to exit.
@@ -165,6 +168,7 @@ namespace project
 
             }
             Login.close = 0;
+             */
         }
     }
 }

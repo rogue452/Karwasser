@@ -20,20 +20,20 @@
         <Label Content="מספר לקוח" HorizontalAlignment="Left" Margin="4,60,0,0" VerticalAlignment="Top" PreviewMouseLeftButtonDown="dataGrid1_Preview_MouseLeftButtonDown" />
         <Label Content="שם לקוח " HorizontalAlignment="Left" Margin="4,95,0,0" VerticalAlignment="Top" Width="71"/>
         <Label Content="החל להקליד כדי לחפש לפי:" HorizontalAlignment="Left" Margin="4,35,0,0" VerticalAlignment="Top" FontWeight="Normal" FontSize="13" Width="237" />
-        <Button Content="הוסף עבודה" HorizontalAlignment="Left" Margin="1009,500,0,0" VerticalAlignment="Top" Width="145" Height="56" Name="ADD_Btn" Background="#8400A500" FontWeight="Bold" Click="ADD_Btn_Click" />
-        <Label Content="בחר לקוח" Margin="4,10,1089,570" FontStyle="Normal" FontWeight="Bold" Name="selecet_cust_label" FontSize="15" />
-        <Button Content="יציאה מהמערכת" HorizontalAlignment="Left" Margin="1036,573,0,0" VerticalAlignment="Top" Width="142" Height="28"  Name="exit_button" Click="exit_button_Click" />
-        <Button Content="חזור למסך העבודות" HorizontalAlignment="Left" Margin="47,573,0,0" VerticalAlignment="Top" Width="134" Height="28" Click="Back_Btn_Click" Name="Back_Btn" />
-        <Image Height="36" HorizontalAlignment="Left" Margin="1060,458,0,0" Name="image1" Stretch="Fill" VerticalAlignment="Top" Width="42" FlowDirection="RightToLeft" Source="/WpfApplication1;component/Images/add_user.png" />
-        <Image Height="28" HorizontalAlignment="Left" Margin="1009,573,0,0" Name="image4" Stretch="Fill" VerticalAlignment="Top" Width="25" Source="/WpfApplication1;component/Images/exit.png" />
-        <Image Height="29" HorizontalAlignment="Left" Margin="12,573,0,0" Name="image7" Stretch="Fill" VerticalAlignment="Top" Width="33" Source="/WpfApplication1;component/Images/back.png" />
+        <Button Content="הוסף עבודה" HorizontalAlignment="Left" Margin="1009,496,0,0" VerticalAlignment="Top" Width="145" Height="56" Name="ADD_Btn" Background="#8400A500" FontWeight="Bold" Click="ADD_Btn_Click" />
+        <Label Content="בחר לקוח *" Margin="4,10,1089,570" FontStyle="Normal" FontWeight="Bold" Name="selecet_cust_label" FontSize="15" />
+        <Button Content="יציאה מהמערכת" HorizontalAlignment="Left" Margin="1036,575,0,0" VerticalAlignment="Top" Width="142" Height="28"  Name="exit_button" Click="exit_button_Click" />
+        <Button Content="חזור למסך העבודות" HorizontalAlignment="Left" Margin="47,575,0,0" VerticalAlignment="Top" Width="134" Height="28" Click="Back_Btn_Click" Name="Back_Btn" />
+        <Image Height="36" HorizontalAlignment="Left" Margin="1060,456,0,0" Name="image1" Stretch="Fill" VerticalAlignment="Top" Width="42" FlowDirection="RightToLeft" Source="/WpfApplication1;component/Images/add_user.png" />
+        <Image Height="28" HorizontalAlignment="Left" Margin="1009,575,0,0" Name="image4" Stretch="Fill" VerticalAlignment="Top" Width="25" Source="/WpfApplication1;component/Images/exit.png" />
+        <Image Height="29" HorizontalAlignment="Left" Margin="12,575,0,0" Name="image7" Stretch="Fill" VerticalAlignment="Top" Width="33" Source="/WpfApplication1;component/Images/back.png" />
         <DataGrid AutoGenerateColumns="True"  AutoGeneratingColumn="Grid_AutoGeneratingColumn1"  Margin="647,132,241,52" Name="dataGrid2" CanUserAddRows="false" SelectionMode="Extended" />
-        <Label Content="תאריך התחלה " Height="25" HorizontalAlignment="Left" Margin="966,71,0,0" Name="startDate_label" VerticalAlignment="Top" Width="91"  />
-        <Label Content="תאור עבודה " Height="26" HorizontalAlignment="Left" Margin="970,171,0,0" Name="jobdescription_label" VerticalAlignment="Top" Width="90" />
+        <Label Content="תאריך התחלה *" Height="25" HorizontalAlignment="Left" Margin="962,71,0,0" Name="startDate_label" VerticalAlignment="Top" Width="100"  />
+        <Label Content="תאור עבודה " Height="26" HorizontalAlignment="Left" Margin="966,171,0,0" Name="jobdescription_label" VerticalAlignment="Top" Width="90" />
         <TextBox Height="259" HorizontalAlignment="Left" Margin="970,193,0,0" Name="jobdes_textbox" VerticalAlignment="Top" Width="220" TextWrapping="Wrap" />
-        <DatePicker Height="30" HorizontalAlignment="Left" Margin="1055,72,0,0" Name="startdatePicker" VerticalAlignment="Top" Width="145" />
-        <DatePicker Height="32" HorizontalAlignment="Left" Margin="1055,114,0,0" Name="finishdatePicker" VerticalAlignment="Top" Width="145" />
-        <Label Content="תאריך סיום " Height="26" HorizontalAlignment="Left" Margin="967,113,0,0" Name="lexpectedFinishDate_label1" VerticalAlignment="Top" Width="75" />
+        <DatePicker Height="30" HorizontalAlignment="Left" Margin="1059,72,0,0" Name="startdatePicker" VerticalAlignment="Top" Width="145" />
+        <DatePicker Height="32" HorizontalAlignment="Left" Margin="1059,114,0,0" Name="finishdatePicker" VerticalAlignment="Top" Width="145" />
+        <Label Content="תאריך סיום *" Height="26" HorizontalAlignment="Left" Margin="963,113,0,0" Name="lexpectedFinishDate_label1" VerticalAlignment="Top" Width="93" />
         <DataGrid AutoGenerateColumns="True" Margin="328,132,562,52" Name="dataGrid3"  Width="299" SelectionMode="Single" AutoGeneratingColumn="dataGrid3_AutoGeneratingColumn" CanUserAddRows="False">
             <DataGrid.Resources>
                 <Style TargetType="DataGridRow">
@@ -44,17 +44,18 @@
                 </Style>
             </DataGrid.Resources>
         </DataGrid>
-        <Label Content="בחר איש קשר" Height="28"  Margin="0,8,633,0" Name="label1" VerticalAlignment="Top" FontSize="15" FontWeight="Bold" HorizontalAlignment="Right" Width="229" />
-        <Label Content="בחר פריטים" Height="28"  Margin="0,8,442,0" Name="label2" VerticalAlignment="Top" FontSize="15" FontWeight="Bold" HorizontalAlignment="Right" Width="119" />
+        <Label Content="בחר איש קשר *" Height="28"  Margin="0,8,633,0" Name="label1" VerticalAlignment="Top" FontSize="15" FontWeight="Bold" HorizontalAlignment="Right" Width="229" />
+        <Label Content="בחר פריטים *" Height="28"  Margin="0,8,442,0" Name="label2" VerticalAlignment="Top" FontSize="15" FontWeight="Bold" HorizontalAlignment="Right" Width="119" />
         <TextBox Height="23" HorizontalAlignment="Left" Margin="727,66,0,0" Name="Item_Search_textBox" VerticalAlignment="Top" Width="136" TextChanged="Item_Search_textBox_TextChanged" />
         <Label Content="מקט פריט" Height="28" HorizontalAlignment="Left" Margin="647,64,0,0" Name="label3" VerticalAlignment="Top" />
-        <Label Content="פרטי העבודה" Height="28" HorizontalAlignment="Left" Margin="968,8,0,0" Name="label4" VerticalAlignment="Top" FontWeight="Bold" FontSize="15" />
+        <Label Content="פרטי העבודה" Height="28" HorizontalAlignment="Left" Margin="961,8,0,0" Name="label4" VerticalAlignment="Top" FontWeight="Bold" FontSize="15" />
         <Label Content="החל להקליד כדי לחפש לפי:" Height="28" HorizontalAlignment="Left" Margin="647,36,0,0" Name="label5" VerticalAlignment="Top" FontSize="13" />
         <Label Content="אנשי הקשר יוצגו ברגע שיבחר לקוח" Height="28" HorizontalAlignment="Left" Margin="373,96,0,0" Name="cont_label" VerticalAlignment="Top" FontWeight="Bold" />
-        <Label Content="מספר הזמנה" Height="28" HorizontalAlignment="Left" Margin="966,38,0,0" Name="orderid_label" VerticalAlignment="Top" />
-        <TextBox Height="23" HorizontalAlignment="Left" Margin="1053,38,0,0" Name="orderID_textBox" VerticalAlignment="Top" Width="145" />
+        <Label Content="מספר הזמנה*" Height="28" HorizontalAlignment="Left" Margin="962,38,0,0" Name="orderid_label" VerticalAlignment="Top" />
+        <TextBox Height="23" HorizontalAlignment="Left" Margin="1057,38,0,0" Name="orderID_textBox" VerticalAlignment="Top" Width="145" />
         <Label Content="או" Height="28" HorizontalAlignment="Left" Margin="22,78,0,0" Name="label7" VerticalAlignment="Top" />
-        <Label Content="הזן בטבלה את הכמות המבוקשת ומקט הלקוח מכל פריט" Height="28" HorizontalAlignment="Left" Margin="647,97,0,0" Name="label6" VerticalAlignment="Top" />
+        <Label Content="הזן בטבלה את הכמות המבוקשת ומקט הלקוח מכל פריט" Height="28" HorizontalAlignment="Left" Margin="639,97,0,0" Name="label6" VerticalAlignment="Top" />
+        <Label Content="שדות עם * מציינים חובה" Height="28" HorizontalAlignment="Left" Margin="1012,548,0,0" Name="label8" VerticalAlignment="Top" />
     </Grid>
 </Window>
 

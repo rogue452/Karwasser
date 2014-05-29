@@ -13,5 +13,6 @@
         <Button Content="נקה שדות" Height="49" HorizontalAlignment="Left" Margin="191,164,0,0" Name="Clear_Btn" VerticalAlignment="Top" Width="106" Click="button2_Click_1" />
         <Button Content="חזור למסך ההתחברות" Height="49" HorizontalAlignment="Left" Margin="388,197,0,0" Name="To_Login_Btn" VerticalAlignment="Top" Width="140" Click="To_Login_Btn_Click" />
         <Label Content="בית הספר היסודי בו למדת" FlowDirection="RightToLeft" Height="28" Margin="25,116,336,114" Name="school_label" Width="179" />
+        <Label Content="אנא מלא את כל השדות כדי שסיסמתך תשלח לכתובת האימייל" Height="28" HorizontalAlignment="Left" Margin="72,12,0,0" Name="label3" VerticalAlignment="Top" FontWeight="Bold" />
     </Grid>
 </Window>

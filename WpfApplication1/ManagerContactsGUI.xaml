@@ -14,7 +14,7 @@
         <Label Content="ניהול אנשי קשר:" HorizontalAlignment="Left" VerticalAlignment="Top" Width="112" Margin="499,4,0,0" FontStyle="Normal" FontWeight="Bold" />
         <Button Content="מחק איש קשר" HorizontalAlignment="Right" Margin="0,34,30,0" VerticalAlignment="Top" Width="180" Height="56" Name="DeleteBtn" FontWeight="Bold" Background="#A5FF0000" Click="DeleteBtn_Click" />
         <Button Content="עדכון פרטי איש הקשר" HorizontalAlignment="Right" Margin="0,34,236,0" VerticalAlignment="Top" Width="180" Height="56" Name="UpdateBtn" FontWeight="Bold" Click="UpdateBtn_Click" />
-        <Button Content="יציאה מהמערכת" HorizontalAlignment="Left" Margin="1036,573,0,0" VerticalAlignment="Top" Width="142" Height="28" />
+        <Button Content="יציאה מהמערכת" HorizontalAlignment="Left" Margin="1036,573,0,0" VerticalAlignment="Top" Width="142" Height="28" Name="exit_button" Click="exit_button_Click" />
         <Button Content="חזור למסך לקוחות" HorizontalAlignment="Left" Margin="47,573,0,0" VerticalAlignment="Top" Width="134" Height="28" Click="Back_Btn_Click" Name="Back_Btn" />
         <Button Content="ייצא רשימה לקובץ אקסל" Height="28" HorizontalAlignment="Left" Margin="507,572,0,0" Name="ExcelBtn" VerticalAlignment="Top" Width="161" Click="ExcelBtn_Click" />
         <Image Height="30" HorizontalAlignment="Right" Margin="0,3,509,0" Name="image1" Stretch="Fill" VerticalAlignment="Top" Width="42" FlowDirection="RightToLeft" Source="/WpfApplication1;component/Images/add_user.png" />
