@@ -220,7 +220,7 @@ namespace project
             }
             catch 
             {
-                MessageBox.Show("!לא נבחרה עבודה לשינוי", "שים לב", MessageBoxButton.OK, MessageBoxImage.Warning);
+                MessageBox.Show("!לא נבחרה עבודה לשינוי", "!שים לב", MessageBoxButton.OK, MessageBoxImage.Warning);
                 return;
             }
             DataRowView row = (DataRowView)dataGrid1.SelectedItems[0];
@@ -319,20 +319,20 @@ namespace project
                     string description = row["תאור עבודה"].ToString();
                     if (row["תאריך התחלה"].ToString().Equals(""))
                     {
-                        MessageBox.Show("!לא ניתן למחוק את תאריך ההתחלה" , "שים לב", MessageBoxButton.OK, MessageBoxImage.Error);
+                        MessageBox.Show("!לא ניתן למחוק את תאריך ההתחלה" , "!שים לב", MessageBoxButton.OK, MessageBoxImage.Error);
                         refreashandclear();
                         return;
                     }
                     if (row["תאריך סיום משוער"].ToString().Equals(""))
                     {
-                        MessageBox.Show("!לא ניתן למחוק את תאריך סיום משוער", "שים לב", MessageBoxButton.OK, MessageBoxImage.Error);
+                        MessageBox.Show("!לא ניתן למחוק את תאריך סיום משוער", "!שים לב", MessageBoxButton.OK, MessageBoxImage.Error);
                         refreashandclear();
                         return;
                     }
 
                     if (row["תאריך רישום"].ToString().Equals(""))
                     {
-                        MessageBox.Show("!לא ניתן למחוק את תאריך רישום אלא רק לשנות", "שים לב", MessageBoxButton.OK, MessageBoxImage.Error);
+                        MessageBox.Show("!לא ניתן למחוק את תאריך רישום אלא רק לשנות", "!שים לב", MessageBoxButton.OK, MessageBoxImage.Error);
                         refreashandclear();
                         return;
                     }
@@ -344,7 +344,7 @@ namespace project
                     // if the days are not ok.
                     if (ts.Days < 0)
                     {
-                        MessageBox.Show(".תאריך ההתחלה שנבחר הוא לאחר תאריך סיום משוער", "שים לב", MessageBoxButton.OK, MessageBoxImage.Error);
+                        MessageBox.Show(".תאריך ההתחלה שנבחר הוא לאחר תאריך סיום משוער", "!שים לב", MessageBoxButton.OK, MessageBoxImage.Error);
                         refreashandclear();
                         return;
                     }
@@ -352,7 +352,7 @@ namespace project
                     string orderid = row["מספר הזמנה"].ToString();
                     if (orderid == "")
                     {
-                        MessageBox.Show("!לא ניתן לעדכן עם מספר הזמנה ריק", "שים לב", MessageBoxButton.OK, MessageBoxImage.Error);
+                        MessageBox.Show("!לא ניתן לעדכן עם מספר הזמנה ריק", "!שים לב", MessageBoxButton.OK, MessageBoxImage.Error);
                         refreashandclear();
                         return;
                     }
@@ -367,7 +367,7 @@ namespace project
                             }
                             catch
                             {
-                                MessageBox.Show("!תעודת המשלוח לא מכילה רק מספרים", "שים לב", MessageBoxButton.OK, MessageBoxImage.Error);
+                                MessageBox.Show("!תעודת המשלוח לא מכילה רק מספרים", "!שים לב", MessageBoxButton.OK, MessageBoxImage.Error);
                                 refreashandclear();
                                 return;
                             }
@@ -385,7 +385,7 @@ namespace project
                             }
                             catch
                             {
-                                MessageBox.Show("!מספר חשבונית לא מכיל רק מספרים", "שים לב", MessageBoxButton.OK, MessageBoxImage.Error);
+                                MessageBox.Show("!מספר חשבונית לא מכיל רק מספרים", "!שים לב", MessageBoxButton.OK, MessageBoxImage.Error);
                                 refreashandclear();
                                 return;
                             }
@@ -409,7 +409,7 @@ namespace project
                             MSQLcrcommand1.ExecuteNonQuery();
                             MySqlDataAdapter mysqlDAdp = new MySqlDataAdapter(MSQLcrcommand1);
                             MySqlConn.Close();
-                            MessageBox.Show("!פרטי העבודה עודכנו" , "הצלחה", MessageBoxButton.OK, MessageBoxImage.Information);
+                            MessageBox.Show("!פרטי העבודה עודכנו" , "!הצלחה", MessageBoxButton.OK, MessageBoxImage.Information);
                         }
                         catch (Exception ex)
                         {
@@ -424,7 +424,7 @@ namespace project
                         // if the days are not ok.
                         if (ts.Days < 0)
                         {
-                            MessageBox.Show(".תאריך ההתחלה הוא לאחר תאריך הסיום בפועל", "שים לב", MessageBoxButton.OK, MessageBoxImage.Error);
+                            MessageBox.Show(".תאריך ההתחלה הוא לאחר תאריך הסיום בפועל", "!שים לב", MessageBoxButton.OK, MessageBoxImage.Error);
                             refreashandclear();
                             return;
                         }
@@ -440,7 +440,7 @@ namespace project
                             MSQLcrcommand1.ExecuteNonQuery();
                             MySqlDataAdapter mysqlDAdp = new MySqlDataAdapter(MSQLcrcommand1);
                             MySqlConn.Close();
-                            MessageBox.Show("!פרטי העבודה עודכנו", "הצלחה", MessageBoxButton.OK, MessageBoxImage.Information);
+                            MessageBox.Show("!פרטי העבודה עודכנו", "!הצלחה", MessageBoxButton.OK, MessageBoxImage.Information);
                         }
                         catch (Exception ex)
                         {
@@ -452,7 +452,7 @@ namespace project
                 }
 
             }
-            catch { MessageBox.Show(".לא נבחרה עבודה לעדכון", "שים לב", MessageBoxButton.OK, MessageBoxImage.Error); }
+            catch { MessageBox.Show(".לא נבחרה עבודה לעדכון", "!שים לב", MessageBoxButton.OK, MessageBoxImage.Error); }
         }
 
 

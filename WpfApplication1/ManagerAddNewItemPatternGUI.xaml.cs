@@ -72,7 +72,7 @@ namespace project
             }
             catch
             {
-                MessageBox.Show("!לא נבחר שלב", "שים לב", MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBox.Show("!לא נבחר שלב", "!שים לב", MessageBoxButton.OK, MessageBoxImage.Error);
                 return;
             }
 
@@ -86,7 +86,7 @@ namespace project
                 }
                 else
                 {
-                    MessageBox.Show("!לא הוכנס מקט פריט", "שים לב", MessageBoxButton.OK, MessageBoxImage.Error);
+                    MessageBox.Show("!לא הוכנס מקט פריט", "!שים לב", MessageBoxButton.OK, MessageBoxImage.Error);
                     // MessageBox.Show("לא הוכנס מק``ט פריט");
                     return;
                 }
@@ -94,7 +94,7 @@ namespace project
 
                 if (string.IsNullOrWhiteSpace(itemname_textBox.Text))
                 {
-                    MessageBox.Show("!לא הוכנס שם פריט", "שים לב", MessageBoxButton.OK, MessageBoxImage.Error);
+                    MessageBox.Show("!לא הוכנס שם פריט", "!שים לב", MessageBoxButton.OK, MessageBoxImage.Error);
                     //MessageBox.Show("לא הוכנס שם פריט");
                     return;
                 }
@@ -112,7 +112,7 @@ namespace project
 
                         if (times != 0)
                         {
-                            MessageBox.Show("כבר קיים פריט בעל מקט - " + itemid, "שים לב", MessageBoxButton.OK, MessageBoxImage.Warning);
+                            MessageBox.Show("כבר קיים פריט בעל מקט - " + itemid, "!שים לב", MessageBoxButton.OK, MessageBoxImage.Warning);
                             return;
                         }
                     }

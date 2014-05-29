@@ -235,7 +235,7 @@ namespace project
                             MySqlDataAdapter mysqlDAdp = new MySqlDataAdapter(MSQLcrcommand1);
                             MySqlConn.Close();
                             refreashandclear();
-                            MessageBox.Show("!הפריט נמחק מהעבודה", "הצלחה", MessageBoxButton.OK, MessageBoxImage.Information);
+                            MessageBox.Show("!הפריט נמחק מהעבודה", "!הצלחה", MessageBoxButton.OK, MessageBoxImage.Information);
                             return;
                         }
                         catch (Exception ex)
@@ -285,7 +285,7 @@ namespace project
                                 MySqlDataAdapter mysqlDAdp = new MySqlDataAdapter(MSQLcrcommand1);
                                 MySqlConn.Close();
                                 refreashandclear();
-                                MessageBox.Show("!הפריט נמחק מהעבודה", "הצלחה", MessageBoxButton.OK, MessageBoxImage.Information);
+                                MessageBox.Show("!הפריט נמחק מהעבודה", "!הצלחה", MessageBoxButton.OK, MessageBoxImage.Information);
                                 ManagerJobInfoGui MJIG = new ManagerJobInfoGui(jobID);
                                 MJIG.Show();
                                 Login.close = 1;
@@ -307,7 +307,7 @@ namespace project
                                 MSQLcrcommand1.ExecuteNonQuery();
                                 MySqlDataAdapter mysqlDAdp = new MySqlDataAdapter(MSQLcrcommand1);
                                 MySqlConn.Close();
-                                MessageBox.Show("בגלל שזהו הפריט האחרון בעבודה\n .הפריט לא נמחק אך סטטוס העבודה שונה לבוטלה", "שים לב - שינוי סטטוס עבודה", MessageBoxButton.OK, MessageBoxImage.Warning);
+                                MessageBox.Show("בגלל שזהו הפריט האחרון בעבודה\n .הפריט לא נמחק אך סטטוס העבודה שונה לבוטלה", "!שים לב - שינוי סטטוס עבודה", MessageBoxButton.OK, MessageBoxImage.Warning);
                                 return;
                             }
                             catch (Exception ex)
@@ -326,7 +326,7 @@ namespace project
             }//end try
             catch 
             {
-                MessageBox.Show("לא נבחר פריט למחיקה", "שים לב", MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBox.Show("לא נבחר פריט למחיקה", "!שים לב", MessageBoxButton.OK, MessageBoxImage.Error);
             }
 
         }//end function
@@ -562,14 +562,14 @@ namespace project
                         MessageBox.Show(ex.Message);
                         return; 
                     }
-                    MessageBox.Show("!הפריט עודכן", "הצלחה", MessageBoxButton.OK, MessageBoxImage.Information);
+                    MessageBox.Show("!הפריט עודכן", "!הצלחה", MessageBoxButton.OK, MessageBoxImage.Information);
                     refreashandclear();
 
                 }
             }
             catch 
             {
-                MessageBox.Show("!לא נבחר פריט לעדכון", "שים לב", MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBox.Show("!לא נבחר פריט לעדכון", "!שים לב", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
             
@@ -798,7 +798,7 @@ namespace project
 
                                 if (status == "הסתיים")
                                 {
-                                    MessageBox.Show(".כבר בוצעו כל השלבים הקיימים עבור פריט זה", "שים לב", MessageBoxButton.OK, MessageBoxImage.Warning);
+                                    MessageBox.Show(".כבר בוצעו כל השלבים הקיימים עבור פריט זה", "!שים לב", MessageBoxButton.OK, MessageBoxImage.Warning);
                                     MySqlConn.Close();
                                     refreashandclear();
                                     return;
@@ -806,7 +806,7 @@ namespace project
                                
                                 if (status == "פסול")
                                 {
-                                    MessageBox.Show(".עבור פריט בסטטוס פסול עליך לשנות סטטוס ידנית", "שים לב", MessageBoxButton.OK, MessageBoxImage.Error);
+                                    MessageBox.Show(".עבור פריט בסטטוס פסול עליך לשנות סטטוס ידנית", "!שים לב", MessageBoxButton.OK, MessageBoxImage.Error);
                                     MySqlConn.Close();
                                     refreashandclear();
                                     return;
@@ -853,12 +853,12 @@ namespace project
                     }
                     if (last == true)
                     {
-                        MessageBox.Show(".הפריט קודם לסטטוס הבא", "הצלחה", MessageBoxButton.OK, MessageBoxImage.Information);
+                        MessageBox.Show(".הפריט קודם לסטטוס הבא", "!הצלחה", MessageBoxButton.OK, MessageBoxImage.Information);
                         refreashandclear();
                         return;
                     }
 
-                    MessageBox.Show(".הפריט קודם לשלב הבא", "הצלחה", MessageBoxButton.OK, MessageBoxImage.Information); 
+                    MessageBox.Show(".הפריט קודם לשלב הבא", "!הצלחה", MessageBoxButton.OK, MessageBoxImage.Information); 
                     refreashandclear();
    
                 } // end of else // if the user clicked on "Yes" so he wants to Delete.
@@ -866,7 +866,7 @@ namespace project
             }
             catch 
             {
-                MessageBox.Show(".לא נבחר פריט לקדם", "שים לב", MessageBoxButton.OK, MessageBoxImage.Error); 
+                MessageBox.Show(".לא נבחר פריט לקדם", "!שים לב", MessageBoxButton.OK, MessageBoxImage.Error); 
                 refreashandclear(); 
                 return;
             }
@@ -979,7 +979,7 @@ namespace project
                                 first = true;
                                 if (status == "רישום")
                                 {
-                                    MessageBox.Show(".הפריט כבר נמצא בשלב הראשון הקיים", "שים לב", MessageBoxButton.OK, MessageBoxImage.Warning);
+                                    MessageBox.Show(".הפריט כבר נמצא בשלב הראשון הקיים", "!שים לב", MessageBoxButton.OK, MessageBoxImage.Warning);
                                     MySqlConn.Close();
                                     refreashandclear();
                                     return;
@@ -1022,7 +1022,7 @@ namespace project
 
                                 if (status == "פסול")
                                 {
-                                    MessageBox.Show(".עבור פריט בסטטוס פסול עליך לשנות סטטוס ידנית", "שים לב", MessageBoxButton.OK, MessageBoxImage.Error);
+                                    MessageBox.Show(".עבור פריט בסטטוס פסול עליך לשנות סטטוס ידנית", "!שים לב", MessageBoxButton.OK, MessageBoxImage.Error);
                                     MySqlConn.Close();
                                     refreashandclear();
                                     return;
@@ -1069,12 +1069,12 @@ namespace project
                     }
                     if (first == true)
                     {
-                        MessageBox.Show(".הפריט הוחזר לסטטוס הקודם", "הצלחה", MessageBoxButton.OK, MessageBoxImage.Information);
+                        MessageBox.Show(".הפריט הוחזר לסטטוס הקודם", "!הצלחה", MessageBoxButton.OK, MessageBoxImage.Information);
                         refreashandclear();
                         return;
                     }
 
-                    MessageBox.Show(".הפריט הוחזר לשלב הקודם", "הצלחה", MessageBoxButton.OK, MessageBoxImage.Information);
+                    MessageBox.Show(".הפריט הוחזר לשלב הקודם", "!הצלחה", MessageBoxButton.OK, MessageBoxImage.Information);
                     refreashandclear();
 
                 } // end of else // if the user clicked on "Yes" so he wants to Delete.
@@ -1082,7 +1082,7 @@ namespace project
             }
             catch
             {
-                MessageBox.Show(".לא נבחר פריט להחזרה", "שים לב", MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBox.Show(".לא נבחר פריט להחזרה", "!שים לב", MessageBoxButton.OK, MessageBoxImage.Error);
                 refreashandclear();
                 return;
             }
