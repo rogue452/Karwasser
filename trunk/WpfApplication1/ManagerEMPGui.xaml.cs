@@ -263,7 +263,7 @@ namespace project
                             }
                             catch
                             {
-                                MessageBox.Show("שדה מספר טלפון לא מכיל רק מספרים", "שים לב", MessageBoxButton.OK, MessageBoxImage.Error);
+                                MessageBox.Show("שדה מספר טלפון לא מכיל רק מספרים", "!שים לב", MessageBoxButton.OK, MessageBoxImage.Error);
                                 reafreashandclear();
                                 return;
                             }
@@ -273,7 +273,7 @@ namespace project
                             }
                             catch
                             {
-                                MessageBox.Show("שדה מספר עובד לא מכיל רק מספרים", "שים לב", MessageBoxButton.OK, MessageBoxImage.Error);
+                                MessageBox.Show("שדה מספר עובד לא מכיל רק מספרים", "!שים לב", MessageBoxButton.OK, MessageBoxImage.Error);
                                 reafreashandclear();
                                 return;
                             }
@@ -283,7 +283,7 @@ namespace project
                             }
                             catch
                             {
-                                MessageBox.Show("שדה טלפון נייד לא מכיל רק מספרים", "שים לב", MessageBoxButton.OK, MessageBoxImage.Error);
+                                MessageBox.Show("שדה טלפון נייד לא מכיל רק מספרים", "!שים לב", MessageBoxButton.OK, MessageBoxImage.Error);
                                 reafreashandclear();
                                 return;
                             }
@@ -297,7 +297,7 @@ namespace project
                             string cell = row["טלפון נייד"].ToString();
                             if ((firstname.Length > 45) || (lastname.Length > 45) || (address.Length > 45) || (phone.Length > 45) || (empnum.Length > 45) || (cell.Length > 45))
                             {
-                                MessageBox.Show("אסור ששדה יכיל יותר מ - 45 תוים", "שים לב", MessageBoxButton.OK, MessageBoxImage.Error);
+                                MessageBox.Show("אסור ששדה יכיל יותר מ - 45 תוים", "!שים לב", MessageBoxButton.OK, MessageBoxImage.Error);
                                 reafreashandclear();
                                 return;
                             }

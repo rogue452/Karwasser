@@ -564,7 +564,7 @@ namespace project
                                         return;
                                     }
                                 }
-                                MessageBox.Show("!שינוי העבודה הצליח", "הצלחה", MessageBoxButton.OK, MessageBoxImage.Information);
+                                MessageBox.Show("!שינוי העבודה הצליח", "!הצלחה", MessageBoxButton.OK, MessageBoxImage.Information);
                                 ManagerJobGui MJG = new ManagerJobGui();
                                 MJG.Show();
                                 Login.close = 1;
@@ -605,7 +605,7 @@ namespace project
                 }
                 catch
                 {
-                    MessageBox.Show("!לא נבחר לקוח", "שים לב", MessageBoxButton.OK, MessageBoxImage.Warning);
+                    MessageBox.Show("!לא נבחר לקוח", "!שים לב", MessageBoxButton.OK, MessageBoxImage.Warning);
                     //MessageBox.Show("לא נבחר לקוח"); Console.WriteLine("לא נבחר לקוח"); 
                     return; 
                 }
@@ -623,7 +623,7 @@ namespace project
                     MSQLcrcommand1.ExecuteNonQuery();
                     MySqlDataAdapter mysqlDAdp = new MySqlDataAdapter(MSQLcrcommand1);
                     MySqlConn.Close();
-                    MessageBox.Show("!עדכון הלקוח ו/או איש הקשר הצליח", "הצלחה", MessageBoxButton.OK, MessageBoxImage.Information);
+                    MessageBox.Show("!עדכון הלקוח ו/או איש הקשר הצליח", "!הצלחה", MessageBoxButton.OK, MessageBoxImage.Information);
                 }
                 catch (Exception ex)
                 {

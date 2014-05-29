@@ -187,7 +187,7 @@ namespace project
                             MySqlDataAdapter mysqlDAdp = new MySqlDataAdapter(MSQLcrcommand1);
                             MySqlConn.Close();
                             refreashandClear();
-                            MessageBox.Show("!סט הפריט נמחק מהעבודה", "הצלחה", MessageBoxButton.OK, MessageBoxImage.Information);
+                            MessageBox.Show("!סט הפריט נמחק מהעבודה", "!הצלחה", MessageBoxButton.OK, MessageBoxImage.Information);
                             return;
                         }
                         catch (Exception ex)
@@ -208,7 +208,7 @@ namespace project
                             MSQLcrcommand1.ExecuteNonQuery();
                             MySqlDataAdapter mysqlDAdp = new MySqlDataAdapter(MSQLcrcommand1);
                             MySqlConn.Close();
-                            MessageBox.Show("בגלל שזהו סט הפריט האחרון בעבודה\n .סט הפריט לא נמחק אך סטטוס העבודה שונה לבוטלה", "שים לב - שינוי סטטוס עבודה", MessageBoxButton.OK, MessageBoxImage.Warning);
+                            MessageBox.Show("בגלל שזהו סט הפריט האחרון בעבודה\n .סט הפריט לא נמחק אך סטטוס העבודה שונה לבוטלה", "!שים לב - שינוי סטטוס עבודה", MessageBoxButton.OK, MessageBoxImage.Warning);
                             return;
                         }
                         catch (Exception ex)
@@ -224,7 +224,7 @@ namespace project
             }//end try
             catch 
             {
-                MessageBox.Show("לא נבחר סט פריט למחיקה" , "שים לב", MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBox.Show("לא נבחר סט פריט למחיקה" , "!שים לב", MessageBoxButton.OK, MessageBoxImage.Error);
             }
 
         }//end function
@@ -266,7 +266,7 @@ namespace project
                         int expectedq = Convert.ToInt32(exqun);
                     }
                     catch { 
-                            MessageBox.Show("שדה הכמות נדרשת לא מכיל רק מספרים" , "שים לב" , MessageBoxButton.OK, MessageBoxImage.Error);
+                            MessageBox.Show("שדה הכמות נדרשת לא מכיל רק מספרים" , "!שים לב" , MessageBoxButton.OK, MessageBoxImage.Error);
                             // need to do refreash
                             refreashandClear();
                             return; 
@@ -901,7 +901,7 @@ namespace project
             }// end try.
             catch 
             {
-                MessageBox.Show("!לא נבחר סט פריט לעדכון", "שים לב", MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBox.Show("!לא נבחר סט פריט לעדכון", "!שים לב", MessageBoxButton.OK, MessageBoxImage.Error);
                 //MessageBox.Show("לא נבחר סט פריט לעדכון ");
             }
         }
@@ -999,7 +999,7 @@ namespace project
                                 }
                                 if (group_Status == "תיקון")
                                 {
-                                    MessageBox.Show(".עבור קבוצת פריט בסטטוס תיקון עליך לשנות סטטוס ידנית", "שים לב", MessageBoxButton.OK, MessageBoxImage.Error);
+                                    MessageBox.Show(".עבור קבוצת פריט בסטטוס תיקון עליך לשנות סטטוס ידנית", "!שים לב", MessageBoxButton.OK, MessageBoxImage.Error);
                                     MySqlConn.Close();
                                     refreashandClear();
                                     return;
@@ -1019,7 +1019,7 @@ namespace project
 
                                 if (group_Status == "הסתיים")
                                 {
-                                    MessageBox.Show(".כבר בוצעו כל השלבים הקיימים עבור קבוצת פריט זה", "שים לב", MessageBoxButton.OK, MessageBoxImage.Warning);
+                                    MessageBox.Show(".כבר בוצעו כל השלבים הקיימים עבור קבוצת פריט זה", "!שים לב", MessageBoxButton.OK, MessageBoxImage.Warning);
                                     MySqlConn.Close();
                                     refreashandClear();
                                     return;
@@ -1027,7 +1027,7 @@ namespace project
 
                                 if (group_Status == "פסול")
                                 {
-                                    MessageBox.Show(".עבור קבוצת פריט בסטטוס פסול עליך לשנות סטטוס ידנית", "שים לב", MessageBoxButton.OK, MessageBoxImage.Error);
+                                    MessageBox.Show(".עבור קבוצת פריט בסטטוס פסול עליך לשנות סטטוס ידנית", "!שים לב", MessageBoxButton.OK, MessageBoxImage.Error);
                                     MySqlConn.Close();
                                     refreashandClear();
                                     return;
@@ -1168,13 +1168,13 @@ namespace project
                     {
                         if (groupsize > 0)
                         {
-                            MessageBox.Show(".הקבוצה קודמה לסטטוס הבא", "הצלחה", MessageBoxButton.OK, MessageBoxImage.Information);
+                            MessageBox.Show(".הקבוצה קודמה לסטטוס הבא", "!הצלחה", MessageBoxButton.OK, MessageBoxImage.Information);
                             refreashandClear();
                             return;
                         }
                         else
                         {
-                            MessageBox.Show(".הקבוצה קודמה לסטטוס הבא\n       .אך שים לב לכך שהקבוצה הייתה ריקה", "הצלחה", MessageBoxButton.OK, MessageBoxImage.Information);
+                            MessageBox.Show(".הקבוצה קודמה לסטטוס הבא\n       .אך !שים לב לכך שהקבוצה הייתה ריקה", "!הצלחה", MessageBoxButton.OK, MessageBoxImage.Information);
                             refreashandClear();
                             return;
                         }
@@ -1183,12 +1183,12 @@ namespace project
                     {
                         if (groupsize > 0)
                         {
-                            MessageBox.Show(".הקבוצה קודמה לשלב הבא", "הצלחה", MessageBoxButton.OK, MessageBoxImage.Information);
+                            MessageBox.Show(".הקבוצה קודמה לשלב הבא", "!הצלחה", MessageBoxButton.OK, MessageBoxImage.Information);
                             refreashandClear();
                         }
                         else
                         {
-                            MessageBox.Show(".הקבוצה קודמה לשלב הבא\n       .אך שים לב לכך שהקבוצה הייתה ריקה", "הצלחה", MessageBoxButton.OK, MessageBoxImage.Information);
+                            MessageBox.Show(".הקבוצה קודמה לשלב הבא\n       .אך !שים לב לכך שהקבוצה הייתה ריקה", "!הצלחה", MessageBoxButton.OK, MessageBoxImage.Information);
                             refreashandClear();
                         }
                     }
@@ -1198,7 +1198,7 @@ namespace project
             }
             catch
             {
-                MessageBox.Show(".לא נבחרה קבוצה לקדם", "שים לב", MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBox.Show(".לא נבחרה קבוצה לקדם", "!שים לב", MessageBoxButton.OK, MessageBoxImage.Error);
                 refreashandClear();
                 return;
             }
@@ -1309,7 +1309,7 @@ namespace project
                                 first = true;
                                 if (group_Status == "רישום")
                                 {
-                                    MessageBox.Show(".הפריט כבר נמצא בשלב הראשון הקיים", "שים לב", MessageBoxButton.OK, MessageBoxImage.Warning);
+                                    MessageBox.Show(".הפריט כבר נמצא בשלב הראשון הקיים", "!שים לב", MessageBoxButton.OK, MessageBoxImage.Warning);
                                     MySqlConn.Close();
                                     refreashandClear();
                                     return;
@@ -1317,7 +1317,7 @@ namespace project
 
                                 if (group_Status == "תיקון")
                                 {
-                                    MessageBox.Show(".עבור קבוצת פריט בסטטוס תיקון עליך לשנות סטטוס ידנית", "שים לב", MessageBoxButton.OK, MessageBoxImage.Error);
+                                    MessageBox.Show(".עבור קבוצת פריט בסטטוס תיקון עליך לשנות סטטוס ידנית", "!שים לב", MessageBoxButton.OK, MessageBoxImage.Error);
                                     MySqlConn.Close();
                                     refreashandClear();
                                     return;
@@ -1326,7 +1326,7 @@ namespace project
 
                                 if (group_Status == "פסול")
                                 {
-                                    MessageBox.Show(".עבור פריט בסטטוס פסול עליך לשנות סטטוס ידנית", "שים לב", MessageBoxButton.OK, MessageBoxImage.Error);
+                                    MessageBox.Show(".עבור פריט בסטטוס פסול עליך לשנות סטטוס ידנית", "!שים לב", MessageBoxButton.OK, MessageBoxImage.Error);
                                     MySqlConn.Close();
                                     refreashandClear();
                                     return;
@@ -1442,13 +1442,13 @@ namespace project
                     {
                         if (groupsize > 0)
                         {
-                            MessageBox.Show(".הקבוצה הוחזרה לסטטוס הקודם", "הצלחה", MessageBoxButton.OK, MessageBoxImage.Information);
+                            MessageBox.Show(".הקבוצה הוחזרה לסטטוס הקודם", "!הצלחה", MessageBoxButton.OK, MessageBoxImage.Information);
                             refreashandClear();
                             return;
                         }
                         else
                         {
-                            MessageBox.Show(".הקבוצה הוחזרה לסטטוס הקודם\n       .אך שים לב לכך שהקבוצה הייתה ריקה", "הצלחה", MessageBoxButton.OK, MessageBoxImage.Information);
+                            MessageBox.Show(".הקבוצה הוחזרה לסטטוס הקודם\n       .אך !שים לב לכך שהקבוצה הייתה ריקה", "!הצלחה", MessageBoxButton.OK, MessageBoxImage.Information);
                             refreashandClear();
                             return;
                         }
@@ -1457,12 +1457,12 @@ namespace project
                     {
                         if (groupsize > 0)
                         {
-                            MessageBox.Show(".הקבוצה הוחזרה לשלב הקודם", "הצלחה", MessageBoxButton.OK, MessageBoxImage.Information);
+                            MessageBox.Show(".הקבוצה הוחזרה לשלב הקודם", "!הצלחה", MessageBoxButton.OK, MessageBoxImage.Information);
                             refreashandClear();
                         }
                         else
                         {
-                            MessageBox.Show(".הקבוצה הוחזרה לשלב הקודם\n       .אך שים לב לכך שהקבוצה הייתה ריקה", "הצלחה", MessageBoxButton.OK, MessageBoxImage.Information);
+                            MessageBox.Show(".הקבוצה הוחזרה לשלב הקודם\n       .אך !שים לב לכך שהקבוצה הייתה ריקה", "!הצלחה", MessageBoxButton.OK, MessageBoxImage.Information);
                             refreashandClear();
                         }
                     }
@@ -1472,7 +1472,7 @@ namespace project
             }
             catch
             {
-                MessageBox.Show(".לא נבחרה קבוצה להחזרה", "שים לב", MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBox.Show(".לא נבחרה קבוצה להחזרה", "!שים לב", MessageBoxButton.OK, MessageBoxImage.Error);
                 refreashandClear();
                 return;
             }
