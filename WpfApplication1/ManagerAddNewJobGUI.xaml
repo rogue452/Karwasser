@@ -51,10 +51,10 @@
         <Label Content="פרטי העבודה" Height="28" HorizontalAlignment="Left" Margin="968,8,0,0" Name="label4" VerticalAlignment="Top" FontWeight="Bold" FontSize="15" />
         <Label Content="החל להקליד כדי לחפש לפי:" Height="28" HorizontalAlignment="Left" Margin="647,36,0,0" Name="label5" VerticalAlignment="Top" FontSize="13" />
         <Label Content="אנשי הקשר יוצגו ברגע שיבחר לקוח" Height="28" HorizontalAlignment="Left" Margin="373,96,0,0" Name="cont_label" VerticalAlignment="Top" FontWeight="Bold" />
-        <Label Content="הכנס בטבלה את הכמות המבוקשת מכל פריט" Height="28" HorizontalAlignment="Left" Margin="647,96,0,0" Name="label6" VerticalAlignment="Top" />
         <Label Content="מספר הזמנה" Height="28" HorizontalAlignment="Left" Margin="966,38,0,0" Name="orderid_label" VerticalAlignment="Top" />
         <TextBox Height="23" HorizontalAlignment="Left" Margin="1053,38,0,0" Name="orderID_textBox" VerticalAlignment="Top" Width="145" />
         <Label Content="או" Height="28" HorizontalAlignment="Left" Margin="22,78,0,0" Name="label7" VerticalAlignment="Top" />
+        <Label Content="הזן בטבלה את הכמות המבוקשת ומקט הלקוח מכל פריט" Height="28" HorizontalAlignment="Left" Margin="647,97,0,0" Name="label6" VerticalAlignment="Top" />
     </Grid>
 </Window>
 

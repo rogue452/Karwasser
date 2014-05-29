@@ -191,12 +191,15 @@ namespace project
             }
             catch 
             {
-                MessageBox.Show("!לא נבחרה עבודה לעדכון", "שים לב", MessageBoxButton.OK, MessageBoxImage.Warning);
+                MessageBox.Show("!לא נבחרה עבודה לשינוי", "שים לב", MessageBoxButton.OK, MessageBoxImage.Warning);
                 return;
             }
             DataRowView row = (DataRowView)dataGrid1.SelectedItems[0];
             string selected = row["מספר עבודה"].ToString();
-            ManagerChangeJobGui MCJG = new ManagerChangeJobGui(selected);
+            string oID = row["מספר הזמנה"].ToString();
+            string hpcost = row["חפ לקוח"].ToString();
+            string contactNumber = row["מספר איש קשר"].ToString();
+            ManagerChangeJobGui MCJG = new ManagerChangeJobGui(selected, oID, hpcost, contactNumber);
             MCJG.Show();
             Login.close = 1;
             this.Close();

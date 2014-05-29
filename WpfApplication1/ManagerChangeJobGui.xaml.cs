@@ -30,11 +30,15 @@ namespace project
         DataTable dt1 = new DataTable("items");
         DataTable dt2 = new DataTable("Contacts");
         string jobid;
-        public ManagerChangeJobGui(string jobid1)
+        public ManagerChangeJobGui(string jobid1, string oID, string hpcost, string contactNumber)
         {
             InitializeComponent();
             this.WindowStartupLocation = WindowStartupLocation.CenterScreen;
             this.jobid = jobid1;
+            jobid_label1.Content = jobid;
+            order_label.Content = oID;
+            cost_label.Content = hpcost;
+            contact_label.Content = contactNumber;
             try
             {
                 MySqlConnection MySqlConn = new MySqlConnection(Login.Connectionstring);
@@ -61,8 +65,9 @@ namespace project
                 MySqlCommand MSQLcrcommand1 = new MySqlCommand(Query1, MySqlConn);
                 MSQLcrcommand1.ExecuteNonQuery();
                 MySqlDataAdapter mysqlDAdp = new MySqlDataAdapter(MSQLcrcommand1);
+                Create_DataTable1_Columns_Start();
                 mysqlDAdp.Fill(dt1);
-                Create_DataTable1_Columns_End();
+               // Create_DataTable1_Columns_End();
                 dataGrid2.ItemsSource = dt1.DefaultView;
                 mysqlDAdp.Update(dt1);
                 MySqlConn.Close();
@@ -76,7 +81,7 @@ namespace project
 
 
 
-        private void Create_DataTable1_Columns_End()
+        private void Create_DataTable1_Columns_Start()
         {
             dt1.Columns.Add(new DataColumn("כמות", typeof(string)));
             dt1.Columns.Add(new DataColumn("מקט לקוח", typeof(string)));

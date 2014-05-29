@@ -27,10 +27,10 @@
         <Button Content="החזר פריט" Height="56"  Margin="0,53,308,0" Name="PrevStage_button" FontWeight="Bold" Click="PrevStage_button_Click" HorizontalAlignment="Right" Width="151" VerticalAlignment="Top" />
         <Image Margin="0,8,527,0" Name="image9" Stretch="Fill"  Width="50" Source="/WpfApplication1;component/Images/Next.gif" HorizontalAlignment="Right" Height="38" VerticalAlignment="Top" />
         <Image  Margin="0,8,358,0" Name="image10" Stretch="Fill" Width="50" Source="/WpfApplication1;component/Images/Prev.gif" HorizontalAlignment="Right" Height="36" VerticalAlignment="Top" />
-        <Label Content="Label" Height="28" HorizontalAlignment="Left" Margin="90,95,0,0" Name="label1" VerticalAlignment="Top" Width="86" />
-        <Label Content="עבודה מספר" Height="28" HorizontalAlignment="Left" Margin="10,95,0,0" Name="label2" VerticalAlignment="Top" />
+        <Label Content="Label" Height="28" HorizontalAlignment="Left" Margin="90,95,0,0" Name="label1" VerticalAlignment="Top" Width="86" FontWeight="Bold" />
+        <Label Content="מספר עבודה" Height="28" HorizontalAlignment="Left" Margin="10,95,0,0" Name="label2" VerticalAlignment="Top" />
         <Label Content="מקט פריט" Height="28" HorizontalAlignment="Left" Margin="175,95,0,0" Name="label3" VerticalAlignment="Top" />
-        <Label Content="Label" Height="28" HorizontalAlignment="Left" Margin="246,95,0,0" Name="label4" VerticalAlignment="Top" Width="127" />
+        <Label Content="Label" Height="28" HorizontalAlignment="Left" Margin="246,95,0,0" Name="label4" VerticalAlignment="Top" Width="127" FontWeight="Bold" />
         <Label Content="או" Height="28" HorizontalAlignment="Left" Margin="35,47,0,0" Name="label5" VerticalAlignment="Top" />
     </Grid>
 </Window>
