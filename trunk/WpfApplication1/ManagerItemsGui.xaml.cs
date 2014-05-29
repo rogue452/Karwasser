@@ -203,7 +203,7 @@ namespace project
                              MSQLcrcommand1.ExecuteNonQuery();
                              MySqlDataAdapter mysqlDAdp = new MySqlDataAdapter(MSQLcrcommand1);
                              MySqlConn.Close();
-                             MessageBox.Show("!תבנית הפריט נמחקה מהמערכת", "הצלחה",MessageBoxButton.OK,MessageBoxImage.Information);
+                             MessageBox.Show("!תבנית הפריט נמחקה מהמערכת", "!הצלחה",MessageBoxButton.OK,MessageBoxImage.Information);
                          }
                          catch (Exception ex)
                          {
@@ -218,7 +218,6 @@ namespace project
                              MySqlCommand MSQLcrcommand1 = new MySqlCommand(Query1, MySqlConn);
                              MSQLcrcommand1.ExecuteNonQuery();
                              MySqlDataAdapter mysqlDAdp = new MySqlDataAdapter(MSQLcrcommand1);
-                             //DataTable dt = new DataTable("jobs");
                              dt.Clear();
                              mysqlDAdp.Fill(dt);
                              dataGrid1.ItemsSource = dt.DefaultView;
@@ -248,13 +247,13 @@ namespace project
 
 
         private void UpdateBtn_Click(object sender, RoutedEventArgs e)
-        {/*
+        {
             try
             {
 
                 DataRowView row = (DataRowView)dataGrid1.SelectedItems[0];
 
-                if (MessageBox.Show("?האם אתה בטוח שברצונך לעדכן קבוצת פריט זו", "וידוא עדכון", MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.No)
+                if (MessageBox.Show("?האם אתה בטוח שברצונך לעדכן פריט זה", "וידוא עדכון", MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.No)
                 {
                     //dont do stuff
                 }
@@ -262,29 +261,20 @@ namespace project
                 else // if the user clicked on "Yes" so he wants to Update.
                 {
                     string selected_Item = row["מקט פריט"].ToString();
-                    string itemdesc = row["תיאור לגבי קבוצת הפריטים"].ToString();
-                    string exqun = row["כמות נדרשת מהפריט"].ToString();
-                    try
-                    {
-                        int expectedq = Convert.ToInt32(exqun);
-                    }
-                    catch
-                    {
-                        MessageBox.Show("שדה הכמות נדרשת לא מכיל רק מספרים");
-                        return;
-                    }
+                    string itemname = row["שם פריט"].ToString();
+                    string itemdesc = row["תיאור פריט"].ToString();
 
                     try
                     {
 
                         MySqlConnection MySqlConn = new MySqlConnection(Login.Connectionstring);
                         MySqlConn.Open();
-                        string Query1 = "UPDATE jobs SET itemsDescription='" + itemdesc + "',expectedItemQuantity='" + exqun + "' WHERE jobid='" + jobID + "' AND itemid='" + selected_Item + "'";
+                        string Query1 = "UPDATE item SET itemName='" + itemname + "',item_discription='" + itemdesc + "' WHERE itemid='" + selected_Item + "' ";
                         MySqlCommand MSQLcrcommand1 = new MySqlCommand(Query1, MySqlConn);
                         MSQLcrcommand1.ExecuteNonQuery();
                         MySqlDataAdapter mysqlDAdp = new MySqlDataAdapter(MSQLcrcommand1);
                         MySqlConn.Close();
-                        MessageBox.Show("! קבוצת הפריט עודכנה");
+                        MessageBox.Show("תבנית הפריט עודכנה", "!הצלחה", MessageBoxButton.OK, MessageBoxImage.Information);
                     }
                     catch (Exception ex)
                     {
@@ -294,7 +284,7 @@ namespace project
                     {
                         MySqlConnection MySqlConn = new MySqlConnection(Login.Connectionstring);
                         MySqlConn.Open();
-                        string Query1 = ("SELECT jobs.itemid as `מקט פריט`,item.itemName as `שם פריט`,group_costomer_itemid as `מקט לקוח`, expectedItemQuantity as `כמות נדרשת מהפריט`, COUNT(jobs.itemid) as `כמות בפועל מהפריט` ,itemsDescription as `תיאור לגבי קבוצת הפריטים`, group_Status as `סטטוס קבוצת הפריט` , group_StageOrder as `מספר השלב הנוכחי של קבוצת הפריט` ,stageName as `שם השלב הנוכחי של קבוצת הפריט`, stage_discription as `תאור השלב הנוכחי של קבוצת הפריט`  FROM jobs,item  WHERE jobs.jobid='" + jobID + "' AND jobs.itemid=item.itemid AND jobs.itemStageOrder=item.itemStageOrder AND jobs.itemStatus=item.itemStatus group by jobs.itemid ");
+                        string Query1 = ("SELECT itemid as `מקט פריט`, itemName as `שם פריט`,item_discription as `תיאור פריט` FROM item GROUP BY itemid");
                         MySqlCommand MSQLcrcommand1 = new MySqlCommand(Query1, MySqlConn);
                         MSQLcrcommand1.ExecuteNonQuery();
                         MySqlDataAdapter mysqlDAdp = new MySqlDataAdapter(MSQLcrcommand1);
@@ -312,8 +302,12 @@ namespace project
                 }
 
             }
-            catch { MessageBox.Show("לא נבחרה קבוצת פריט לעדכון "); }
-       */ }
+            catch
+            {
+                MessageBox.Show("לא נבחרה תבנית פריט לעדכון", "!שים לב", MessageBoxButton.OK, MessageBoxImage.Error);
+                return;
+            }
+        }
 
 
         private void exit_clicked(object sender, CancelEventArgs e)
