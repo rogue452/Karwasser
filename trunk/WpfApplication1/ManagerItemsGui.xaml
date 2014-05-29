@@ -19,14 +19,14 @@
         <Label Content="מקט פריט" HorizontalAlignment="Left" Margin="12,30,0,0" VerticalAlignment="Top"/>
         <Label Content="שם פריט" HorizontalAlignment="Left" Margin="6,65,0,0" VerticalAlignment="Top" Width="71"/>
         <Label Content="החל להקליד כדי לחפש לפי:" HorizontalAlignment="Left" Margin="12,0,0,0" VerticalAlignment="Top" FontWeight="Bold" />
-        <Label Content="ניהול לקוחות:" HorizontalAlignment="Left" VerticalAlignment="Top" Width="112" Margin="673,0,0,0" FontStyle="Normal" FontWeight="Bold" />
+        <Label Content="ניהול תבנית פריט:" HorizontalAlignment="Left" VerticalAlignment="Top" Width="112" Margin="637,0,0,0" FontStyle="Normal" FontWeight="Bold" />
         <Button Content="מחק פריט" HorizontalAlignment="Right" Margin="0,41,28,0" VerticalAlignment="Top" Width="145" Height="56" Name="DeleteBtn" FontWeight="Bold" Background="#A5FF0000" Click="DeleteBtn_Click" />
         <Button Content="עדכון פרטי פריט" HorizontalAlignment="Right" Margin="0,41,189,0" VerticalAlignment="Top" Width="145" Height="56" Name="UpdateBtn" FontWeight="Bold" Click="UpdateBtn_Click" />
         <Button Content="יציאה מהמערכת" HorizontalAlignment="Left" Margin="1036,573,0,0" VerticalAlignment="Top" Width="142" Height="28" Name="exit_button" Click="exit_button_Click" />
         <Button Content="חזור לניהול עבודות" HorizontalAlignment="Left" Margin="47,573,0,0" VerticalAlignment="Top" Width="134" Height="28" Click="Back_Btn_Click" Name="Back_Btn" />
         <Button Content="ייצא רשימה לקובץ אקסל" Height="28" HorizontalAlignment="Left" Margin="507,572,0,0" Name="ExcelBtn" VerticalAlignment="Top" Width="161" Click="ExcelBtn_Click" />
         <Image Height="36" HorizontalAlignment="Left" Margin="766,3,0,0" Name="image1" Stretch="Fill" VerticalAlignment="Top" Width="42" FlowDirection="RightToLeft" Source="/WpfApplication1;component/Images/5757984146_a9957998d6.jpg" />
-        <Image Height="36" HorizontalAlignment="Right" Margin="0,3,86,0" Name="image2" Stretch="Fill" VerticalAlignment="Top" Width="31" Source="/WpfApplication1;component/Images/delete_user.png" />
+        <Image Height="36" HorizontalAlignment="Right" Margin="0,3,86,0" Name="image2" Stretch="Fill" VerticalAlignment="Top" Width="31" Source="/WpfApplication1;component/Images/trash-empty.jpg" />
         <Image Height="36" HorizontalAlignment="Right" Margin="0,3,236,0" Name="image3" Stretch="Fill" VerticalAlignment="Top" Width="42" Source="/WpfApplication1;component/Images/update.png" />
         <Image Height="28" HorizontalAlignment="Left" Margin="1009,573,0,0" Name="image4" Stretch="Fill" VerticalAlignment="Top" Width="25" Source="/WpfApplication1;component/Images/exit.png" />
         <Image Height="35" HorizontalAlignment="Left" Margin="468,568,0,0" Name="image6" Stretch="Fill" VerticalAlignment="Top" Width="33" Source="/WpfApplication1;component/Images/icon_microsoftexcel.png"  />

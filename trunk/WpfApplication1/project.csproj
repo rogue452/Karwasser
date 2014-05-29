@@ -421,6 +421,27 @@
   <ItemGroup>
     <Resource Include="Images\mysql.jpg" />
   </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\e7cadddc-9b72-4530-856d-c3c893d2bbbf.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\inventory_management-300x300.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\remove_from_shopping_cart.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\customer-icon.gif" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\8-iStock_7411665_XSmall_-_Cancel_Delete_Icon.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\team_icon.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\trash-empty.jpg" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

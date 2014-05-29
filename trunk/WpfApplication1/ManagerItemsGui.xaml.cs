@@ -159,7 +159,7 @@ namespace project
 
 
         private void DeleteBtn_Click(object sender, RoutedEventArgs e)
-        {/*
+        {
             try
             {
 
@@ -171,46 +171,79 @@ namespace project
                 else // if the user clicked on "Yes" so he wants to Delete.
                 {
                     string selected = row["מקט פריט"].ToString();
+                    int times = 1;
+                    // we need to check if the item is in use.
+                     try
+                    {
+                        Console.WriteLine("שורה 178");
+                        MySqlConnection MySqlConn = new MySqlConnection(Login.Connectionstring);
+                        MySqlConn.Open();
+                        string Query1 = ("SELECT COUNT(itemid) FROM project.jobs WHERE itemid='" + selected + "' "); //GROUP BY jobid LIMIT 1    // AND job_status !='" + today + "' ORDER BY startDate DESC LIMIT 1 "); //to see if the orderid already in the system.
+                        MySqlCommand MSQLcrcommand1 = new MySqlCommand(Query1, MySqlConn);
+                        MSQLcrcommand1.ExecuteNonQuery();
+                        times = Convert.ToInt32(MSQLcrcommand1.ExecuteScalar());
+                        MySqlDataAdapter mysqlDAdp = new MySqlDataAdapter(MSQLcrcommand1);
+                        Console.WriteLine("שורה 186");
+                        MySqlConn.Close();
+                    }
+                     catch (Exception ex)
+                    {
+                        MessageBox.Show(ex.Message);
+                        return; ;
+                    }
 
-                    try
-                    {
-                        MySqlConnection MySqlConn = new MySqlConnection(Login.Connectionstring);
-                        MySqlConn.Open();
-                        string Query1 = "delete from jobs where itemid='" + selected + "'and jobs.jobid='" + jobID + "'";
-                        MySqlCommand MSQLcrcommand1 = new MySqlCommand(Query1, MySqlConn);
-                        MSQLcrcommand1.ExecuteNonQuery();
-                        MySqlDataAdapter mysqlDAdp = new MySqlDataAdapter(MSQLcrcommand1);
-                        MySqlConn.Close();
-                        MessageBox.Show("!קבוצת הפריט נמחקה מהמערכת");
-                    }
-                    catch (Exception ex)
-                    {
-                        MessageBox.Show(ex.Message);
-                    }
-                    try
-                    {
-                        MySqlConnection MySqlConn = new MySqlConnection(Login.Connectionstring);
-                        MySqlConn.Open();
-                        string Query1 = ("SELECT jobs.itemid as `מקט פריט`,item.itemName as `שם פריט`,group_costomer_itemid as `מקט לקוח`, expectedItemQuantity as `כמות נדרשת מהפריט`, COUNT(jobs.itemid) as `כמות בפועל מהפריט` ,itemsDescription as `תיאור לגבי קבוצת הפריטים`, group_Status as `סטטוס קבוצת הפריט` , group_StageOrder as `מספר השלב הנוכחי של קבוצת הפריט` ,stageName as `שם השלב הנוכחי של קבוצת הפריט`, stage_discription as `תאור השלב הנוכחי של קבוצת הפריט`  FROM jobs,item  WHERE jobs.jobid='" + jobID + "' AND jobs.itemid=item.itemid AND jobs.itemStageOrder=item.itemStageOrder AND jobs.itemStatus=item.itemStatus group by jobs.itemid ");
-                        MySqlCommand MSQLcrcommand1 = new MySqlCommand(Query1, MySqlConn);
-                        MSQLcrcommand1.ExecuteNonQuery();
-                        MySqlDataAdapter mysqlDAdp = new MySqlDataAdapter(MSQLcrcommand1);
-                        dt.Clear();
-                        mysqlDAdp.Fill(dt);
-                        dataGrid1.ItemsSource = dt.DefaultView;
-                        mysqlDAdp.Update(dt);
-                        MySqlConn.Close();
-                    }
-                    catch (Exception ex)
-                    {
-                        MessageBox.Show(ex.Message);
-                    }
+                     if (times == 0) // if the item is not in any job the delete.
+                     {
+                         try
+                         {
+                             MySqlConnection MySqlConn = new MySqlConnection(Login.Connectionstring);
+                             MySqlConn.Open();
+                             string Query1 = "delete from item where itemid='" + selected + "' ";
+                             MySqlCommand MSQLcrcommand1 = new MySqlCommand(Query1, MySqlConn);
+                             MSQLcrcommand1.ExecuteNonQuery();
+                             MySqlDataAdapter mysqlDAdp = new MySqlDataAdapter(MSQLcrcommand1);
+                             MySqlConn.Close();
+                             MessageBox.Show("!תבנית הפריט נמחקה מהמערכת", "הצלחה",MessageBoxButton.OK,MessageBoxImage.Information);
+                         }
+                         catch (Exception ex)
+                         {
+                             MessageBox.Show(ex.Message);
+                         }
+
+                         try
+                         {
+                             MySqlConnection MySqlConn = new MySqlConnection(Login.Connectionstring);
+                             MySqlConn.Open();
+                             string Query1 = ("SELECT itemid as `מקט פריט`, itemName as `שם פריט`,item_discription as `תיאור פריט` FROM item GROUP BY itemid");
+                             MySqlCommand MSQLcrcommand1 = new MySqlCommand(Query1, MySqlConn);
+                             MSQLcrcommand1.ExecuteNonQuery();
+                             MySqlDataAdapter mysqlDAdp = new MySqlDataAdapter(MSQLcrcommand1);
+                             //DataTable dt = new DataTable("jobs");
+                             dt.Clear();
+                             mysqlDAdp.Fill(dt);
+                             dataGrid1.ItemsSource = dt.DefaultView;
+                             mysqlDAdp.Update(dt);
+                             MySqlConn.Close();
+                         }
+                         catch (Exception ex)
+                         {
+                             MessageBox.Show(ex.Message);
+                         }
+                     }
+                     else
+                     {
+                         MessageBox.Show("לא ניתן למחוק תבנית פריט זה\n   .בגלל שנעשה בו שימוש בעבודות" , "!שים לב",MessageBoxButton.OK,MessageBoxImage.Error);
+                         return;
+                     }
 
                 }//end else
 
             }//end try
-            catch { MessageBox.Show("לא נבחרה קבוצת פריט למחיקה"); }
-            */
+            catch 
+            {
+                MessageBox.Show("לא נבחרה תבנית פריט למחיקה", "!שים לב", MessageBoxButton.OK, MessageBoxImage.Error);
+                return;
+            }
         }//end function
 
 

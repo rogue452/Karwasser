@@ -17,8 +17,8 @@
         <Button Content="יציאה מהמערכת" HorizontalAlignment="Left" Margin="1036,573,0,0" VerticalAlignment="Top" Width="142" Height="28" Name="exit_button" Click="exit_button_Click" />
         <Button Content="חזור למסך ראשי" HorizontalAlignment="Left" Margin="47,573,0,0" VerticalAlignment="Top" Width="134" Height="28" Click="Back_Btn_Click" Name="Back_Btn" />
         <Button Content="ייצא רשימה לקובץ אקסל" Height="28" HorizontalAlignment="Left" Margin="507,572,0,0" Name="ExcelBtn" VerticalAlignment="Top" Width="161" Click="ExcelBtn_Click" />
-        <Image Height="36" HorizontalAlignment="Left" Margin="766,3,0,0" Name="image1" Stretch="Fill" VerticalAlignment="Top" Width="42" FlowDirection="RightToLeft" Source="/WpfApplication1;component/Images/add_user.png" />
-        <Image Height="36" HorizontalAlignment="Right" Margin="0,3,86,0" Name="image2" Stretch="Fill" VerticalAlignment="Top" Width="31" Source="/WpfApplication1;component/Images/delete_user.png" />
+        <Image Height="36" HorizontalAlignment="Left" Margin="766,3,0,0" Name="image1" Stretch="Fill" VerticalAlignment="Top" Width="42" FlowDirection="RightToLeft" Source="/WpfApplication1;component/Images/customer-icon.gif" />
+        <Image Height="36" HorizontalAlignment="Right" Margin="0,3,82,0" Name="image2" Stretch="Fill" VerticalAlignment="Top" Width="42" Source="/WpfApplication1;component/Images/remove_from_shopping_cart.png" />
         <Image Height="36" HorizontalAlignment="Right" Margin="0,3,236,0" Name="image3" Stretch="Fill" VerticalAlignment="Top" Width="42" Source="/WpfApplication1;component/Images/update.png" />
         <Image Height="28" HorizontalAlignment="Left" Margin="1009,573,0,0" Name="image4" Stretch="Fill" VerticalAlignment="Top" Width="25" Source="/WpfApplication1;component/Images/exit.png" />
         <Image Height="35" HorizontalAlignment="Left" Margin="468,568,0,0" Name="image6" Stretch="Fill" VerticalAlignment="Top" Width="33" Source="/WpfApplication1;component/Images/icon_microsoftexcel.png"  />
