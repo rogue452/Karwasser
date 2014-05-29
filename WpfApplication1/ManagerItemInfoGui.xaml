@@ -16,17 +16,35 @@
         <Button Content="יציאה מהמערכת" HorizontalAlignment="Right" Margin="0,577,12,0" VerticalAlignment="Top" Width="142" Height="28" Name="exit_button" Click="exit_button_Click" />
         <Button Content="חזור לפרטי העבודה" HorizontalAlignment="Right" Margin="0,577,1017,0" VerticalAlignment="Top" Width="134" Height="28" Click="Back_Btn_Click" Name="Back_Btn" />
         <Button Content="ייצא רשימה לקובץ אקסל" Height="28" HorizontalAlignment="Right" Margin="0,578,522,0" Name="TXTBtn" VerticalAlignment="Top" Width="161" Click="TXTBtn_Click" />
-        <Image Height="36" HorizontalAlignment="Right" Margin="0,8,52,0" Name="image2" Stretch="Fill" VerticalAlignment="Top" Width="50" Source="/WpfApplication1;component/Images/remove.png" />
-        <Image Height="36" HorizontalAlignment="Right" Margin="0,8,203,0" Name="image3" Stretch="Fill" VerticalAlignment="Top" Width="50" Source="/WpfApplication1;component/Images/update%20item.jpg" />
+        <Image Height="36" HorizontalAlignment="Right" Margin="0,12,52,0" Name="image2" Stretch="Fill" VerticalAlignment="Top" Width="50" Source="/WpfApplication1;component/Images/remove.png" />
+        <Image Height="36" HorizontalAlignment="Right" Margin="0,12,203,0" Name="image3" Stretch="Fill" VerticalAlignment="Top" Width="50" Source="/WpfApplication1;component/Images/update%20item.jpg" />
         <Image Height="28" HorizontalAlignment="Right" Margin="0,577,156,0" Name="image4" Stretch="Fill" VerticalAlignment="Top" Width="25" Source="/WpfApplication1;component/Images/exit.png" />
         <Image Height="35" HorizontalAlignment="Right" Margin="0,573,686,0" Name="image6" Stretch="Fill" VerticalAlignment="Top" Width="33" Source="/WpfApplication1;component/Images/icon_microsoftexcel.png" />
         <Image Height="29" HorizontalAlignment="Right" Margin="0,576,1157,0" Name="image7" Stretch="Fill" VerticalAlignment="Top" Width="33" Source="/WpfApplication1;component/Images/back.png" />
         <Button Content="שלבי הכנת פריט" Height="56" HorizontalAlignment="Right" Margin="0,53,645,0" Name="Item_Stages_button" VerticalAlignment="Top" Width="125" Click="Item_Stages_button_Click" FontWeight="Bold" Background="#B9FF6AB2" />
-        <Image Height="36" HorizontalAlignment="Right" Margin="0,8,678,0" Name="image5" Stretch="Fill" VerticalAlignment="Top" Width="50" Source="/WpfApplication1;component/Images/stages.png" />
-        <Button Content="קדם פריט" Height="56"  Margin="571,53,480,0" Name="NextStage_button" FontWeight="Bold" Click="NextStage_button_Click" VerticalAlignment="Top" />
-        <Button Content="החזר פריט" Height="56"  Margin="0,53,308,0" Name="PrevStage_button" FontWeight="Bold" Click="PrevStage_button_Click" HorizontalAlignment="Right" Width="151" VerticalAlignment="Top" />
-        <Image Margin="0,8,527,0" Name="image9" Stretch="Fill"  Width="50" Source="/WpfApplication1;component/Images/Next.gif" HorizontalAlignment="Right" Height="38" VerticalAlignment="Top" />
-        <Image  Margin="0,8,358,0" Name="image10" Stretch="Fill" Width="50" Source="/WpfApplication1;component/Images/Prev.gif" HorizontalAlignment="Right" Height="36" VerticalAlignment="Top" />
+        <Image Height="36" HorizontalAlignment="Right" Margin="0,12,678,0" Name="image5" Stretch="Fill" VerticalAlignment="Top" Width="50" Source="/WpfApplication1;component/Images/stages.png" />
+        <Button Content="קדם פריט" Height="56"  Margin="571,53,0,0" Name="NextStage_button" FontWeight="Bold" Click="NextStage_button_Click" VerticalAlignment="Top" Foreground="Navy" HorizontalAlignment="Left" Width="139">
+            <Button.Background>
+                <RadialGradientBrush>
+                    <GradientStop Color="Black" Offset="1" />
+                    <GradientStop Color="White" Offset="1" />
+                    <GradientStop Color="#FF5CCDCB" Offset="1" />
+                    <GradientStop Color="#FF00EB00" Offset="0.897" />
+                </RadialGradientBrush>
+            </Button.Background>
+        </Button>
+        <Button Content="החזר פריט" Height="56"  Margin="0,53,308,0" Name="PrevStage_button" FontWeight="Bold" Click="PrevStage_button_Click" HorizontalAlignment="Right" Width="151" VerticalAlignment="Top" Foreground="Navy" >
+            <Button.Background>
+                <RadialGradientBrush>
+                    <GradientStop Color="Black" Offset="1" />
+                    <GradientStop Color="White" Offset="1" />
+                    <GradientStop Color="#FF5CCDCB" Offset="1" />
+                    <GradientStop Color="#FFFF6C6C" Offset="0.897" />
+                </RadialGradientBrush>
+            </Button.Background>
+        </Button>
+        <Image Margin="0,12,527,0" Name="image9" Stretch="Fill"  Width="50" Source="/WpfApplication1;component/Images/Next.gif" HorizontalAlignment="Right" Height="38" VerticalAlignment="Top" />
+        <Image  Margin="0,12,358,0" Name="image10" Stretch="Fill" Width="50" Source="/WpfApplication1;component/Images/Prev.gif" HorizontalAlignment="Right" Height="38" VerticalAlignment="Top" />
         <Label Content="Label" Height="28" HorizontalAlignment="Left" Margin="90,95,0,0" Name="label1" VerticalAlignment="Top" Width="86" FontWeight="Bold" />
         <Label Content="מספר עבודה" Height="28" HorizontalAlignment="Left" Margin="10,95,0,0" Name="label2" VerticalAlignment="Top" />
         <Label Content="מקט פריט" Height="28" HorizontalAlignment="Left" Margin="175,95,0,0" Name="label3" VerticalAlignment="Top" />
