@@ -17,7 +17,16 @@
         <TextBox HorizontalAlignment="Left" Height="23" Margin="99,27,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="197" Name="IDSearchTextBox" TextChanged="IDSearchTextBox_TextChanged" />
         <Label Content="תעודת זהות" HorizontalAlignment="Left" Margin="12,24,0,560" />
         <Label Content="שם פרטי" HorizontalAlignment="Left" Margin="12,54,0,0" VerticalAlignment="Top" Width="71"/>
-        <DataGrid AutoGenerateColumns="True" Height="463" HorizontalAlignment="Left" Margin="0,104,0,0" Name="dataGrid1" VerticalAlignment="Top" Width="1190" CanUserAddRows="false" SelectionMode="Single" FontSize="15" AutoGeneratingColumn="Grid_AutoGeneratingColumn"/>
+        <DataGrid AutoGenerateColumns="True" Height="463" HorizontalAlignment="Left" Margin="0,104,0,0" Name="dataGrid1" VerticalAlignment="Top" Width="1190" CanUserAddRows="false" SelectionMode="Single" FontSize="15" AutoGeneratingColumn="Grid_AutoGeneratingColumn">
+            <DataGrid.Resources>
+                <Style TargetType="DataGridRow">
+                    <Style.Resources>
+                        <SolidColorBrush x:Key="{x:Static SystemColors.ControlBrushKey}" Color="LightGreen" />
+                        <SolidColorBrush x:Key="{x:Static SystemColors.ControlTextBrushKey}" Color="Black"/>
+                    </Style.Resources>
+                </Style>
+            </DataGrid.Resources>
+        </DataGrid>
         <Label Content="החל להקליד כדי לחפש לפי:" Height="28" HorizontalAlignment="Left" Margin="12,0,0,0" Name="Search_label" VerticalAlignment="Top" />
         <Label Content="בחר עובד* והכנס פירטי המשתמש החדש:" Height="28" HorizontalAlignment="Left" Margin="302,0,0,0" Name="label1" VerticalAlignment="Top" />
         <Label Content="או" Height="28" HorizontalAlignment="Left" Margin="26,38,0,0" Name="label5" VerticalAlignment="Top" />

@@ -4,7 +4,16 @@
           Title="פירטי סט פריט" Height="647" Width="1212" FlowDirection="RightToLeft" ResizeMode="CanMinimize" Icon="/WpfApplication1;component/Images/Israel.ico" HorizontalAlignment="Right" HorizontalContentAlignment="Right" Closing="exit_clicked">
     <Grid>
         <Image Source="/WpfApplication1;component/Images/31.jpg"  Stretch="UniformToFill" FlowDirection="RightToLeft" Grid.ColumnSpan="2" />
-        <DataGrid x:Name="dataGrid1" HorizontalAlignment="Right" Margin="0,123,12,0" VerticalAlignment="Top" Height="451" Width="1178" FontSize="15"  AutoGenerateColumns="True" AutoGeneratingColumn="Grid_AutoGeneratingColumn"  ItemsSource="{Binding}" HeadersVisibility="All" MaxColumnWidth="Infinity" CanUserAddRows="false" HorizontalContentAlignment="Right" />
+        <DataGrid x:Name="dataGrid1" HorizontalAlignment="Right" Margin="0,123,12,0" VerticalAlignment="Top" Height="451" Width="1178" FontSize="15"  AutoGenerateColumns="True" AutoGeneratingColumn="Grid_AutoGeneratingColumn"  ItemsSource="{Binding}" HeadersVisibility="All" MaxColumnWidth="Infinity" CanUserAddRows="false" HorizontalContentAlignment="Right" SelectionMode="Single">
+            <DataGrid.Resources>
+                <Style TargetType="DataGridRow">
+                    <Style.Resources>
+                        <SolidColorBrush x:Key="{x:Static SystemColors.ControlBrushKey}" Color="LightGreen" />
+                        <SolidColorBrush x:Key="{x:Static SystemColors.ControlTextBrushKey}" Color="Black"/>
+                    </Style.Resources>
+                </Style>
+            </DataGrid.Resources>
+        </DataGrid>
         <TextBox HorizontalAlignment="Right" Height="23" Margin="0,32,931,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="159" FontSize="15" Name="ItemIDSearch_TextBox" TextChanged="ItemIDSearch_TextBox_TextChanged" />
         <TextBox HorizontalAlignment="Right" Height="23" Margin="0,67,931,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="159" Name="StageNameSearchTextBox" TextChanged="StageNameSearchTextBox_TextChanged" />
         <Label Content="שם שלב נוכחי" HorizontalAlignment="Left" Margin="9,65,0,0" VerticalAlignment="Top" Width="94" />
@@ -23,7 +32,7 @@
         <Image Height="29" HorizontalAlignment="Right" Margin="0,576,1157,0" Name="image7" Stretch="Fill" VerticalAlignment="Top" Width="33" Source="/WpfApplication1;component/Images/back.png" />
         <Button Content="שלבי הכנת פריט" Height="56" HorizontalAlignment="Right" Margin="0,53,645,0" Name="Item_Stages_button" VerticalAlignment="Top" Width="125" Click="Item_Stages_button_Click" FontWeight="Bold" Background="#B9FF6AB2" />
         <Image Height="36" HorizontalAlignment="Right" Margin="0,12,678,0" Name="image5" Stretch="Fill" VerticalAlignment="Top" Width="50" Source="/WpfApplication1;component/Images/stages.png" />
-        <Button Content="קדם פריט" Height="56"  Margin="571,53,0,0" Name="NextStage_button" FontWeight="Bold" Click="NextStage_button_Click" VerticalAlignment="Top" Foreground="Navy" HorizontalAlignment="Left" Width="139">
+        <Button Content="קדם פריט" Height="56"  Margin="0,53,480,0" Name="NextStage_button" FontWeight="Bold" Click="NextStage_button_Click" VerticalAlignment="Top" Foreground="Navy" HorizontalAlignment="Right" Width="139">
             <Button.Background>
                 <RadialGradientBrush>
                     <GradientStop Color="Black" Offset="1" />

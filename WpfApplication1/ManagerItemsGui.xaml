@@ -4,11 +4,11 @@
         Title="מסך ניהול תבניות פריטים" Height="647" Width="1212" FlowDirection="RightToLeft" ResizeMode="CanMinimize" Icon="/WpfApplication1;component/Images/Israel.ico" Closing="exit_clicked">
     <Grid>
         <Image Source="/WpfApplication1;component/Images/31.jpg"  Stretch="UniformToFill" FlowDirection="RightToLeft" />
-        <DataGrid x:Name="dataGrid1" HorizontalAlignment="Left" Margin="12,99,0,0" VerticalAlignment="Top" Height="468" Width="1166" FontSize="15"  AutoGenerateColumns="True" AutoGeneratingColumn="Grid_AutoGeneratingColumn"  ItemsSource="{Binding}" HeadersVisibility="All" MaxColumnWidth="Infinity" CanUserAddRows="false" >
+        <DataGrid x:Name="dataGrid1" HorizontalAlignment="Left" Margin="12,99,0,0" VerticalAlignment="Top" Height="468" Width="1166" FontSize="15"  AutoGenerateColumns="True" AutoGeneratingColumn="Grid_AutoGeneratingColumn"  ItemsSource="{Binding}" HeadersVisibility="All" MaxColumnWidth="Infinity" CanUserAddRows="false" SelectionMode="Single">
             <DataGrid.Resources>
                 <Style TargetType="DataGridRow">
                     <Style.Resources>
-                        <SolidColorBrush x:Key="{x:Static SystemColors.ControlBrushKey}" Color="LightSkyBlue" />
+                        <SolidColorBrush x:Key="{x:Static SystemColors.ControlBrushKey}" Color="LightGreen" />
                         <SolidColorBrush x:Key="{x:Static SystemColors.ControlTextBrushKey}" Color="Black"/>
                     </Style.Resources>
                 </Style>
@@ -19,7 +19,7 @@
         <Label Content="מקט פריט" HorizontalAlignment="Left" Margin="12,30,0,0" VerticalAlignment="Top"/>
         <Label Content="שם פריט" HorizontalAlignment="Left" Margin="6,65,0,0" VerticalAlignment="Top" Width="71"/>
         <Label Content="החל להקליד כדי לחפש לפי:" HorizontalAlignment="Left" Margin="12,0,0,0" VerticalAlignment="Top" FontWeight="Bold" />
-        <Label Content="ניהול תבנית פריט:" HorizontalAlignment="Left" VerticalAlignment="Top" Width="112" Margin="637,0,0,0" FontStyle="Normal" FontWeight="Bold" />
+        <Label Content="ניהול תבנית פריט:" HorizontalAlignment="Left" VerticalAlignment="Top" Width="129" Margin="631,0,0,0" FontStyle="Normal" FontWeight="Bold" />
         <Button Content="מחק פריט" HorizontalAlignment="Right" Margin="0,41,28,0" VerticalAlignment="Top" Width="145" Height="56" Name="DeleteBtn" FontWeight="Bold" Background="#A5FF0000" Click="DeleteBtn_Click" />
         <Button Content="עדכון פרטי פריט" HorizontalAlignment="Right" Margin="0,41,189,0" VerticalAlignment="Top" Width="145" Height="56" Name="UpdateBtn" FontWeight="Bold" Click="UpdateBtn_Click" />
         <Button Content="יציאה מהמערכת" HorizontalAlignment="Left" Margin="1036,573,0,0" VerticalAlignment="Top" Width="142" Height="28" Name="exit_button" Click="exit_button_Click" />
