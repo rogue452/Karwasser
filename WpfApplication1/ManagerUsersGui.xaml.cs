@@ -57,7 +57,7 @@ namespace project
         private void ExportToExcel()
         {
             try
-            {
+            {/*
                 MySqlConnection MySqlConn = new MySqlConnection(Login.Connectionstring);
                 MySqlConn.Open();
                 string Query1 = ("SELECT users.empid as `תעודת זהות`,employees.emp_firstname as `שם פרטי` ,employees.emp_lastname as `שם משפחה` ,password as סיסמה ,role as תפקיד ,connected as מחובר ,email as `כתובת אימייל`, users.last_log_in_date as `התחברות אחרונה` ,last_location as `התחברות אחרונה ממחשב` , users.user_description as `הערות לגבי המשתמש` from project.users , project.employees where users.empid=employees.empid");
@@ -68,6 +68,7 @@ namespace project
                 mysqlDAdp.Fill(dt);
                 mysqlDAdp.Update(dt);
                 MySqlConn.Close();
+                */
                 SaveFileDialog dialog = new SaveFileDialog();
                 dialog.FileName = "רשימת משתמשים" + "_" + DateTime.Now.Year.ToString() + "_" + DateTime.Now.Month.ToString() + "_" + DateTime.Now.Day.ToString(); ; // Default file name
                 dialog.DefaultExt = ".xlsx"; // Default file extension
