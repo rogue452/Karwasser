@@ -24,7 +24,7 @@
         <Label Content="בחר לקוח *" Margin="4,10,1089,570" FontStyle="Normal" FontWeight="Bold" Name="selecet_cust_label" FontSize="15" />
         <Button Content="יציאה מהמערכת" HorizontalAlignment="Left" Margin="1036,575,0,0" VerticalAlignment="Top" Width="142" Height="28"  Name="exit_button" Click="exit_button_Click" />
         <Button Content="חזור למסך העבודות" HorizontalAlignment="Left" Margin="47,575,0,0" VerticalAlignment="Top" Width="134" Height="28" Click="Back_Btn_Click" Name="Back_Btn" />
-        <Image Height="36" HorizontalAlignment="Left" Margin="1060,456,0,0" Name="image1" Stretch="Fill" VerticalAlignment="Top" Width="42" FlowDirection="RightToLeft" Source="/WpfApplication1;component/Images/add_user.png" />
+        <Image Height="36" HorizontalAlignment="Left" Margin="1060,456,0,0" Name="image1" Stretch="Fill" VerticalAlignment="Top" Width="42" FlowDirection="RightToLeft" Source="/WpfApplication1;component/Images/1897328_stock-photo-handshake-glossy-black-icon.jpg" />
         <Image Height="28" HorizontalAlignment="Left" Margin="1009,575,0,0" Name="image4" Stretch="Fill" VerticalAlignment="Top" Width="25" Source="/WpfApplication1;component/Images/exit.png" />
         <Image Height="29" HorizontalAlignment="Left" Margin="12,575,0,0" Name="image7" Stretch="Fill" VerticalAlignment="Top" Width="33" Source="/WpfApplication1;component/Images/back.png" />
         <DataGrid AutoGenerateColumns="True"  AutoGeneratingColumn="Grid_AutoGeneratingColumn1"  Margin="647,132,241,52" Name="dataGrid2" CanUserAddRows="false" SelectionMode="Extended" />
