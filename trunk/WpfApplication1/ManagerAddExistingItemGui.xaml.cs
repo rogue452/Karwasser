@@ -121,6 +121,9 @@ namespace project
 
         private void StageNameSearchTextBox_TextChanged(object sender, TextChangedEventArgs e)
         {
+            String searchNamekey = this.StageNameSearchTextBox.Text;
+            dt.DefaultView.RowFilter = string.Format("`שם פריט` LIKE '%{0}%'", searchNamekey);
+            /*
             try
             {
                 MySqlConnection MySqlConn = new MySqlConnection(Login.Connectionstring);
@@ -140,6 +143,7 @@ namespace project
             {
                 MessageBox.Show(ex.Message);
             }
+            */
         }
 /*
         private void ADD_Btn_Click(object sender, RoutedEventArgs e)
