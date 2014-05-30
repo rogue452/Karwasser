@@ -14,10 +14,10 @@
                 </Style>
             </DataGrid.Resources>
         </DataGrid>
-        <TextBox HorizontalAlignment="Right" Height="23" Margin="0,32,931,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="159" FontSize="15" Name="ItemIDSearch_TextBox" TextChanged="ItemIDSearch_TextBox_TextChanged" />
-        <TextBox HorizontalAlignment="Right" Height="23" Margin="0,67,931,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="159" Name="StageNameSearchTextBox" TextChanged="StageNameSearchTextBox_TextChanged" />
-        <Label Content="שם שלב נוכחי" HorizontalAlignment="Left" Margin="9,65,0,0" VerticalAlignment="Top" Width="94" />
-        <Label Content="מספר פריט בסט" HorizontalAlignment="Left" Margin="9,31,0,0" VerticalAlignment="Top" Width="72"/>
+        <TextBox HorizontalAlignment="Right" Height="23" Margin="0,32,908,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="159" FontSize="15" Name="ItemIDSearch_TextBox" TextChanged="ItemIDSearch_TextBox_TextChanged" />
+        <TextBox HorizontalAlignment="Right" Height="23" Margin="0,67,908,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="159" Name="StageNameSearchTextBox" TextChanged="StageNameSearchTextBox_TextChanged" />
+        <Label Content="שם שלב נוכחי" HorizontalAlignment="Left" Margin="13,65,0,0" VerticalAlignment="Top" Width="94" />
+        <Label Content="מספר פריט בסט" HorizontalAlignment="Left" Margin="9,31,0,0" VerticalAlignment="Top" Width="108"/>
         <Label Content="החל להקליד כדי לחפש לפי:" HorizontalAlignment="Left" Margin="9,0,0,0" VerticalAlignment="Top" FontWeight="Bold" />
         <Label Content="ניהול פריט:" HorizontalAlignment="Right" VerticalAlignment="Top" Width="77" Margin="0,0,777,0" FontStyle="Normal" FontWeight="Bold" />
         <Button Content="מחק פריט מעבודה" HorizontalAlignment="Right" Margin="0,53,12,0" VerticalAlignment="Top" Width="125" Height="56" Name="DeleteBtn" FontWeight="Bold" Background="#A5FF0000" Click="DeleteBtn_Click" />
@@ -58,6 +58,6 @@
         <Label Content="מספר עבודה" Height="28" HorizontalAlignment="Left" Margin="10,95,0,0" Name="label2" VerticalAlignment="Top" />
         <Label Content="מקט פריט" Height="28" HorizontalAlignment="Left" Margin="175,95,0,0" Name="label3" VerticalAlignment="Top" />
         <Label Content="Label" Height="28" HorizontalAlignment="Left" Margin="246,95,0,0" Name="label4" VerticalAlignment="Top" Width="127" FontWeight="Bold" />
-        <Label Content="או" Height="28" HorizontalAlignment="Left" Margin="35,47,0,0" Name="label5" VerticalAlignment="Top" />
+        <Label Content="או" Height="28" HorizontalAlignment="Left" Margin="44,47,0,0" Name="label5" VerticalAlignment="Top" />
     </Grid>
 </Window>
