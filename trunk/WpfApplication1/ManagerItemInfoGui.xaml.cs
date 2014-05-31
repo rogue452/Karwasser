@@ -86,11 +86,11 @@ namespace project
                     bool success = CreateExcelFile.CreateExcelDocument(dt, saveto);
                     if (success)
                     {
-                        MessageBox.Show(" נוצר בהצלחה Microsoft Excel -מסמך ה");
+                        MessageBox.Show(" נוצר בהצלחה Microsoft Excel -מסמך ה", "!הצלחה", MessageBoxButton.OK, MessageBoxImage.Information);
                     }
                     else
                     {
-                        MessageBox.Show(" לא נוצר  Microsoft Excel -התרחשה שגיאה ולכן מסמך ה");
+                        MessageBox.Show(" לא נוצר  Microsoft Excel -התרחשה שגיאה ולכן מסמך ה", "!שים לב", MessageBoxButton.OK, MessageBoxImage.Error);
                     }
                 }
             }

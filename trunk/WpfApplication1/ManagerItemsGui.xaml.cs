@@ -87,11 +87,11 @@ namespace project
                     bool success = CreateExcelFile.CreateExcelDocument(dt, saveto);
                     if (success)
                     {
-                        MessageBox.Show(" נוצר בהצלחה Microsoft Excel -מסמך ה");
+                        MessageBox.Show(" נוצר בהצלחה Microsoft Excel -מסמך ה", "!הצלחה", MessageBoxButton.OK, MessageBoxImage.Information);
                     }
                     else
                     {
-                        MessageBox.Show(" לא נוצר  Microsoft Excel -התרחשה שגיאה ולכן מסמך ה");
+                        MessageBox.Show(" לא נוצר  Microsoft Excel -התרחשה שגיאה ולכן מסמך ה", "!שים לב", MessageBoxButton.OK, MessageBoxImage.Error);
                     }
                 }
             }
@@ -231,7 +231,7 @@ namespace project
                      }
                      else
                      {
-                         MessageBox.Show("לא ניתן למחוק תבנית פריט זה\n   .בגלל שנעשה בו שימוש בעבודות" , "!שים לב",MessageBoxButton.OK,MessageBoxImage.Error);
+                         MessageBox.Show("לא ניתן למחוק תבנית פריט זה\n   .בגלל שנעשה בו שימוש בעבודה אחת לפחות" , "!שים לב",MessageBoxButton.OK,MessageBoxImage.Error);
                          return;
                      }
 
@@ -360,8 +360,8 @@ namespace project
                 MGIG.ShowDialog();
             }
             catch 
-            { 
-              MessageBox.Show("לא נבחר פריט");
+            {
+                MessageBox.Show("לא נבחר פריט", "!שים לב", MessageBoxButton.OK, MessageBoxImage.Error);
               return;
             }
         }

@@ -188,7 +188,7 @@ namespace project
                     start = Convert.ToDateTime(startdatePicker.Text).ToString("yyyy-MM-dd");
                     f6 = true;
                 }
-                catch { MessageBox.Show("תאריך התחלה אינו תקין"); return; }
+                catch { MessageBox.Show("תאריך התחלה אינו תקין", "!שים לב", MessageBoxButton.OK, MessageBoxImage.Error); return; }
             }
 
             if (cell_textBox != null && !string.IsNullOrWhiteSpace(cell_textBox.Text))

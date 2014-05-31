@@ -152,7 +152,7 @@ namespace project
                 Console.WriteLine("נכנס לטראי");
                 DataRowView row1 = (DataRowView)dataGrid1.SelectedItems[0];
             }
-            catch { MessageBox.Show("אנא בחר עובד"); return; }
+            catch { MessageBox.Show("אנא בחר עובד", "!שים לב", MessageBoxButton.OK, MessageBoxImage.Error); return; }
                 DataRowView row = (DataRowView)dataGrid1.SelectedItems[0];
                 string empid = row["תעודת זהות"].ToString();
                 Console.WriteLine(empid);
@@ -166,7 +166,7 @@ namespace project
                 }
                 else
                 {
-                    MessageBox.Show("אנא הכנס סיסמא");
+                    MessageBox.Show("אנא הכנס סיסמא", "!שים לב", MessageBoxButton.OK, MessageBoxImage.Error);
                 }
 
                 // if (Email_textBox.Text != null)
@@ -181,12 +181,12 @@ namespace project
                     }
                     else
                     {
-                        MessageBox.Show("אנא בדוק תקינות כתובת האימייל");
+                        MessageBox.Show("אנא בדוק תקינות כתובת האימייל", "!שים לב", MessageBoxButton.OK, MessageBoxImage.Error);
                     }
                 }
                 else
                 {
-                    MessageBox.Show("אנא הכנס כתובת אימייל");
+                    MessageBox.Show("אנא הכנס כתובת אימייל", "!שים לב", MessageBoxButton.OK, MessageBoxImage.Error);
                 }
 
                 if (!string.IsNullOrWhiteSpace(school_textBox.Text))
@@ -196,7 +196,7 @@ namespace project
                 }
                 else
                 {
-                    MessageBox.Show("אנא הכנס שם בית ספר יסודי");
+                    MessageBox.Show("אנא הכנס שם בית ספר יסודי", "!שים לב", MessageBoxButton.OK, MessageBoxImage.Error);
                 }
 
 
@@ -207,7 +207,7 @@ namespace project
                 }
                 else
                 {
-                    MessageBox.Show("אנא בחר תפקיד");
+                    MessageBox.Show("אנא בחר תפקיד", "!שים לב", MessageBoxButton.OK, MessageBoxImage.Error);
                 }
 
                

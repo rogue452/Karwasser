@@ -101,11 +101,11 @@ namespace project
                     bool success = CreateExcelFile.CreateExcelDocument(dt, saveto);
                     if (success)
                     {
-                        MessageBox.Show(" נוצר בהצלחה Microsoft Excel -מסמך ה");
+                        MessageBox.Show(" נוצר בהצלחה Microsoft Excel -מסמך ה", "!הצלחה", MessageBoxButton.OK, MessageBoxImage.Information);
                     }
                     else
                     {
-                        MessageBox.Show(" לא נוצר  Microsoft Excel -התרחשה שגיאה ולכן מסמך ה");
+                        MessageBox.Show(" לא נוצר  Microsoft Excel -התרחשה שגיאה ולכן מסמך ה", "!שים לב", MessageBoxButton.OK, MessageBoxImage.Error);
                     }
                 }
             }
@@ -202,7 +202,7 @@ namespace project
                         MSQLcrcommand1.ExecuteNonQuery();
                         MySqlDataAdapter mysqlDAdp = new MySqlDataAdapter(MSQLcrcommand1);
                         MySqlConn.Close();
-                        MessageBox.Show("!הלקוח נמחק מהמערכת");
+                        MessageBox.Show("!הלקוח נמחק מהמערכת", "!הצלחה", MessageBoxButton.OK, MessageBoxImage.Information);
                         refreashcus();
                     }
                     catch (Exception ex)
@@ -215,7 +215,7 @@ namespace project
             }//end try
             catch
             {
-                MessageBox.Show("לא נבחר לקוח למחיקה");
+                MessageBox.Show("לא נבחר לקוח למחיקה", "!שים לב", MessageBoxButton.OK, MessageBoxImage.Error);
                 return;
             }
 

@@ -99,11 +99,11 @@ namespace project
                     bool success = CreateExcelFile.CreateExcelDocument(dt, saveto);
                     if (success)
                     {
-                        MessageBox.Show(" נוצר בהצלחה Microsoft Excel -מסמך ה");
+                        MessageBox.Show(" נוצר בהצלחה Microsoft Excel -מסמך ה", "!הצלחה", MessageBoxButton.OK, MessageBoxImage.Information);
                     }
                     else
                     {
-                        MessageBox.Show(" לא נוצר  Microsoft Excel -התרחשה שגיאה ולכן מסמך ה");
+                        MessageBox.Show(" לא נוצר  Microsoft Excel -התרחשה שגיאה ולכן מסמך ה", "!שים לב", MessageBoxButton.OK, MessageBoxImage.Error);
                     }
                 }
             }
@@ -229,7 +229,7 @@ namespace project
                             MSQLcrcommand1.ExecuteNonQuery();
                             MySqlDataAdapter mysqlDAdp = new MySqlDataAdapter(MSQLcrcommand1);
                             MySqlConn.Close();
-                            MessageBox.Show("!העובד נמחק מהמערכת");
+                            MessageBox.Show("!העובד נמחק מהמערכת", "!הצלחה", MessageBoxButton.OK, MessageBoxImage.Information);
                         }
                         catch (Exception ex)
                         {
@@ -241,7 +241,7 @@ namespace project
                 
 
                 }//end try
-              catch { MessageBox.Show("לא נבחר עובד למחיקה"); }
+              catch { MessageBox.Show("לא נבחר עובד למחיקה", "!שים לב", MessageBoxButton.OK, MessageBoxImage.Error); }
         }
 
 
@@ -313,7 +313,7 @@ namespace project
                                     MSQLcrcommand1.ExecuteNonQuery();
                                     MySqlDataAdapter mysqlDAdp = new MySqlDataAdapter(MSQLcrcommand1);
                                     MySqlConn.Close();
-                                    MessageBox.Show("!פרטי עובד עודכנו");
+                                    MessageBox.Show("!פרטי העובד עודכנו", "!הצלחה", MessageBoxButton.OK, MessageBoxImage.Information);
                                 }
                                 catch (Exception ex)
                                 {
@@ -333,7 +333,7 @@ namespace project
                                     MSQLcrcommand1.ExecuteNonQuery();
                                     MySqlDataAdapter mysqlDAdp = new MySqlDataAdapter(MSQLcrcommand1);
                                     MySqlConn.Close();
-                                    MessageBox.Show("!פרטי עובד עודכנו");
+                                    MessageBox.Show("!פרטי העובד עודכנו", "!הצלחה", MessageBoxButton.OK, MessageBoxImage.Information);
                                 }
                                 catch (Exception ex)
                                 {
@@ -346,7 +346,7 @@ namespace project
                         
   
             }//end try
-            catch { MessageBox.Show("לא נבחר עובד לעדכון "); }
+            catch { MessageBox.Show("לא נבחר עובד לעדכון ", "!שים לב", MessageBoxButton.OK, MessageBoxImage.Error); }
         }//end function
 
 

@@ -43,7 +43,7 @@ namespace project
                 this.Close();
             }
             else {
-                     MessageBox.Show("הסיסמה שהזנת לא נכונה");
+                MessageBox.Show("הסיסמה שהזנת לא נכונה", "!שים לב", MessageBoxButton.OK, MessageBoxImage.Error);
                      password.Clear();
                  }
         }

@@ -145,18 +145,18 @@ namespace project
                     {
                         if (connected != "מחובר" && connected != "לא מחובר")
                         {
-                            MessageBox.Show("קיימת בעיה במצב החיבור שלך, יש לפנות למנהל המערכת  ", " שגיאה", MessageBoxButton.OK);
+                            MessageBox.Show("קיימת בעיה במצב החיבור שלך, יש לפנות למנהל המערכת  ", " שגיאה", MessageBoxButton.OK,MessageBoxImage.Error);
                         }
 
                         if (connected.Equals("מחובר"))
                         {
-                            MessageBox.Show("אתה כבר מחובר למערכת  ", " שגיאה", MessageBoxButton.OK);
+                            MessageBox.Show("אתה כבר מחובר למערכת  ", " שגיאה", MessageBoxButton.OK,MessageBoxImage.Error);
                         }
 
 
                         if (connected.Equals("לא מחובר"))
                         {
-                            MessageBox.Show("      ברוכ/ה הבא/ה " + Login.last_name + " " + Login.first_name + "", "!ההתחברות למערכת בוצעה בהצלחה", MessageBoxButton.OK);
+                            MessageBox.Show("      ברוכ/ה הבא/ה " + Login.last_name + " " + Login.first_name + "", "!ההתחברות למערכת בוצעה בהצלחה", MessageBoxButton.OK,MessageBoxImage.Information);
                             empid = this.textBox1.Text;
                             string user_connected = "מחובר";
                             //string user_connected = "לא מחובר";
@@ -204,7 +204,7 @@ namespace project
                     }
                     else
                     {
-                        MessageBox.Show("!אינך משתמש פעיל במערכת, אנא פנה למנהל", "!ההתחברות למערכת נכשלה", MessageBoxButton.OK);
+                        MessageBox.Show("!אינך משתמש פעיל במערכת, אנא פנה למנהל", "!ההתחברות למערכת נכשלה", MessageBoxButton.OK,MessageBoxImage.Error);
                         textBox1.Clear();
                         textBox2.Clear();
                     }
@@ -212,7 +212,7 @@ namespace project
                 }
                 if (count < 1)
                 {
-                    MessageBox.Show("שם משתמש ו/או סיסמא שגויים! אנא נסה שנית", "!ההתחברות למערכת נכשלה", MessageBoxButton.OK);
+                    MessageBox.Show("שם משתמש ו/או סיסמא שגויים! אנא נסה שנית", "!ההתחברות למערכת נכשלה", MessageBoxButton.OK,MessageBoxImage.Error);
                   //  textBox1.Clear();
                   //  textBox2.Clear();
                 }
@@ -400,11 +400,11 @@ namespace project
             {
                 //if we want to load the text from a file the we will enable this line (and also the using System.IO line above) and we will give it the text Source path.
                 Host_textBox.Text = File.ReadAllText(to);
-                MessageBox.Show(".השם נשמר בהצלחה");
+                MessageBox.Show(".השם נשמר בהצלחה", "!הצלחה", MessageBoxButton.OK, MessageBoxImage.Information);
             }
             else 
             {
-                MessageBox.Show(".התרחשה בעיה בשמירת השם");
+                MessageBox.Show(".התרחשה בעיה בשמירת השם", "!שים לב", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         } 
 
