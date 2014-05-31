@@ -90,7 +90,7 @@ namespace project
                 {
                     string saveto = dialog.FileName;
                     CreateExcelFile.CreateExcelDocument(dt, saveto);
-                    MessageBox.Show(" נוצר בהצלחה Microsoft Excel -מסמך ה");
+                    MessageBox.Show(" נוצר בהצלחה Microsoft Excel -מסמך ה", "!הצלחה", MessageBoxButton.OK, MessageBoxImage.Information);
                 }
             }
             catch (Exception ex)

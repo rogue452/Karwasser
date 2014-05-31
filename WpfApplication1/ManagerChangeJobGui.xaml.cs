@@ -526,7 +526,7 @@ namespace project
                                             }
 
                                         }//end if (item_quantity > 0)
-                                        else { MessageBox.Show("שדה הכמות מכיל כמות שלילית או 0 בפריט מספר - " + dri["מקט פריט"].ToString() + ""); return; }
+                                        else { MessageBox.Show("שדה הכמות מכיל כמות שלילית או 0 בפריט מספר - " + dri["מקט פריט"].ToString() + "", "!שים לב", MessageBoxButton.OK, MessageBoxImage.Error); return; }
 
                                     } // if (q != "")
                                     else { count++; }
@@ -534,12 +534,12 @@ namespace project
 
                                 }// end try
                                 catch
-                                { MessageBox.Show("שדה הכמות לא כולל רק מספרים בפריט מספר - " + dri["מקט פריט"].ToString() + ""); return; }
+                                { MessageBox.Show("שדה הכמות לא כולל רק מספרים בפריט מספר - " + dri["מקט פריט"].ToString() + "", "!שים לב", MessageBoxButton.OK, MessageBoxImage.Error); return; }
 
                             }// end foreach (DataRow dri in changedRecordsTable.Rows)
                             if (count == changedRecordsItemsTable.Rows.Count)
                             {
-                                MessageBox.Show("  לא נבחרו פריטים מהטבלה "); return;
+                                MessageBox.Show("  לא נבחרו פריטים מהטבלה ", "!שים לב", MessageBoxButton.OK, MessageBoxImage.Error); return;
                             }
 
                             else
@@ -560,7 +560,7 @@ namespace project
                                     catch (Exception ex)
                                     {
                                         MessageBox.Show(ex.Message);
-                                        MessageBox.Show("!שינוי העבודה נכשל בגלל בעיה בחיבור\n  .אנא בדוק את תקינות העבודה ופרטיה", "שגיאה", MessageBoxButton.OK, MessageBoxImage.Error);
+                                        MessageBox.Show("!שינוי העבודה נכשל בגלל בעיה בחיבור\n  .אנא ודא שתקינות העבודה ופרטיה לא נפגעו", "!שגיאה", MessageBoxButton.OK, MessageBoxImage.Error);
                                         return;
                                     }
                                 }
@@ -573,16 +573,16 @@ namespace project
                         }
                         catch
                         {
-                            MessageBox.Show("לא נבחרו פריטים");
+                            MessageBox.Show("לא נבחרו פריטים", "!שים לב", MessageBoxButton.OK, MessageBoxImage.Error);
 
 
                             return;
                         }
                     }
-                    catch { MessageBox.Show("לא נבחר איש קשר"); Console.WriteLine("לא נבחר איש קשר"); return; }
+                    catch { MessageBox.Show("לא נבחר איש קשר", "!שים לב", MessageBoxButton.OK, MessageBoxImage.Error); Console.WriteLine("לא נבחר איש קשר"); return; }
 
                 }
-                catch { MessageBox.Show("לא נבחר לקוח"); Console.WriteLine("לא נבחר לקוח"); return; }
+                catch { MessageBox.Show("לא נבחר לקוח", "!שים לב", MessageBoxButton.OK, MessageBoxImage.Error); Console.WriteLine("לא נבחר לקוח"); return; }
             } //end if(only==false)
 
             else // the user only wants to update the costumer and\or contact.
@@ -598,14 +598,14 @@ namespace project
                     }
                     catch
                     {
-                        MessageBox.Show("!לא נבחר איש קשר", "שיםב לב", MessageBoxButton.OK, MessageBoxImage.Warning);
+                        MessageBox.Show("!לא נבחר איש קשר", "!שים לב", MessageBoxButton.OK, MessageBoxImage.Error);
                         //MessageBox.Show("לא נבחר איש קשר"); Console.WriteLine("לא נבחר איש קשר");
                         return;
                     }
                 }
                 catch
                 {
-                    MessageBox.Show("!לא נבחר לקוח", "!שים לב", MessageBoxButton.OK, MessageBoxImage.Warning);
+                    MessageBox.Show("!לא נבחר לקוח", "!שים לב", MessageBoxButton.OK, MessageBoxImage.Error);
                     //MessageBox.Show("לא נבחר לקוח"); Console.WriteLine("לא נבחר לקוח"); 
                     return; 
                 }

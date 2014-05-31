@@ -66,10 +66,10 @@ namespace project
                     bool success = CreateExcelFile.CreateExcelDocument(dt, saveto);
                     if (success)
                     {
-                        MessageBox.Show(" נוצר בהצלחה Microsoft Excel -מסמך ה");
+                        MessageBox.Show(" נוצר בהצלחה Microsoft Excel -מסמך ה", "!הצלחה", MessageBoxButton.OK, MessageBoxImage.Information);
                     }
                     else { 
-                            MessageBox.Show(" לא נוצר  Microsoft Excel -התרחשה שגיאה ולכן מסמך ה"); 
+                            MessageBox.Show(" לא נוצר  Microsoft Excel -התרחשה שגיאה ולכן מסמך ה", "!שים לב", MessageBoxButton.OK, MessageBoxImage.Error); 
                          }
                 }
             }
@@ -1555,7 +1555,7 @@ namespace project
                 Login.close = 1;
                 this.Close();
             }
-             catch { MessageBox.Show("לא נבחר פריט"); }
+             catch { MessageBox.Show("לא נבחר סט פריט", "!שים לב", MessageBoxButton.OK, MessageBoxImage.Error); }
         }
 
         private void Add_Existing_button_Click(object sender, RoutedEventArgs e)
@@ -1622,7 +1622,7 @@ namespace project
             }
             catch
             {
-                MessageBox.Show("לא נבחר פריט");
+                MessageBox.Show("לא נבחר סט פריט", "!שים לב", MessageBoxButton.OK, MessageBoxImage.Error);
                 return;
             }
         }

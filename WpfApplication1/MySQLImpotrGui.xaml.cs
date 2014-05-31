@@ -44,7 +44,7 @@ namespace project
                 MSQLcrcommand1.ExecuteNonQuery();
                 MySqlDataAdapter mysqlDAdp = new MySqlDataAdapter(MSQLcrcommand1);
                 MySqlConn.Close();
-                MessageBox.Show("הסיסמה עודכנה");
+                MessageBox.Show("הסיסמה עודכנה", "!הצלחה", MessageBoxButton.OK, MessageBoxImage.Information);
             }
             catch (Exception ex)
             {
@@ -66,7 +66,7 @@ namespace project
                 MSQLcrcommand1.ExecuteNonQuery();
                 MySqlDataAdapter mysqlDAdp = new MySqlDataAdapter(MSQLcrcommand1);
                 MySqlConn.Close();
-                MessageBox.Show("האיפשור עודכן");
+                MessageBox.Show("האיפשור עודכן", "!הצלחה", MessageBoxButton.OK, MessageBoxImage.Information);
             }
             catch (Exception ex)
             {
@@ -103,10 +103,10 @@ namespace project
                                         {
                                             cmd.Connection = conn;
                                             conn.Open();
-                                            MessageBox.Show(" מאגר הנתונים יעודכן מהקובץ הנבחר\n.בסיום התהליך תופיע הודעה\n.לחץ אישור להתחלת התהליך");
+                                            MessageBox.Show(" מאגר הנתונים יעודכן מהקובץ הנבחר\n.בסיום התהליך תופיע הודעה\n.לחץ אישור להתחלת התהליך", "אנא לחץ אישור", MessageBoxButton.OK, MessageBoxImage.Information);
                                             mb.ImportFromFile(from);
                                             conn.Close();
-                                            MessageBox.Show(".SQL - מאגר הנתונים עודכן מקובץ ה");
+                                            MessageBox.Show(".SQL - מאגר הנתונים עודכן מקובץ ה", "!הצלחה", MessageBoxButton.OK, MessageBoxImage.Information);
                                         }
                                 }
                         }
@@ -115,7 +115,7 @@ namespace project
                 catch (Exception ex)
                 {
                     MessageBox.Show(ex.Message);
-                    MessageBox.Show("SQL - התרחשה שגיאה בייבוא מקובץ ה");
+                    MessageBox.Show("SQL - התרחשה שגיאה בייבוא מקובץ ה", "!שים לב", MessageBoxButton.OK, MessageBoxImage.Error);
                 }
             }
         }

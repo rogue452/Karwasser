@@ -375,7 +375,7 @@ namespace project
                 {
                     string saveto = dialog.FileName;
                     CreateExcelFile.CreateExcelDocument(dt, saveto);
-                    MessageBox.Show(" נוצר בהצלחה Microsoft Excel -מסמך ה");
+                    MessageBox.Show(" נוצר בהצלחה Microsoft Excel -מסמך ה", "!הצלחה", MessageBoxButton.OK, MessageBoxImage.Information);
                 }
             }
             catch (Exception ex)
@@ -700,7 +700,7 @@ namespace project
                                             Console.WriteLine("מספר איש קשר - " + contactid + "");
                                         }
                                     }//end if (item_quantity > 0)
-                                    else { MessageBox.Show("שדה הכמות מכיל כמות שלילית או 0 בפריט מספר - " + dri["מקט פריט"].ToString() + ""); return; }
+                                    else { MessageBox.Show("שדה הכמות מכיל כמות שלילית או 0 בפריט מספר - " + dri["מקט פריט"].ToString() + "", "!שים לב", MessageBoxButton.OK, MessageBoxImage.Error); return; }
 
                                 } // if (q != "")
                                 else { count++; }
@@ -708,17 +708,17 @@ namespace project
 
                             }// end try
                             catch
-                            { MessageBox.Show("שדה הכמות לא כולל רק מספרים בפריט מספר - " + dri["מקט פריט"].ToString() + ""); return; }
+                            { MessageBox.Show("שדה הכמות לא כולל רק מספרים בפריט מספר - " + dri["מקט פריט"].ToString() + "", "!שים לב", MessageBoxButton.OK, MessageBoxImage.Error); return; }
 
                         }// end foreach (DataRow dri in changedRecordsTable.Rows)
                         if (count == changedRecordsItemsTable.Rows.Count)
                             {
-                                MessageBox.Show("  לא נבחרו פריטים מהטבלה "); return; 
+                                MessageBox.Show("  לא נבחרו פריטים מהטבלה ", "!שים לב", MessageBoxButton.OK, MessageBoxImage.Error); return; 
                             }
 
                         else
                         {
-                            MessageBox.Show("!העבודה נוספה למערכת");
+                            MessageBox.Show("!העבודה נוספה למערכת", "!הצלחה", MessageBoxButton.OK, MessageBoxImage.Information);
                             ManagerJobGui MJG = new ManagerJobGui();
                             MJG.Show();
                             Login.close = 1;
@@ -727,21 +727,21 @@ namespace project
                     }
                     catch
                     {
-                        MessageBox.Show("לא נבחרו פריטים");
+                        MessageBox.Show("לא נבחרו פריטים", "!שים לב", MessageBoxButton.OK, MessageBoxImage.Error);
                         //Reload_Items_Table();
 
                         return;
                     }
                 }
-                catch { MessageBox.Show("לא נבחר איש קשר"); Console.WriteLine("לא נבחר איש קשר"); return; }
+                catch { MessageBox.Show("לא נבחר איש קשר", "!שים לב", MessageBoxButton.OK, MessageBoxImage.Error); Console.WriteLine("לא נבחר איש קשר"); return; }
 
             }
-            catch { MessageBox.Show("לא נבחר לקוח"); Console.WriteLine("לא נבחר לקוח"); return; }
+            catch { MessageBox.Show("לא נבחר לקוח", "!שים לב", MessageBoxButton.OK, MessageBoxImage.Error); Console.WriteLine("לא נבחר לקוח"); return; }
 
         }
 
 
-
+/*
         private void DeleteBtn_Click(object sender, RoutedEventArgs e)
         {
             try
@@ -799,7 +799,7 @@ namespace project
 
         }//end function
 
-
+*/
 
         // go to previous screen.
         private void Back_Btn_Click(object sender, RoutedEventArgs e)
@@ -810,7 +810,7 @@ namespace project
             this.Close();
             
         }
-
+/*
         private void UpdateBtn_Click(object sender, RoutedEventArgs e)
         {
             try
@@ -873,7 +873,7 @@ namespace project
             catch { MessageBox.Show("לא נבחר לקוח לעדכון "); }
         }
 
-
+*/
         
         private void Grid_AutoGeneratingColumn(object sender, DataGridAutoGeneratingColumnEventArgs e)
         {
@@ -1174,7 +1174,7 @@ namespace project
 
 
 
-
+/*
         private void Contacts_button_Click(object sender, RoutedEventArgs e)
         {
             try
@@ -1191,7 +1191,7 @@ namespace project
             }
             catch { MessageBox.Show("לא נבחר לקוח"); }
         }
-
+*/
         private void dataGrid1_Preview_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
             try

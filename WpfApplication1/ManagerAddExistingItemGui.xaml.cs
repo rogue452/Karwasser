@@ -95,10 +95,10 @@ namespace project
                     bool success = CreateExcelFile.CreateExcelDocument(dt, saveto);
                     if (success)
                     {
-                        MessageBox.Show(" נוצר בהצלחה Microsoft Excel -מסמך ה");
+                        MessageBox.Show(" נוצר בהצלחה Microsoft Excel -מסמך ה", "!הצלחה", MessageBoxButton.OK, MessageBoxImage.Information);
                     }
-                    else { 
-                            MessageBox.Show(" לא נוצר  Microsoft Excel -התרחשה שגיאה ולכן מסמך ה"); 
+                    else {
+                        MessageBox.Show(" לא נוצר  Microsoft Excel -התרחשה שגיאה ולכן מסמך ה", "!שים לב", MessageBoxButton.OK, MessageBoxImage.Error); 
                          }
                 }
             }
@@ -234,7 +234,7 @@ namespace project
              MGISG.ShowDialog();
              //this.Close();
             }
-             catch { MessageBox.Show("לא נבחר פריט"); }
+             catch { MessageBox.Show("לא נבחר פריט", "!שים לב", MessageBoxButton.OK, MessageBoxImage.Error); }
         }
 
 
