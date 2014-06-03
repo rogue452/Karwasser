@@ -14,7 +14,7 @@
         <TextBox Height="149" HorizontalAlignment="Left" Margin="240,217,0,0" Name="stage_desc_textBox" VerticalAlignment="Top" Width="254" TextWrapping="Wrap" />
         <Label Content="שלב מספר:" Height="28" HorizontalAlignment="Left" Margin="5,12,0,0" Name="la" VerticalAlignment="Top" Width="73" />
         <Label Height="28" HorizontalAlignment="Left" Margin="84,12,0,0" Name="item_stage_num" VerticalAlignment="Top" Width="151" Content="1" />
-        <Label Content="שם השלב *" Height="28" HorizontalAlignment="Left" Margin="12,195,0,0" Name="label2" VerticalAlignment="Top" Width="71" />
+        <Label Content="שם השלב *" Height="28" HorizontalAlignment="Left" Margin="12,195,0,0" Name="label2" VerticalAlignment="Top" Width="87" />
         <ComboBox Height="23" HorizontalAlignment="Left" Margin="12,217,0,0" Name="stages_comboBox" VerticalAlignment="Top" Width="153" />
         <Label Content="Label" Height="23" HorizontalAlignment="Left" Margin="84,41,0,0" Name="item_num2_label" VerticalAlignment="Top" Width="151"  Visibility="Hidden"/>
         <Label Content="Label" Height="28" Margin="84,75,643,0" Name="item_name2_label" VerticalAlignment="Top"  Visibility="Hidden"/>
