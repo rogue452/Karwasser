@@ -355,6 +355,14 @@ namespace project
             Login.close = 0;
         }
 
+        private void stat_btn_Click(object sender, RoutedEventArgs e)
+        {
+            ManagerStat MSG = new ManagerStat();
+            MSG.Show();
+            Login.close = 1;
+            this.Close();
+        }
+
 
 
 
