@@ -99,17 +99,17 @@ namespace project
                     {
                         int testid = Convert.ToInt32(ID_box.Text);
                     }
-                    catch { MessageBox.Show("תעודת הזהות לא כוללת רק מספרים"); return; }
+                    catch { MessageBox.Show("תעודת הזהות לא כוללת רק מספרים" ,"!שים לב" ,MessageBoxButton.OK ,MessageBoxImage.Error); return; }
                 }
                 else
                 {
-                    MessageBox.Show("אנא הכנס תעודת זהות");
+                    MessageBox.Show("אנא הכנס תעודת זהות", "!שים לב", MessageBoxButton.OK, MessageBoxImage.Error);
                     return;
                 }
 
                 if (string.IsNullOrWhiteSpace(school_textBox.Text))
                 {
-                    MessageBox.Show("אנא הכנס שם בית ספר יסודי");
+                    MessageBox.Show("אנא הכנס שם בית ספר יסודי", "!שים לב", MessageBoxButton.OK, MessageBoxImage.Error);
                     return;
                 }
                 
@@ -151,12 +151,12 @@ namespace project
                         }
                         else
                         {
-                            MessageBox.Show(".כישלון בשליחה - לא ניתן להתחבר לשרת האימייל\n\n     (? האם קיים חיבור פעיל ותקין לאינטרנט)");
+                            MessageBox.Show(".כישלון בשליחה - לא ניתן להתחבר לשרת האימייל\n\n     (? האם קיים חיבור פעיל ותקין לאינטרנט)", "!שים לב", MessageBoxButton.OK, MessageBoxImage.Error);
                         }
                     }
                     else
                     {
-                        MessageBox.Show("               כתובת האימייל ו/או תעודת הזהות\n !ו/או התשובה לשאלה שהוזנו לא נמצאים במאגר \n\n                   .פנה בבקשה למנהל המערכת", "!הפעולה נכשלה", MessageBoxButton.OK);
+                        MessageBox.Show("               כתובת האימייל ו/או תעודת הזהות\n !ו/או התשובה לשאלה שהוזנו לא נמצאים במאגר \n\n                   .פנה בבקשה למנהל המערכת", "!הפעולה נכשלה", MessageBoxButton.OK, MessageBoxImage.Error);
                     }
                 }
                 catch (Exception ex)
@@ -165,7 +165,7 @@ namespace project
                 }
             }
             else
-                MessageBox.Show("!כתובת המייל לא הוזנה כהלכה! אנא נסה שנית", "!הפעולה נכשלה", MessageBoxButton.OK);
+                MessageBox.Show("!כתובת המייל לא הוזנה כהלכה! אנא נסה שנית", "!הפעולה נכשלה",MessageBoxButton.OK ,MessageBoxImage.Error);
         
 
         }
