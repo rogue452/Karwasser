@@ -1,0 +1,41 @@
+﻿<Window x:Class="project.ManagerStat"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+          Title="מידע על תיקונים ופסולים" Height="647" Width="1212" FlowDirection="RightToLeft" ResizeMode="CanMinimize" Icon="/WpfApplication1;component/Images/Israel.ico" HorizontalAlignment="Right" HorizontalContentAlignment="Right" Closing="exit_clicked">
+    <Grid>
+        <Image Source="/WpfApplication1;component/Images/31.jpg"  Stretch="UniformToFill" FlowDirection="RightToLeft" Margin="-1,0,1,0" />
+        <DataGrid x:Name="dataGrid1" HorizontalAlignment="Right" Margin="0,103,12,0" VerticalAlignment="Top" Height="471" Width="1178" FontSize="15"  AutoGenerateColumns="True" AutoGeneratingColumn="Grid_AutoGeneratingColumn"  ItemsSource="{Binding}" HeadersVisibility="All" MaxColumnWidth="Infinity" CanUserAddRows="false" HorizontalContentAlignment="Right" Grid.ColumnSpan="2" SelectionMode="Single" LoadingRow="dataGrid1_LoadingRow" CanUserResizeRows="False">
+            <DataGrid.Resources>
+                <Style TargetType="DataGridRow">
+                    <Style.Resources>
+                        <SolidColorBrush x:Key="{x:Static SystemColors.ControlBrushKey}" Color="LightGreen" />
+                        <SolidColorBrush x:Key="{x:Static SystemColors.ControlTextBrushKey}" Color="Black"/>
+                    </Style.Resources>
+                </Style>
+            </DataGrid.Resources>
+        </DataGrid>
+        <TextBox HorizontalAlignment="Right" Height="22" Margin="0,46,592,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="145" FontSize="15" Name="JobIDTextBox"  />
+        <Label Content="רשום מספר עבודה" HorizontalAlignment="Right" Margin="0,-2,604,0" VerticalAlignment="Top" Width="121"/>
+        <Button Content="יציאה מהמערכת" HorizontalAlignment="Right" Margin="0,579,12,0" VerticalAlignment="Top" Width="142" Height="28" Grid.Column="1" Name="exit_button" Click="exit_button_Click" />
+        <Button Content="חזור למסך ראשי" HorizontalAlignment="Right" Margin="0,578,1017,0" VerticalAlignment="Top" Width="134" Height="28"  Name="Back_Btn" Click="Back_Btn_Click_1" />
+        <Button Content="ייצא רשימה לקובץ אקסל" Height="28" HorizontalAlignment="Right" Margin="0,580,522,0" Name="TXTBtn" VerticalAlignment="Top" Width="161"  Grid.Column="1"  Click="ExcelBtn_Click" />
+        <Image Height="28" HorizontalAlignment="Right" Margin="0,580,156,0" Name="image4" Stretch="Fill" VerticalAlignment="Top" Width="25" Source="/WpfApplication1;component/Images/exit.png" Grid.Column="1" />
+        <Image Height="35" HorizontalAlignment="Right" Margin="0,577,689,0" Name="image6" Stretch="Fill" VerticalAlignment="Top" Width="33" Source="/WpfApplication1;component/Images/icon_microsoftexcel.png" Grid.Column="1" />
+        <Image Height="29" HorizontalAlignment="Left" Margin="0,577,0,0" Name="image7" Stretch="Fill" VerticalAlignment="Top" Width="33" Source="/WpfApplication1;component/Images/back.png" />
+        <DatePicker Height="25" HorizontalAlignment="Right" Margin="0,31,950,0" Name="Start_datePicker" VerticalAlignment="Top" Width="166" />
+        <DatePicker Height="25" HorizontalAlignment="Right" Margin="0,63,950,0" Name="End_datePicker" VerticalAlignment="Top" Width="166" />
+        <Label Content="עד"  Margin="0,57,1112,0" Name="To_Start_date_label" Height="26" HorizontalAlignment="Right" Width="29" VerticalAlignment="Top" />
+        <RadioButton GroupName="Date" Content="תאריך התחלה" HorizontalAlignment="Right" Margin="0,29,852,0" Name="StartDate_radioButton" IsChecked="True" Height="17" VerticalAlignment="Top" />
+        <RadioButton GroupName="Date" Content="תאריך סיום משוער" Height="16" HorizontalAlignment="Right" Margin="0,48,830,0" Name="ExpectedFinishDate_radioButton" VerticalAlignment="Top" />
+        <RadioButton GroupName="Date" Content="תאריך סיום בפועל" HorizontalAlignment="Right" Margin="0,68,832,0" Name="ActualFinishDate_radioButton" Height="16" VerticalAlignment="Top" />
+        <Label Content="מ"  Margin="0,29,1118,0" Name="From_Start_date_label" HorizontalAlignment="Right" Width="23" Height="28" VerticalAlignment="Top" />
+        <Image Height="36" HorizontalAlignment="Right" Margin="0,4,472,0" Name="image8" Stretch="Fill" VerticalAlignment="Top" Width="42" Source="/WpfApplication1;component/Images/e7cadddc-9b72-4530-856d-c3c893d2bbbf.png" />
+        <Label Content="או" Height="42" HorizontalAlignment="Right" Margin="0,37,775,0" Name="label5" VerticalAlignment="Top" FontWeight="Bold" FontSize="24" Width="52" />
+        <Button Content="הצג מידע" Height="56" HorizontalAlignment="Right" Margin="0,42,431,0" Name="show_info_button" VerticalAlignment="Top" Width="118" Click="show_info_button_Click" />
+        <CheckBox Content="כל העבודות בין התאריכים הנבחרים" Height="16" HorizontalAlignment="Left" Margin="53,7,0,0" Name="all_checkBox" VerticalAlignment="Top" Checked="all_checkBox_Checked" Unchecked="all_checkBox_UnChecked" />
+        <Label Content="שם השלב השכיח ביותר מסטטוס בעבודה:" Height="28" HorizontalAlignment="Right" Margin="0,24,189,0" Name="label1" VerticalAlignment="Top" />
+        <Label Content="השם" Height="28" HorizontalAlignment="Right" Margin="0,24,1,0" Name="name_label" VerticalAlignment="Top" Width="182" />
+        <Label Content="מספר השליכות לתיקון משלב זה:" Height="28" HorizontalAlignment="Right" Margin="0,55,239,0" Name="label2" VerticalAlignment="Top" />
+        <Label Content="המספר" Height="28" HorizontalAlignment="Right" Margin="0,57,1,0" Name="theNUM_label" VerticalAlignment="Top" Width="182" />
+    </Grid>
+</Window>

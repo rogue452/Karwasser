@@ -116,6 +116,9 @@
     <Compile Include="ManagerJobInfoGui.xaml.cs">
       <DependentUpon>ManagerJobInfoGui.xaml</DependentUpon>
     </Compile>
+    <Compile Include="ManagerStat.xaml.cs">
+      <DependentUpon>ManagerStat.xaml</DependentUpon>
+    </Compile>
     <Compile Include="MySQLImpotrGui.xaml.cs">
       <DependentUpon>MySQLImpotrGui.xaml</DependentUpon>
     </Compile>
@@ -220,6 +223,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="ManagerJobInfoGui.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="ManagerStat.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
