@@ -113,8 +113,8 @@ namespace project
                     {
                         start = Convert.ToDateTime(Start_datePicker.Text).ToString("yyyy-MM-dd");
                         end = Convert.ToDateTime(End_datePicker.Text).ToString("yyyy-MM-dd");
-                        name_label.Content = "";
-                        theNUM_label.Content = "";
+                        name_label.Content = "לא קיים";
+                        theNUM_label.Content = "לא קיים";
                         string radio = "startDate";
                         if (ExpectedFinishDate_radioButton.IsChecked == true)
                         {
@@ -208,8 +208,8 @@ namespace project
             {
                 if (!string.IsNullOrWhiteSpace(JobIDTextBox.Text))
                 {
-                    name_label.Content = "";
-                    theNUM_label.Content = "";
+                    name_label.Content = "לא קיים";
+                    theNUM_label.Content = "לא קיים";
                     try
                     {
                         MySqlConnection MySqlConn = new MySqlConnection(Login.Connectionstring);

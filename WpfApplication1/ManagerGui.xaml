@@ -15,7 +15,7 @@
         <Image Height="88" HorizontalAlignment="Left" Margin="1079,116,0,0" Name="image2" Stretch="Fill" VerticalAlignment="Top" Width="99" Source="/WpfApplication1;component/Images/user_group.png" />
         <Image Height="88" HorizontalAlignment="Left" Margin="1079,308,0,0" Name="image3" Stretch="Fill" VerticalAlignment="Top" Width="99" Source="/WpfApplication1;component/Images/emp.jpg" />
         <Image Height="88" HorizontalAlignment="Left" Margin="12,308,0,0" Name="image4" Stretch="Fill" VerticalAlignment="Top" Width="107" Source="/WpfApplication1;component/Images/customer.jpg" />
-        <Image Height="88" HorizontalAlignment="Left" Margin="542,486,0,0" Name="image5" Stretch="Fill" VerticalAlignment="Top" Width="107" Source="/WpfApplication1;component/Images/stats.png" />
+        <Image Height="88" HorizontalAlignment="Left" Margin="542,486,0,0" Name="image5" Stretch="Fill" VerticalAlignment="Top" Width="107" Source="/WpfApplication1;component/Images/repair-work-person-tool-box-icon-set-145632191.jpg" />
         <Image Height="45" HorizontalAlignment="Left" Margin="1113,550,0,0" Name="image6" Stretch="Fill" VerticalAlignment="Top" Width="65" Source="/WpfApplication1;component/Images/exit.png" />
         <Label Content="שם מחשב זה הוא:" Height="30" HorizontalAlignment="Left" Margin="162,565,0,0" Name="Thisname_label" VerticalAlignment="Top" FontWeight="Bold" FontSize="20" Width="201" />
         <Label Content="שם המחשב" Height="30" HorizontalAlignment="Right" Margin="0,565,587,0" Name="CPUName_label" VerticalAlignment="Top" Width="261" FontSize="20" FontWeight="Bold" />

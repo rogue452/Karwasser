@@ -449,6 +449,24 @@
   <ItemGroup>
     <Resource Include="Images\trash-empty.jpg" />
   </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\detective-icon-blue-128.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\info.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\repair-work-person-tool-box-icon-set-14563219.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\icon.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\MicrosoftSQL Server.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\repair-work-person-tool-box-icon-set-145632191.jpg" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
