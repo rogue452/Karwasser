@@ -1,4 +1,17 @@
-﻿using System;
+﻿// ***********************************************************************
+// Assembly         : WpfApplication1
+// Author           : user
+// Created          : 06-10-2014
+//
+// Last Modified By : user
+// Last Modified On : 06-10-2014
+// ***********************************************************************
+// <copyright file="Login.xaml.cs" company="">
+//     Copyright (c) . All rights reserved.
+// </copyright>
+// <summary></summary>
+// ***********************************************************************
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -22,24 +35,69 @@ using System.IO;
 
 namespace project
 {
-  
+
+    /// <summary>
+    /// Class Login.
+    /// </summary>
     public partial class Login : Window
     {
+        /// <summary>
+        /// The close
+        /// </summary>
         public static int close = 0;
+        /// <summary>
+        /// The first_name
+        /// </summary>
         public static string first_name;
+        /// <summary>
+        /// The last_name
+        /// </summary>
         public static string last_name;
+        /// <summary>
+        /// The user_role
+        /// </summary>
         public static string user_role;
+        /// <summary>
+        /// The connected
+        /// </summary>
         public static string connected;
+        /// <summary>
+        /// The empid
+        /// </summary>
         public static string empid;
+        /// <summary>
+        /// The user_name
+        /// </summary>
         public static string user_name;
+        /// <summary>
+        /// The useremail
+        /// </summary>
         public static string useremail;
+        /// <summary>
+        /// The connectionstring
+        /// </summary>
         public static string Connectionstring;
+        /// <summary>
+        /// The client
+        /// </summary>
         public static Boolean client;
+        /// <summary>
+        /// The serverip
+        /// </summary>
         public static string serverip;
+        /// <summary>
+        /// The myip
+        /// </summary>
         public static string myip;
+        /// <summary>
+        /// The my_host_name
+        /// </summary>
         public static string my_host_name;
-        
 
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="Login"/> class.
+        /// </summary>
         public Login()
         {
             InitializeComponent();
@@ -75,6 +133,11 @@ namespace project
 
 
 
+        /// <summary>
+        /// Handles the Click event of the button1 control.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="RoutedEventArgs"/> instance containing the event data.</param>
         private void button1_Click(object sender, RoutedEventArgs e)//כפתור כניסה 
         {
             try
@@ -227,12 +290,22 @@ namespace project
 
 
 
+        /// <summary>
+        /// Handles the Click event of the button2 control.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="RoutedEventArgs"/> instance containing the event data.</param>
         private void button2_Click(object sender, RoutedEventArgs e)// ניקוי שדות 
         {
             textBox1.Clear();
             textBox2.Clear();
         }
 
+        /// <summary>
+        /// Handles the Click event of the button3 control.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="RoutedEventArgs"/> instance containing the event data.</param>
         private void button3_Click(object sender, RoutedEventArgs e)// יציאה 
         {
             this.Close();
@@ -241,6 +314,11 @@ namespace project
 
 
         //  This button will open on click a new Forgot_pass window
+        /// <summary>
+        /// Handles the Click event of the button4 control.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="RoutedEventArgs"/> instance containing the event data.</param>
         private void button4_Click(object sender, RoutedEventArgs e)
         {
             Forgot_pass fp = new Forgot_pass();
@@ -249,6 +327,11 @@ namespace project
             this.Close();
         }
 
+        /// <summary>
+        /// Handles the Checked event of the Clinet_checkBox control.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="RoutedEventArgs"/> instance containing the event data.</param>
         private void Clinet_checkBox_Checked(object sender, RoutedEventArgs e)
         {
             client = true;
@@ -260,6 +343,11 @@ namespace project
             host_name_label.Visibility = Visibility.Hidden;
         }
 
+        /// <summary>
+        /// Handles the UnChecked event of the Clinet_checkBox control.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="RoutedEventArgs"/> instance containing the event data.</param>
         private void Clinet_checkBox_UnChecked(object sender, RoutedEventArgs e)
         {
           //  IPAddress[] a = Dns.GetHostEntry(Dns.GetHostName()).AddressList;
@@ -285,6 +373,9 @@ namespace project
         }
 
 
+        /// <summary>
+        /// My_s the name of the host_.
+        /// </summary>
         public static void My_Host_Name()
         {
             my_host_name = System.Environment.MachineName;
@@ -292,6 +383,9 @@ namespace project
 
 
 
+        /// <summary>
+        /// My_s the ip.
+        /// </summary>
         public static void My_IP()
          // public static bool IsLocalIpAddress(string host)
           {
@@ -376,6 +470,11 @@ namespace project
              // return false;
           }
 
+        /// <summary>
+        /// Handles the Click event of the MySQL_button control.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="RoutedEventArgs"/> instance containing the event data.</param>
         private void MySQL_button_Click(object sender, RoutedEventArgs e)
         {
             MySQLPasswordREQuestGui MSQLPRG = new MySQLPasswordREQuestGui();
@@ -384,6 +483,11 @@ namespace project
             this.Close();
         }
 
+        /// <summary>
+        /// Handles the Click event of the Name_save_button control.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="RoutedEventArgs"/> instance containing the event data.</param>
         private void Name_save_button_Click(object sender, RoutedEventArgs e)
         {
             string newhost = Host_textBox.Text, to = "C:/Users/Public//Host Name Login DO NOT DELETE.txt";

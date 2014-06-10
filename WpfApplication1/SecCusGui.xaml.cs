@@ -1,4 +1,17 @@
-﻿using System;
+﻿// ***********************************************************************
+// Assembly         : WpfApplication1
+// Author           : user
+// Created          : 06-10-2014
+//
+// Last Modified By : user
+// Last Modified On : 06-10-2014
+// ***********************************************************************
+// <copyright file="SecCusGui.xaml.cs" company="">
+//     Copyright (c) . All rights reserved.
+// </copyright>
+// <summary></summary>
+// ***********************************************************************
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -22,7 +35,13 @@ namespace project
     /// </summary>
     public partial class SecCusGui : Window
     {
+        /// <summary>
+        /// The dt
+        /// </summary>
         public static DataTable dt = new DataTable("custumers");
+        /// <summary>
+        /// Initializes a new instance of the <see cref="SecCusGui"/> class.
+        /// </summary>
         public SecCusGui()
         {
             InitializeComponent();
@@ -30,6 +49,9 @@ namespace project
             refreashcus(); 
         }
 
+        /// <summary>
+        /// Refreashcuses this instance.
+        /// </summary>
         private void refreashcus()
         {
             try
@@ -54,6 +76,11 @@ namespace project
             }
         }
 
+        /// <summary>
+        /// Handles the Click event of the ExcelBtn control.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="RoutedEventArgs"/> instance containing the event data.</param>
         private void ExcelBtn_Click(object sender, RoutedEventArgs e)
         {
 
@@ -64,6 +91,9 @@ namespace project
 
 
 
+        /// <summary>
+        /// Exports to excel.
+        /// </summary>
         private void ExportToExcel()
         {
             try
@@ -100,6 +130,11 @@ namespace project
 
 
 
+        /// <summary>
+        /// Handles the TextChanged event of the CustumerNameSearchTextBox control.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="TextChangedEventArgs"/> instance containing the event data.</param>
         private void CustumerNameSearchTextBox_TextChanged(object sender, TextChangedEventArgs e)
         {
             try
@@ -124,6 +159,11 @@ namespace project
             }
         }
 
+        /// <summary>
+        /// Handles the TextChanged event of the IDSearchTextBox control.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="TextChangedEventArgs"/> instance containing the event data.</param>
         private void IDSearchTextBox_TextChanged(object sender, TextChangedEventArgs e)
         {
             try
@@ -149,6 +189,11 @@ namespace project
 
 
 
+        /// <summary>
+        /// Handles the Click event of the ADD_Btn control.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="RoutedEventArgs"/> instance containing the event data.</param>
         private void ADD_Btn_Click(object sender, RoutedEventArgs e)
         {
             SecAddNewCusGUI MACG = new SecAddNewCusGUI();
@@ -158,6 +203,11 @@ namespace project
 
 
         // go to previous screen.
+        /// <summary>
+        /// Handles the Click event of the Back_Btn control.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="RoutedEventArgs"/> instance containing the event data.</param>
         private void Back_Btn_Click(object sender, RoutedEventArgs e)
         {
             SecretaryGui SG = new SecretaryGui();
@@ -168,12 +218,22 @@ namespace project
 
 
 
+        /// <summary>
+        /// Handles the AutoGeneratingColumn event of the Grid control.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="DataGridAutoGeneratingColumnEventArgs"/> instance containing the event data.</param>
         private void Grid_AutoGeneratingColumn(object sender, DataGridAutoGeneratingColumnEventArgs e)
         {
             e.Column.IsReadOnly = true; // Makes the column as read only
         }
 
 
+        /// <summary>
+        /// Handles the Click event of the Contacts_button control.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="RoutedEventArgs"/> instance containing the event data.</param>
         private void Contacts_button_Click(object sender, RoutedEventArgs e)
         {
             try
@@ -193,6 +253,11 @@ namespace project
 
 
 
+        /// <summary>
+        /// Handles the clicked event of the exit control.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="CancelEventArgs"/> instance containing the event data.</param>
         private void exit_clicked(object sender, CancelEventArgs e)
         {
             Console.WriteLine("" + Login.close);
@@ -236,6 +301,11 @@ namespace project
 
 
 
+        /// <summary>
+        /// Handles the Click event of the exit_button control.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="RoutedEventArgs"/> instance containing the event data.</param>
         private void exit_button_Click(object sender, RoutedEventArgs e)
         {
             Console.WriteLine("" + Login.close + " כפתור התנתקות");

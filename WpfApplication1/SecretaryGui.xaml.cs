@@ -1,4 +1,17 @@
-﻿using System;
+﻿// ***********************************************************************
+// Assembly         : WpfApplication1
+// Author           : user
+// Created          : 06-10-2014
+//
+// Last Modified By : user
+// Last Modified On : 06-10-2014
+// ***********************************************************************
+// <copyright file="SecretaryGui.xaml.cs" company="">
+//     Copyright (c) . All rights reserved.
+// </copyright>
+// <summary></summary>
+// ***********************************************************************
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -20,6 +33,9 @@ namespace project
     /// </summary>
     public partial class SecretaryGui : Window
     {
+        /// <summary>
+        /// Initializes a new instance of the <see cref="SecretaryGui"/> class.
+        /// </summary>
         public SecretaryGui()
         {
             InitializeComponent();
@@ -29,6 +45,11 @@ namespace project
         }
 
 
+        /// <summary>
+        /// Handles the Click event of the Employees_Button control.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="RoutedEventArgs"/> instance containing the event data.</param>
         private void Employees_Button_Click(object sender, RoutedEventArgs e)
         {
             SecEMPGui SEG = new SecEMPGui();
@@ -37,6 +58,11 @@ namespace project
             this.Close();
         }
 
+        /// <summary>
+        /// Handles the Click event of the stat_btn control.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="RoutedEventArgs"/> instance containing the event data.</param>
         private void stat_btn_Click(object sender, RoutedEventArgs e)
         {
             Secstat SSG = new Secstat();
@@ -46,6 +72,11 @@ namespace project
         }
 
 
+        /// <summary>
+        /// Handles the clicked event of the exit control.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="CancelEventArgs"/> instance containing the event data.</param>
         private void exit_clicked(object sender, CancelEventArgs e)
         {
             Console.WriteLine("" + Login.close);
@@ -90,6 +121,11 @@ namespace project
 
 
 
+        /// <summary>
+        /// Handles the Click event of the exit_button control.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="RoutedEventArgs"/> instance containing the event data.</param>
         private void exit_button_Click(object sender, RoutedEventArgs e)
         {
             Console.WriteLine("" + Login.close + " כפתור התנתקות");
@@ -135,6 +171,11 @@ namespace project
             Login.close = 0;
         }
 
+        /// <summary>
+        /// Handles the Click event of the job_btn control.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="RoutedEventArgs"/> instance containing the event data.</param>
         private void job_btn_Click(object sender, RoutedEventArgs e)
         {
             SecJobGui SJG = new SecJobGui();
@@ -143,6 +184,11 @@ namespace project
             this.Close();
         }
 
+        /// <summary>
+        /// Handles the Click event of the Custumer_Button control.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="RoutedEventArgs"/> instance containing the event data.</param>
         private void Custumer_Button_Click(object sender, RoutedEventArgs e)
         {
             SecCusGui SCG = new SecCusGui();

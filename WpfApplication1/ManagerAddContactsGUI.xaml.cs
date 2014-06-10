@@ -1,4 +1,17 @@
-﻿using System;
+﻿// ***********************************************************************
+// Assembly         : WpfApplication1
+// Author           : user
+// Created          : 06-10-2014
+//
+// Last Modified By : user
+// Last Modified On : 06-10-2014
+// ***********************************************************************
+// <copyright file="ManagerAddContactsGUI.xaml.cs" company="">
+//     Copyright (c) . All rights reserved.
+// </copyright>
+// <summary></summary>
+// ***********************************************************************
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -23,13 +36,38 @@ namespace project
     public partial class ManagerAddContactsGUI : Window
     {
 
+        /// <summary>
+        /// The contact_name
+        /// </summary>
         string contact_name;
+        /// <summary>
+        /// The contact_email
+        /// </summary>
         string contact_email;
+        /// <summary>
+        /// The contact_dep
+        /// </summary>
         string contact_dep;
+        /// <summary>
+        /// The cos ad ds
+        /// </summary>
         string cosADDs;
+        /// <summary>
+        /// The contact_phone
+        /// </summary>
         string contact_phone;
+        /// <summary>
+        /// The contact_cellphone
+        /// </summary>
         string contact_cellphone;
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="ManagerAddContactsGUI"/> class.
+        /// </summary>
+        /// <param name="selected">The selected.</param>
+        /// <param name="cos_insideNum">The cos_inside number.</param>
+        /// <param name="cosName">Name of the cos.</param>
+        /// <param name="cosADDs">The cos ad ds.</param>
         public ManagerAddContactsGUI(string selected,string cos_insideNum , string cosName,string cosADDs)
         {
             InitializeComponent();
@@ -49,6 +87,11 @@ namespace project
 
 
 
+        /// <summary>
+        /// Handles the Click event of the Back_button control.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="RoutedEventArgs"/> instance containing the event data.</param>
         private void Back_button_Click(object sender, RoutedEventArgs e)
         {
             //ManagerCusGui MCG = new ManagerCusGui();
@@ -59,6 +102,11 @@ namespace project
 
 
 
+        /// <summary>
+        /// Handles the Click event of the Add_button control.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="RoutedEventArgs"/> instance containing the event data.</param>
         private void Add_button_Click(object sender, RoutedEventArgs e)
         {
             name_W_label.Visibility = Visibility.Hidden;
@@ -269,6 +317,11 @@ namespace project
 
 
 
+        /// <summary>
+        /// Handles the clicked event of the exit control.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="CancelEventArgs"/> instance containing the event data.</param>
         private void exit_clicked(object sender, CancelEventArgs e)
         {
             Console.WriteLine("" + Login.close);

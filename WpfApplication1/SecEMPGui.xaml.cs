@@ -22,7 +22,13 @@ namespace project
     /// </summary>
     public partial class SecEMPGui : Window
     {
+        /// <summary>
+        /// The dt
+        /// </summary>
         public static DataTable dt = new DataTable("employess");
+        /// <summary>
+        /// Initializes a new instance of the <see cref="SecEMPGui"/> class.
+        /// </summary>
         public SecEMPGui()
         {
             InitializeComponent();
@@ -52,6 +58,11 @@ namespace project
 
 
 
+        /// <summary>
+        /// Handles the Click event of the ExcelBtn control.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="RoutedEventArgs"/> instance containing the event data.</param>
         private void ExcelBtn_Click(object sender, RoutedEventArgs e)
         {
 
@@ -61,6 +72,9 @@ namespace project
 
 
 
+        /// <summary>
+        /// Exports to excel.
+        /// </summary>
         private void ExportToExcel()
         {
             try
@@ -96,6 +110,9 @@ namespace project
         }
 
 
+        /// <summary>
+        /// Reafreashandclears this instance.
+        /// </summary>
         private void reafreashandclear()
         {
             try
@@ -120,6 +137,11 @@ namespace project
             FirstNameSearchTextBox.Clear();
         }
 
+        /// <summary>
+        /// Handles the TextChanged event of the FirstNameSearchTextBox control.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="TextChangedEventArgs"/> instance containing the event data.</param>
         private void FirstNameSearchTextBox_TextChanged(object sender, TextChangedEventArgs e)
         {
             try
@@ -147,6 +169,11 @@ namespace project
 
 
 
+        /// <summary>
+        /// Handles the TextChanged event of the IDSearchTextBox control.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="TextChangedEventArgs"/> instance containing the event data.</param>
         private void IDSearchTextBox_TextChanged(object sender, TextChangedEventArgs e)
         {
             try
@@ -170,7 +197,12 @@ namespace project
                 MessageBox.Show(ex.Message);
             }
         }
-        
+
+        /// <summary>
+        /// Handles the Click event of the AddBtn control.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="RoutedEventArgs"/> instance containing the event data.</param>
         private void AddBtn_Click(object sender, RoutedEventArgs e)
         {
             SecAddEmployeeGUI MAEG = new SecAddEmployeeGUI();
@@ -180,6 +212,11 @@ namespace project
 
 
 
+        /// <summary>
+        /// Handles the AutoGeneratingColumn event of the Grid control.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="DataGridAutoGeneratingColumnEventArgs"/> instance containing the event data.</param>
         private void Grid_AutoGeneratingColumn(object sender, DataGridAutoGeneratingColumnEventArgs e)
         {
             if (e.Column.Header.ToString() == "תאריך התחלת עבודה")
@@ -192,6 +229,11 @@ namespace project
 
 
         // go to previous screen.
+        /// <summary>
+        /// Handles the Click event of the Back_Btn control.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="RoutedEventArgs"/> instance containing the event data.</param>
         private void Back_Btn_Click(object sender, RoutedEventArgs e)
         {
             SecretaryGui SG = new SecretaryGui();
@@ -201,6 +243,11 @@ namespace project
         }
 
 
+        /// <summary>
+        /// Handles the clicked event of the exit control.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="CancelEventArgs"/> instance containing the event data.</param>
         private void exit_clicked(object sender, CancelEventArgs e)
         {
             Console.WriteLine("" + Login.close);
@@ -245,6 +292,11 @@ namespace project
 
 
 
+        /// <summary>
+        /// Handles the Click event of the exit_button control.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="RoutedEventArgs"/> instance containing the event data.</param>
         private void exit_button_Click(object sender, RoutedEventArgs e)
         {
             Console.WriteLine("" + Login.close + " כפתור התנתקות");

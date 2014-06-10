@@ -1,4 +1,17 @@
-﻿using System;
+﻿// ***********************************************************************
+// Assembly         : WpfApplication1
+// Author           : user
+// Created          : 06-10-2014
+//
+// Last Modified By : user
+// Last Modified On : 06-10-2014
+// ***********************************************************************
+// <copyright file="ManagerStat.xaml.cs" company="">
+//     Copyright (c) . All rights reserved.
+// </copyright>
+// <summary></summary>
+// ***********************************************************************
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -23,7 +36,13 @@ namespace project
     /// </summary>
     public partial class ManagerStat : Window
     {
+        /// <summary>
+        /// The dt
+        /// </summary>
         DataTable dt = new DataTable("stat");
+        /// <summary>
+        /// Initializes a new instance of the <see cref="ManagerStat"/> class.
+        /// </summary>
         public ManagerStat()
         {
             InitializeComponent();
@@ -40,10 +59,15 @@ namespace project
             theNUM_label.Content = "";
         }
 
-        
 
 
 
+
+        /// <summary>
+        /// Handles the AutoGeneratingColumn event of the Grid control.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="DataGridAutoGeneratingColumnEventArgs"/> instance containing the event data.</param>
         private void Grid_AutoGeneratingColumn(object sender, DataGridAutoGeneratingColumnEventArgs e)
         {
             if (e.Column.Header.ToString() == "תאריך שליחה")
@@ -56,6 +80,11 @@ namespace project
 
 
 
+        /// <summary>
+        /// Handles the Checked event of the all_checkBox control.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="RoutedEventArgs"/> instance containing the event data.</param>
         private void all_checkBox_Checked(object sender, RoutedEventArgs e)
         {
             Start_datePicker.IsEnabled = true;
@@ -67,6 +96,11 @@ namespace project
             JobIDTextBox.IsEnabled = false;
         }
 
+        /// <summary>
+        /// Handles the UnChecked event of the all_checkBox control.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="RoutedEventArgs"/> instance containing the event data.</param>
         private void all_checkBox_UnChecked(object sender, RoutedEventArgs e)
         {
             Start_datePicker.IsEnabled = false;
@@ -79,8 +113,13 @@ namespace project
 
 
 
-       
 
+
+        /// <summary>
+        /// Handles the 1 event of the Back_Btn_Click control.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="RoutedEventArgs"/> instance containing the event data.</param>
         private void Back_Btn_Click_1(object sender, RoutedEventArgs e)
         {
             ManagerGui MG = new ManagerGui();
@@ -89,6 +128,11 @@ namespace project
             this.Close();
         }
 
+        /// <summary>
+        /// Handles the LoadingRow event of the dataGrid1 control.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="DataGridRowEventArgs"/> instance containing the event data.</param>
         void dataGrid1_LoadingRow(object sender, DataGridRowEventArgs e)
         {
             int rownum =e.Row.GetIndex();
@@ -97,6 +141,11 @@ namespace project
             //e.Row.Header = (e.Row.GetIndex()).ToString();
         }
 
+        /// <summary>
+        /// Handles the Click event of the show_info_button control.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="RoutedEventArgs"/> instance containing the event data.</param>
         private void show_info_button_Click(object sender, RoutedEventArgs e)
         {
             if (all_checkBox.IsChecked == true)
@@ -271,6 +320,11 @@ namespace project
             }
         }
 
+        /// <summary>
+        /// Handles the Click event of the ExcelBtn control.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="RoutedEventArgs"/> instance containing the event data.</param>
         private void ExcelBtn_Click(object sender, RoutedEventArgs e)
         {
 
@@ -278,6 +332,9 @@ namespace project
         }
 
 
+        /// <summary>
+        /// Exports to excel.
+        /// </summary>
         private void ExportToExcel()
         {
             try
@@ -314,6 +371,11 @@ namespace project
 
 
 
+        /// <summary>
+        /// Handles the clicked event of the exit control.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="CancelEventArgs"/> instance containing the event data.</param>
         private void exit_clicked(object sender, CancelEventArgs e)
         {
             Console.WriteLine("" + Login.close);
@@ -356,6 +418,11 @@ namespace project
         }
 
 
+        /// <summary>
+        /// Handles the Click event of the exit_button control.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="RoutedEventArgs"/> instance containing the event data.</param>
         private void exit_button_Click(object sender, RoutedEventArgs e)
         {
             Console.WriteLine("" + Login.close + " כפתור התנתקות");

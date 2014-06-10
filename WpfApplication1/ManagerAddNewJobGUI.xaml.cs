@@ -1,4 +1,17 @@
-﻿using System;
+﻿// ***********************************************************************
+// Assembly         : WpfApplication1
+// Author           : user
+// Created          : 06-10-2014
+//
+// Last Modified By : user
+// Last Modified On : 06-10-2014
+// ***********************************************************************
+// <copyright file="ManagerAddNewJobGUI.xaml.cs" company="">
+//     Copyright (c) . All rights reserved.
+// </copyright>
+// <summary></summary>
+// ***********************************************************************
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -25,9 +38,21 @@ namespace project
     /// </summary>
     public partial class ManagerAddNewJobGUI : Window
     {
+        /// <summary>
+        /// The dt
+        /// </summary>
         DataTable dt = new DataTable("custumers");
+        /// <summary>
+        /// The DT1
+        /// </summary>
         DataTable dt1 = new DataTable("items");
+        /// <summary>
+        /// The DT2
+        /// </summary>
         DataTable dt2 = new DataTable("Contacts");
+        /// <summary>
+        /// Initializes a new instance of the <see cref="ManagerAddNewJobGUI"/> class.
+        /// </summary>
         public ManagerAddNewJobGUI()
         {
             InitializeComponent();
@@ -94,6 +119,11 @@ namespace project
 
 
 
+        /// <summary>
+        /// Handles the Click event of the ExcelBtn control.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="RoutedEventArgs"/> instance containing the event data.</param>
         private void ExcelBtn_Click(object sender, RoutedEventArgs e)
         {
            // IList dg2rows = dataGrid2.SelectedItems;
@@ -215,7 +245,10 @@ namespace project
 
             //ExportToExcel();
         }
-            
+
+        /// <summary>
+        /// Reload_s the cust_ table.
+        /// </summary>
         private void Reload_Cust_Table()
         {
             try
@@ -239,6 +272,9 @@ namespace project
             }
 
         }
+        /// <summary>
+        /// Reload_s the items_ table.
+        /// </summary>
         private void Reload_Items_Table()
         {
             try
@@ -261,6 +297,9 @@ namespace project
             } 
         }
 
+        /// <summary>
+        /// Create_s the data table_ columns_ start.
+        /// </summary>
         private void Create_DataTable_Columns_Start()
         {
 
@@ -295,6 +334,9 @@ namespace project
         }
 
 
+        /// <summary>
+        /// Create_s the data table1_ columns_ start.
+        /// </summary>
         private void Create_DataTable1_Columns_Start()
         {
             // DataColumn q = new DataColumn();
@@ -308,6 +350,9 @@ namespace project
 
 
 
+        /// <summary>
+        /// Make_s the check box_ columns_ false.
+        /// </summary>
         private void Make_CheckBox_Columns_False()
         {
             /////////////////////////////////////////////////////////////
@@ -327,6 +372,9 @@ namespace project
 
         }
 
+        /// <summary>
+        /// Make_s the check box1_ columns_ false.
+        /// </summary>
         private void Make_CheckBox1_Columns_False()
         {
             /////////////////////////////////////////////////////////////
@@ -348,6 +396,9 @@ namespace project
 
 
 
+        /// <summary>
+        /// Exports to excel.
+        /// </summary>
         private void ExportToExcel()
         {
             try
@@ -387,6 +438,11 @@ namespace project
 
 
 
+        /// <summary>
+        /// Handles the TextChanged event of the CustumerNameSearchTextBox control.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="TextChangedEventArgs"/> instance containing the event data.</param>
         private void CustumerNameSearchTextBox_TextChanged(object sender, TextChangedEventArgs e)
         {
             try
@@ -417,6 +473,11 @@ namespace project
             }
         }
 
+        /// <summary>
+        /// Handles the TextChanged event of the IDSearchTextBox control.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="TextChangedEventArgs"/> instance containing the event data.</param>
         private void IDSearchTextBox_TextChanged(object sender, TextChangedEventArgs e)
         {
             try
@@ -443,6 +504,11 @@ namespace project
 
 
 
+        /// <summary>
+        /// Handles the TextChanged event of the Item_Search_textBox control.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="TextChangedEventArgs"/> instance containing the event data.</param>
         private void Item_Search_textBox_TextChanged(object sender, TextChangedEventArgs e)
         {
             String searchkey = this.Item_Search_textBox.Text;
@@ -452,6 +518,11 @@ namespace project
 
 
 
+        /// <summary>
+        /// Handles the Click event of the ADD_Btn control.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="RoutedEventArgs"/> instance containing the event data.</param>
         private void ADD_Btn_Click(object sender, RoutedEventArgs e)
         {
             string jobid, orderid, jobdes;
@@ -802,6 +873,11 @@ namespace project
 */
 
         // go to previous screen.
+        /// <summary>
+        /// Handles the Click event of the Back_Btn control.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="RoutedEventArgs"/> instance containing the event data.</param>
         private void Back_Btn_Click(object sender, RoutedEventArgs e)
         {
             ManagerJobGui MJG = new ManagerJobGui();
@@ -874,7 +950,12 @@ namespace project
         }
 
 */
-        
+
+        /// <summary>
+        /// Handles the AutoGeneratingColumn event of the Grid control.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="DataGridAutoGeneratingColumnEventArgs"/> instance containing the event data.</param>
         private void Grid_AutoGeneratingColumn(object sender, DataGridAutoGeneratingColumnEventArgs e)
         {
             if (e.Column.Header.ToString() == "חפ לקוח" || e.Column.Header.ToString() == "שם לקוח" || e.Column.Header.ToString() == "כתובת לקוח")
@@ -962,6 +1043,11 @@ namespace project
 
         }
 
+        /// <summary>
+        /// Handles the AutoGeneratingColumn event of the dataGrid3 control.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="DataGridAutoGeneratingColumnEventArgs"/> instance containing the event data.</param>
         private void dataGrid3_AutoGeneratingColumn(object sender, DataGridAutoGeneratingColumnEventArgs e)
         {
             if (e.Column.Header.ToString() == "מספר איש קשר" || e.Column.Header.ToString() == "שם איש קשר" || e.Column.Header.ToString() == "מחלקת איש קשר")
@@ -973,6 +1059,11 @@ namespace project
 
 
 
+        /// <summary>
+        /// Handles the Checked event of the chkSelect control.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="RoutedEventArgs"/> instance containing the event data.</param>
        private void chkSelect_Checked(object sender, RoutedEventArgs e)
         {
            // MessageBox.Show("נבחרה שורה");
@@ -1047,6 +1138,11 @@ namespace project
 
 
 
+       /// <summary>
+       /// Handles the Checked event of the chkUNSelect control.
+       /// </summary>
+       /// <param name="sender">The source of the event.</param>
+       /// <param name="e">The <see cref="RoutedEventArgs"/> instance containing the event data.</param>
        private void chkUNSelect_Checked(object sender, RoutedEventArgs e)
         {
             //CheckBox Check1 = (CheckBox)dataGrid1.CurrentCell.Item;
@@ -1058,6 +1154,11 @@ namespace project
 
 
 
+       /// <summary>
+       /// Handles the AutoGeneratingColumn1 event of the Grid control.
+       /// </summary>
+       /// <param name="sender">The source of the event.</param>
+       /// <param name="e">The <see cref="DataGridAutoGeneratingColumnEventArgs"/> instance containing the event data.</param>
         private void Grid_AutoGeneratingColumn1(object sender, DataGridAutoGeneratingColumnEventArgs e)
         {
             if (e.Column.Header.ToString() == "מקט פריט" || e.Column.Header.ToString() == "שם פריט" || e.Column.Header.ToString() == "תאור פריט")
@@ -1192,6 +1293,11 @@ namespace project
             catch { MessageBox.Show("לא נבחר לקוח"); }
         }
 */
+        /// <summary>
+        /// Handles the MouseLeftButtonDown event of the dataGrid1_Preview control.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="MouseButtonEventArgs"/> instance containing the event data.</param>
         private void dataGrid1_Preview_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
             try
@@ -1222,6 +1328,11 @@ namespace project
         }
 
 
+        /// <summary>
+        /// Handles the Focus event of the dataGrid1 control.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="RoutedEventArgs"/> instance containing the event data.</param>
         private void dataGrid1_Focus(object sender, RoutedEventArgs e)
         {
             try
@@ -1251,6 +1362,11 @@ namespace project
             catch { return; }
         }
 
+        /// <summary>
+        /// Handles the Focusable event of the dataGrid1 control.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="DependencyPropertyChangedEventArgs"/> instance containing the event data.</param>
         private void dataGrid1_Focusable(object sender, DependencyPropertyChangedEventArgs e)
         {
             try
@@ -1281,6 +1397,11 @@ namespace project
 
             }
 
+        /// <summary>
+        /// Handles the SelectionChanged event of the dataGrid1 control.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="SelectionChangedEventArgs"/> instance containing the event data.</param>
         private void dataGrid1_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             try
@@ -1320,6 +1441,11 @@ namespace project
 
 
 
+        /// <summary>
+        /// Handles the clicked event of the exit control.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="CancelEventArgs"/> instance containing the event data.</param>
         private void exit_clicked(object sender, CancelEventArgs e)
         {
             Console.WriteLine("" + Login.close);
@@ -1362,6 +1488,11 @@ namespace project
         }
 
 
+        /// <summary>
+        /// Handles the Click event of the exit_button control.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="RoutedEventArgs"/> instance containing the event data.</param>
         private void exit_button_Click(object sender, RoutedEventArgs e)
         {
             Console.WriteLine("" + Login.close+" כפתור התנתקות");

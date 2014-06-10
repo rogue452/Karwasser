@@ -1,4 +1,17 @@
-﻿using System;
+﻿// ***********************************************************************
+// Assembly         : WpfApplication1
+// Author           : user
+// Created          : 06-10-2014
+//
+// Last Modified By : user
+// Last Modified On : 06-10-2014
+// ***********************************************************************
+// <copyright file="SecContactsGUI.xaml.cs" company="">
+//     Copyright (c) . All rights reserved.
+// </copyright>
+// <summary></summary>
+// ***********************************************************************
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -23,11 +36,33 @@ namespace project
     /// </summary>
     public partial class SecContactsGUI : Window
     {
+        /// <summary>
+        /// The hpcostid
+        /// </summary>
         string hpcostid;
+        /// <summary>
+        /// The cos name
+        /// </summary>
         string cosName;
+        /// <summary>
+        /// The cos ad ds
+        /// </summary>
         string cosADDs;
+        /// <summary>
+        /// The cos_inside number
+        /// </summary>
         string cos_insideNum;
+        /// <summary>
+        /// The dt
+        /// </summary>
         public static DataTable dt = new DataTable("contacts");
+        /// <summary>
+        /// Initializes a new instance of the <see cref="SecContactsGUI"/> class.
+        /// </summary>
+        /// <param name="hpcostid">The hpcostid.</param>
+        /// <param name="cos_insideNum">The cos_inside number.</param>
+        /// <param name="cosName">Name of the cos.</param>
+        /// <param name="cosADDs">The cos ad ds.</param>
         public SecContactsGUI(string hpcostid, string cos_insideNum, string cosName, string cosADDs)
         {
             InitializeComponent();
@@ -60,6 +95,9 @@ namespace project
         }
 
 
+        /// <summary>
+        /// Refreashandclears this instance.
+        /// </summary>
         private void refreashandclear()
                 {
                 try
@@ -86,6 +124,11 @@ namespace project
 
 
 
+        /// <summary>
+        /// Handles the Click event of the ExcelBtn control.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="RoutedEventArgs"/> instance containing the event data.</param>
         private void ExcelBtn_Click(object sender, RoutedEventArgs e)
         {
 
@@ -96,6 +139,9 @@ namespace project
 
 
 
+        /// <summary>
+        /// Exports to excel.
+        /// </summary>
         private void ExportToExcel()
         {
             try
@@ -131,8 +177,13 @@ namespace project
         }
 
 
-    
 
+
+        /// <summary>
+        /// Handles the TextChanged event of the FirstNameSearchTextBox control.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="TextChangedEventArgs"/> instance containing the event data.</param>
         private void FirstNameSearchTextBox_TextChanged(object sender, TextChangedEventArgs e)
         {
             try
@@ -156,6 +207,11 @@ namespace project
             }
         }
 
+        /// <summary>
+        /// Handles the TextChanged event of the IDSearchTextBox control.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="TextChangedEventArgs"/> instance containing the event data.</param>
         private void IDSearchTextBox_TextChanged(object sender, TextChangedEventArgs e)
         {
            try
@@ -179,6 +235,11 @@ namespace project
             }    
         }
 
+        /// <summary>
+        /// Handles the Click event of the ADD_Btn control.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="RoutedEventArgs"/> instance containing the event data.</param>
         private void ADD_Btn_Click(object sender, RoutedEventArgs e)
         {
             SecAddContactsGUI SACG = new SecAddContactsGUI(hpcostid, cos_insideNum, cosName, cosADDs);
@@ -190,6 +251,11 @@ namespace project
 
 
         // go to previous screen.
+        /// <summary>
+        /// Handles the Click event of the Back_Btn control.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="RoutedEventArgs"/> instance containing the event data.</param>
         private void Back_Btn_Click(object sender, RoutedEventArgs e)
         {
             SecCusGui SCG = new SecCusGui();
@@ -201,6 +267,11 @@ namespace project
 
 
 
+        /// <summary>
+        /// Handles the AutoGeneratingColumn event of the Grid control.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="DataGridAutoGeneratingColumnEventArgs"/> instance containing the event data.</param>
         private void Grid_AutoGeneratingColumn(object sender, DataGridAutoGeneratingColumnEventArgs e)
         {
            e.Column.IsReadOnly = true; // Makes the column as read only
@@ -208,6 +279,11 @@ namespace project
 
 
 
+        /// <summary>
+        /// Handles the clicked event of the exit control.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="CancelEventArgs"/> instance containing the event data.</param>
         private void exit_clicked(object sender, CancelEventArgs e)
         {
             Console.WriteLine("" + Login.close);
@@ -249,6 +325,11 @@ namespace project
             Login.close = 0;
         }
 
+        /// <summary>
+        /// Handles the Click event of the exit_button control.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="RoutedEventArgs"/> instance containing the event data.</param>
         private void exit_button_Click(object sender, RoutedEventArgs e)
         {
             Console.WriteLine("" + Login.close + " כפתור התנתקות");
