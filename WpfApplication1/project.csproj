@@ -128,6 +128,15 @@
     <Compile Include="QualityGui.xaml.cs">
       <DependentUpon>QualityGui.xaml</DependentUpon>
     </Compile>
+    <Compile Include="QualityItemInfoGui.xaml.cs">
+      <DependentUpon>QualityItemInfoGui.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="QualityJobGui.xaml.cs">
+      <DependentUpon>QualityJobGui.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="QualityJobInfoGui.xaml.cs">
+      <DependentUpon>QualityJobInfoGui.xaml</DependentUpon>
+    </Compile>
     <Compile Include="SecEMPGui.xaml.cs">
       <DependentUpon>SecEMPGui.xaml</DependentUpon>
     </Compile>
@@ -239,6 +248,18 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="QualityGui.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="QualityItemInfoGui.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="QualityJobGui.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="QualityJobInfoGui.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
