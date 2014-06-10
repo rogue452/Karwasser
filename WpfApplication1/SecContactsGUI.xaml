@@ -1,0 +1,39 @@
+﻿<Window x:Class="project.SecContactsGUI"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="אנשי קשר" Height="647" Width="1212" FlowDirection="RightToLeft" ResizeMode="CanMinimize" Icon="/WpfApplication1;component/Images/Israel.ico" WindowStartupLocation="CenterScreen" WindowStyle="SingleBorderWindow" WindowState="Normal" Closing="exit_clicked">
+    <Grid>
+        <Image Source="/WpfApplication1;component/Images/31.jpg"  Stretch="UniformToFill" FlowDirection="RightToLeft" />
+        <DataGrid x:Name="dataGrid1" HorizontalAlignment="Left" Margin="12,102,0,0" VerticalAlignment="Top" Height="465" Width="1166" FontSize="15"  AutoGenerateColumns="True" AutoGeneratingColumn="Grid_AutoGeneratingColumn"  ItemsSource="{Binding}" HeadersVisibility="All" MaxColumnWidth="Infinity" CanUserAddRows="false" SelectionMode="Single">
+            <DataGrid.Resources>
+                <Style TargetType="DataGridRow">
+                    <Style.Resources>
+                        <SolidColorBrush x:Key="{x:Static SystemColors.ControlBrushKey}" Color="LightGreen" />
+                        <SolidColorBrush x:Key="{x:Static SystemColors.ControlTextBrushKey}" Color="Black"/>
+                    </Style.Resources>
+                </Style>
+            </DataGrid.Resources>
+        </DataGrid>
+        <TextBox HorizontalAlignment="Left" Height="22" Margin="118,62,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="197" FontSize="15" Name="FirstNameSearchTextBox" TextChanged="FirstNameSearchTextBox_TextChanged" />
+        <TextBox HorizontalAlignment="Left" Height="23" Margin="118,34,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="197" Name="IDSearchTextBox" TextChanged="IDSearchTextBox_TextChanged" />
+        <Label Content="מספר איש קשר" HorizontalAlignment="Left" Margin="12,34,0,0" VerticalAlignment="Top"/>
+        <Label Content="שם איש קשר" HorizontalAlignment="Left" Margin="12,60,0,0" VerticalAlignment="Top" Width="86"/>
+        <Label Content="החל להקליד כדי לחפש לפי:" HorizontalAlignment="Left" Margin="12,3,0,0" VerticalAlignment="Top" FontWeight="Normal" />
+        <Button Content="הוסף איש קשר" HorizontalAlignment="Right" Margin="0,34,294,0" VerticalAlignment="Top" Width="180" Height="56" Name="ADD_Btn" Background="#8400A500" FontWeight="Bold" Click="ADD_Btn_Click" />
+        <Label Content="ניהול אנשי קשר:" HorizontalAlignment="Left" VerticalAlignment="Top" Width="112" Margin="647,4,0,0" FontStyle="Normal" FontWeight="Bold" />
+        <Button Content="יציאה מהמערכת" HorizontalAlignment="Left" Margin="1036,573,0,0" VerticalAlignment="Top" Width="142" Height="28" Name="exit_button" Click="exit_button_Click" />
+        <Button Content="חזור למסך לקוחות" HorizontalAlignment="Left" Margin="47,573,0,0" VerticalAlignment="Top" Width="134" Height="28" Click="Back_Btn_Click" Name="Back_Btn" />
+        <Button Content="ייצא רשימה לקובץ אקסל" Height="28" HorizontalAlignment="Left" Margin="507,572,0,0" Name="ExcelBtn" VerticalAlignment="Top" Width="161" Click="ExcelBtn_Click" />
+        <Image Height="30" HorizontalAlignment="Right" Margin="0,4,370,0" Name="image1" Stretch="Fill" VerticalAlignment="Top" Width="31" FlowDirection="RightToLeft" Source="/WpfApplication1;component/Images/team_icon.jpg" />
+        <Image Height="28" HorizontalAlignment="Left" Margin="1009,573,0,0" Name="image4" Stretch="Fill" VerticalAlignment="Top" Width="25" Source="/WpfApplication1;component/Images/exit.png" />
+        <Image Height="35" HorizontalAlignment="Left" Margin="468,566,0,0" Name="image6" Stretch="Fill" VerticalAlignment="Top" Width="33" Source="/WpfApplication1;component/Images/icon_microsoftexcel.png"  />
+        <Image Height="29" HorizontalAlignment="Left" Margin="12,573,0,0" Name="image7" Stretch="Fill" VerticalAlignment="Top" Width="33" Source="/WpfApplication1;component/Images/back.png" />
+        <Label Content="חפ הלקוח:" Height="28" HorizontalAlignment="Left" Margin="10,79,0,0" Name="label1" VerticalAlignment="Top" />
+        <Label Content="חפ" Height="28" HorizontalAlignment="Left" Margin="79,79,0,0" Name="conHP_label" VerticalAlignment="Top" Width="106" FontWeight="Bold" />
+        <Label Content="שם הלקוח:" Height="28" HorizontalAlignment="Left" Margin="344,79,0,0" Name="label3" VerticalAlignment="Top" />
+        <Label Content="שם" Height="28" HorizontalAlignment="Right" Margin="0,79,610,0" Name="con_name_label" VerticalAlignment="Top" Width="174" FontWeight="Bold" />
+        <Label Content="מספר לקוח:" Height="28" HorizontalAlignment="Left" Margin="183,79,0,0" Name="label2" VerticalAlignment="Top" />
+        <Label Content="מספר" Height="28" HorizontalAlignment="Left" Margin="261,79,0,0" Name="cos_insideNum_label" VerticalAlignment="Top" Width="81" FontWeight="Bold" />
+        <Label Content="או" Height="28" HorizontalAlignment="Left" Margin="42,46,0,0" Name="label5" VerticalAlignment="Top" />
+    </Grid>
+</Window>

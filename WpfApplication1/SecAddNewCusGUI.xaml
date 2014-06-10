@@ -1,4 +1,4 @@
-﻿<Window x:Class="project.ManagerAddNewCusGUI"
+﻿<Window x:Class="project.SecAddNewCusGUI"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
        Title="הוסף לקוח חדש למערכת" Height="470" Width="563" FlowDirection="RightToLeft" ResizeMode="CanMinimize" Icon="/WpfApplication1;component/Images/Israel.ico" WindowStartupLocation="CenterScreen" Closing="exit_clicked">

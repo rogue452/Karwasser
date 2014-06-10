@@ -72,7 +72,11 @@ namespace project
             try
             {
                 SaveFileDialog dialog = new SaveFileDialog();
-                dialog.FileName = " רשימת פריטים לעבודה מספר " + jobID + " נכון לתאריך - " + DateTime.Now.Year.ToString() + "_" + DateTime.Now.Month.ToString() + "_" + DateTime.Now.Day.ToString(); ; // Default file name
+                string j1, j2;
+                string[] jID = jobID.Split(new char[] { '/' });
+                j1 = jID[0];
+                j2 = jID[1];
+                dialog.FileName = " רשימת פריטים לעבודה מספר " + j1 + "-" + j2 + " ומקט " + itemID + " נכון לתאריך - " + DateTime.Now.Year.ToString() + "_" + DateTime.Now.Month.ToString() + "_" + DateTime.Now.Day.ToString(); ; // Default file name
                 dialog.DefaultExt = ".xlsx"; // Default file extension
                 dialog.Filter = "Microsoft Excel 2003 and above Documents (.xlsx)|*.xlsx";  // |Text documents (.txt)|*.txt| Filter files by extension 
 
