@@ -14,25 +14,36 @@ using MySql.Data.MySqlClient;
 using System.Data;
 using System.ComponentModel;
 using Microsoft.Win32;
+using System.Text.RegularExpressions;
 
 namespace project
 {
     /// <summary>
-    /// Interaction logic for SecEMPGui.xaml
+    /// Interaction logic for SecContactsGUI.xaml
     /// </summary>
-    public partial class SecEMPGui : Window
+    public partial class SecContactsGUI : Window
     {
-        public static DataTable dt = new DataTable("employess");
-        public SecEMPGui()
+        string hpcostid;
+        string cosName;
+        string cosADDs;
+        string cos_insideNum;
+        public static DataTable dt = new DataTable("contacts");
+        public SecContactsGUI(string hpcostid, string cos_insideNum, string cosName, string cosADDs)
         {
             InitializeComponent();
             this.WindowStartupLocation = WindowStartupLocation.CenterScreen;
-
+            this.hpcostid = hpcostid;
+            this.cosName = cosName;
+            this.cosADDs = cosADDs;
+            this.cos_insideNum = cos_insideNum;
+            conHP_label.Content = hpcostid;
+            cos_insideNum_label.Content = cos_insideNum;
+            con_name_label.Content = cosName;
             try
             {
                 MySqlConnection MySqlConn = new MySqlConnection(Login.Connectionstring);
                 MySqlConn.Open();
-                string Query1 = ("SELECT empid as `תעודת זהות`,emp_firstname as `שם פרטי` ,emp_lastname as `שם משפחה` , emp_insidenum as `מספר עובד` ,emp_address as `כתובת` ,emp_phone as `מספר טלפון`, emp_cellphone as `טלפון נייד`, emp_start_date as `תאריך התחלת עבודה` FROM project.employees ");
+                string Query1 = ("select contactid as `מספר איש קשר`,contactName as `שם איש קשר` ,contactEmail as `אימייל איש קשר` ,contactPhone as `טלפון איש קשר`,contactCellPhone as `טלפון נייד של איש הקשר` ,contactDepartment as `מחלקת איש קשר`, contactDesc as `הערות לגבי איש הקשר` from costumers  where costumerid='" + hpcostid + "'");
                 MySqlCommand MSQLcrcommand1 = new MySqlCommand(Query1, MySqlConn);
                 MSQLcrcommand1.ExecuteNonQuery();
                 MySqlDataAdapter mysqlDAdp = new MySqlDataAdapter(MSQLcrcommand1);
@@ -41,7 +52,6 @@ namespace project
                 dataGrid1.ItemsSource = dt.DefaultView;
                 mysqlDAdp.Update(dt);
                 MySqlConn.Close();
-
             }
             catch (Exception ex)
             {
@@ -49,6 +59,30 @@ namespace project
             }
         }
 
+
+        private void refreashandclear()
+                {
+                try
+                    {
+                        MySqlConnection MySqlConn = new MySqlConnection(Login.Connectionstring);
+                        MySqlConn.Open();
+                        string Query1 = ("select contactid as `מספר איש קשר`,contactName as `שם איש קשר` ,contactEmail as `אימייל איש קשר` ,contactPhone as `טלפון איש קשר`,contactCellPhone as `טלפון נייד של איש הקשר` ,contactDepartment as `מחלקת איש קשר`, contactDesc as `הערות לגבי איש הקשר` from costumers  where costumerid='" + hpcostid + "'");
+                        MySqlCommand MSQLcrcommand1 = new MySqlCommand(Query1, MySqlConn);
+                        MSQLcrcommand1.ExecuteNonQuery();
+                        MySqlDataAdapter mysqlDAdp = new MySqlDataAdapter(MSQLcrcommand1);
+                        dt.Clear();
+                        mysqlDAdp.Fill(dt);
+                        dataGrid1.ItemsSource = dt.DefaultView;
+                        mysqlDAdp.Update(dt);
+                        MySqlConn.Close();
+                        IDSearchTextBox.Clear();
+                        FirstNameSearchTextBox.Clear();
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show(ex.Message);
+                    }
+                }
 
 
 
@@ -61,12 +95,13 @@ namespace project
 
 
 
+
         private void ExportToExcel()
         {
             try
             {
                 SaveFileDialog dialog = new SaveFileDialog();
-                dialog.FileName = "רשימת עובדים" + "_" + DateTime.Now.Year.ToString() + "_" + DateTime.Now.Month.ToString() + "_" + DateTime.Now.Day.ToString(); ; // Default file name
+                dialog.FileName = "רשימת אנשי הקשר של " +cosName+ "_" + DateTime.Now.Year.ToString() + "_" + DateTime.Now.Month.ToString() + "_" + DateTime.Now.Day.ToString(); ; // Default file name
                 dialog.DefaultExt = ".xlsx"; // Default file extension
                 dialog.Filter = "Microsoft Excel 2003 and above Documents (.xlsx)|*.xlsx";  // |Text documents (.txt)|*.txt| Filter files by extension 
 
@@ -92,33 +127,11 @@ namespace project
             {
                 MessageBox.Show(ex.Message);
             }
-
+ 
         }
 
 
-        private void reafreashandclear()
-        {
-            try
-            {
-                MySqlConnection MySqlConn = new MySqlConnection(Login.Connectionstring);
-                MySqlConn.Open();
-                string Query1 = ("SELECT empid as `תעודת זהות`,emp_firstname as `שם פרטי` ,emp_lastname as `שם משפחה` , emp_insidenum as `מספר עובד` ,emp_address as `כתובת` ,emp_phone as `מספר טלפון`, emp_cellphone as `טלפון נייד`, emp_start_date as `תאריך התחלת עבודה` from project.employees ");
-                MySqlCommand MSQLcrcommand1 = new MySqlCommand(Query1, MySqlConn);
-                MSQLcrcommand1.ExecuteNonQuery();
-                MySqlDataAdapter mysqlDAdp = new MySqlDataAdapter(MSQLcrcommand1);
-                dt.Clear();
-                mysqlDAdp.Fill(dt);
-                dataGrid1.ItemsSource = dt.DefaultView;
-                mysqlDAdp.Update(dt);
-                MySqlConn.Close();
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message);
-            }
-            IDSearchTextBox.Clear();
-            FirstNameSearchTextBox.Clear();
-        }
+    
 
         private void FirstNameSearchTextBox_TextChanged(object sender, TextChangedEventArgs e)
         {
@@ -127,7 +140,7 @@ namespace project
                 MySqlConnection MySqlConn = new MySqlConnection(Login.Connectionstring);
                 MySqlConn.Open();
                 String searchkey = this.FirstNameSearchTextBox.Text;
-                string Query1 = "SELECT empid as `תעודת זהות`,emp_firstname as `שם פרטי` ,emp_lastname as `שם משפחה` , emp_insidenum as `מספר עובד` ,emp_address as `כתובת` ,emp_phone as `מספר טלפון`, emp_cellphone as `טלפון נייד`, emp_start_date as `תאריך התחלת עבודה` FROM  employees WHERE  emp_firstname Like '%" + searchkey + "%' ";
+                string Query1 = ("select contactid as `מספר איש קשר`,contactName as `שם איש קשר` ,contactEmail as `אימייל איש קשר` ,contactPhone as `טלפון איש קשר` ,contactDepartment as `מחלקת איש קשר` from costumers where contactName Like '%" + searchkey + "%' and costumerid='" + hpcostid + "'");
                 MySqlCommand MSQLcrcommand1 = new MySqlCommand(Query1, MySqlConn);
                 MSQLcrcommand1.ExecuteNonQuery();
                 MySqlDataAdapter mysqlDAdp = new MySqlDataAdapter(MSQLcrcommand1);
@@ -142,20 +155,15 @@ namespace project
                 MessageBox.Show(ex.Message);
             }
         }
-
-
-
-
 
         private void IDSearchTextBox_TextChanged(object sender, TextChangedEventArgs e)
         {
-            try
-            {
-
+           try
+           {
                 MySqlConnection MySqlConn = new MySqlConnection(Login.Connectionstring);
                 MySqlConn.Open();
                 String searchidkey = this.IDSearchTextBox.Text;
-                string Query1 = "SELECT empid as `תעודת זהות`,emp_firstname as `שם פרטי` ,emp_lastname as `שם משפחה` , emp_insidenum as `מספר עובד` ,emp_address as `כתובת` ,emp_phone as `מספר טלפון`, emp_cellphone as `טלפון נייד`, emp_start_date as `תאריך התחלת עבודה` FROM employees WHERE  empid Like '%" + searchidkey + "%' ";
+                string Query1 = ("select contactid as `מספר איש קשר`,contactName as `שם איש קשר` ,contactEmail as `אימייל איש קשר` ,contactPhone as `טלפון איש קשר` ,contactDepartment as `מחלקת איש קשר` from costumers where contactid Like '%" + searchidkey + "%'  and costumerid='" + hpcostid + "'");
                 MySqlCommand MSQLcrcommand1 = new MySqlCommand(Query1, MySqlConn);
                 MSQLcrcommand1.ExecuteNonQuery();
                 MySqlDataAdapter mysqlDAdp = new MySqlDataAdapter(MSQLcrcommand1);
@@ -164,17 +172,30 @@ namespace project
                 dataGrid1.ItemsSource = dt.DefaultView;
                 mysqlDAdp.Update(dt);
                 MySqlConn.Close();
-            }
-            catch (Exception ex)
+           }
+           catch (Exception ex)
             {
                 MessageBox.Show(ex.Message);
-            }
+            }    
         }
-        
-        private void AddBtn_Click(object sender, RoutedEventArgs e)
+
+        private void ADD_Btn_Click(object sender, RoutedEventArgs e)
         {
-            SecAddEmployeeGUI MAEG = new SecAddEmployeeGUI();
-            MAEG.ShowDialog();
+            SecAddContactsGUI SACG = new SecAddContactsGUI(hpcostid, cos_insideNum, cosName, cosADDs);
+            SACG.Owner = this;
+            SACG.ShowDialog();
+        }
+
+
+
+
+        // go to previous screen.
+        private void Back_Btn_Click(object sender, RoutedEventArgs e)
+        {
+            SecCusGui SCG = new SecCusGui();
+            SCG.Show();
+            Login.close = 1;
+            this.Close();
         }
 
 
@@ -182,23 +203,9 @@ namespace project
 
         private void Grid_AutoGeneratingColumn(object sender, DataGridAutoGeneratingColumnEventArgs e)
         {
-            if (e.Column.Header.ToString() == "תאריך התחלת עבודה")
-            {
-                (e.Column as DataGridTextColumn).Binding.StringFormat = "dd/MM/yyyy";  
-            }
-            e.Column.IsReadOnly = true; // Makes the column as read only
+           e.Column.IsReadOnly = true; // Makes the column as read only
         }
 
-
-
-        // go to previous screen.
-        private void Back_Btn_Click(object sender, RoutedEventArgs e)
-        {
-            SecretaryGui SG = new SecretaryGui();
-            SG.Show();
-            Login.close = 1;
-            this.Close();
-        }
 
 
         private void exit_clicked(object sender, CancelEventArgs e)
@@ -241,9 +248,6 @@ namespace project
             }
             Login.close = 0;
         }
-
-
-
 
         private void exit_button_Click(object sender, RoutedEventArgs e)
         {
@@ -289,6 +293,7 @@ namespace project
             }
             Login.close = 0;
         }
+
 
 
 

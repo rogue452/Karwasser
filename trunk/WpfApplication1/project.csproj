@@ -137,8 +137,32 @@
     <Compile Include="QualityJobInfoGui.xaml.cs">
       <DependentUpon>QualityJobInfoGui.xaml</DependentUpon>
     </Compile>
+    <Compile Include="SecAddContactsGUI.xaml.cs">
+      <DependentUpon>SecAddContactsGUI.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="SecAddEmployeeGUI.xaml.cs">
+      <DependentUpon>SecAddEmployeeGUI.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="SecAddNewCusGUI.xaml.cs">
+      <DependentUpon>SecAddNewCusGUI.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="SecContactsGUI.xaml.cs">
+      <DependentUpon>SecContactsGUI.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="SecCusGui.xaml.cs">
+      <DependentUpon>SecCusGui.xaml</DependentUpon>
+    </Compile>
     <Compile Include="SecEMPGui.xaml.cs">
       <DependentUpon>SecEMPGui.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="SecItemInfoGui.xaml.cs">
+      <DependentUpon>SecItemInfoGui.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="SecJobGui.xaml.cs">
+      <DependentUpon>SecJobGui.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="SecJobInfoGui.xaml.cs">
+      <DependentUpon>SecJobInfoGui.xaml</DependentUpon>
     </Compile>
     <Compile Include="SecretaryGui.xaml.cs">
       <DependentUpon>SecretaryGui.xaml</DependentUpon>
@@ -148,6 +172,9 @@
     </Compile>
     <Compile Include="ManagerGui.xaml.cs">
       <DependentUpon>ManagerGui.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Secstat.xaml.cs">
+      <DependentUpon>Secstat.xaml</DependentUpon>
     </Compile>
     <Compile Include="Test1.cs" />
     <Compile Include="ManagerCusGui.xaml.cs">
@@ -263,7 +290,39 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="SecAddContactsGUI.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="SecAddEmployeeGUI.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="SecAddNewCusGUI.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="SecContactsGUI.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="SecCusGui.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="SecEMPGui.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="SecItemInfoGui.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="SecJobGui.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="SecJobInfoGui.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -284,6 +343,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="ManagerAddNewJobGUI.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Secstat.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

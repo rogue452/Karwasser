@@ -14,49 +14,35 @@ using MySql.Data.MySqlClient;
 using System.Data;
 using System.ComponentModel;
 using Microsoft.Win32;
+using System.Text.RegularExpressions;
 
 namespace project
 {
     /// <summary>
-    /// Interaction logic for SecEMPGui.xaml
+    /// Interaction logic for SecJobInfoGui.xaml
     /// </summary>
-    public partial class SecEMPGui : Window
+    public partial class SecJobInfoGui : Window
     {
-        public static DataTable dt = new DataTable("employess");
-        public SecEMPGui()
+         DataTable dt = new DataTable("jobinfo");
+        string jobID;
+        public SecJobInfoGui(string jobID1)
         {
+            this.jobID = jobID1;
             InitializeComponent();
             this.WindowStartupLocation = WindowStartupLocation.CenterScreen;
-
-            try
-            {
-                MySqlConnection MySqlConn = new MySqlConnection(Login.Connectionstring);
-                MySqlConn.Open();
-                string Query1 = ("SELECT empid as `תעודת זהות`,emp_firstname as `שם פרטי` ,emp_lastname as `שם משפחה` , emp_insidenum as `מספר עובד` ,emp_address as `כתובת` ,emp_phone as `מספר טלפון`, emp_cellphone as `טלפון נייד`, emp_start_date as `תאריך התחלת עבודה` FROM project.employees ");
-                MySqlCommand MSQLcrcommand1 = new MySqlCommand(Query1, MySqlConn);
-                MSQLcrcommand1.ExecuteNonQuery();
-                MySqlDataAdapter mysqlDAdp = new MySqlDataAdapter(MSQLcrcommand1);
-                dt.Clear();
-                mysqlDAdp.Fill(dt);
-                dataGrid1.ItemsSource = dt.DefaultView;
-                mysqlDAdp.Update(dt);
-                MySqlConn.Close();
-
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message);
-            }
+            label1.Content = jobID;
+            refreashandClear();
         }
 
 
 
 
-        private void ExcelBtn_Click(object sender, RoutedEventArgs e)
+        private void TXTBtn_Click(object sender, RoutedEventArgs e)
         {
 
             ExportToExcel();
         }
+
 
 
 
@@ -66,7 +52,11 @@ namespace project
             try
             {
                 SaveFileDialog dialog = new SaveFileDialog();
-                dialog.FileName = "רשימת עובדים" + "_" + DateTime.Now.Year.ToString() + "_" + DateTime.Now.Month.ToString() + "_" + DateTime.Now.Day.ToString(); ; // Default file name
+                string j1, j2;
+                string[] jID = jobID.Split(new char[] { '/' });
+                j1 = jID[0];
+                j2 = jID[1];
+                dialog.FileName = " רשימת פריטים לעבודה מספר " + j1 + "-" + j2 + " נכון לתאריך - " + DateTime.Now.Year.ToString() + "_" + DateTime.Now.Month.ToString() + "_" + DateTime.Now.Day.ToString(); ; // Default file name
                 dialog.DefaultExt = ".xlsx"; // Default file extension
                 dialog.Filter = "Microsoft Excel 2003 and above Documents (.xlsx)|*.xlsx";  // |Text documents (.txt)|*.txt| Filter files by extension 
 
@@ -82,10 +72,9 @@ namespace project
                     {
                         MessageBox.Show(" נוצר בהצלחה Microsoft Excel -מסמך ה", "!הצלחה", MessageBoxButton.OK, MessageBoxImage.Information);
                     }
-                    else
-                    {
-                        MessageBox.Show(" לא נוצר  Microsoft Excel -התרחשה שגיאה ולכן מסמך ה", "!שים לב", MessageBoxButton.OK, MessageBoxImage.Error);
-                    }
+                    else { 
+                            MessageBox.Show(" לא נוצר  Microsoft Excel -התרחשה שגיאה ולכן מסמך ה", "!שים לב", MessageBoxButton.OK, MessageBoxImage.Error); 
+                         }
                 }
             }
             catch (Exception ex)
@@ -96,13 +85,13 @@ namespace project
         }
 
 
-        private void reafreashandclear()
+        private void refreashandClear()
         {
             try
             {
                 MySqlConnection MySqlConn = new MySqlConnection(Login.Connectionstring);
                 MySqlConn.Open();
-                string Query1 = ("SELECT empid as `תעודת זהות`,emp_firstname as `שם פרטי` ,emp_lastname as `שם משפחה` , emp_insidenum as `מספר עובד` ,emp_address as `כתובת` ,emp_phone as `מספר טלפון`, emp_cellphone as `טלפון נייד`, emp_start_date as `תאריך התחלת עבודה` from project.employees ");
+                string Query1 = ("SELECT jobs.itemid as `מקט פריט`,item.itemName as `שם פריט`,group_costomer_itemid as `מקט לקוח`,  expectedItemQuantity as `כמות נדרשת`, COUNT(jobs.itemid) as `כמות כוללת בפועל` ,itemsDescription as `תיאור סט ספציפי`, group_Status as `סטטוס קבוצה` , group_StageOrder as `מספר שלב הקבוצה` , item.item_discription as `תיאור פריט` FROM jobs,item  WHERE jobs.jobid='" + jobID + "' AND jobs.itemid=item.itemid AND jobs.itemStageOrder=item.itemStageOrder AND jobs.itemStatus=item.itemStatus group by jobs.itemid ");
                 MySqlCommand MSQLcrcommand1 = new MySqlCommand(Query1, MySqlConn);
                 MSQLcrcommand1.ExecuteNonQuery();
                 MySqlDataAdapter mysqlDAdp = new MySqlDataAdapter(MSQLcrcommand1);
@@ -116,46 +105,20 @@ namespace project
             {
                 MessageBox.Show(ex.Message);
             }
-            IDSearchTextBox.Clear();
-            FirstNameSearchTextBox.Clear();
-        }
-
-        private void FirstNameSearchTextBox_TextChanged(object sender, TextChangedEventArgs e)
-        {
-            try
-            {
-                MySqlConnection MySqlConn = new MySqlConnection(Login.Connectionstring);
-                MySqlConn.Open();
-                String searchkey = this.FirstNameSearchTextBox.Text;
-                string Query1 = "SELECT empid as `תעודת זהות`,emp_firstname as `שם פרטי` ,emp_lastname as `שם משפחה` , emp_insidenum as `מספר עובד` ,emp_address as `כתובת` ,emp_phone as `מספר טלפון`, emp_cellphone as `טלפון נייד`, emp_start_date as `תאריך התחלת עבודה` FROM  employees WHERE  emp_firstname Like '%" + searchkey + "%' ";
-                MySqlCommand MSQLcrcommand1 = new MySqlCommand(Query1, MySqlConn);
-                MSQLcrcommand1.ExecuteNonQuery();
-                MySqlDataAdapter mysqlDAdp = new MySqlDataAdapter(MSQLcrcommand1);
-                dt.Clear();
-                mysqlDAdp.Fill(dt);
-                dataGrid1.ItemsSource = dt.DefaultView;
-                mysqlDAdp.Update(dt);
-                MySqlConn.Close();
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message);
-            }
+            ItemIDSearch_TextBox.Clear();
         }
 
 
 
-
-
-        private void IDSearchTextBox_TextChanged(object sender, TextChangedEventArgs e)
+        private void ItemIDSearch_TextBox_TextChanged(object sender, TextChangedEventArgs e)
         {
             try
             {
 
                 MySqlConnection MySqlConn = new MySqlConnection(Login.Connectionstring);
                 MySqlConn.Open();
-                String searchidkey = this.IDSearchTextBox.Text;
-                string Query1 = "SELECT empid as `תעודת זהות`,emp_firstname as `שם פרטי` ,emp_lastname as `שם משפחה` , emp_insidenum as `מספר עובד` ,emp_address as `כתובת` ,emp_phone as `מספר טלפון`, emp_cellphone as `טלפון נייד`, emp_start_date as `תאריך התחלת עבודה` FROM employees WHERE  empid Like '%" + searchidkey + "%' ";
+                String searchkey = this.ItemIDSearch_TextBox.Text;
+                string Query1 = ("SELECT jobs.itemid as `מקט פריט`,item.itemName as `שם פריט`,group_costomer_itemid as `מקט לקוח`, expectedItemQuantity as `כמות נדרשת`, COUNT(jobs.itemid) as `כמות כוללת בפועל` ,itemsDescription as `תיאור סט ספציפי`, group_Status as `סטטוס קבוצה` , group_StageOrder as `מספר שלב הקבוצה` ,stageName as `שם שלב הקבוצה`, stage_discription as `תאור שלב הקבוצה`  FROM jobs,item  WHERE jobs.jobid='" + jobID + "' AND jobs.itemid=item.itemid AND jobs.itemStageOrder=item.itemStageOrder AND jobs.itemStatus=item.itemStatus AND jobs.itemid Like '%" + searchkey + "%'  group by jobs.itemid ");
                 MySqlCommand MSQLcrcommand1 = new MySqlCommand(Query1, MySqlConn);
                 MSQLcrcommand1.ExecuteNonQuery();
                 MySqlDataAdapter mysqlDAdp = new MySqlDataAdapter(MSQLcrcommand1);
@@ -170,11 +133,17 @@ namespace project
                 MessageBox.Show(ex.Message);
             }
         }
-        
-        private void AddBtn_Click(object sender, RoutedEventArgs e)
+
+
+
+
+        // go to previous screen.
+        private void Back_Btn_Click(object sender, RoutedEventArgs e)
         {
-            SecAddEmployeeGUI MAEG = new SecAddEmployeeGUI();
-            MAEG.ShowDialog();
+            SecJobGui SJG = new SecJobGui();
+            SJG.Show();
+            Login.close = 1;
+            this.Close();
         }
 
 
@@ -182,23 +151,25 @@ namespace project
 
         private void Grid_AutoGeneratingColumn(object sender, DataGridAutoGeneratingColumnEventArgs e)
         {
-            if (e.Column.Header.ToString() == "תאריך התחלת עבודה")
-            {
-                (e.Column as DataGridTextColumn).Binding.StringFormat = "dd/MM/yyyy";  
-            }
-            e.Column.IsReadOnly = true; // Makes the column as read only
+           e.Column.IsReadOnly = true; // Makes the column as read only
         }
 
 
-
-        // go to previous screen.
-        private void Back_Btn_Click(object sender, RoutedEventArgs e)
+        private void Show_Item_button_Click(object sender, RoutedEventArgs e)
         {
-            SecretaryGui SG = new SecretaryGui();
-            SG.Show();
-            Login.close = 1;
-            this.Close();
+             try
+            {
+                DataRowView row = (DataRowView)dataGrid1.SelectedItems[0];
+                string selected = row["מקט פריט"].ToString();
+                SecItemInfoGui MIIG = new SecItemInfoGui(selected, jobID);
+                MIIG.Show();
+                Login.close = 1;
+                this.Close();
+            }
+             catch { MessageBox.Show("לא נבחר סט פריט", "!שים לב", MessageBoxButton.OK, MessageBoxImage.Error); }
         }
+
+
 
 
         private void exit_clicked(object sender, CancelEventArgs e)
@@ -241,6 +212,24 @@ namespace project
             }
             Login.close = 0;
         }
+
+        private void Item_Stages_button_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                DataRowView row = (DataRowView)dataGrid1.SelectedItems[0];
+                string selected_Item = row["מקט פריט"].ToString();
+                ManagerGeneralItemStagesGui MGIG = new ManagerGeneralItemStagesGui(selected_Item);
+                MGIG.Owner = this;
+                MGIG.ShowDialog();
+            }
+            catch
+            {
+                MessageBox.Show("לא נבחר סט פריט", "!שים לב", MessageBoxButton.OK, MessageBoxImage.Error);
+                return;
+            }
+        }
+
 
 
 
@@ -289,7 +278,6 @@ namespace project
             }
             Login.close = 0;
         }
-
 
 
 
