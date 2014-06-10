@@ -176,7 +176,6 @@
     <Compile Include="Secstat.xaml.cs">
       <DependentUpon>Secstat.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Test1.cs" />
     <Compile Include="ManagerCusGui.xaml.cs">
       <DependentUpon>ManagerCusGui.xaml</DependentUpon>
     </Compile>
