@@ -1,4 +1,17 @@
-﻿using System;
+﻿// ***********************************************************************
+// Assembly         : WpfApplication1
+// Author           : user
+// Created          : 06-10-2014
+//
+// Last Modified By : user
+// Last Modified On : 06-10-2014
+// ***********************************************************************
+// <copyright file="DBConnection.cs" company="">
+//     Copyright (c) . All rights reserved.
+// </copyright>
+// <summary></summary>
+// ***********************************************************************
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -17,9 +30,21 @@ namespace project
     {
         //static string host = "localhost";
         //static string server = "SQLEXPRESS";
+        /// <summary>
+        /// The adapter
+        /// </summary>
         public MySqlDataAdapter adapter;
+        /// <summary>
+        /// The dataset
+        /// </summary>
         public DataSet dataset;
+        /// <summary>
+        /// The object connection
+        /// </summary>
         public MySqlConnection objConnection;
+        /// <summary>
+        /// The object command
+        /// </summary>
         public MySqlCommand objCommand;
 
         /// <summary>
@@ -57,6 +82,7 @@ namespace project
         /// <summary>
         /// Inserts the data into database.
         /// </summary>
+        /// <param name="Connectionstring">The connectionstring.</param>
         /// <param name="query">The query.</param>
         /// <returns>DataSet.</returns>
         public DataSet InsertDataIntoDB(string Connectionstring, string query)
@@ -146,6 +172,7 @@ namespace project
         /// Logs the user in.
         /// </summary>
         /// <param name="query">The query.</param>
+        /// <param name="Connectionstring">The connectionstring.</param>
         /// <returns>DataSet.</returns>
         public DataSet LogIn(string query, string Connectionstring)
         {

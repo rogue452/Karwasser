@@ -1,4 +1,17 @@
-﻿using System;
+﻿// ***********************************************************************
+// Assembly         : WpfApplication1
+// Author           : user
+// Created          : 06-10-2014
+//
+// Last Modified By : user
+// Last Modified On : 06-10-2014
+// ***********************************************************************
+// <copyright file="ManagerAddNewItemPatternGUI.xaml.cs" company="">
+//     Copyright (c) . All rights reserved.
+// </copyright>
+// <summary></summary>
+// ***********************************************************************
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -19,16 +32,28 @@ using System.Collections;
 
 namespace project
 {
-    
-     
 
 
 
+
+
+    /// <summary>
+    /// Class ManagerAddNewItemPatternGUI.
+    /// </summary>
     public partial class ManagerAddNewItemPatternGUI : Window
     {
+        /// <summary>
+        /// The dt
+        /// </summary>
         DataTable dt = new DataTable("newpattern");
+        /// <summary>
+        /// The count
+        /// </summary>
         int count = 1;
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="ManagerAddNewItemPatternGUI"/> class.
+        /// </summary>
         public ManagerAddNewItemPatternGUI()
         {
             InitializeComponent();
@@ -52,6 +77,11 @@ namespace project
 
 
 
+        /// <summary>
+        /// Handles the Click event of the Back_button control.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="RoutedEventArgs"/> instance containing the event data.</param>
         private void Back_button_Click(object sender, RoutedEventArgs e)
         {
            // ManagerJobGui MJG = new ManagerJobGui();
@@ -62,6 +92,11 @@ namespace project
         }
 
 
+        /// <summary>
+        /// Handles the Click event of the Add_button control.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="RoutedEventArgs"/> instance containing the event data.</param>
         private void Add_button_Click(object sender, RoutedEventArgs e)
         {
             
@@ -233,6 +268,9 @@ namespace project
 
 
 
+        /// <summary>
+        /// Updategrids this instance.
+        /// </summary>
         public void updategrid()
         {
             try
@@ -256,6 +294,9 @@ namespace project
  
         }
 
+        /// <summary>
+        /// Updateparentgrids this instance.
+        /// </summary>
         public void updateparentgrid()
         {
             try
@@ -279,11 +320,21 @@ namespace project
 
         }
 
+        /// <summary>
+        /// Handles the AutoGeneratingColumn event of the Grid control.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="DataGridAutoGeneratingColumnEventArgs"/> instance containing the event data.</param>
         private void Grid_AutoGeneratingColumn(object sender, DataGridAutoGeneratingColumnEventArgs e)
         {
             e.Column.IsReadOnly = true; // Makes the column as read only
         }
-    
+
+        /// <summary>
+        /// Handles the clicked event of the exit control.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="CancelEventArgs"/> instance containing the event data.</param>
         private void exit_clicked(object sender, CancelEventArgs e)
         {
             Console.WriteLine("" + Login.close);

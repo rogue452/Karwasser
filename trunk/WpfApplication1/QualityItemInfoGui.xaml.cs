@@ -1,4 +1,17 @@
-﻿using System;
+﻿// ***********************************************************************
+// Assembly         : WpfApplication1
+// Author           : user
+// Created          : 06-10-2014
+//
+// Last Modified By : user
+// Last Modified On : 06-10-2014
+// ***********************************************************************
+// <copyright file="QualityItemInfoGui.xaml.cs" company="">
+//     Copyright (c) . All rights reserved.
+// </copyright>
+// <summary></summary>
+// ***********************************************************************
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -23,8 +36,19 @@ namespace project
     /// </summary>
     public partial class QualityItemInfoGui : Window
     {
+        /// <summary>
+        /// The dt
+        /// </summary>
         DataTable dt = new DataTable("iteminfo");
+        /// <summary>
+        /// The item identifier
+        /// </summary>
         string itemID, jobID;
+        /// <summary>
+        /// Initializes a new instance of the <see cref="QualityItemInfoGui"/> class.
+        /// </summary>
+        /// <param name="itemID1">The item i d1.</param>
+        /// <param name="jobID1">The job i d1.</param>
         public QualityItemInfoGui(string itemID1, string jobID1)
         {
             this.itemID = itemID1;
@@ -39,6 +63,11 @@ namespace project
 
 
 
+        /// <summary>
+        /// Handles the Click event of the TXTBtn control.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="RoutedEventArgs"/> instance containing the event data.</param>
         private void TXTBtn_Click(object sender, RoutedEventArgs e)
         {
 
@@ -49,6 +78,9 @@ namespace project
 
 
 
+        /// <summary>
+        /// Exports to excel.
+        /// </summary>
         private void ExportToExcel()
         {
             try
@@ -87,6 +119,9 @@ namespace project
 
         }
 
+        /// <summary>
+        /// Refreashandclears this instance.
+        /// </summary>
         private void refreashandclear()
         {
             try
@@ -111,6 +146,11 @@ namespace project
             StageNameSearchTextBox.Clear();
         }
 
+        /// <summary>
+        /// Handles the TextChanged event of the ItemIDSearch_TextBox control.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="TextChangedEventArgs"/> instance containing the event data.</param>
         private void ItemIDSearch_TextBox_TextChanged(object sender, TextChangedEventArgs e)
         {
             
@@ -137,6 +177,11 @@ namespace project
 
         }
 
+        /// <summary>
+        /// Handles the TextChanged event of the StageNameSearchTextBox control.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="TextChangedEventArgs"/> instance containing the event data.</param>
         private void StageNameSearchTextBox_TextChanged(object sender, TextChangedEventArgs e)
         {
            
@@ -165,6 +210,11 @@ namespace project
 
 
         // go to previous screen.
+        /// <summary>
+        /// Handles the Click event of the Back_Btn control.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="RoutedEventArgs"/> instance containing the event data.</param>
         private void Back_Btn_Click(object sender, RoutedEventArgs e)
         {
             QualityJobInfoGui QJIG = new QualityJobInfoGui(jobID);
@@ -175,6 +225,11 @@ namespace project
 
 
 
+        /// <summary>
+        /// Handles the Click event of the UpdateBtn control.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="RoutedEventArgs"/> instance containing the event data.</param>
         private void UpdateBtn_Click(object sender, RoutedEventArgs e)
         {
             try
@@ -403,9 +458,14 @@ namespace project
                 MessageBox.Show("!לא נבחר פריט לעדכון", "!שים לב", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
-            
-    
 
+
+
+        /// <summary>
+        /// Handles the AutoGeneratingColumn event of the Grid control.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="DataGridAutoGeneratingColumnEventArgs"/> instance containing the event data.</param>
         private void Grid_AutoGeneratingColumn(object sender, DataGridAutoGeneratingColumnEventArgs e)
         {
             if (e.Column.Header.ToString() == "שם השלב הנוכחי" || e.Column.Header.ToString() == "מספר השלב הנוכחי" || e.Column.Header.ToString() == "מספר פריט" || e.Column.Header.ToString() == "מספר פריט בסט" || e.Column.Header.ToString() == "תאור השלב הנוכחי" || e.Column.Header.ToString() == "מספר השלב שבו זוהה כתקול (אם זוהה)")
@@ -501,8 +561,13 @@ namespace project
             }
         }
 
-       
 
+
+        /// <summary>
+        /// Handles the Click event of the Item_Stages_button control.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="RoutedEventArgs"/> instance containing the event data.</param>
         private void Item_Stages_button_Click(object sender, RoutedEventArgs e)
         {
                 ManagerGeneralItemStagesGui MGIG = new ManagerGeneralItemStagesGui(itemID);
@@ -511,6 +576,11 @@ namespace project
         }
 
 
+        /// <summary>
+        /// Handles the Click event of the NextStage_button control.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="RoutedEventArgs"/> instance containing the event data.</param>
         private void NextStage_button_Click(object sender, RoutedEventArgs e)
         {
             string next_stage="";
@@ -690,6 +760,11 @@ namespace project
 
         }
 
+        /// <summary>
+        /// Handles the Click event of the PrevStage_button control.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="RoutedEventArgs"/> instance containing the event data.</param>
         private void PrevStage_button_Click(object sender, RoutedEventArgs e)
         {
 
@@ -906,6 +981,11 @@ namespace project
 
         }
 
+        /// <summary>
+        /// Handles the clicked event of the exit control.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="CancelEventArgs"/> instance containing the event data.</param>
         private void exit_clicked(object sender, CancelEventArgs e)
         {
             Console.WriteLine("" + Login.close);
@@ -947,6 +1027,11 @@ namespace project
             Login.close = 0;
         }
 
+        /// <summary>
+        /// Handles the Click event of the exit_button control.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="RoutedEventArgs"/> instance containing the event data.</param>
         private void exit_button_Click(object sender, RoutedEventArgs e)
         {
             Console.WriteLine("" + Login.close + " כפתור התנתקות");

@@ -1,4 +1,17 @@
-﻿using System;
+﻿// ***********************************************************************
+// Assembly         : WpfApplication1
+// Author           : user
+// Created          : 06-10-2014
+//
+// Last Modified By : user
+// Last Modified On : 06-10-2014
+// ***********************************************************************
+// <copyright file="ManagerItemStagesGui.xaml.cs" company="">
+//     Copyright (c) . All rights reserved.
+// </copyright>
+// <summary></summary>
+// ***********************************************************************
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -23,8 +36,20 @@ namespace project
     /// </summary>
     public partial class ManagerItemStagesGui : Window
     {
+        /// <summary>
+        /// The dt
+        /// </summary>
         DataTable dt = new DataTable("itemStages");
+        /// <summary>
+        /// The item identifier
+        /// </summary>
         string itemID, jobid, itemnum, status,itemname;
+        /// <summary>
+        /// Initializes a new instance of the <see cref="ManagerItemStagesGui"/> class.
+        /// </summary>
+        /// <param name="itemnum">The itemnum.</param>
+        /// <param name="jobid">The jobid.</param>
+        /// <param name="itemid">The itemid.</param>
         public ManagerItemStagesGui(string itemnum,string jobid,string itemid )
         {
             this.itemID = itemid;
@@ -119,7 +144,12 @@ namespace project
 
 
 
-        
+
+        /// <summary>
+        /// Handles the Click event of the Back_Btn control.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="RoutedEventArgs"/> instance containing the event data.</param>
         private void Back_Btn_Click(object sender, RoutedEventArgs e)
         {
             //ManagerGui MG = new ManagerGui();
@@ -128,8 +158,13 @@ namespace project
             this.Close();
         }
 
-       
 
+
+        /// <summary>
+        /// Handles the AutoGeneratingColumn event of the Grid control.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="DataGridAutoGeneratingColumnEventArgs"/> instance containing the event data.</param>
         private void Grid_AutoGeneratingColumn(object sender, DataGridAutoGeneratingColumnEventArgs e)
         {
             if (e.Column.Header.ToString() == "שם השלב הנוכחי" || e.Column.Header.ToString() == "מספר השלב הנוכחי" || e.Column.Header.ToString() == "מספר פריט")
@@ -142,6 +177,11 @@ namespace project
 
 
 
+        /// <summary>
+        /// Handles the clicked event of the exit control.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="CancelEventArgs"/> instance containing the event data.</param>
         private void exit_clicked(object sender, CancelEventArgs e)
         {
             Console.WriteLine("" + Login.close);

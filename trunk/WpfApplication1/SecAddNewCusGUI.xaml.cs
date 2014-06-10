@@ -1,4 +1,17 @@
-﻿using System;
+﻿// ***********************************************************************
+// Assembly         : WpfApplication1
+// Author           : user
+// Created          : 06-10-2014
+//
+// Last Modified By : user
+// Last Modified On : 06-10-2014
+// ***********************************************************************
+// <copyright file="SecAddNewCusGUI.xaml.cs" company="">
+//     Copyright (c) . All rights reserved.
+// </copyright>
+// <summary></summary>
+// ***********************************************************************
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -22,16 +35,46 @@ namespace project
     /// </summary>
     public partial class SecAddNewCusGUI : Window
     {
+        /// <summary>
+        /// The hpcusid
+        /// </summary>
        string hpcusid;
+       /// <summary>
+       /// The internalcusid
+       /// </summary>
         string internalcusid;
+        /// <summary>
+        /// The custname
+        /// </summary>
         string custname;
+        /// <summary>
+        /// The cusaddress
+        /// </summary>
         string cusaddress;
+        /// <summary>
+        /// The contact_name
+        /// </summary>
         string contact_name;
+        /// <summary>
+        /// The contact_email
+        /// </summary>
         string contact_email;
+        /// <summary>
+        /// The contact_phone
+        /// </summary>
         string contact_phone;
+        /// <summary>
+        /// The contact_cellphone
+        /// </summary>
         string contact_cellphone;
+        /// <summary>
+        /// The contact_dep
+        /// </summary>
         string contact_dep;
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="SecAddNewCusGUI"/> class.
+        /// </summary>
         public SecAddNewCusGUI()
         {
             InitializeComponent();
@@ -47,6 +90,11 @@ namespace project
             dep_W_label.Visibility = Visibility.Hidden;
         }
 
+        /// <summary>
+        /// Handles the Click event of the Back_button control.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="RoutedEventArgs"/> instance containing the event data.</param>
         private void Back_button_Click(object sender, RoutedEventArgs e)
         {
             Login.close = 1;
@@ -55,6 +103,11 @@ namespace project
 
 
 
+        /// <summary>
+        /// Handles the Click event of the Add_button control.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="RoutedEventArgs"/> instance containing the event data.</param>
         private void Add_button_Click(object sender, RoutedEventArgs e)
         {
             hpcusid_W_label.Visibility = Visibility.Hidden;
@@ -389,6 +442,11 @@ namespace project
 
 
 
+        /// <summary>
+        /// Handles the clicked event of the exit control.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="CancelEventArgs"/> instance containing the event data.</param>
         private void exit_clicked(object sender, CancelEventArgs e)
         {
             Console.WriteLine("" + Login.close);

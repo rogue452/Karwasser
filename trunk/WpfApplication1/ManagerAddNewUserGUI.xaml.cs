@@ -1,4 +1,17 @@
-﻿using System;
+﻿// ***********************************************************************
+// Assembly         : WpfApplication1
+// Author           : user
+// Created          : 06-10-2014
+//
+// Last Modified By : user
+// Last Modified On : 06-10-2014
+// ***********************************************************************
+// <copyright file="ManagerAddNewUserGUI.xaml.cs" company="">
+//     Copyright (c) . All rights reserved.
+// </copyright>
+// <summary></summary>
+// ***********************************************************************
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -25,11 +38,29 @@ namespace project
     public partial class ManagerAddNewUserGUI : Window
     {
         //string empid;
+        /// <summary>
+        /// The password
+        /// </summary>
         string password;
+        /// <summary>
+        /// The email
+        /// </summary>
         string email;
+        /// <summary>
+        /// The role
+        /// </summary>
         string role;
+        /// <summary>
+        /// The school
+        /// </summary>
         string school;
+        /// <summary>
+        /// The dt
+        /// </summary>
         public static DataTable dt = new DataTable("employess");
+        /// <summary>
+        /// Initializes a new instance of the <see cref="ManagerAddNewUserGUI"/> class.
+        /// </summary>
         public ManagerAddNewUserGUI()
         {
             InitializeComponent();
@@ -81,6 +112,11 @@ namespace project
             }
         }*/
 
+        /// <summary>
+        /// Handles the Click event of the Back_button control.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="RoutedEventArgs"/> instance containing the event data.</param>
         private void Back_button_Click(object sender, RoutedEventArgs e)
         {
             ManagerUsersGui MUG = new ManagerUsersGui();
@@ -89,6 +125,11 @@ namespace project
             MUG.Show();
         }
 
+        /// <summary>
+        /// Handles the TextChanged event of the FirstNameSearchTextBox control.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="TextChangedEventArgs"/> instance containing the event data.</param>
         private void FirstNameSearchTextBox_TextChanged(object sender, TextChangedEventArgs e)
         {
             try
@@ -117,6 +158,11 @@ namespace project
 
 
 
+        /// <summary>
+        /// Handles the TextChanged event of the IDSearchTextBox control.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="TextChangedEventArgs"/> instance containing the event data.</param>
         private void IDSearchTextBox_TextChanged(object sender, TextChangedEventArgs e)
         {
             try
@@ -145,6 +191,11 @@ namespace project
 
 
         // This func will check and add the new user to the DB if all is ok.
+        /// <summary>
+        /// Handles the Click event of the Add_button control.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="RoutedEventArgs"/> instance containing the event data.</param>
         private void Add_button_Click(object sender, RoutedEventArgs e)
         {
             try
@@ -249,6 +300,11 @@ namespace project
 
 
 
+        /// <summary>
+        /// Handles the AutoGeneratingColumn event of the Grid control.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="DataGridAutoGeneratingColumnEventArgs"/> instance containing the event data.</param>
         private void Grid_AutoGeneratingColumn(object sender, DataGridAutoGeneratingColumnEventArgs e)
         {
            if (e.Column.Header.ToString() == "תאריך התחלת עבודה")
@@ -284,6 +340,11 @@ namespace project
 
 
 
+        /// <summary>
+        /// Handles the clicked event of the exit control.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="CancelEventArgs"/> instance containing the event data.</param>
         private void exit_clicked(object sender, CancelEventArgs e)
         {
             Console.WriteLine("" + Login.close);

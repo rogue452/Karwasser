@@ -1,4 +1,17 @@
-﻿using System;
+﻿// ***********************************************************************
+// Assembly         : WpfApplication1
+// Author           : user
+// Created          : 06-10-2014
+//
+// Last Modified By : user
+// Last Modified On : 06-10-2014
+// ***********************************************************************
+// <copyright file="QualityJobGui.xaml.cs" company="">
+//     Copyright (c) . All rights reserved.
+// </copyright>
+// <summary></summary>
+// ***********************************************************************
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -23,8 +36,17 @@ namespace project
     /// </summary>
     public partial class QualityJobGui : Window
     {
+        /// <summary>
+        /// The dt
+        /// </summary>
         DataTable dt = new DataTable("jobs");
+        /// <summary>
+        /// The mistake
+        /// </summary>
         bool mistake = false;
+        /// <summary>
+        /// Initializes a new instance of the <see cref="QualityJobGui"/> class.
+        /// </summary>
         public QualityJobGui()
         {
             InitializeComponent();
@@ -36,6 +58,11 @@ namespace project
 
 
 
+        /// <summary>
+        /// Handles the Click event of the TXTBtn control.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="RoutedEventArgs"/> instance containing the event data.</param>
         private void TXTBtn_Click(object sender, RoutedEventArgs e)
         {
 
@@ -46,6 +73,9 @@ namespace project
 
 
 
+        /// <summary>
+        /// Exports to excel.
+        /// </summary>
         private void ExportToExcel()
         {
             try
@@ -79,6 +109,9 @@ namespace project
             }
         }
 
+        /// <summary>
+        /// Refreashandclears this instance.
+        /// </summary>
         private void refreashandclear()
         {
             try
@@ -106,6 +139,11 @@ namespace project
         }
 
 
+        /// <summary>
+        /// Handles the TextChanged event of the JobIDSearchTextBox control.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="TextChangedEventArgs"/> instance containing the event data.</param>
         private void JobIDSearchTextBox_TextChanged(object sender, TextChangedEventArgs e)
         {
             try
@@ -130,6 +168,11 @@ namespace project
             }
         }
 
+        /// <summary>
+        /// Handles the TextChanged event of the Name_Search_TextBox control.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="TextChangedEventArgs"/> instance containing the event data.</param>
         private void Name_Search_TextBox_TextChanged(object sender, TextChangedEventArgs e)
         {
             // if both of the datepickers are with dates
@@ -148,6 +191,11 @@ namespace project
 
 
         // go to previous screen.
+        /// <summary>
+        /// Handles the Click event of the Back_Btn control.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="RoutedEventArgs"/> instance containing the event data.</param>
         private void Back_Btn_Click(object sender, RoutedEventArgs e)
         {
             QualityGui QG = new QualityGui();
@@ -157,6 +205,11 @@ namespace project
         }
 
 
+        /// <summary>
+        /// Handles the AutoGeneratingColumn event of the Grid control.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="DataGridAutoGeneratingColumnEventArgs"/> instance containing the event data.</param>
         private void Grid_AutoGeneratingColumn(object sender, DataGridAutoGeneratingColumnEventArgs e)
         {
             e.Column.IsReadOnly = true; // Makes the column as read only
@@ -186,6 +239,11 @@ namespace project
 
 
         //This function will set the 2 DatePickers to today and will reaload to the default datagrid.
+        /// <summary>
+        /// Handles the Click event of the Refresh_button control.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="RoutedEventArgs"/> instance containing the event data.</param>
         private void Refresh_button_Click(object sender, RoutedEventArgs e)
         {
             Start_datePicker.SelectedDate = null;
@@ -197,6 +255,11 @@ namespace project
 
         //This function will filter the startDate by date selected from 2 DatePickers.
         // if the dates were not right a message will be shown. 
+        /// <summary>
+        /// Handles the Click event of the Filter_button control.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="RoutedEventArgs"/> instance containing the event data.</param>
         private void Filter_button_Click(object sender, RoutedEventArgs e)
         {
             Fillterdates();
@@ -208,6 +271,9 @@ namespace project
         }
 
 
+        /// <summary>
+        /// Fillterdateses this instance.
+        /// </summary>
         private void Fillterdates()
         {
             mistake =false;
@@ -284,6 +350,11 @@ namespace project
 
 
 
+        /// <summary>
+        /// Handles the Click event of the ViewJobIInfo_button control.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="RoutedEventArgs"/> instance containing the event data.</param>
         private void ViewJobIInfo_button_Click(object sender, RoutedEventArgs e)
         {
             
@@ -301,6 +372,11 @@ namespace project
 
 
 
+        /// <summary>
+        /// Handles the clicked event of the exit control.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="CancelEventArgs"/> instance containing the event data.</param>
         private void exit_clicked(object sender, CancelEventArgs e)
         {
             Console.WriteLine("" + Login.close);
@@ -346,6 +422,11 @@ namespace project
 
 
 
+        /// <summary>
+        /// Handles the Click event of the exit_button control.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="RoutedEventArgs"/> instance containing the event data.</param>
         private void exit_button_Click(object sender, RoutedEventArgs e)
         {
             Console.WriteLine("" + Login.close + " כפתור התנתקות");

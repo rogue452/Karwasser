@@ -1,4 +1,17 @@
-﻿using System;
+﻿// ***********************************************************************
+// Assembly         : WpfApplication1
+// Author           : user
+// Created          : 06-10-2014
+//
+// Last Modified By : user
+// Last Modified On : 06-10-2014
+// ***********************************************************************
+// <copyright file="Forgot_pass.xaml.cs" company="">
+//     Copyright (c) . All rights reserved.
+// </copyright>
+// <summary></summary>
+// ***********************************************************************
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -51,6 +64,13 @@ namespace project
 
 
         // this func will send an EMail in the form of (all must be Strings): (Email Address to send,EMail Title,Email Body)   /Shuki Porat  
+        /// <summary>
+        /// Sends the email.
+        /// </summary>
+        /// <param name="toAddress">To address.</param>
+        /// <param name="subject">The subject.</param>
+        /// <param name="body">The body.</param>
+        /// <returns>System.String.</returns>
         protected string SendEmail(string toAddress, string subject, string body)
         {
             string result = "true";

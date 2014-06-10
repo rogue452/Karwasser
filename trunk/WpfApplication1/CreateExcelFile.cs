@@ -1,4 +1,17 @@
-﻿using System;
+﻿// ***********************************************************************
+// Assembly         : WpfApplication1
+// Author           : user
+// Created          : 06-10-2014
+//
+// Last Modified By : user
+// Last Modified On : 06-10-2014
+// ***********************************************************************
+// <copyright file="CreateExcelFile.cs" company="">
+//     Copyright (c) . All rights reserved.
+// </copyright>
+// <summary></summary>
+// ***********************************************************************
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -11,9 +24,19 @@ using DocumentFormat.OpenXml;
 
 namespace project
 {
-    
+
+    /// <summary>
+    /// Class CreateExcelFile.
+    /// </summary>
     public class CreateExcelFile
     {
+        /// <summary>
+        /// Creates the excel document.
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="list">The list.</param>
+        /// <param name="xlsxFilePath">The XLSX file path.</param>
+        /// <returns><c>true</c> if XXXX, <c>false</c> otherwise.</returns>
         public static bool CreateExcelDocument<T>(List<T> list, string xlsxFilePath)
         {
             DataSet ds = new DataSet();
@@ -24,6 +47,12 @@ namespace project
         #region HELPER_FUNCTIONS
         //  This function is adapated from: http://www.codeguru.com/forum/showthread.php?t=450171
         //  My thanks to Carl Quirion, for making it "nullable-friendly".
+        /// <summary>
+        /// Lists to data table.
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="list">The list.</param>
+        /// <returns>DataTable.</returns>
         public static DataTable ListToDataTable<T>(List<T> list)
         {
             DataTable dt = new DataTable();
@@ -46,6 +75,11 @@ namespace project
             }
             return dt;
         }
+        /// <summary>
+        /// Gets the type of the nullable.
+        /// </summary>
+        /// <param name="t">The t.</param>
+        /// <returns>Type.</returns>
         private static Type GetNullableType(Type t)
         {
             Type returnType = t;
@@ -55,6 +89,11 @@ namespace project
             }
             return returnType;
         }
+        /// <summary>
+        /// Determines whether [is nullable type] [the specified type].
+        /// </summary>
+        /// <param name="type">The type.</param>
+        /// <returns><c>true</c> if [is nullable type] [the specified type]; otherwise, <c>false</c>.</returns>
         private static bool IsNullableType(Type type)
         {
             return (type == typeof(string) ||
@@ -63,6 +102,12 @@ namespace project
                      type.GetGenericTypeDefinition().Equals(typeof(Nullable<>))));
         }
 
+        /// <summary>
+        /// Creates the excel document.
+        /// </summary>
+        /// <param name="dt">The dt.</param>
+        /// <param name="xlsxFilePath">The XLSX file path.</param>
+        /// <returns><c>true</c> if XXXX, <c>false</c> otherwise.</returns>
         public static bool CreateExcelDocument(DataTable dt, string xlsxFilePath)
         {
             DataSet ds = new DataSet();
@@ -98,6 +143,11 @@ namespace project
             }
         }
 
+        /// <summary>
+        /// Writes the excel file.
+        /// </summary>
+        /// <param name="ds">The ds.</param>
+        /// <param name="spreadsheet">The spreadsheet.</param>
         private static void WriteExcelFile(DataSet ds, SpreadsheetDocument spreadsheet)
         {
             //  Create the Excel file contents.  This function is used when creating an Excel file either writing 
@@ -135,6 +185,11 @@ namespace project
             spreadsheet.WorkbookPart.Workbook.Save();
         }
 
+        /// <summary>
+        /// Writes the data table to excel worksheet.
+        /// </summary>
+        /// <param name="dt">The dt.</param>
+        /// <param name="worksheetPart">The worksheet part.</param>
         private static void WriteDataTableToExcelWorksheet(DataTable dt, WorksheetPart worksheetPart)
         {
             OpenXmlWriter writer = OpenXmlWriter.Create(worksheetPart);
@@ -209,18 +264,35 @@ namespace project
             writer.Close();
         }
 
+        /// <summary>
+        /// Appends the text cell.
+        /// </summary>
+        /// <param name="cellReference">The cell reference.</param>
+        /// <param name="cellStringValue">The cell string value.</param>
+        /// <param name="writer">The writer.</param>
         private static void AppendTextCell(string cellReference, string cellStringValue, ref OpenXmlWriter writer)
         {
             //  Add a new Excel Cell to our Row 
             writer.WriteElement(new Cell { CellValue = new CellValue(cellStringValue), CellReference = cellReference, DataType = CellValues.String });
         }
 
+        /// <summary>
+        /// Appends the numeric cell.
+        /// </summary>
+        /// <param name="cellReference">The cell reference.</param>
+        /// <param name="cellStringValue">The cell string value.</param>
+        /// <param name="writer">The writer.</param>
         private static void AppendNumericCell(string cellReference, string cellStringValue, ref OpenXmlWriter writer)
         {
             //  Add a new Excel Cell to our Row 
             writer.WriteElement(new Cell { CellValue = new CellValue(cellStringValue), CellReference = cellReference, DataType = CellValues.Number });
         }
 
+        /// <summary>
+        /// Gets the name of the excel column.
+        /// </summary>
+        /// <param name="columnIndex">Index of the column.</param>
+        /// <returns>System.String.</returns>
         private static string GetExcelColumnName(int columnIndex)
         {
             //  Convert a zero-based column index into an Excel column reference  (A, B, C.. Y, Y, AA, AB, AC... AY, AZ, B1, B2..)

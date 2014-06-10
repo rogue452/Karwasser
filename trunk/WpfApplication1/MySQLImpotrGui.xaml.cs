@@ -1,4 +1,17 @@
-﻿using System;
+﻿// ***********************************************************************
+// Assembly         : WpfApplication1
+// Author           : user
+// Created          : 06-10-2014
+//
+// Last Modified By : user
+// Last Modified On : 06-10-2014
+// ***********************************************************************
+// <copyright file="MySQLImpotrGui.xaml.cs" company="">
+//     Copyright (c) . All rights reserved.
+// </copyright>
+// <summary></summary>
+// ***********************************************************************
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -22,6 +35,9 @@ namespace project
     /// </summary>
     public partial class MySQLImpotrGui : Window
     {
+        /// <summary>
+        /// Initializes a new instance of the <see cref="MySQLImpotrGui"/> class.
+        /// </summary>
         public MySQLImpotrGui()
         {
             InitializeComponent();
@@ -31,6 +47,11 @@ namespace project
 
 
         // this finction will reset the root password to our password giving the current password from the user.
+        /// <summary>
+        /// Handles the Click event of the Reset_button control.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="RoutedEventArgs"/> instance containing the event data.</param>
         private void Reset_button_Click(object sender, RoutedEventArgs e)
         {
             string pass = Root_password.Password;
@@ -54,6 +75,11 @@ namespace project
 
 
         // this function will allow remote host to reach this program DataBase.
+        /// <summary>
+        /// Handles the Click event of the remote_button control.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="RoutedEventArgs"/> instance containing the event data.</param>
         private void remote_button_Click(object sender, RoutedEventArgs e)
         {
             try
@@ -79,6 +105,11 @@ namespace project
 
 
         //this function will import from the user chosen file to the MySQL DB. 
+        /// <summary>
+        /// Handles the Click event of the Import_button control.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="RoutedEventArgs"/> instance containing the event data.</param>
         private void Import_button_Click(object sender, RoutedEventArgs e)
         {
             OpenFileDialog dialog = new OpenFileDialog();
@@ -123,6 +154,11 @@ namespace project
 
 
         // this will close the current scren and will open the Log In scren. 
+        /// <summary>
+        /// Handles the Click event of the Back_button control.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="RoutedEventArgs"/> instance containing the event data.</param>
         private void Back_button_Click(object sender, RoutedEventArgs e)
         {
          //   Login LI = new Login();
@@ -134,6 +170,11 @@ namespace project
 
 
 
+        /// <summary>
+        /// Handles the clicked event of the exit control.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="CancelEventArgs"/> instance containing the event data.</param>
         private void exit_clicked(object sender, CancelEventArgs e)
         {
            /* Console.WriteLine("" + Login.close);
