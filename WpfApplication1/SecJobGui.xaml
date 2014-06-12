@@ -19,13 +19,13 @@
         <Label Content="שם לקוח" HorizontalAlignment="Right" Margin="0,66,1122,0" VerticalAlignment="Top"/>
         <Label Content="מספר עבודה" HorizontalAlignment="Right" Margin="0,31,1103,0" VerticalAlignment="Top" Width="83"/>
         <Label Content="החל להקליד כדי לחפש לפי:" HorizontalAlignment="Right" Margin="0,0,1010,0" VerticalAlignment="Top" FontWeight="Bold" />
-        <Button Content="פרטי העבודה" Height="56"  Margin="0,40,325,0" Name="ViewJobIInfo_button" VerticalAlignment="Top" Click="ViewJobIInfo_button_Click"  Width="114" HorizontalAlignment="Right" Background="Yellow" FontWeight="Bold" />
-        <Button Content="הוסף עבודה" Margin="0,40,115,0" Name="ADD_Btn" Background="#8400A500" FontWeight="Bold" Click="ADD_Btn_Click" VerticalAlignment="Top" Height="56" Width="114" HorizontalAlignment="Right" />
-        <Label Content="ניהול עבודות:" HorizontalAlignment="Left" VerticalAlignment="Top" Width="91" Margin="633,0,0,0" FontStyle="Normal" FontWeight="Bold" />
+        <Button Content="פרטי העבודה" Height="56"  Margin="0,40,421,0" Name="ViewJobIInfo_button" VerticalAlignment="Top" Click="ViewJobIInfo_button_Click"  Width="114" HorizontalAlignment="Right" Background="Yellow" FontWeight="Bold" />
+        <Button Content="הוסף עבודה" Margin="0,40,211,0" Name="ADD_Btn" Background="#8400A500" FontWeight="Bold" Click="ADD_Btn_Click" VerticalAlignment="Top" Height="56" Width="114" HorizontalAlignment="Right" />
+        <Label Content="ניהול עבודות:" HorizontalAlignment="Left" VerticalAlignment="Top" Width="91" Margin="537,0,0,0" FontStyle="Normal" FontWeight="Bold" />
         <Button Content="יציאה מהמערכת" HorizontalAlignment="Right" Margin="0,579,12,0" VerticalAlignment="Top" Width="142" Height="28" Grid.Column="1" Name="exit_button" Click="exit_button_Click" />
         <Button Content="חזור למסך ראשי" HorizontalAlignment="Right" Margin="0,578,1017,0" VerticalAlignment="Top" Width="134" Height="28" Click="Back_Btn_Click" Name="Back_Btn" />
         <Button Content="ייצא רשימה לקובץ אקסל" Height="28" HorizontalAlignment="Right" Margin="0,580,522,0" Name="TXTBtn" VerticalAlignment="Top" Width="161" Click="TXTBtn_Click" Grid.Column="1" />
-        <Image Height="36" HorizontalAlignment="Right" Margin="0,3,153,0" Name="image1" Stretch="Fill" VerticalAlignment="Top" Width="42" FlowDirection="RightToLeft" Source="/WpfApplication1;component/Images/1897328_stock-photo-handshake-glossy-black-icon.jpg" />
+        <Image Height="36" HorizontalAlignment="Right" Margin="0,3,249,0" Name="image1" Stretch="Fill" VerticalAlignment="Top" Width="42" FlowDirection="RightToLeft" Source="/WpfApplication1;component/Images/1897328_stock-photo-handshake-glossy-black-icon.jpg" />
         <Image Height="28" HorizontalAlignment="Right" Margin="0,580,156,0" Name="image4" Stretch="Fill" VerticalAlignment="Top" Width="25" Source="/WpfApplication1;component/Images/exit.png" Grid.Column="1" />
         <Image Height="35" HorizontalAlignment="Right" Margin="0,577,689,0" Name="image6" Stretch="Fill" VerticalAlignment="Top" Width="33" Source="/WpfApplication1;component/Images/icon_microsoftexcel.png" Grid.Column="1" />
         <Image Height="29" HorizontalAlignment="Left" Margin="0,577,0,0" Name="image7" Stretch="Fill" VerticalAlignment="Top" Width="33" Source="/WpfApplication1;component/Images/back.png" />
@@ -39,7 +39,9 @@
         <RadioButton GroupName="Date" Content="תאריך סיום בפועל" HorizontalAlignment="Right" Margin="0,68,669,0" Name="ActualFinishDate_radioButton" Height="16" VerticalAlignment="Top" />
         <Label Content="מ"  Margin="0,21,955,0" Name="From_Start_date_label" HorizontalAlignment="Right" Width="23" Height="28" VerticalAlignment="Top" />
         <Label Content="חפש לפי תאריך" Height="28"  Margin="237,-2,858,0" Name="Filter_From_To_label" VerticalAlignment="Top" />
-        <Image Height="36" HorizontalAlignment="Right" Margin="0,4,361,0" Name="image5" Source="/WpfApplication1;component/Images/info.gif" Stretch="Fill" VerticalAlignment="Top" Width="42" />
+        <Image Height="36" HorizontalAlignment="Right" Margin="0,4,457,0" Name="image5" Source="/WpfApplication1;component/Images/info.gif" Stretch="Fill" VerticalAlignment="Top" Width="42" />
         <Label Content="או" Height="28" HorizontalAlignment="Right" Margin="0,47,1145,0" Name="label5" VerticalAlignment="Top" />
+        <Button Content="עדכון פרטי עבודה" FontWeight="Bold" Height="56" HorizontalAlignment="Right" Margin="0,41,14,0" Name="UpdateBtn" VerticalAlignment="Top" Width="118" Click="UpdateBtn_Click" />
+        <Image Height="36" HorizontalAlignment="Right" Margin="0,4,52,0" Name="image3" Source="/WpfApplication1;component/Images/update.png" Stretch="Fill" VerticalAlignment="Top" Width="42" />
     </Grid>
 </Window>

@@ -233,25 +233,116 @@ namespace project
             if (e.Column.Header.ToString() == "תאריך התחלה")
             {
                 (e.Column as DataGridTextColumn).Binding.StringFormat = "dd/MM/yyyy";
+                DataGridTemplateColumn dgct = new DataGridTemplateColumn();
+                dgct.Header = "תאריך התחלה";
+                dgct.SortMemberPath = "תאריך התחלה";
 
+                Binding b = new Binding("תאריך התחלה");
+                b.StringFormat = "dd/MM/yyyy";
+
+                #region Editing
+                FrameworkElementFactory factory = new FrameworkElementFactory(typeof(DatePicker));
+                factory.SetValue(DatePicker.SelectedDateProperty, b);
+                DataTemplate cellEditingTemplate = new DataTemplate();
+                cellEditingTemplate.VisualTree = factory;
+                dgct.CellEditingTemplate = cellEditingTemplate;
+                #endregion
+
+                #region View
+                FrameworkElementFactory sfactory = new FrameworkElementFactory(typeof(TextBlock));
+                sfactory.SetValue(TextBlock.TextProperty, b);
+                DataTemplate cellTemplate = new DataTemplate();
+                cellTemplate.VisualTree = sfactory;
+                dgct.CellTemplate = cellTemplate;
+                #endregion
+                e.Column = dgct;
             }
 
             if (e.Column.Header.ToString() == "תאריך רישום")
             {
-                (e.Column as DataGridTextColumn).Binding.StringFormat = "dd/MM/yyyy";
+                DataGridTemplateColumn dgct = new DataGridTemplateColumn();
+                string colname = e.Column.Header.ToString();
+                dgct.Header = colname;
+                dgct.SortMemberPath = colname;
+                Binding b = new Binding(colname);
+                b.StringFormat = "dd/MM/yyyy";
+
+                #region Editing
+                FrameworkElementFactory factory = new FrameworkElementFactory(typeof(DatePicker));
+                factory.SetValue(DatePicker.SelectedDateProperty, b);
+                DataTemplate cellEditingTemplate = new DataTemplate();
+                cellEditingTemplate.VisualTree = factory;
+                dgct.CellEditingTemplate = cellEditingTemplate;
+                #endregion
+
+                #region View
+                FrameworkElementFactory sfactory = new FrameworkElementFactory(typeof(TextBlock));
+                sfactory.SetValue(TextBlock.TextProperty, b);
+                DataTemplate cellTemplate = new DataTemplate();
+                cellTemplate.VisualTree = sfactory;
+                dgct.CellTemplate = cellTemplate;
+                #endregion
+                e.Column = dgct;
             }
 
-            if (e.Column.Header.ToString() == "תאריך סיום משוער" )
+            if (e.Column.Header.ToString() == "תאריך סיום משוער")
             {
-                (e.Column as DataGridTextColumn).Binding.StringFormat = "dd/MM/yyyy";
+                DataGridTemplateColumn dgct = new DataGridTemplateColumn();
+                dgct.Header = "תאריך סיום משוער";
+                dgct.SortMemberPath = "תאריך סיום משוער";
+
+                Binding b = new Binding("תאריך סיום משוער");
+                b.StringFormat = "dd/MM/yyyy";
+
+                #region Editing
+                FrameworkElementFactory factory = new FrameworkElementFactory(typeof(DatePicker));
+                factory.SetValue(DatePicker.SelectedDateProperty, b);
+                DataTemplate cellEditingTemplate = new DataTemplate();
+                cellEditingTemplate.VisualTree = factory;
+                dgct.CellEditingTemplate = cellEditingTemplate;
+                #endregion
+
+                #region View
+                FrameworkElementFactory sfactory = new FrameworkElementFactory(typeof(TextBlock));
+                sfactory.SetValue(TextBlock.TextProperty, b);
+                DataTemplate cellTemplate = new DataTemplate();
+                cellTemplate.VisualTree = sfactory;
+                dgct.CellTemplate = cellTemplate;
+                #endregion
+                e.Column = dgct;
             }
 
             if (e.Column.Header.ToString() == "תאריך סיום בפועל")
             {
-                (e.Column as DataGridTextColumn).Binding.StringFormat = "dd/MM/yyyy";
+                DataGridTemplateColumn dgct = new DataGridTemplateColumn();
+                dgct.Header = "תאריך סיום בפועל";
+                dgct.SortMemberPath = "תאריך סיום בפועל";
+
+                Binding b = new Binding("תאריך סיום בפועל");
+                b.StringFormat = "dd/MM/yyyy";
+
+                #region Editing
+                FrameworkElementFactory factory = new FrameworkElementFactory(typeof(DatePicker));
+                factory.SetValue(DatePicker.SelectedDateProperty, b);
+                DataTemplate cellEditingTemplate = new DataTemplate();
+                cellEditingTemplate.VisualTree = factory;
+                dgct.CellEditingTemplate = cellEditingTemplate;
+                #endregion
+
+                #region View
+                FrameworkElementFactory sfactory = new FrameworkElementFactory(typeof(TextBlock));
+                sfactory.SetValue(TextBlock.TextProperty, b);
+                DataTemplate cellTemplate = new DataTemplate();
+                cellTemplate.VisualTree = sfactory;
+                dgct.CellTemplate = cellTemplate;
+                #endregion
+                e.Column = dgct;
             }
 
-            e.Column.IsReadOnly = true; // Makes the column as read only 
+            if (e.Column.Header.ToString() == "מספר עבודה" || e.Column.Header.ToString() == "חפ לקוח" ||e.Column.Header.ToString() == "שם לקוח" || e.Column.Header.ToString() == "מספר איש קשר" ||e.Column.Header.ToString() == "שם איש קשר" || e.Column.Header.ToString() == "סטטוס עבודה" )
+            {
+                e.Column.IsReadOnly = true; // Makes the column as read only 
+            }
         }
 
 
@@ -393,6 +484,179 @@ namespace project
 
 
         /// <summary>
+        /// Handles the Click event of the UpdateBtn control.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="RoutedEventArgs"/> instance containing the event data.</param>
+        private void UpdateBtn_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                DataRowView row = (DataRowView)dataGrid1.SelectedItems[0];
+                string jobid = row["מספר עבודה"].ToString();
+                // MessageBox.Show("" + jobid + "");
+
+                if (MessageBox.Show("?האם אתה בטוח שברצונך לעדכן עבודה זו", "וידוא עדכון", MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.No)
+                {
+                    return; //dont do stuff
+                }
+                else // if the user clicked on "Yes" so he wants to Update.
+                {
+                    string status = row["סטטוס עבודה"].ToString();
+                    string description = row["תאור עבודה"].ToString();
+                    if (row["תאריך התחלה"].ToString().Equals(""))
+                    {
+                        MessageBox.Show("!לא ניתן למחוק את תאריך ההתחלה", "!שים לב", MessageBoxButton.OK, MessageBoxImage.Error);
+                        refreashandclear();
+                        return;
+                    }
+                    if (row["תאריך סיום משוער"].ToString().Equals(""))
+                    {
+                        MessageBox.Show("!לא ניתן למחוק את תאריך סיום משוער", "!שים לב", MessageBoxButton.OK, MessageBoxImage.Error);
+                        refreashandclear();
+                        return;
+                    }
+
+                    if (row["תאריך רישום"].ToString().Equals(""))
+                    {
+                        MessageBox.Show("!לא ניתן למחוק את תאריך רישום אלא רק לשנות", "!שים לב", MessageBoxButton.OK, MessageBoxImage.Error);
+                        refreashandclear();
+                        return;
+                    }
+
+                    DateTime s = (DateTime)Convert.ToDateTime(row["תאריך התחלה"].ToString());
+                    DateTime f = (DateTime)Convert.ToDateTime(row["תאריך סיום משוער"].ToString());
+                    TimeSpan ts = f - s;
+
+                    // if the days are not ok.
+                    if (ts.Days < 0)
+                    {
+                        MessageBox.Show(".תאריך ההתחלה שנבחר הוא לאחר תאריך סיום משוער", "!שים לב", MessageBoxButton.OK, MessageBoxImage.Error);
+                        refreashandclear();
+                        return;
+                    }
+
+                    string orderid = row["מספר הזמנה"].ToString();
+                    if (orderid == "")
+                    {
+                        MessageBox.Show("!לא ניתן לעדכן עם מספר הזמנה ריק", "!שים לב", MessageBoxButton.OK, MessageBoxImage.Error);
+                        refreashandclear();
+                        return;
+                    }
+
+                    if (row["תעודת משלוח"].ToString() != "לא עודכן")
+                    {
+                        if (!string.IsNullOrWhiteSpace(row["תעודת משלוח"].ToString()))
+                        {
+                            try
+                            {
+                                int testdv = Convert.ToInt32(row["תעודת משלוח"].ToString());
+                            }
+                            catch
+                            {
+                                MessageBox.Show("!תעודת המשלוח לא מכילה רק מספרים", "!שים לב", MessageBoxButton.OK, MessageBoxImage.Error);
+                                refreashandclear();
+                                return;
+                            }
+                        }
+                    }
+                    string deliveryid = row["תעודת משלוח"].ToString();
+
+
+
+                    if (row["מספר חשבונית"].ToString() != "לא עודכן")
+                    {
+                        if (!string.IsNullOrWhiteSpace(row["מספר חשבונית"].ToString()))
+                        {
+                            try
+                            {
+                                int testinv = Convert.ToInt32(row["מספר חשבונית"].ToString());
+                            }
+                            catch
+                            {
+                                MessageBox.Show("!מספר חשבונית לא מכיל רק מספרים", "!שים לב", MessageBoxButton.OK, MessageBoxImage.Error);
+                                refreashandclear();
+                                return;
+                            }
+                        }
+                    }
+                    string invoiceNumber = row["מספר חשבונית"].ToString();
+
+
+
+                    string start_date = Convert.ToDateTime(row["תאריך התחלה"].ToString()).ToString("yyyy-MM-dd");
+                    string finish_date = Convert.ToDateTime(row["תאריך סיום משוער"].ToString()).ToString("yyyy-MM-dd");
+                    string reg_date = Convert.ToDateTime(row["תאריך רישום"].ToString()).ToString("yyyy-MM-dd"); ;
+                    string actual_finish_date;
+                    if (row["תאריך סיום בפועל"].ToString().Equals(""))
+                    {
+                        try
+                        {
+                            string Query1 = "UPDATE jobs SET job_status='" + status + "',jobdescription='" + description + "',startDate='" + start_date + "',expectedFinishDate='" + finish_date + "',actualFinishDate=NULL ,orderid='" + orderid + "' ,deliveryid='" + deliveryid + "' ,invoiceNumber='" + invoiceNumber + "',reg_date='" + reg_date + "' WHERE jobid='" + jobid + "'";
+                            MySqlConnection MySqlConn = new MySqlConnection(Login.Connectionstring);
+                            MySqlConn.Open();
+                            // string Query1 = "UPDATE jobs SET job_status='" + status + "',jobdescription='" + description + "',startDate='" + start_date + "',expectedFinishDate='" + finish_date + "',actualFinishDate=NULL ,orderid='" + orderid + "' WHERE jobid='" + jobid + "'";
+                            MySqlCommand MSQLcrcommand1 = new MySqlCommand(Query1, MySqlConn);
+                            MSQLcrcommand1.ExecuteNonQuery();
+                            MySqlDataAdapter mysqlDAdp = new MySqlDataAdapter(MSQLcrcommand1);
+                            MySqlConn.Close();
+                            MessageBox.Show("!פרטי העבודה עודכנו", "!הצלחה", MessageBoxButton.OK, MessageBoxImage.Information);
+                        }
+                        catch (Exception ex)
+                        {
+                            MessageBox.Show(ex.Message);
+                        }
+                    }
+                    else
+                    {
+                        DateTime a = (DateTime)Convert.ToDateTime(row["תאריך סיום בפועל"].ToString());
+                        ts = a - s;
+
+                        // if the days are not ok.
+                        if (ts.Days < 0)
+                        {
+                            MessageBox.Show(".תאריך ההתחלה הוא לאחר תאריך הסיום בפועל", "!שים לב", MessageBoxButton.OK, MessageBoxImage.Error);
+                            refreashandclear();
+                            return;
+                        }
+
+                        actual_finish_date = Convert.ToDateTime(row["תאריך סיום בפועל"].ToString()).ToString("yyyy-MM-dd");
+                        try
+                        {
+                            string Query1 = "UPDATE jobs SET job_status='" + status + "',jobdescription='" + description + "',startDate='" + start_date + "',expectedFinishDate='" + finish_date + "',actualFinishDate='" + actual_finish_date + "' ,orderid='" + orderid + "' ,deliveryid='" + deliveryid + "' ,invoiceNumber='" + invoiceNumber + "' ,reg_date='" + reg_date + "' WHERE jobid='" + jobid + "'";
+                            MySqlConnection MySqlConn = new MySqlConnection(Login.Connectionstring);
+                            MySqlConn.Open();
+                            // string Query1 = "UPDATE jobs SET job_status='" + status + "',jobdescription='" + description + "',startDate='" + start_date + "',expectedFinishDate='" + finish_date + "',actualFinishDate='" + actual_finish_date + "' ,orderid='" + orderid + "' WHERE jobid='" + jobid + "'";
+                            MySqlCommand MSQLcrcommand1 = new MySqlCommand(Query1, MySqlConn);
+                            MSQLcrcommand1.ExecuteNonQuery();
+                            MySqlDataAdapter mysqlDAdp = new MySqlDataAdapter(MSQLcrcommand1);
+                            MySqlConn.Close();
+                            MessageBox.Show("!פרטי העבודה עודכנו", "!הצלחה", MessageBoxButton.OK, MessageBoxImage.Information);
+                        }
+                        catch (Exception ex)
+                        {
+                            MessageBox.Show(ex.Message);
+                        }
+                    }
+
+                    refreashandclear();
+                }
+
+            }
+            catch { MessageBox.Show(".לא נבחרה עבודה לעדכון", "!שים לב", MessageBoxButton.OK, MessageBoxImage.Error); }
+        }
+
+
+
+
+
+
+
+
+
+
+
+        /// <summary>
         /// Handles the clicked event of the exit control.
         /// </summary>
         /// <param name="sender">The source of the event.</param>
@@ -491,6 +755,7 @@ namespace project
             }
             Login.close = 0;
         }
+
 
 
 
