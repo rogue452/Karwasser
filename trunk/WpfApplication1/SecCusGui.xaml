@@ -30,5 +30,7 @@
         <Image Height="29" HorizontalAlignment="Left" Margin="12,573,0,0" Name="image7" Stretch="Fill" VerticalAlignment="Top" Width="33" Source="/WpfApplication1;component/Images/back.png" />
         <Button Content="ניהול אנשי קשר" Height="56" HorizontalAlignment="Left" Margin="475,41,0,0" Name="Contacts_button" VerticalAlignment="Top" Width="145" Background="#B9FF6AB2" FontWeight="Bold" Click="Contacts_button_Click" />
         <Label Content="או" Height="28" HorizontalAlignment="Left" Margin="26,44,0,0" Name="label5" VerticalAlignment="Top" />
+        <Button Content="עדכון פרטי לקוח" FontWeight="Bold" Height="56" HorizontalAlignment="Right" Margin="0,40,30,0" Name="UpdateBtn" VerticalAlignment="Top" Width="145" Click="UpdateBtn_Click"/>
+        <Image Height="36" HorizontalAlignment="Right" Margin="0,2,79,0" Name="image3" Source="/WpfApplication1;component/Images/update.png" Stretch="Fill" VerticalAlignment="Top" Width="42" />
     </Grid>
 </Window>
