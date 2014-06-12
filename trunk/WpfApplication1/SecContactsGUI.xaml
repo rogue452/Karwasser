@@ -35,5 +35,7 @@
         <Label Content="מספר לקוח:" Height="28" HorizontalAlignment="Left" Margin="183,79,0,0" Name="label2" VerticalAlignment="Top" />
         <Label Content="מספר" Height="28" HorizontalAlignment="Left" Margin="261,79,0,0" Name="cos_insideNum_label" VerticalAlignment="Top" Width="81" FontWeight="Bold" />
         <Label Content="או" Height="28" HorizontalAlignment="Left" Margin="42,46,0,0" Name="label5" VerticalAlignment="Top" />
+        <Button Content="עדכון פרטי איש הקשר" FontWeight="Bold" Height="56" HorizontalAlignment="Right" Margin="0,34,33,0" Name="UpdateBtn" VerticalAlignment="Top" Width="180" Click="UpdateBtn_Click" />
+        <Image Height="30" HorizontalAlignment="Right" Margin="0,3,100,0" Name="image3" Source="/WpfApplication1;component/Images/update.png" Stretch="Fill" VerticalAlignment="Top" Width="42" />
     </Grid>
 </Window>
