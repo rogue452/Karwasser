@@ -217,8 +217,9 @@ namespace project
         /// 
         private void To_Login_Btn_Click(object sender, RoutedEventArgs e)
         {
-            Login window = new Login();
-            window.Show();
+            //Login window = new Login();
+            //window.Show();
+            Login.close = 1;
             this.Close();
         }
 

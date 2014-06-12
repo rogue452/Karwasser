@@ -42,7 +42,7 @@ namespace project
         {
             InitializeComponent();
             this.WindowStartupLocation = WindowStartupLocation.CenterScreen;
-          //  Login.close = 1;
+            Login.close = 1;
         }
 
 
@@ -163,6 +163,7 @@ namespace project
         {
          //   Login LI = new Login();
           //  LI.Show();
+            Login.close = 1;
             this.Close();
         }
 
@@ -177,17 +178,17 @@ namespace project
         /// <param name="e">The <see cref="CancelEventArgs"/> instance containing the event data.</param>
         private void exit_clicked(object sender, CancelEventArgs e)
         {
-           /* Console.WriteLine("" + Login.close);
+            Console.WriteLine("" + Login.close);
 
             if (Login.close == 0) // then the user want to exit.
             {
             }
             else
-            {*/
+            {
                 Login window = new Login();
                 window.Show();
-           // }
-            //Login.close = 0;
+            }
+            Login.close = 0;
         }
 
 
