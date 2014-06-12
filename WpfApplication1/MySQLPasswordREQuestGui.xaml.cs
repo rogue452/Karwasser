@@ -49,8 +49,9 @@ namespace project
         /// <param name="e">The <see cref="RoutedEventArgs"/> instance containing the event data.</param>
         private void Back_button_Click(object sender, RoutedEventArgs e)
         {
-            Login LI = new Login();
-            LI.Show();
+            //Login LI = new Login();
+           // LI.Show();
+            Login.close = 1;
             this.Close();
         }
 
