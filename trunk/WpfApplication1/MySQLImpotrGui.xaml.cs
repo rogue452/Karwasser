@@ -153,7 +153,7 @@ namespace project
 
 
 
-        // this will close the current scren and will open the Log In scren. 
+        // this will close the current screen and will open the Log In screen. 
         /// <summary>
         /// Handles the Click event of the Back_button control.
         /// </summary>
