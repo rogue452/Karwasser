@@ -502,6 +502,12 @@ namespace project
 
                         contactcell = row["טלפון נייד של איש הקשר"].ToString();
                         contactPhone = row["טלפון איש קשר"].ToString();
+                        if (string.IsNullOrWhiteSpace(row["שם איש קשר"].ToString()))
+                        {
+                            MessageBox.Show("אנא הכנס שם איש קשר", "!שים לב", MessageBoxButton.OK, MessageBoxImage.Error);
+                            refreashandclear();
+                            return;
+                        }
                         contactName = row["שם איש קשר"].ToString();   
                         contactdesc = row["הערות לגבי איש הקשר"].ToString();
                         try

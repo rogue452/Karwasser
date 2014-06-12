@@ -306,6 +306,12 @@ namespace project
                         cos_insideNum = "לא הוזן";
                     }
 
+                    if (string.IsNullOrWhiteSpace(row["שם לקוח"].ToString()))
+                    {
+                        MessageBox.Show("אנא הכנס שם לקוח", "!שים לב", MessageBoxButton.OK, MessageBoxImage.Error);
+                        refreashcus();
+                        return;
+                    }
                     string custumername = row["שם לקוח"].ToString();
                     string custumeraddress = row["כתובת לקוח"].ToString();
                     string cos_desc = row["הערות בקשר ללקוח"].ToString();
