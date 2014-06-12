@@ -234,7 +234,7 @@ namespace project
                 MySqlConnection MySqlConn = new MySqlConnection(Login.Connectionstring);
                 MySqlConn.Open();
                 String searchkey = this.FirstNameSearchTextBox.Text;
-                string Query1 = ("select contactid as `מספר איש קשר`,contactName as `שם איש קשר` ,contactEmail as `אימייל איש קשר` ,contactPhone as `טלפון איש קשר` ,contactDepartment as `מחלקת איש קשר` from costumers where contactName Like '%" + searchkey + "%' and costumerid='" + hpcostid + "'");
+                string Query1 = ("select contactid as `מספר איש קשר`,contactName as `שם איש קשר` ,contactEmail as `אימייל איש קשר` ,contactPhone as `טלפון איש קשר`,contactCellPhone as `טלפון נייד של איש הקשר` ,contactDepartment as `מחלקת איש קשר`, contactDesc as `הערות לגבי איש הקשר`  from costumers where contactName Like '%" + searchkey + "%' and costumerid='" + hpcostid + "'");
                 MySqlCommand MSQLcrcommand1 = new MySqlCommand(Query1, MySqlConn);
                 MSQLcrcommand1.ExecuteNonQuery();
                 MySqlDataAdapter mysqlDAdp = new MySqlDataAdapter(MSQLcrcommand1);
@@ -265,7 +265,7 @@ namespace project
                 MySqlConnection MySqlConn = new MySqlConnection(Login.Connectionstring);
                 MySqlConn.Open();
                 String searchidkey = this.IDSearchTextBox.Text;
-                string Query1 = ("select contactid as `מספר איש קשר`,contactName as `שם איש קשר` ,contactEmail as `אימייל איש קשר` ,contactPhone as `טלפון איש קשר` ,contactDepartment as `מחלקת איש קשר` from costumers where contactid Like '%" + searchidkey + "%'  and costumerid='" + hpcostid + "'");
+                string Query1 = ("select contactid as `מספר איש קשר`,contactName as `שם איש קשר` ,contactEmail as `אימייל איש קשר` ,contactPhone as `טלפון איש קשר`,contactCellPhone as `טלפון נייד של איש הקשר` ,contactDepartment as `מחלקת איש קשר`, contactDesc as `הערות לגבי איש הקשר`  from costumers where contactid Like '%" + searchidkey + "%'  and costumerid='" + hpcostid + "'");
                 MySqlCommand MSQLcrcommand1 = new MySqlCommand(Query1, MySqlConn);
                 MSQLcrcommand1.ExecuteNonQuery();
                 MySqlDataAdapter mysqlDAdp = new MySqlDataAdapter(MSQLcrcommand1);
@@ -433,21 +433,28 @@ namespace project
 
                         if ( !string.IsNullOrWhiteSpace(row["אימייל איש קשר"].ToString()) )
                         {
-                            //checking if the email intered correctlly.
-                            if ((Regex.IsMatch(row["אימייל איש קשר"].ToString(), @"^[a-zA-Z][\w\.-]*[a-zA-Z0-9]@[a-zA-Z0-9][\w\.-]*[a-zA-Z0-9]\.[a-zA-Z][a-zA-Z\.]*[a-zA-Z]$")))
+                            if (row["אימייל איש קשר"].ToString() != "לא הוזנה")
                             {
-                                 contactEmail = row["אימייל איש קשר"].ToString(); 
+                                //checking if the email interred correctly.
+                                if ((Regex.IsMatch(row["אימייל איש קשר"].ToString(), @"^[a-zA-Z][\w\.-]*[a-zA-Z0-9]@[a-zA-Z0-9][\w\.-]*[a-zA-Z0-9]\.[a-zA-Z][a-zA-Z\.]*[a-zA-Z]$")))
+                                {
+                                    contactEmail = row["אימייל איש קשר"].ToString();
+                                }
+                                else
+                                {
+                                    MessageBox.Show("כתובת האימייל שהזנת לא תקינה", "!שים לב", MessageBoxButton.OK, MessageBoxImage.Error);
+                                    refreashandclear();
+                                    return;
+                                }
                             }
-                            else 
+                            else
                             {
-                                MessageBox.Show("כתובת האימייל שהזנת לא תקינה", "!שים לב", MessageBoxButton.OK, MessageBoxImage.Error);
-                                refreashandclear();
-                                return;
+                                contactEmail = "לא הוזנה";
                             }
                         }
                         else
                         {
-                             contactEmail = "לא הוזן"; 
+                             contactEmail = "לא הוזנה"; 
                         }
 
                         if (string.IsNullOrWhiteSpace(row["טלפון נייד של איש הקשר"].ToString()) && string.IsNullOrWhiteSpace(row["טלפון איש קשר"].ToString()))
