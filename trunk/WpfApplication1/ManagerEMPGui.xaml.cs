@@ -312,36 +312,75 @@ namespace project
                     }
                     else // if the user clicked on "Yes" so he wants to Update.
                         {
-                            try
+                            if (!string.IsNullOrWhiteSpace(row["מספר טלפון"].ToString()))
                             {
-                                int phoneCheck = Convert.ToInt32(row["מספר טלפון"].ToString());
+                                try
+                                {
+                                    int phoneCheck = Convert.ToInt32(row["מספר טלפון"].ToString());
+                                }
+                                catch
+                                {
+                                    MessageBox.Show("שדה מספר טלפון לא מכיל רק מספרים", "!שים לב", MessageBoxButton.OK, MessageBoxImage.Error);
+                                    reafreashandclear();
+                                    return;
+                                }
                             }
-                            catch
+
+                            if (!string.IsNullOrWhiteSpace(row["מספר עובד"].ToString()))
                             {
-                                MessageBox.Show("שדה מספר טלפון לא מכיל רק מספרים", "!שים לב", MessageBoxButton.OK, MessageBoxImage.Error);
+                                try
+                                {
+                                    int empCheck = Convert.ToInt32(row["מספר עובד"].ToString());
+                                }
+                                catch
+                                {
+                                    MessageBox.Show("שדה מספר עובד לא מכיל רק מספרים", "!שים לב", MessageBoxButton.OK, MessageBoxImage.Error);
+                                    reafreashandclear();
+                                    return;
+                                }
+                            }
+                            else
+                            {
+                                MessageBox.Show("אנא הכנס מספר עובד", "!שים לב", MessageBoxButton.OK, MessageBoxImage.Error);
                                 reafreashandclear();
                                 return;
                             }
-                        try
+
+                            if (!string.IsNullOrWhiteSpace(row["טלפון נייד"].ToString()))
                             {
-                                int empCheck = Convert.ToInt32(row["מספר עובד"].ToString());
+
+                                try
+                                {
+                                    int cellphoneCheck = Convert.ToInt32(row["טלפון נייד"].ToString());
+                                }
+                                catch
+                                {
+                                    MessageBox.Show("שדה טלפון נייד לא מכיל רק מספרים", "!שים לב", MessageBoxButton.OK, MessageBoxImage.Error);
+                                    reafreashandclear();
+                                    return;
+                                }
                             }
-                            catch
+
+
+                            if (string.IsNullOrWhiteSpace(row["שם פרטי"].ToString()))
                             {
-                                MessageBox.Show("שדה מספר עובד לא מכיל רק מספרים", "!שים לב", MessageBoxButton.OK, MessageBoxImage.Error);
+                            MessageBox.Show("אנא הכנס שם פרטי", "!שים לב", MessageBoxButton.OK, MessageBoxImage.Error);
                                 reafreashandclear();
                                 return;
                             }
-                        try
+                            if (string.IsNullOrWhiteSpace(row["שם משפחה"].ToString()))
                             {
-                                int cellphoneCheck = Convert.ToInt32(row["טלפון נייד"].ToString());
-                            }
-                            catch
-                            {
-                                MessageBox.Show("שדה טלפון נייד לא מכיל רק מספרים", "!שים לב", MessageBoxButton.OK, MessageBoxImage.Error);
+                                MessageBox.Show("אנא הכנס שם משפחה", "!שים לב", MessageBoxButton.OK, MessageBoxImage.Error);
                                 reafreashandclear();
                                 return;
                             }
+                            if (string.IsNullOrWhiteSpace(row["כתובת"].ToString()))
+                            {
+                                MessageBox.Show("אנא הכנס כתובת", "!שים לב", MessageBoxButton.OK, MessageBoxImage.Error);
+                                reafreashandclear();
+                                return;
+                            }
+                            
 
                             string selected = row["תעודת זהות"].ToString();
                             string firstname = row["שם פרטי"].ToString();
@@ -420,7 +459,7 @@ namespace project
                 e.Column.IsReadOnly = true; // Makes the column as read only
             }
 
-
+            /*
             if (e.Column.Header.ToString() == "תפקיד")
             {
                 Console.WriteLine("dorrrrrrrrrrrrrr");
@@ -464,6 +503,7 @@ namespace project
 
                 e.Column = col1;
             }
+             */
 
             if (e.Column.Header.ToString() == "תאריך התחלת עבודה")
             {

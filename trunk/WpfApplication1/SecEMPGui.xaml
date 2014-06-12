@@ -29,5 +29,7 @@
         <Image Height="35" HorizontalAlignment="Left" Margin="499,573,0,0" Name="image6" Stretch="Fill" VerticalAlignment="Top" Width="33" Source="/WpfApplication1;component/Images/icon_microsoftexcel.png"  />
         <Image Height="29" HorizontalAlignment="Left" Margin="12,573,0,0" Name="image7" Stretch="Fill" VerticalAlignment="Top" Width="33" Source="/WpfApplication1;component/Images/back.png" />
         <Label Content="או" Height="28" HorizontalAlignment="Left" Margin="32,46,0,0" Name="label5" VerticalAlignment="Top" />
+        <Button Content="עדכון פרטי עובד" FontWeight="Bold" Height="56" HorizontalAlignment="Left" Margin="996,41,0,0" Name="UpdateBtn" VerticalAlignment="Top" Width="180" Click="UpdateBtn_Click"/>
+        <Image Height="36" HorizontalAlignment="Left" Margin="1067,3,0,0" Name="image3" Source="/WpfApplication1;component/Images/update.png" Stretch="Fill" VerticalAlignment="Top" Width="42" />
     </Grid>
 </Window>

@@ -219,11 +219,16 @@ namespace project
         /// <param name="e">The <see cref="DataGridAutoGeneratingColumnEventArgs"/> instance containing the event data.</param>
         private void Grid_AutoGeneratingColumn(object sender, DataGridAutoGeneratingColumnEventArgs e)
         {
+            if (e.Column.Header.ToString() == "תעודת זהות" || e.Column.Header.ToString() == "תאריך התחלת עבודה")
+            {
+                // e.Cancel = true;   // For not to include 
+                e.Column.IsReadOnly = true; // Makes the column as read only
+            }
             if (e.Column.Header.ToString() == "תאריך התחלת עבודה")
             {
                 (e.Column as DataGridTextColumn).Binding.StringFormat = "dd/MM/yyyy";  
             }
-            e.Column.IsReadOnly = true; // Makes the column as read only
+           // e.Column.IsReadOnly = true; // Makes the column as read only
         }
 
 
@@ -241,6 +246,161 @@ namespace project
             Login.close = 1;
             this.Close();
         }
+
+
+
+
+        /// <summary>
+        /// Handles the Click event of the UpdateBtn control.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="RoutedEventArgs"/> instance containing the event data.</param>
+        private void UpdateBtn_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                DataRowView row = (DataRowView)dataGrid1.SelectedItems[0];
+
+                if (MessageBox.Show("?האם אתה בטוח שברצונך לעדכן עובד זה", "וידוא עדכון", MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.No)
+                {
+                    //dont do stuff
+                }
+                else // if the user clicked on "Yes" so he wants to Update.
+                {
+                    if (!string.IsNullOrWhiteSpace(row["מספר טלפון"].ToString()))
+                    {
+                        try
+                        {
+                            int phoneCheck = Convert.ToInt32(row["מספר טלפון"].ToString());
+                        }
+                        catch
+                        {
+                            MessageBox.Show("שדה מספר טלפון לא מכיל רק מספרים", "!שים לב", MessageBoxButton.OK, MessageBoxImage.Error);
+                            reafreashandclear();
+                            return;
+                        }
+                    }
+
+                    if (!string.IsNullOrWhiteSpace(row["מספר עובד"].ToString()))
+                    {
+                        try
+                        {
+                            int empCheck = Convert.ToInt32(row["מספר עובד"].ToString());
+                        }
+                        catch
+                        {
+                            MessageBox.Show("שדה מספר עובד לא מכיל רק מספרים", "!שים לב", MessageBoxButton.OK, MessageBoxImage.Error);
+                            reafreashandclear();
+                            return;
+                        }
+                    }
+                    else
+                    {
+                        MessageBox.Show("אנא הכנס מספר עובד", "!שים לב", MessageBoxButton.OK, MessageBoxImage.Error);
+                        reafreashandclear();
+                        return;
+                    }
+
+                    if (!string.IsNullOrWhiteSpace(row["טלפון נייד"].ToString()))
+                    {
+
+                        try
+                        {
+                            int cellphoneCheck = Convert.ToInt32(row["טלפון נייד"].ToString());
+                        }
+                        catch
+                        {
+                            MessageBox.Show("שדה טלפון נייד לא מכיל רק מספרים", "!שים לב", MessageBoxButton.OK, MessageBoxImage.Error);
+                            reafreashandclear();
+                            return;
+                        }
+                    }
+
+
+                    if (string.IsNullOrWhiteSpace(row["שם פרטי"].ToString()))
+                    {
+                        MessageBox.Show("אנא הכנס שם פרטי", "!שים לב", MessageBoxButton.OK, MessageBoxImage.Error);
+                        reafreashandclear();
+                        return;
+                    }
+                    if (string.IsNullOrWhiteSpace(row["שם משפחה"].ToString()))
+                    {
+                        MessageBox.Show("אנא הכנס שם משפחה", "!שים לב", MessageBoxButton.OK, MessageBoxImage.Error);
+                        reafreashandclear();
+                        return;
+                    }
+                    if (string.IsNullOrWhiteSpace(row["כתובת"].ToString()))
+                    {
+                        MessageBox.Show("אנא הכנס כתובת", "!שים לב", MessageBoxButton.OK, MessageBoxImage.Error);
+                        reafreashandclear();
+                        return;
+                    }
+
+
+                    string selected = row["תעודת זהות"].ToString();
+                    string firstname = row["שם פרטי"].ToString();
+                    string lastname = row["שם משפחה"].ToString();
+                    string address = row["כתובת"].ToString();
+                    string phone = row["מספר טלפון"].ToString();
+                    string empnum = row["מספר עובד"].ToString();
+                    string cell = row["טלפון נייד"].ToString();
+                    if ((firstname.Length > 45) || (lastname.Length > 45) || (address.Length > 45) || (phone.Length > 45) || (empnum.Length > 45) || (cell.Length > 45))
+                    {
+                        MessageBox.Show("אסור ששדה יכיל יותר מ - 45 תוים", "!שים לב", MessageBoxButton.OK, MessageBoxImage.Error);
+                        reafreashandclear();
+                        return;
+                    }
+                    if (row["תאריך התחלת עבודה"].ToString().Equals(""))
+                    {
+                        try
+                        {
+
+                            MySqlConnection MySqlConn = new MySqlConnection(Login.Connectionstring);
+                            MySqlConn.Open();
+                            string Query1 = "UPDATE employees SET emp_firstname='" + firstname + "',emp_lastname='" + lastname + "',emp_address='" + address + "',emp_phone='" + phone + "',emp_cellphone='" + cell + "',emp_insidenum='" + empnum + "' ,emp_start_date=NULL WHERE empid='" + selected + "'";
+                            MySqlCommand MSQLcrcommand1 = new MySqlCommand(Query1, MySqlConn);
+                            MSQLcrcommand1.ExecuteNonQuery();
+                            MySqlDataAdapter mysqlDAdp = new MySqlDataAdapter(MSQLcrcommand1);
+                            MySqlConn.Close();
+                            MessageBox.Show("!פרטי העובד עודכנו", "!הצלחה", MessageBoxButton.OK, MessageBoxImage.Information);
+                        }
+                        catch (Exception ex)
+                        {
+                            MessageBox.Show(ex.Message);
+                        }
+                    }
+                    else
+                    {
+                        string start = Convert.ToDateTime(row["תאריך התחלת עבודה"].ToString()).ToString("yyyy-MM-dd");
+                        try
+                        {
+
+                            MySqlConnection MySqlConn = new MySqlConnection(Login.Connectionstring);
+                            MySqlConn.Open();
+                            string Query1 = "UPDATE employees SET emp_firstname='" + firstname + "',emp_lastname='" + lastname + "',emp_address='" + address + "',emp_phone='" + phone + "',emp_cellphone='" + cell + "',emp_insidenum='" + empnum + "',emp_start_date='" + start + "' WHERE empid='" + selected + "'";
+                            MySqlCommand MSQLcrcommand1 = new MySqlCommand(Query1, MySqlConn);
+                            MSQLcrcommand1.ExecuteNonQuery();
+                            MySqlDataAdapter mysqlDAdp = new MySqlDataAdapter(MSQLcrcommand1);
+                            MySqlConn.Close();
+                            MessageBox.Show("!פרטי העובד עודכנו", "!הצלחה", MessageBoxButton.OK, MessageBoxImage.Information);
+                        }
+                        catch (Exception ex)
+                        {
+                            MessageBox.Show(ex.Message);
+                        }
+                    }
+
+                    reafreashandclear();
+                }//end else
+
+
+            }//end try
+            catch { MessageBox.Show("לא נבחר עובד לעדכון ", "!שים לב", MessageBoxButton.OK, MessageBoxImage.Error); }
+        }//end function
+
+
+
+
 
 
         /// <summary>
