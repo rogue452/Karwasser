@@ -225,7 +225,11 @@ namespace project
         /// <param name="e">The <see cref="DataGridAutoGeneratingColumnEventArgs"/> instance containing the event data.</param>
         private void Grid_AutoGeneratingColumn(object sender, DataGridAutoGeneratingColumnEventArgs e)
         {
-            e.Column.IsReadOnly = true; // Makes the column as read only
+            if (e.Column.Header.ToString() == "חפ לקוח")
+            {
+                // e.Cancel = true;   // For not to include 
+                e.Column.IsReadOnly = true; // Makes the column as read only
+            }
         }
 
 
@@ -250,6 +254,86 @@ namespace project
             }
             catch { MessageBox.Show("לא נבחר לקוח");  }
         }
+
+
+
+        /// <summary>
+        /// Handles the Click event of the UpdateBtn control.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="RoutedEventArgs"/> instance containing the event data.</param>
+        private void UpdateBtn_Click(object sender, RoutedEventArgs e)
+        {
+
+            try
+            {
+                DataRowView row = (DataRowView)dataGrid1.SelectedItems[0];
+                string selected = row["חפ לקוח"].ToString();
+                // MessageBox.Show(""+selected+ "");
+
+
+
+                if (MessageBox.Show("?האם אתה בטוח שברצונך לעדכן לקוח זה", "וידוא עדכון", MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.No)
+                {
+                    return; //dont do stuff
+                }
+                else // if the user clicked on "Yes" so he wants to Update.
+                {
+                    string cos_insideNum;
+                    if (!string.IsNullOrWhiteSpace(row["מספר לקוח"].ToString()))
+                    {
+                        if (row["מספר לקוח"].ToString() != "לא הוזן")
+                        {
+                            try
+                            {
+                                int phoneCheck = Convert.ToInt32(row["מספר לקוח"].ToString());
+                                cos_insideNum = row["מספר לקוח"].ToString();
+                            }
+                            catch
+                            {
+                                MessageBox.Show("מספר הלקוח שהוזן לא מכיל רק מספרים", "!שים לב", MessageBoxButton.OK, MessageBoxImage.Error);
+                                refreashcus();
+                                return;
+                            }
+                        }
+                        else
+                        {
+                            cos_insideNum = "לא הוזן";
+                        }
+                    }
+                    else
+                    {
+                        cos_insideNum = "לא הוזן";
+                    }
+
+                    string custumername = row["שם לקוח"].ToString();
+                    string custumeraddress = row["כתובת לקוח"].ToString();
+                    string cos_desc = row["הערות בקשר ללקוח"].ToString();
+                    try
+                    {
+
+                        MySqlConnection MySqlConn = new MySqlConnection(Login.Connectionstring);
+                        MySqlConn.Open();
+                        string Query1 = "update costumers set costumerName='" + custumername + "',costumerAddress='" + custumeraddress + "',costumerDesc='" + cos_desc + "',costumer_insideNum='" + cos_insideNum + "' where costumerid='" + selected + "'";
+                        MySqlCommand MSQLcrcommand1 = new MySqlCommand(Query1, MySqlConn);
+                        MSQLcrcommand1.ExecuteNonQuery();
+                        MySqlDataAdapter mysqlDAdp = new MySqlDataAdapter(MSQLcrcommand1);
+                        MySqlConn.Close();
+                        MessageBox.Show("!פרטי הלקוח עודכנו", "!הצלחה", MessageBoxButton.OK, MessageBoxImage.Information);
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show(ex.Message);
+                    }
+                    refreashcus();
+
+                } // else // if the user clicked on "Yes" so he wants to Update.
+
+            }
+            catch { MessageBox.Show("לא נבחר לקוח לעדכון", "!שים לב", MessageBoxButton.OK, MessageBoxImage.Error); }
+        }
+
+
 
 
 

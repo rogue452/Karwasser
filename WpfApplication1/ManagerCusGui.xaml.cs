@@ -310,16 +310,23 @@ namespace project
                     string cos_insideNum;
                     if (!string.IsNullOrWhiteSpace(row["מספר לקוח"].ToString()))
                     {
-                        try
+                        if (row["מספר לקוח"].ToString() != "לא הוזן")
                         {
-                            int phoneCheck = Convert.ToInt32(row["מספר לקוח"].ToString());
-                            cos_insideNum = row["מספר לקוח"].ToString();
+                            try
+                            {
+                                int phoneCheck = Convert.ToInt32(row["מספר לקוח"].ToString());
+                                cos_insideNum = row["מספר לקוח"].ToString();
+                            }
+                            catch
+                            {
+                                MessageBox.Show("מספר הלקוח שהוזן לא מכיל רק מספרים", "!שים לב", MessageBoxButton.OK, MessageBoxImage.Error);
+                                refreashcus();
+                                return;
+                            }
                         }
-                        catch
+                        else
                         {
-                            MessageBox.Show("מספר הלקוח שהוזן לא מכיל רק מספרים", "!שים לב", MessageBoxButton.OK, MessageBoxImage.Error);
-                            refreashcus();
-                            return;
+                            cos_insideNum = "לא הוזן";
                         }
                     }
                     else
