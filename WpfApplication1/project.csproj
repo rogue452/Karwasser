@@ -183,6 +183,9 @@
     <Compile Include="SecAddNewCusGUI.xaml.cs">
       <DependentUpon>SecAddNewCusGUI.xaml</DependentUpon>
     </Compile>
+    <Compile Include="SecAddNewJobGUI.xaml.cs">
+      <DependentUpon>SecAddNewJobGUI.xaml</DependentUpon>
+    </Compile>
     <Compile Include="SecContactsGUI.xaml.cs">
       <DependentUpon>SecContactsGUI.xaml</DependentUpon>
     </Compile>
@@ -335,6 +338,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="SecAddNewCusGUI.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="SecAddNewJobGUI.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

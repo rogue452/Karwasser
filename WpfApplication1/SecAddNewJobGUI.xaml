@@ -1,7 +1,7 @@
-﻿<Window x:Class="project.ManagerAddNewJobGUI"
-       xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+﻿<Window x:Class="project.SecAddNewJobGUI"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        Title="מסך הוספת עבודה" Height="647" Width="1212" FlowDirection="RightToLeft" ResizeMode="CanMinimize" Icon="/WpfApplication1;component/Images/Israel.ico" Closing="exit_clicked">
+         Title="מסך הוספת עבודה" Height="647" Width="1212" FlowDirection="RightToLeft" ResizeMode="CanMinimize" Icon="/WpfApplication1;component/Images/Israel.ico" Closing="exit_clicked">
     <Grid>
         <Image Source="/WpfApplication1;component/Images/31.jpg"  Stretch="UniformToFill" FlowDirection="RightToLeft" Margin="-12,0,0,0"  />
         <DataGrid x:Name="dataGrid1" Margin="4,132,882,52" FontSize="15"  AutoGenerateColumns="True" AutoGeneratingColumn="Grid_AutoGeneratingColumn"  ItemsSource="{Binding}" HeadersVisibility="All" MaxColumnWidth="Infinity" CanUserAddRows="false" SelectionMode="Single"  SelectionChanged="dataGrid1_SelectionChanged" FocusableChanged="dataGrid1_Focusable" >
@@ -15,7 +15,7 @@
             </DataGrid.Resources>
         </DataGrid>
         <TextBox HorizontalAlignment="Left" Height="22" Margin="102,97,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="139" FontSize="15" Name="CustumerNameSearchTextBox" TextChanged="CustumerNameSearchTextBox_TextChanged" />
-        
+
         <TextBox HorizontalAlignment="Left" Height="23" Margin="102,66,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="139" Name="IDSearchTextBox" TextChanged="IDSearchTextBox_TextChanged" />
         <Label Content="חפ לקוח" HorizontalAlignment="Left" Margin="4,60,0,0" VerticalAlignment="Top" PreviewMouseLeftButtonDown="dataGrid1_Preview_MouseLeftButtonDown" />
         <Label Content="שם לקוח " HorizontalAlignment="Left" Margin="4,95,0,0" VerticalAlignment="Top" Width="71"/>
@@ -58,4 +58,3 @@
         <Label Content="שדות עם * מציינים חובה" Height="28" HorizontalAlignment="Left" Margin="1012,548,0,0" Name="label8" VerticalAlignment="Top" />
     </Grid>
 </Window>
-
