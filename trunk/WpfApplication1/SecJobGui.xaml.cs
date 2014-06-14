@@ -194,8 +194,8 @@ namespace project
         /// <param name="e">The <see cref="RoutedEventArgs"/> instance containing the event data.</param>
         private void ADD_Btn_Click(object sender, RoutedEventArgs e)
         {
-            ManagerAddNewJobGUI MACG = new ManagerAddNewJobGUI();
-            MACG.Show();
+            SecAddNewJobGUI SACG = new SecAddNewJobGUI();
+            SACG.Show();
             Login.close = 1;
             this.Close();
         }
