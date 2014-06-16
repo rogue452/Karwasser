@@ -310,7 +310,7 @@ namespace project
 
                     if (!string.IsNullOrWhiteSpace(row["אימייל איש קשר"].ToString()))
                     {
-                        if (row["אימייל איש קשר"].ToString() != "לא הוזנה")
+                        if (row["אימייל איש קשר"].ToString() != "לא הוזן")
                         {
                             //checking if the email interred correctly
                             if ((Regex.IsMatch(row["אימייל איש קשר"].ToString(), @"^[a-zA-Z][\w\.-]*[a-zA-Z0-9]@[a-zA-Z0-9][\w\.-]*[a-zA-Z0-9]\.[a-zA-Z][a-zA-Z\.]*[a-zA-Z]$")))
@@ -326,12 +326,12 @@ namespace project
                         }
                         else
                         {
-                            contactEmail = "לא הוזנה";
+                            contactEmail = "לא הוזן";
                         }
                     }
                     else
                     {
-                        contactEmail = "לא הוזנה";
+                        contactEmail = "לא הוזן";
                     }
 
                     if (string.IsNullOrWhiteSpace(row["טלפון נייד של איש הקשר"].ToString()) && string.IsNullOrWhiteSpace(row["טלפון איש קשר"].ToString()))

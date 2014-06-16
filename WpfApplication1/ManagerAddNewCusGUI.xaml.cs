@@ -180,6 +180,13 @@ namespace project
             // if (firstname_textBox.Text != null)
             if (!string.IsNullOrWhiteSpace(custname_textBox.Text))
             {
+                bool instring = false;
+                instring = custname_textBox.Text.Contains("'");
+                if (instring)
+                {
+                    MessageBox.Show("אסור להשתמש בגרש");
+                    return;
+                }
                 custname = custname_textBox.Text;
                 f2 = true;
                 //  MessageBox.Show("" + username + "");
