@@ -279,7 +279,7 @@ namespace project
                 
                     MySqlConnection MySqlConn = new MySqlConnection(Login.Connectionstring);
                     MySqlConn.Open();
-                    string Query1 = ("select empid as `תעודת זהות`,emp_firstname as `שם פרטי` ,emp_lastname as `שם משפחה` ,emp_address as `כתובת` ,emp_phone as `מספר טלפון` from project.employees ");
+                    string Query1 = ("SELECT empid as `תעודת זהות`,emp_firstname as `שם פרטי` ,emp_lastname as `שם משפחה` , emp_insidenum as `מספר עובד` ,emp_address as `כתובת` ,emp_phone as `מספר טלפון`, emp_cellphone as `טלפון נייד`, emp_start_date as `תאריך התחלת עבודה` from project.employees ");
                     MySqlCommand MSQLcrcommand1 = new MySqlCommand(Query1, MySqlConn);
                     MSQLcrcommand1.ExecuteNonQuery();
                     MySqlDataAdapter mysqlDAdp = new MySqlDataAdapter(MSQLcrcommand1);
