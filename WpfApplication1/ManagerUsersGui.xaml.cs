@@ -352,7 +352,7 @@ namespace project
                             MSQLcrcommand1.ExecuteNonQuery();
                             MySqlDataAdapter mysqlDAdp = new MySqlDataAdapter(MSQLcrcommand1);
                             MySqlConn.Close();
-                            MessageBox.Show("!פרטי המשתמש עודכנו", "!הצלחה", MessageBoxButton.YesNo, MessageBoxImage.Information);
+                            MessageBox.Show("!פרטי המשתמש עודכנו", "!הצלחה", MessageBoxButton.OK, MessageBoxImage.Information);
                         }
                         catch (Exception ex)
                         {
@@ -362,14 +362,14 @@ namespace project
                     }
                     else
                     {
-                        MessageBox.Show("כתובת האימייל שהזנת לא תקינה", "!שים לב", MessageBoxButton.YesNo, MessageBoxImage.Error);
+                        MessageBox.Show("כתובת האימייל שהזנת לא תקינה", "!שים לב", MessageBoxButton.OK, MessageBoxImage.Error);
                         reafreshandclear();
                     }
                 }      
                 
             }
             catch
-            { MessageBox.Show("לא נבחר משתמש לעדכון", "!שים לב", MessageBoxButton.YesNo, MessageBoxImage.Error); }
+            { MessageBox.Show("לא נבחר משתמש לעדכון", "!שים לב", MessageBoxButton.OK, MessageBoxImage.Error); }
         }
 
 
