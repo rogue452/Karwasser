@@ -181,7 +181,9 @@ namespace project
             {
                 MySqlConnection MySqlConn = new MySqlConnection(Login.Connectionstring);
                 MySqlConn.Open();
-                String searchkey = this.FirstNameSearchTextBox.Text;
+                CheckSingleQuotationMark CSQ = new CheckSingleQuotationMark();
+                String searchkey = CSQ.checkForSingleQuotationMark(this.FirstNameSearchTextBox.Text);
+                //String searchkey = this.FirstNameSearchTextBox.Text;
                 string Query1 = "SELECT empid as `תעודת זהות`,emp_firstname as `שם פרטי` ,emp_lastname as `שם משפחה` , emp_insidenum as `מספר עובד` ,emp_address as `כתובת` ,emp_phone as `מספר טלפון`, emp_cellphone as `טלפון נייד`, emp_start_date as `תאריך התחלת עבודה` FROM  employees WHERE  emp_firstname Like '%" + searchkey + "%' ";
                 MySqlCommand MSQLcrcommand1 = new MySqlCommand(Query1, MySqlConn);
                 MSQLcrcommand1.ExecuteNonQuery();
@@ -215,7 +217,9 @@ namespace project
 
                 MySqlConnection MySqlConn = new MySqlConnection(Login.Connectionstring);
                 MySqlConn.Open();
-                String searchidkey = this.IDSearchTextBox.Text;
+                CheckSingleQuotationMark CSQ = new CheckSingleQuotationMark();
+                String searchidkey = CSQ.checkForSingleQuotationMark(this.IDSearchTextBox.Text);
+               // String searchidkey = this.IDSearchTextBox.Text;
                 string Query1 = "SELECT empid as `תעודת זהות`,emp_firstname as `שם פרטי` ,emp_lastname as `שם משפחה` , emp_insidenum as `מספר עובד` ,emp_address as `כתובת` ,emp_phone as `מספר טלפון`, emp_cellphone as `טלפון נייד`, emp_start_date as `תאריך התחלת עבודה` FROM employees WHERE  empid Like '%" + searchidkey + "%' ";
                 MySqlCommand MSQLcrcommand1 = new MySqlCommand(Query1, MySqlConn);
                 MSQLcrcommand1.ExecuteNonQuery();

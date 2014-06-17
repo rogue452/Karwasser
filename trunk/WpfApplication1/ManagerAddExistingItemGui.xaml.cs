@@ -152,7 +152,9 @@ namespace project
         /// <param name="e">The <see cref="TextChangedEventArgs"/> instance containing the event data.</param>
         private void ItemIDSearch_TextBox_TextChanged(object sender, TextChangedEventArgs e)
         {
-            String searchkey = this.ItemIDSearch_TextBox.Text;
+            CheckSingleQuotationMark CSQ = new CheckSingleQuotationMark();
+            String searchkey = CSQ.checkForSingleQuotationMark(this.ItemIDSearch_TextBox.Text);
+            //String searchkey = this.Item_Search_textBox.Text;
             dt.DefaultView.RowFilter = string.Format("`מקט פריט` LIKE '%{0}%'", searchkey);
          
         }
@@ -165,7 +167,9 @@ namespace project
         /// <param name="e">The <see cref="TextChangedEventArgs"/> instance containing the event data.</param>
         private void StageNameSearchTextBox_TextChanged(object sender, TextChangedEventArgs e)
         {
-            String searchNamekey = this.StageNameSearchTextBox.Text;
+            CheckSingleQuotationMark CSQ = new CheckSingleQuotationMark();
+            String searchNamekey = CSQ.checkForSingleQuotationMark(this.StageNameSearchTextBox.Text);
+           // String searchNamekey = this.StageNameSearchTextBox.Text;
             dt.DefaultView.RowFilter = string.Format("`שם פריט` LIKE '%{0}%'", searchNamekey);
             /*
             try
@@ -444,7 +448,8 @@ namespace project
                                             {
                                                 MySqlConnection MySqlConn1 = new MySqlConnection(Login.Connectionstring);
                                                 MySqlConn1.Open();
-                                                string Query2 = ("INSERT INTO project.jobs (jobid, itemid,itemNum,itemStatus,itemStageOrder, expectedItemQuantity,costumerid, itemsDescription, job_status, jobdescription, startDate, expectedFinishDate, contact_id , orderid , group_Status , group_StageOrder , deliveryid , invoiceNumber , group_costomer_itemid, group_itemToFixStageOrder, reg_date ) VALUES ('" + jobID + "','" + itemid + "','" + maxItemNum + "','" + itemStatus + "','" + itemStageOrder + "','" + expectedItemQuantity + "','" + costumerid + "','" + itemsDescription + "','" + job_status + "','" + jobdescription + "','" + startDate + "','" + expectedFinishDate + "','" + contact_id + "','" + orderid + "','" + group_Status + "','" + group_StageOrder + "','" + deliveryid + "','" + invoiceNumber + "','" + group_costomer_itemid + "','" + group_itemToFixStageOrder + "','" + reg_date + "')");
+                                                CheckSingleQuotationMark CSQ = new CheckSingleQuotationMark();
+                                                string Query2 = ("INSERT INTO project.jobs (jobid, itemid,itemNum,itemStatus,itemStageOrder, expectedItemQuantity,costumerid, itemsDescription, job_status, jobdescription, startDate, expectedFinishDate, contact_id , orderid , group_Status , group_StageOrder , deliveryid , invoiceNumber , group_costomer_itemid, group_itemToFixStageOrder, reg_date ) VALUES ('" + jobID + "','" + CSQ.checkForSingleQuotationMark(itemid) + "','" + maxItemNum + "','" + itemStatus + "','" + itemStageOrder + "','" + expectedItemQuantity + "','" + costumerid + "','" + CSQ.checkForSingleQuotationMark(itemsDescription) + "','" + job_status + "','" + CSQ.checkForSingleQuotationMark(jobdescription) + "','" + startDate + "','" + expectedFinishDate + "','" + contact_id + "','" + orderid + "','" + group_Status + "','" + group_StageOrder + "','" + deliveryid + "','" + invoiceNumber + "','" + group_costomer_itemid + "','" + group_itemToFixStageOrder + "','" + reg_date + "')");
                                                 Console.WriteLine("שורה 377 Query2 = " + Query2);
                                                 MySqlCommand MSQLcrcommand2 = new MySqlCommand(Query2, MySqlConn1);
                                                 MSQLcrcommand2.ExecuteNonQuery();
@@ -526,7 +531,8 @@ namespace project
                                             {
                                                 MySqlConnection MySqlConn4 = new MySqlConnection(Login.Connectionstring);
                                                 MySqlConn4.Open();
-                                                string Query4 = ("INSERT INTO project.jobs (jobid, itemid,itemNum,itemStatus,itemStageOrder, expectedItemQuantity,costumerid, itemsDescription, job_status, jobdescription, startDate, expectedFinishDate, contact_id , orderid  , deliveryid , invoiceNumber , reg_date) VALUES ('" + jobID + "','" + itemid + "','" + itemNum + "','" + itemStatus + "','" + itemStageOrder + "','" + new_item_quantity + "','" + costumerid + "','" + itemsDescription + "','" + job_status + "','" + jobdescription + "','" + startDate + "','" + expectedFinishDate + "','" + contact_id + "','" + orderid + "','" + deliveryid + "','" + invoiceNumber + "','" + reg_date + "')");
+                                                CheckSingleQuotationMark CSQ = new CheckSingleQuotationMark();
+                                                string Query4 = ("INSERT INTO project.jobs (jobid, itemid,itemNum,itemStatus,itemStageOrder, expectedItemQuantity,costumerid, itemsDescription, job_status, jobdescription, startDate, expectedFinishDate, contact_id , orderid  , deliveryid , invoiceNumber , reg_date) VALUES ('" + jobID + "','" + CSQ.checkForSingleQuotationMark(itemid) + "','" + itemNum + "','" + itemStatus + "','" + itemStageOrder + "','" + new_item_quantity + "','" + costumerid + "','" + CSQ.checkForSingleQuotationMark(itemsDescription) + "','" + job_status + "','" + CSQ.checkForSingleQuotationMark(jobdescription) + "','" + startDate + "','" + expectedFinishDate + "','" + contact_id + "','" + orderid + "','" + deliveryid + "','" + invoiceNumber + "','" + reg_date + "')");
                                                 Console.WriteLine("שורה 436 Query4 = " + Query4);
                                                 MySqlCommand MSQLcrcommand4 = new MySqlCommand(Query4, MySqlConn4);
                                                 MSQLcrcommand4.ExecuteNonQuery();

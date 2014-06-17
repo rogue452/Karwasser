@@ -50,9 +50,17 @@ namespace project
         /// </summary>
         public static string first_name;
         /// <summary>
+        /// The first_name1
+        /// </summary>
+        public static string first_name1;
+        /// <summary>
         /// The last_name
         /// </summary>
         public static string last_name;
+        /// <summary>
+        /// The last_name1
+        /// </summary>
+        public static string last_name1;
         /// <summary>
         /// The user_role
         /// </summary>
@@ -164,7 +172,15 @@ namespace project
                 {
                     MessageBox.Show(ex.Message);
                 }
-                string Query = "select * from project.users where empid='" + this.textBox1.Text +"'and password='"+this.textBox2.Password+"'" ;
+                CheckSingleQuotationMark CSQ = new CheckSingleQuotationMark();
+                string pass = this.textBox2.Password;
+                Console.WriteLine(pass);
+                pass = CSQ.checkForSingleQuotationMark(pass);
+                Console.WriteLine("לאחר בדיקת ציטוט בסיסמה");
+                Console.WriteLine(pass);
+                string Query = "select * from project.users where empid='" + CSQ.checkForSingleQuotationMark(this.textBox1.Text) + "'and password='" + pass + "'";
+                Console.WriteLine("השאילתה הנשלחת בכניסה:");
+                Console.WriteLine(Query);
                 MySqlCommand crcommand = new MySqlCommand(Query, objc);
                 crcommand.ExecuteNonQuery();
                 MySqlDataReader dr = crcommand.ExecuteReader();
@@ -189,7 +205,7 @@ namespace project
                     {
                         MessageBox.Show(ex.Message);
                     }
-                    string Query1 = "SELECT  employees.emp_firstname, employees.emp_lastname, users.connected, users.email FROM project.users, project.employees WHERE users.empid=employees.empid and users.empid='" + this.textBox1.Text + "'and users.password='" + this.textBox2.Password + "'";
+                    string Query1 = "SELECT  employees.emp_firstname, employees.emp_lastname, users.connected, users.email FROM project.users, project.employees WHERE users.empid=employees.empid and users.empid='" + this.textBox1.Text + "'and users.password='" + pass + "'";
                     //MySqlCommand crcommand1 = new MySqlCommand(Query1, objc);
                     MySqlCommand crcommand1 = new MySqlCommand(Query1, objc1);
                     crcommand1.ExecuteNonQuery();
@@ -199,8 +215,12 @@ namespace project
                     {
                         count1++;
                         first_name = dr1.GetString(0);
+                        first_name1 = first_name;
+                        first_name = CSQ.checkForSingleQuotationMark(first_name);
                         last_name = dr1.GetString(1);
-                        connected = dr1.GetString(2);                    
+                        last_name1 = last_name;
+                        last_name = CSQ.checkForSingleQuotationMark(last_name);
+                        connected = dr1.GetString(2);
                         useremail = dr1.GetString(3);
                     }
                     //MessageBox.Show(""+connected+"");
@@ -219,7 +239,7 @@ namespace project
 
                         if (connected.Equals("לא מחובר"))
                         {
-                            MessageBox.Show("      ברוכ/ה הבא/ה " + Login.last_name + " " + Login.first_name + "", "!ההתחברות למערכת בוצעה בהצלחה", MessageBoxButton.OK,MessageBoxImage.Information);
+                            MessageBox.Show("      ברוכ/ה הבא/ה " + Login.last_name1 + " " + Login.first_name1 + "", "!ההתחברות למערכת בוצעה בהצלחה", MessageBoxButton.OK,MessageBoxImage.Information);
                             empid = this.textBox1.Text;
                             string user_connected = "מחובר";
                             //string user_connected = "לא מחובר";
@@ -228,7 +248,7 @@ namespace project
                             {
                                 DBConnection conn = new DBConnection();
                                 Console.WriteLine(my_host_name);
-                                string query2 = "UPDATE users SET connected='" + user_connected + "',last_log_in_date='" + DateTime.Now.ToString("yyyy-MM-dd-HH-mm-ss") + "'  ,last_location='" + my_host_name + "' WHERE empid= '" + this.textBox1.Text + "' and password ='" + this.textBox2.Password + "' ";
+                                string query2 = "UPDATE users SET connected='" + user_connected + "',last_log_in_date='" + DateTime.Now.ToString("yyyy-MM-dd-HH-mm-ss") + "'  ,last_location='" + my_host_name + "' WHERE empid= '" + this.textBox1.Text + "' and password ='" + CSQ.checkForSingleQuotationMark(this.textBox2.Password) + "' ";
                                 conn.LogIn(query2, Connectionstring);
                                 //conn.LogIn(query2);
                                 ManagerGui MG = new ManagerGui();

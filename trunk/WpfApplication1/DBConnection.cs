@@ -93,8 +93,13 @@ namespace project
                 this.objConnection.Open();
                 this.objCommand = new MySqlCommand(query, this.objConnection);
                 this.dataset = new DataSet();
+              //  objCommand.ExecuteNonQuery();
                 this.adapter = new MySqlDataAdapter(this.objCommand);
+             //   Console.WriteLine("שאילתת ההוספה");
+             //   Console.WriteLine(query);
                 this.adapter.Fill(this.dataset);
+             //   Console.WriteLine("הדטה סט המתקבל");
+            //    Console.WriteLine(this.dataset);
                 try
                 {
                     MessageBox.Show("המידע נשמר בהצלחה!", "!הצלחה", MessageBoxButton.OK, MessageBoxImage.Information);

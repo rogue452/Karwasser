@@ -118,6 +118,16 @@ namespace project
             if (id_textBox != null && !string.IsNullOrWhiteSpace(id_textBox.Text))
             {
                 try
+                {
+                    int idnumbersCheck = Convert.ToInt32(id_textBox.Text);
+                }
+                catch
+                {
+                    id_W_label.Content = "ת.ז. חייבת להכיל מספרים בלבד!";
+                    id_W_label.Visibility = Visibility.Visible;
+                    return;
+                }
+                try
                 {   //to see if the empid already in the system.
                     MySqlConnection MySqlConn = new MySqlConnection(Login.Connectionstring);
                     MySqlConn.Open();
@@ -132,6 +142,8 @@ namespace project
                     if (empidtimes != 0)
                     {
                         MessageBox.Show("כבר קיים עובד בעל תעודת זהות זו - " + id_textBox.Text , "!שים לב" ,MessageBoxButton.OK ,MessageBoxImage.Error);
+                        id_W_label.Content = "ת.ז. זו כבר קיימת";
+                        id_W_label.Visibility = Visibility.Visible;
                         return;
                     }
                 }
@@ -145,6 +157,7 @@ namespace project
             }
             else
             {
+                id_W_label.Content = "אנא הכנס תעודת זהות";
                 id_W_label.Visibility = Visibility.Visible;
                 //MessageBox.Show("אנא הכנס תעודת זהות");
 
@@ -152,7 +165,9 @@ namespace project
 
             if (firstname_textBox != null && !string.IsNullOrWhiteSpace(firstname_textBox.Text))
             {
-                firstname = firstname_textBox.Text;
+                CheckSingleQuotationMark CSQ = new CheckSingleQuotationMark();
+                firstname = CSQ.checkForSingleQuotationMark(firstname_textBox.Text);
+                // firstname = firstname_textBox.Text;
                 f2 = true;
             }
             else
@@ -164,8 +179,10 @@ namespace project
 
             if (lastname_textBox != null && !string.IsNullOrWhiteSpace(lastname_textBox.Text))
             {
-             
-                    lastname = lastname_textBox.Text;
+
+                CheckSingleQuotationMark CSQ = new CheckSingleQuotationMark();
+                lastname = CSQ.checkForSingleQuotationMark(lastname_textBox.Text);
+                // lastname = lastname_textBox.Text;
                     f3 = true;
             }   
                 else
@@ -178,6 +195,16 @@ namespace project
 
             if (emp_num_textBox != null && !string.IsNullOrWhiteSpace(emp_num_textBox.Text))
             {
+                try
+                {
+                    int idnumbersCheck = Convert.ToInt32(emp_num_textBox.Text);
+                }
+                catch
+                {
+                    empnum_W_label.Content = "מספר עובד חייב להכיל מספרים בלבד!";
+                    empnum_W_label.Visibility = Visibility.Visible;
+                    return;
+                }
                 try
                 {   //to see if the emp_insidenum already in the system.
                     MySqlConnection MySqlConn = new MySqlConnection(Login.Connectionstring);
@@ -193,6 +220,8 @@ namespace project
                     if (times != 0)
                     {
                         MessageBox.Show("כבר קיים מספר עובד - " + emp_num_textBox.Text, "!שים לב", MessageBoxButton.OK, MessageBoxImage.Error);
+                        empnum_W_label.Content = "מספר עובד זה כבר קיים";
+                        empnum_W_label.Visibility = Visibility.Visible;
                         return;
                     }
                 }
@@ -206,6 +235,7 @@ namespace project
             }
             else
             {
+                empnum_W_label.Content = "אנא הכנס מספר עובד";
                 empnum_W_label.Visibility = Visibility.Visible;
                // MessageBox.Show("אנא הכנס מספר עובד");
             }
@@ -255,6 +285,8 @@ namespace project
             if (address_textBox1 != null && !string.IsNullOrWhiteSpace(address_textBox1.Text))
             {
                 address = address_textBox1.Text;
+                CheckSingleQuotationMark CSQ = new CheckSingleQuotationMark();
+                address = CSQ.checkForSingleQuotationMark(address);
                 f5 = true;
             }
             else
@@ -285,6 +317,15 @@ namespace project
                    // ManagerEMPGui.dataGrid1.ItemsSource = ManagerEMPGui.dt.DefaultView;
                     mysqlDAdp.Update(ManagerEMPGui.dt);
                     MySqlConn.Close();
+
+                    id_textBox.Clear();
+                    firstname_textBox.Clear();
+                    lastname_textBox.Clear();
+                    emp_num_textBox.Clear();
+                    phone_textBox1.Clear();
+                    startdatePicker.SelectedDate = null;
+                    cell_textBox.Clear();
+                    address_textBox1.Clear();
                 }
                 catch (Exception ex)
                 {
@@ -312,6 +353,15 @@ namespace project
                     mysqlDAdp.Fill(SecEMPGui.dt);
                     mysqlDAdp.Update(SecEMPGui.dt);
                     MySqlConn.Close();
+
+                    id_textBox.Clear();
+                    firstname_textBox.Clear();
+                    lastname_textBox.Clear();
+                    emp_num_textBox.Clear();
+                    phone_textBox1.Clear();
+                    startdatePicker.SelectedDate = null;
+                    cell_textBox.Clear();
+                    address_textBox1.Clear();
                 }
                 catch (Exception ex)
                 {
