@@ -170,6 +170,8 @@ namespace project
                 MySqlConnection MySqlConn = new MySqlConnection(Login.Connectionstring);
                 MySqlConn.Open();
                 String searchkey = this.FirstNameSearchTextBox.Text;
+                CheckSingleQuotationMark CSQ = new CheckSingleQuotationMark();
+                searchkey = CSQ.checkForSingleQuotationMark(searchkey);
                 string Query1 = ("SELECT users.empid as `תעודת זהות`,employees.emp_firstname as `שם פרטי` ,employees.emp_lastname as `שם משפחה` ,password as סיסמה ,role as תפקיד ,connected as מחובר ,email as `כתובת אימייל`, rec_answer as `בית ספר יסודי`,users.last_log_in_date as `התחברות אחרונה` ,last_location as `התחברות אחרונה ממחשב` , users.user_description as `הערות לגבי המשתמש` from project.users , project.employees where users.empid=employees.empid and employees.emp_firstname Like '%" + searchkey + "%' ");
                 MySqlCommand MSQLcrcommand1 = new MySqlCommand(Query1, MySqlConn);
                 MSQLcrcommand1.ExecuteNonQuery();
@@ -202,6 +204,8 @@ namespace project
                 MySqlConnection MySqlConn = new MySqlConnection(Login.Connectionstring);
                 MySqlConn.Open();
                 String searchidkey = this.IDSearchTextBox.Text;
+                CheckSingleQuotationMark CSQ = new CheckSingleQuotationMark();
+                searchidkey = CSQ.checkForSingleQuotationMark(searchidkey);
              //   string Query1 = "select users.empid as `תעודת זהות` ,employees.emp_firstname as `שם פרטי` ,employees.emp_lastname as `שם משפחה` ,users.user_name as `שם משתמש` ,password as סיסמה ,role as תפקיד ,connected as מחובר ,email as `כתובת אימייל` from project.users , project.employees where users.empid=employees.empid and users.empid Like '%" + searchidkey + "%' ";
                 string Query1 = ("SELECT users.empid as `תעודת זהות`,employees.emp_firstname as `שם פרטי` ,employees.emp_lastname as `שם משפחה` ,password as סיסמה ,role as תפקיד ,connected as מחובר ,email as `כתובת אימייל`, rec_answer as `בית ספר יסודי`,users.last_log_in_date as `התחברות אחרונה` ,last_location as `התחברות אחרונה ממחשב` , users.user_description as `הערות לגבי המשתמש` from project.users , project.employees where users.empid=employees.empid and users.empid Like '%" + searchidkey + "%' ");
                 MySqlCommand MSQLcrcommand1 = new MySqlCommand(Query1, MySqlConn);
