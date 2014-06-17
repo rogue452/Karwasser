@@ -451,6 +451,8 @@ namespace project
                 MySqlConnection MySqlConn = new MySqlConnection(Login.Connectionstring);
                 MySqlConn.Open();
                 String searchkey = this.CustumerNameSearchTextBox.Text;
+                CheckSingleQuotationMark CSQ = new CheckSingleQuotationMark();
+                searchkey = CSQ.checkForSingleQuotationMark(searchkey);
                 string Query1 = "select costumerid as `חפ לקוח`,costumerName as `שם לקוח` ,costumerAddress as `כתובת לקוח`  from project.costumers  where  costumerName Like '%" + searchkey + "%' group by costumerid";
                 MySqlCommand MSQLcrcommand1 = new MySqlCommand(Query1, MySqlConn);
                 MSQLcrcommand1.ExecuteNonQuery();
@@ -485,6 +487,8 @@ namespace project
                 MySqlConnection MySqlConn = new MySqlConnection(Login.Connectionstring);
                 MySqlConn.Open();
                 String searchidkey = this.IDSearchTextBox.Text;
+                CheckSingleQuotationMark CSQ = new CheckSingleQuotationMark();
+                searchidkey = CSQ.checkForSingleQuotationMark(searchidkey);
                 string Query1 = "select costumerid as `חפ לקוח`,costumerName as `שם לקוח` ,costumerAddress as `כתובת לקוח`  from project.costumers  where  costumerid Like '%" + searchidkey + "%' group by costumerid";
                 MySqlCommand MSQLcrcommand1 = new MySqlCommand(Query1, MySqlConn);
                 MSQLcrcommand1.ExecuteNonQuery();
@@ -511,7 +515,9 @@ namespace project
         /// <param name="e">The <see cref="TextChangedEventArgs"/> instance containing the event data.</param>
         private void Item_Search_textBox_TextChanged(object sender, TextChangedEventArgs e)
         {
-            String searchkey = this.Item_Search_textBox.Text;
+            CheckSingleQuotationMark CSQ = new CheckSingleQuotationMark();
+            String searchkey = CSQ.checkForSingleQuotationMark(this.Item_Search_textBox.Text);
+            //String searchkey = this.Item_Search_textBox.Text;
             dt1.DefaultView.RowFilter = string.Format("`מקט פריט` LIKE '%{0}%'", searchkey);
 
         }

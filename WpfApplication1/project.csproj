@@ -106,6 +106,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="CheckSingleQuotationMark .cs" />
     <Compile Include="CreateExcelFile.cs" />
     <Compile Include="DBConnection.cs" />
     <Compile Include="ManagerAddContactsGUI.xaml.cs">

@@ -47,7 +47,7 @@ namespace project
         {
             InitializeComponent();
             this.WindowStartupLocation = WindowStartupLocation.CenterScreen;
-            NameLabel.Content = "                    שלום " + Login.first_name + " " + Login.last_name + "!\n               אנא בחר/י מה ברצונך/ה לעשות.";
+            NameLabel.Content = "                    שלום " + Login.first_name1 + " " + Login.last_name1 + "!\n               אנא בחר/י מה ברצונך/ה לעשות.";
             CPUName_label.Content = Login.my_host_name;
             Email_label.Visibility = Visibility.Hidden;
             email_sent_label.Visibility = Visibility.Hidden;

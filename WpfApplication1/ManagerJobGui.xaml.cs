@@ -169,7 +169,9 @@ namespace project
 
                 MySqlConnection MySqlConn = new MySqlConnection(Login.Connectionstring);
                 MySqlConn.Open();
-                String searchkey = this.JobIDSearchTextBox.Text;
+                CheckSingleQuotationMark CSQ = new CheckSingleQuotationMark();
+                String searchkey = CSQ.checkForSingleQuotationMark(this.JobIDSearchTextBox.Text);
+               // String searchkey = this.JobIDSearchTextBox.Text;
                 string Query1 = ("SELECT jobid as `מספר עבודה`, reg_date as `תאריך רישום`,orderid as`מספר הזמנה` ,jobdescription  as `תאור עבודה` ,jobs.costumerid as `חפ לקוח` ,costumers.costumerName as `שם לקוח` ,contact_id as `מספר איש קשר` , costumers.contactName as `שם איש קשר` ,job_status as `סטטוס עבודה`,startDate  as `תאריך התחלה`,expectedFinishDate as `תאריך סיום משוער` ,actualFinishDate as `תאריך סיום בפועל` ,deliveryid  as `תעודת משלוח` ,invoiceNumber  as `מספר חשבונית`  from project.jobs, project.costumers  where  jobid Like '" + searchkey + "%' AND jobs.costumerid=costumers.costumerid AND jobs.contact_id=costumers.contactid GROUP BY jobid");
                 MySqlCommand MSQLcrcommand1 = new MySqlCommand(Query1, MySqlConn);
                 MSQLcrcommand1.ExecuteNonQuery();
@@ -201,7 +203,9 @@ namespace project
             }
             if (mistake == false)
             {
-                string searchidkey = this.Name_Search_TextBox.Text;
+                CheckSingleQuotationMark CSQ = new CheckSingleQuotationMark();
+                string searchidkey = CSQ.checkForSingleQuotationMark(this.Name_Search_TextBox.Text);
+                //string searchidkey = this.Name_Search_TextBox.Text;
                 dt.DefaultView.RowFilter = string.Format("`שם לקוח` LIKE '%{0}%'", searchidkey);
             }
 
@@ -755,7 +759,9 @@ namespace project
             Fillterdates();
             if (!string.IsNullOrWhiteSpace(Name_Search_TextBox.Text))
             {
-                string searchidkey = this.Name_Search_TextBox.Text;
+                CheckSingleQuotationMark CSQ = new CheckSingleQuotationMark();
+                string searchidkey = CSQ.checkForSingleQuotationMark(this.Name_Search_TextBox.Text);
+                //  string searchidkey = this.Name_Search_TextBox.Text;
                 dt.DefaultView.RowFilter = string.Format("`שם לקוח` LIKE '%{0}%'", searchidkey);
             }
             /*

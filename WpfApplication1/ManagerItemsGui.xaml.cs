@@ -147,7 +147,9 @@ namespace project
 
                 MySqlConnection MySqlConn = new MySqlConnection(Login.Connectionstring);
                 MySqlConn.Open();
-                String searchkey = this.ItemIDSearch_TextBox.Text;
+                CheckSingleQuotationMark CSQ = new CheckSingleQuotationMark();
+                String searchkey = CSQ.checkForSingleQuotationMark(this.ItemIDSearch_TextBox.Text);
+                //String searchkey = this.ItemIDSearch_TextBox.Text;
                 string Query1 = ("SELECT itemid as `מקט פריט`, itemName as `שם פריט`,item_discription as `תיאור פריט` FROM item  WHERE itemid Like '%" + searchkey + "%' GROUP BY itemid ");
                 MySqlCommand MSQLcrcommand1 = new MySqlCommand(Query1, MySqlConn);
                 MSQLcrcommand1.ExecuteNonQuery();
@@ -177,7 +179,9 @@ namespace project
 
                 MySqlConnection MySqlConn = new MySqlConnection(Login.Connectionstring);
                 MySqlConn.Open();
-                String searchkey = this.itemNameSearchTextBox.Text;
+                CheckSingleQuotationMark CSQ = new CheckSingleQuotationMark();
+                String searchkey = CSQ.checkForSingleQuotationMark(this.itemNameSearchTextBox.Text);
+               // String searchkey = this.itemNameSearchTextBox.Text;
                 string Query1 = ("SELECT itemid as `מקט פריט`, itemName as `שם פריט`,item_discription as `תיאור פריט` FROM item  WHERE itemName Like '%" + searchkey + "%' GROUP BY itemid  ");
                 MySqlCommand MSQLcrcommand1 = new MySqlCommand(Query1, MySqlConn);
                 MSQLcrcommand1.ExecuteNonQuery();
@@ -312,9 +316,14 @@ namespace project
 
                 else // if the user clicked on "Yes" so he wants to Update.
                 {
+                    CheckSingleQuotationMark CSQ = new CheckSingleQuotationMark();
+
                     string selected_Item = row["מקט פריט"].ToString();
+                    selected_Item = CSQ.checkForSingleQuotationMark(selected_Item);
                     string itemname = row["שם פריט"].ToString();
+                    itemname = CSQ.checkForSingleQuotationMark(itemname);
                     string itemdesc = row["תיאור פריט"].ToString();
+                    itemdesc = CSQ.checkForSingleQuotationMark(itemdesc);
 
                     try
                     {
@@ -416,7 +425,8 @@ namespace project
             try
             {
                 DataRowView row = (DataRowView)dataGrid1.SelectedItems[0];
-                string selected_Item = row["מקט פריט"].ToString();
+                CheckSingleQuotationMark CSQ = new CheckSingleQuotationMark();
+                string selected_Item = CSQ.checkForSingleQuotationMark( row["מקט פריט"].ToString() );
                 ManagerGeneralItemStagesGui MGIG = new ManagerGeneralItemStagesGui(selected_Item);
                 MGIG.Owner = this;
                 MGIG.ShowDialog();

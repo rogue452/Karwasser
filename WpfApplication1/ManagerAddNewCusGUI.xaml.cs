@@ -180,6 +180,7 @@ namespace project
             // if (firstname_textBox.Text != null)
             if (!string.IsNullOrWhiteSpace(custname_textBox.Text))
             {
+                /*
                 bool instring = false;
                 instring = custname_textBox.Text.Contains("'");
                 if (instring)
@@ -187,7 +188,10 @@ namespace project
                     MessageBox.Show("אסור להשתמש בגרש");
                     return;
                 }
-                custname = custname_textBox.Text;
+                */
+                CheckSingleQuotationMark CSQ = new CheckSingleQuotationMark();
+                custname = CSQ.checkForSingleQuotationMark(custname_textBox.Text);
+                //custname = custname_textBox.Text;
                 f2 = true;
                 //  MessageBox.Show("" + username + "");
             }
@@ -203,7 +207,9 @@ namespace project
             //  if (address_textBox != null)
             if (!string.IsNullOrWhiteSpace(address_textBox.Text))
             {
-                cusaddress = address_textBox.Text;
+                //cusaddress = address_textBox.Text;
+                CheckSingleQuotationMark CSQ = new CheckSingleQuotationMark();
+                cusaddress = CSQ.checkForSingleQuotationMark(address_textBox.Text);
                 f3 = true;
             }
             else
@@ -242,7 +248,9 @@ namespace project
 
             if (!string.IsNullOrWhiteSpace(contact_name_textBox.Text))
             {
-                contact_name = contact_name_textBox.Text;
+                //contact_name = contact_name_textBox.Text;
+                CheckSingleQuotationMark CSQ = new CheckSingleQuotationMark();
+                contact_name = CSQ.checkForSingleQuotationMark(contact_name_textBox.Text);
                 f5 = true;
             }
             else
@@ -309,7 +317,9 @@ namespace project
 
             if (!string.IsNullOrWhiteSpace(cont_dep_text.Text))
             {
-                contact_dep = cont_dep_text.Text;
+                //contact_dep = cont_dep_text.Text;
+                CheckSingleQuotationMark CSQ = new CheckSingleQuotationMark();
+                contact_dep = CSQ.checkForSingleQuotationMark(cont_dep_text.Text);
                 f7 = true;
             }
             else
@@ -400,6 +410,8 @@ namespace project
 
                     //string query = ("insert into project.costumers (costumerid, contactid, costumerName, contactName , contactEmail,contactPhone,costumerAddress,contactDepartment) values ('" + hpcusid + "','  1 ','" + custname + "','" + contact_name + "','" + contact_email + "','" + contact_phone + "','" + cusaddress + "','" + contact_dep + "')");
                     DBConnection DBC = new DBConnection();
+                    Console.WriteLine("שאילתת ההוספה");
+                    Console.WriteLine(query);
                     DBC.InsertDataIntoDB(Login.Connectionstring, query);
                     hpcusid_textBox.Clear();
                     internalcusid_textBox.Clear();

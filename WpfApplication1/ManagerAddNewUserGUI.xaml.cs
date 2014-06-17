@@ -136,7 +136,9 @@ namespace project
             {
                 MySqlConnection MySqlConn = new MySqlConnection(Login.Connectionstring);
                 MySqlConn.Open();
-                String searchkey = this.FirstNameSearchTextBox.Text;
+                CheckSingleQuotationMark CSQ = new CheckSingleQuotationMark();
+                String searchkey = CSQ.checkForSingleQuotationMark(this.FirstNameSearchTextBox.Text);
+                //String searchkey = this.FirstNameSearchTextBox.Text;
                 string Query1 = "SELECT empid as `תעודת זהות`,emp_firstname as `שם פרטי` ,emp_lastname as `שם משפחה` , emp_insidenum as `מספר עובד` ,emp_address as `כתובת` ,emp_phone as `מספר טלפון`, emp_cellphone as `טלפון נייד`, emp_start_date as `תאריך התחלת עבודה` FROM  employees WHERE  emp_firstname Like '%" + searchkey + "%' AND employees.empid not in (SELECT users.empid FROM project.users) ";
                 MySqlCommand MSQLcrcommand1 = new MySqlCommand(Query1, MySqlConn);
                 MSQLcrcommand1.ExecuteNonQuery();
@@ -170,7 +172,9 @@ namespace project
 
                 MySqlConnection MySqlConn = new MySqlConnection(Login.Connectionstring);
                 MySqlConn.Open();
-                String searchidkey = this.IDSearchTextBox.Text;
+                CheckSingleQuotationMark CSQ = new CheckSingleQuotationMark();
+                String searchidkey = CSQ.checkForSingleQuotationMark(this.IDSearchTextBox.Text);
+                //String searchidkey = this.IDSearchTextBox.Text;
                 string Query1 = "SELECT empid as `תעודת זהות`,emp_firstname as `שם פרטי` ,emp_lastname as `שם משפחה` , emp_insidenum as `מספר עובד` ,emp_address as `כתובת` ,emp_phone as `מספר טלפון`, emp_cellphone as `טלפון נייד`, emp_start_date as `תאריך התחלת עבודה` FROM employees WHERE  empid Like '%" + searchidkey + "%' AND employees.empid not in (SELECT users.empid FROM project.users)";
                 MySqlCommand MSQLcrcommand1 = new MySqlCommand(Query1, MySqlConn);
                 MSQLcrcommand1.ExecuteNonQuery();
@@ -271,7 +275,8 @@ namespace project
                     string date = Convert.ToDateTime(yesterday).ToString("yyyy-MM-dd");
                     Console.WriteLine(date);
                     //string not = "לא מחובר";
-                    string query = ("insert into project.users (empid, password, role , email , last_email_sent_date , rec_answer) values ('" + empid + "','" + password + "','" + role + "','" + email + "','" + date + "','" + school + "')");
+                    CheckSingleQuotationMark CSQ = new CheckSingleQuotationMark();
+                    string query = ("insert into project.users (empid, password, role , email , last_email_sent_date , rec_answer) values ('" + empid + "','" + CSQ.checkForSingleQuotationMark(password) + "','" + role + "','" + email + "','" + date + "','" + CSQ.checkForSingleQuotationMark(school) + "')");
                     DBConnection DBC = new DBConnection();
                     DBC.InsertDataIntoDB(Login.Connectionstring, query);
                     try

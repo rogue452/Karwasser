@@ -143,6 +143,8 @@ namespace project
             if (!string.IsNullOrWhiteSpace(contact_name_textBox.Text))
             {
                 contact_name = contact_name_textBox.Text;
+                CheckSingleQuotationMark CSQ = new CheckSingleQuotationMark();
+                contact_name = CSQ.checkForSingleQuotationMark(contact_name);
                 f2 = true;
             }
             else
@@ -213,6 +215,8 @@ namespace project
             if (!string.IsNullOrWhiteSpace(cont_dep_text.Text))
             {
                 contact_dep = cont_dep_text.Text;
+                CheckSingleQuotationMark CSQ = new CheckSingleQuotationMark();
+                contact_dep = CSQ.checkForSingleQuotationMark(contact_dep);
                 f4 = true;
             }
             else
@@ -238,7 +242,7 @@ namespace project
                 {
                     MySqlConnection MySqlConn = new MySqlConnection(Login.Connectionstring);
                     MySqlConn.Open();
-                    
+                    CheckSingleQuotationMark CSQ = new CheckSingleQuotationMark();
                     //MessageBox.Show("" + CostNum_label.Content + "");
                     string query1 = ("select MAX(contactid) from costumers where costumerid='" + CostNum_label.Content + "'");
                     MySqlCommand MSQLcrcommand1 = new MySqlCommand(query1, MySqlConn);
@@ -247,16 +251,19 @@ namespace project
                      int max = Convert.ToInt32(MSQLcrcommand1.ExecuteScalar());
                      max++;
 
+                     string name = CostName_label.Content.ToString();
+                     Console.WriteLine(CostName_label.Content);
+                     Console.WriteLine(name);
                      // if only phone
-                     string query = ("insert into project.costumers (costumerid, contactid, costumerName, contactName , contactEmail,contactPhone,costumerAddress,contactDepartment,costumer_insideNum) values ('" + CostNum_label.Content + "','" + max + "','" + CostName_label.Content + "','" + contact_name + "','" + contact_email + "','" + contact_phone + "','" + cosADDs + "','" + contact_dep + "','" + cos_num_label.Content + "')");
-
+                     string query = ("insert into project.costumers (costumerid, contactid, costumerName, contactName , contactEmail,contactPhone,costumerAddress,contactDepartment,costumer_insideNum) values ('" + CostNum_label.Content + "','" + max + "','" + CSQ.checkForSingleQuotationMark(name) + "','" + contact_name + "','" + contact_email + "','" + contact_phone + "','" + CSQ.checkForSingleQuotationMark(cosADDs) + "','" + contact_dep + "','" + cos_num_label.Content + "')");
+                     Console.WriteLine(query);
                      if (!f5 && f6) // if only cell
                      {
-                         query = ("insert into project.costumers (costumerid, contactid, costumerName, contactName , contactEmail,contactCellPhone,costumerAddress,contactDepartment,costumer_insideNum) values ('" + CostNum_label.Content + "','" + max + "','" + CostName_label.Content + "','" + contact_name + "','" + contact_email + "','" + contact_cellphone + "','" + cosADDs + "','" + contact_dep + "','" + cos_num_label.Content + "')");
+                         query = ("insert into project.costumers (costumerid, contactid, costumerName, contactName , contactEmail,contactCellPhone,costumerAddress,contactDepartment,costumer_insideNum) values ('" + CostNum_label.Content + "','" + max + "','" + CSQ.checkForSingleQuotationMark(name) + "','" + contact_name + "','" + contact_email + "','" + contact_cellphone + "','" + CSQ.checkForSingleQuotationMark(cosADDs) + "','" + contact_dep + "','" + cos_num_label.Content + "')");
                      }
                      if (f5 && f6) // if both
                      {
-                         query = ("insert into project.costumers (costumerid, contactid, costumerName, contactName , contactEmail,contactPhone,contactCellPhone,costumerAddress,contactDepartment,costumer_insideNum) values ('" + CostNum_label.Content + "','" + max + "','" + CostName_label.Content + "','" + contact_name + "','" + contact_email + "','" + contact_phone + "','" + contact_cellphone + "','" + cosADDs + "','" + contact_dep + "','" + cos_num_label.Content + "')");
+                         query = ("insert into project.costumers (costumerid, contactid, costumerName, contactName , contactEmail,contactPhone,contactCellPhone,costumerAddress,contactDepartment,costumer_insideNum) values ('" + CostNum_label.Content + "','" + max + "','" + CSQ.checkForSingleQuotationMark(name) + "','" + contact_name + "','" + contact_email + "','" + contact_phone + "','" + contact_cellphone + "','" + CSQ.checkForSingleQuotationMark(cosADDs) + "','" + contact_dep + "','" + cos_num_label.Content + "')");
                      }
                     //string query = ("insert into project.costumers (costumerid, contactid, costumerName, contactName , contactEmail,contactPhone,costumerAddress,contactDepartment) values ('" + CostNum_label.Content + "','" + max + "','" + CostName_label.Content + "','" + contact_name + "','" + contact_email + "','" + contact_phone + "','" + cosADDs + "','" + contact_dep + "')");
                     DBConnection DBC = new DBConnection();

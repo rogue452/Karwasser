@@ -137,7 +137,9 @@ namespace project
                     {
                         MySqlConnection MySqlConn = new MySqlConnection(Login.Connectionstring);
                         MySqlConn.Open();
-                        string Query1 = ("SELECT COUNT(itemid) FROM project.item WHERE itemid='" + itemid + "' "); //to see if the itemid already in the system.
+                        CheckSingleQuotationMark CSQ = new CheckSingleQuotationMark();
+                        string itemid1 = CSQ.checkForSingleQuotationMark(itemid);
+                        string Query1 = ("SELECT COUNT(itemid) FROM project.item WHERE itemid='" + itemid1 + "' "); //to see if the itemid already in the system.
                         MySqlCommand MSQLcrcommand1 = new MySqlCommand(Query1, MySqlConn);
                         MSQLcrcommand1.ExecuteNonQuery();
                         int times = Convert.ToInt32(MSQLcrcommand1.ExecuteScalar());
@@ -163,7 +165,8 @@ namespace project
             {
                     MySqlConnection MySqlConn = new MySqlConnection(Login.Connectionstring);
                     MySqlConn.Open();
-                    string Query1 = ("INSERT INTO project.item (itemid, itemStatus,itemStageOrder,itemName,stageName, stage_discription, item_discription ) VALUES ('" + item_id_textBox.Text + "', 'בעבודה' ,'" + count + "','" + itemname_textBox.Text + "','" + stages_comboBox.SelectedItem.ToString() + "','" + stage_desc_textBox.Text + "','" + item_disc_textBox.Text + "') ");
+                    CheckSingleQuotationMark CSQ = new CheckSingleQuotationMark();
+                    string Query1 = ("INSERT INTO project.item (itemid, itemStatus,itemStageOrder,itemName,stageName, stage_discription, item_discription ) VALUES ('" + CSQ.checkForSingleQuotationMark(item_id_textBox.Text) + "', 'בעבודה' ,'" + count + "','" + CSQ.checkForSingleQuotationMark(itemname_textBox.Text) + "','" + stages_comboBox.SelectedItem.ToString() + "','" + CSQ.checkForSingleQuotationMark(stage_desc_textBox.Text) + "','" + CSQ.checkForSingleQuotationMark(item_disc_textBox.Text) + "') ");
                     Console.WriteLine(Query1);
                     MySqlCommand MSQLcrcommand1 = new MySqlCommand(Query1, MySqlConn);
                     MSQLcrcommand1.ExecuteNonQuery();
@@ -173,15 +176,15 @@ namespace project
                     {
                         // creating the default stages.
                         string zero="0" , one = "1", two = "2", itemStatus = "רישום", stageName = "שרטוט", stage_disc = "שרטוט הפריט";
-                        
-                        string Query2 = ("INSERT INTO project.item (itemid, itemStatus,itemStageOrder,itemName,stageName, stage_discription, item_discription ) VALUES ('" + item_id_textBox.Text + "','"+itemStatus+"','" + one + "','" + itemname_textBox.Text + "','" + stageName + "','" + stage_disc + "','" + item_disc_textBox.Text + "') ");
+
+                        string Query2 = ("INSERT INTO project.item (itemid, itemStatus,itemStageOrder,itemName,stageName, stage_discription, item_discription ) VALUES ('" + CSQ.checkForSingleQuotationMark(item_id_textBox.Text) + "','" + itemStatus + "','" + one + "','" + CSQ.checkForSingleQuotationMark(itemname_textBox.Text) + "','" + stageName + "','" + stage_disc + "','" + CSQ.checkForSingleQuotationMark(item_disc_textBox.Text) + "') ");
                         MySqlCommand MSQLcrcommand2 = new MySqlCommand(Query2, MySqlConn);
                         MSQLcrcommand2.ExecuteNonQuery();
                         MySqlDataAdapter mysqlDAdp2 = new MySqlDataAdapter(MSQLcrcommand2);
 
                         stageName = "רכישת חומר גלם";
                         stage_disc = "רכישת חומר הגלם לעבודה";
-                        string Query3 = ("INSERT INTO project.item (itemid, itemStatus,itemStageOrder,itemName,stageName, stage_discription, item_discription ) VALUES ('" + item_id_textBox.Text + "','"+itemStatus+"','" + two + "','" + itemname_textBox.Text + "','" + stageName + "','" + stage_disc + "','" + item_disc_textBox.Text + "') ");
+                        string Query3 = ("INSERT INTO project.item (itemid, itemStatus,itemStageOrder,itemName,stageName, stage_discription, item_discription ) VALUES ('" + CSQ.checkForSingleQuotationMark(item_id_textBox.Text) + "','" + itemStatus + "','" + two + "','" + CSQ.checkForSingleQuotationMark(itemname_textBox.Text) + "','" + stageName + "','" + stage_disc + "','" + CSQ.checkForSingleQuotationMark(item_disc_textBox.Text) + "') ");
                         MySqlCommand MSQLcrcommand3 = new MySqlCommand(Query3, MySqlConn);
                         MSQLcrcommand3.ExecuteNonQuery();
                         MySqlDataAdapter mysqlDAdp3 = new MySqlDataAdapter(MSQLcrcommand3);
@@ -189,7 +192,7 @@ namespace project
                         itemStatus="תיקון";
                         stageName = "תיקון הפריט";
                         stage_disc = "תיקון לפי מהות התקלה והחלטת הבוחן במקום";
-                        string Query4 = ("INSERT INTO project.item (itemid, itemStatus,itemStageOrder,itemName,stageName, stage_discription, item_discription ) VALUES ('" + item_id_textBox.Text + "','"+itemStatus+"','" + one + "','" + itemname_textBox.Text + "','" + stageName + "','" + stage_disc + "','" + item_disc_textBox.Text + "') ");
+                        string Query4 = ("INSERT INTO project.item (itemid, itemStatus,itemStageOrder,itemName,stageName, stage_discription, item_discription ) VALUES ('" + CSQ.checkForSingleQuotationMark(item_id_textBox.Text) + "','" + itemStatus + "','" + one + "','" + CSQ.checkForSingleQuotationMark(itemname_textBox.Text) + "','" + stageName + "','" + stage_disc + "','" + CSQ.checkForSingleQuotationMark(item_disc_textBox.Text) + "') ");
                         MySqlCommand MSQLcrcommand4 = new MySqlCommand(Query4, MySqlConn);
                         MSQLcrcommand4.ExecuteNonQuery();
                         MySqlDataAdapter mysqlDAdp4 = new MySqlDataAdapter(MSQLcrcommand4);
@@ -197,7 +200,7 @@ namespace project
                         itemStatus="פסול";
                         stageName = "פסילה";
                         stage_disc = "נמצא כלא ניתן לתיקון ולכן נפסל";
-                        string Query5 = ("INSERT INTO project.item (itemid, itemStatus,itemStageOrder,itemName,stageName, stage_discription, item_discription ) VALUES ('" + item_id_textBox.Text + "','"+itemStatus+"','" + one + "','" + itemname_textBox.Text + "','" + stageName + "','" + stage_disc + "','" + item_disc_textBox.Text + "') ");
+                        string Query5 = ("INSERT INTO project.item (itemid, itemStatus,itemStageOrder,itemName,stageName, stage_discription, item_discription ) VALUES ('" + CSQ.checkForSingleQuotationMark(item_id_textBox.Text) + "','" + itemStatus + "','" + one + "','" + CSQ.checkForSingleQuotationMark(itemname_textBox.Text) + "','" + stageName + "','" + stage_disc + "','" + CSQ.checkForSingleQuotationMark(item_disc_textBox.Text) + "') ");
                         MySqlCommand MSQLcrcommand5 = new MySqlCommand(Query5, MySqlConn);
                         MSQLcrcommand5.ExecuteNonQuery();
                         MySqlDataAdapter mysqlDAdp5 = new MySqlDataAdapter(MSQLcrcommand5);
@@ -205,14 +208,14 @@ namespace project
                         itemStatus="גמר ייצור";
                         stageName = "ביקורת לקוח";
                         stage_disc = "מבוקר על ידי הלקוח";
-                        string Query6 = ("INSERT INTO project.item (itemid, itemStatus,itemStageOrder,itemName,stageName, stage_discription, item_discription ) VALUES ('" + item_id_textBox.Text + "','" + itemStatus + "','" + zero + "','" + itemname_textBox.Text + "','" + stageName + "','" + stage_disc + "','" + item_disc_textBox.Text + "') ");
+                        string Query6 = ("INSERT INTO project.item (itemid, itemStatus,itemStageOrder,itemName,stageName, stage_discription, item_discription ) VALUES ('" + CSQ.checkForSingleQuotationMark(item_id_textBox.Text) + "','" + itemStatus + "','" + zero + "','" + CSQ.checkForSingleQuotationMark(itemname_textBox.Text) + "','" + stageName + "','" + stage_disc + "','" + CSQ.checkForSingleQuotationMark(item_disc_textBox.Text) + "') ");
                         MySqlCommand MSQLcrcommand6 = new MySqlCommand(Query6, MySqlConn);
                         MSQLcrcommand6.ExecuteNonQuery();
                         MySqlDataAdapter mysqlDAdp6 = new MySqlDataAdapter(MSQLcrcommand6);
 
                         stageName = "אריזה";
                         stage_disc = "נארז למשלוח";
-                        string Query7 = ("INSERT INTO project.item (itemid, itemStatus,itemStageOrder,itemName,stageName, stage_discription, item_discription ) VALUES ('" + item_id_textBox.Text + "','"+itemStatus+"','" + one + "','" + itemname_textBox.Text + "','" + stageName + "','" + stage_disc + "','" + item_disc_textBox.Text + "') ");
+                        string Query7 = ("INSERT INTO project.item (itemid, itemStatus,itemStageOrder,itemName,stageName, stage_discription, item_discription ) VALUES ('" + CSQ.checkForSingleQuotationMark(item_id_textBox.Text) + "','" + itemStatus + "','" + one + "','" + CSQ.checkForSingleQuotationMark(itemname_textBox.Text) + "','" + stageName + "','" + stage_disc + "','" + CSQ.checkForSingleQuotationMark(item_disc_textBox.Text) + "') ");
                         MySqlCommand MSQLcrcommand7 = new MySqlCommand(Query7, MySqlConn);
                         MSQLcrcommand7.ExecuteNonQuery();
                         MySqlDataAdapter mysqlDAdp7 = new MySqlDataAdapter(MSQLcrcommand7);
@@ -220,14 +223,14 @@ namespace project
                         itemStatus="הסתיים";
                         stageName = "המתנה למשלוח";
                         stage_disc = "ממתין לשילוח";
-                        string Query8 = ("INSERT INTO project.item (itemid, itemStatus,itemStageOrder,itemName,stageName, stage_discription, item_discription ) VALUES ('" + item_id_textBox.Text + "','"+itemStatus+"','" + one + "','" + itemname_textBox.Text + "','" + stageName + "','" + stage_disc + "','" + item_disc_textBox.Text + "') ");
+                        string Query8 = ("INSERT INTO project.item (itemid, itemStatus,itemStageOrder,itemName,stageName, stage_discription, item_discription ) VALUES ('" + CSQ.checkForSingleQuotationMark(item_id_textBox.Text) + "','" + itemStatus + "','" + one + "','" + CSQ.checkForSingleQuotationMark(itemname_textBox.Text) + "','" + stageName + "','" + stage_disc + "','" + CSQ.checkForSingleQuotationMark(item_disc_textBox.Text) + "') ");
                         MySqlCommand MSQLcrcommand8 = new MySqlCommand(Query8, MySqlConn);
                         MSQLcrcommand8.ExecuteNonQuery();
                         MySqlDataAdapter mysqlDAdp8 = new MySqlDataAdapter(MSQLcrcommand8);
 
                         stageName = "נשלח";
                         stage_disc = "נשלח ללקוח";
-                        string Query9 = ("INSERT INTO project.item (itemid, itemStatus,itemStageOrder,itemName,stageName, stage_discription, item_discription ) VALUES ('" + item_id_textBox.Text + "','"+itemStatus+"','" + two + "','" + itemname_textBox.Text + "','" + stageName + "','" + stage_disc + "','" + item_disc_textBox.Text + "') ");
+                        string Query9 = ("INSERT INTO project.item (itemid, itemStatus,itemStageOrder,itemName,stageName, stage_discription, item_discription ) VALUES ('" + CSQ.checkForSingleQuotationMark(item_id_textBox.Text) + "','" + itemStatus + "','" + two + "','" + CSQ.checkForSingleQuotationMark(itemname_textBox.Text) + "','" + stageName + "','" + stage_disc + "','" + CSQ.checkForSingleQuotationMark(item_disc_textBox.Text) + "') ");
                         MySqlCommand MSQLcrcommand9 = new MySqlCommand(Query9, MySqlConn);
                         MSQLcrcommand9.ExecuteNonQuery();
                         MySqlDataAdapter mysqlDAdp9 = new MySqlDataAdapter(MSQLcrcommand9);
@@ -277,7 +280,8 @@ namespace project
             {
                 MySqlConnection MySqlConn = new MySqlConnection(Login.Connectionstring);
                 MySqlConn.Open();
-                string Query1 = ("SELECT itemStageOrder as `מספר שלב`,stageName as `שם השלב`, stage_discription as `תאור השלב`  FROM item WHERE itemid='" + item_id_textBox.Text + "' AND itemStatus='בעבודה'");
+                CheckSingleQuotationMark CSQ = new CheckSingleQuotationMark();
+                string Query1 = ("SELECT itemStageOrder as `מספר שלב`,stageName as `שם השלב`, stage_discription as `תאור השלב`  FROM item WHERE itemid='" + CSQ.checkForSingleQuotationMark(item_id_textBox.Text) + "' AND itemStatus='בעבודה'");
                 MySqlCommand MSQLcrcommand1 = new MySqlCommand(Query1, MySqlConn);
                 MSQLcrcommand1.ExecuteNonQuery();
                 MySqlDataAdapter mysqlDAdp = new MySqlDataAdapter(MSQLcrcommand1);
