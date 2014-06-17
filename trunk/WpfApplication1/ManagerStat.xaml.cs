@@ -198,7 +198,7 @@ namespace project
                         {
                             MySqlConnection MySqlConn = new MySqlConnection(Login.Connectionstring);
                             MySqlConn.Open();
-                            string Query1 = ("SELECT item.stageName , COUNT(item.stageName)FROM project.jobs, project.fix ,project.item WHERE jobs.jobid=fix.jobid AND jobs.itemid = fix.itemid AND jobs.itemNum = fix.itemNum AND " + radio + " BETWEEN '" + start + "' AND '" + end + "' AND fix.itemid = item.itemid AND  item.itemStatus = fix.stageStatusName AND fix.stageStatusName = 'בעבודה' AND fix.stageStatusName !='תיקון' AND item.itemStageOrder = fix.itemStageOrder GROUP BY item.stageName order by item.stageName desc limit 1");
+                            string Query1 = ("SELECT item.stageName , COUNT(item.stageName)FROM project.jobs, project.fix ,project.item WHERE jobs.jobid=fix.jobid AND jobs.itemid = fix.itemid AND jobs.itemNum = fix.itemNum AND " + radio + " BETWEEN '" + start + "' AND '" + end + "' AND fix.itemid = item.itemid AND  item.itemStatus = fix.stageStatusName AND fix.stageStatusName = 'בעבודה' AND fix.stageStatusName !='תיקון' AND item.itemStageOrder = fix.itemStageOrder GROUP BY item.stageName order by COUNT(item.stageName) desc limit 1");
                             Console.WriteLine(Query1);
                             MySqlCommand MSQLcrcommand1 = new MySqlCommand(Query1, MySqlConn);
                             MSQLcrcommand1.ExecuteNonQuery();
@@ -284,7 +284,7 @@ namespace project
                     {
                         MySqlConnection MySqlConn = new MySqlConnection(Login.Connectionstring);
                         MySqlConn.Open();
-                        string Query1 = ("SELECT item.stageName , COUNT(item.stageName)FROM project.fix ,project.item WHERE fix.jobid='" + JobIDTextBox.Text + "' AND fix.itemid = item.itemid AND  item.itemStatus = fix.stageStatusName AND fix.stageStatusName = 'בעבודה' AND  fix.stageStatusName !='תיקון' AND item.itemStageOrder = fix.itemStageOrder GROUP BY item.stageName order by item.stageName desc limit 1");
+                        string Query1 = ("SELECT item.stageName , COUNT(item.stageName) FROM project.fix ,project.item WHERE fix.jobid='" + JobIDTextBox.Text + "' AND fix.itemid = item.itemid AND  item.itemStatus = fix.stageStatusName AND fix.stageStatusName = 'בעבודה' AND  fix.stageStatusName !='תיקון' AND item.itemStageOrder = fix.itemStageOrder GROUP BY item.stageName order by COUNT(item.stageName) desc LIMIT 1");
                         Console.WriteLine(Query1);
                         MySqlCommand MSQLcrcommand1 = new MySqlCommand(Query1, MySqlConn);
                         MSQLcrcommand1.ExecuteNonQuery();
